@@ -10,6 +10,7 @@
 
 #include "ElectronsInElasticCoub.h"
 #include "NOCoub.h"
+#include "ArCoub.h"
 
 using namespace phycoub;
 
@@ -26,7 +27,7 @@ int main()
 	} catch (char const * str) {
 		std::cout << str;
 	}
-*/
+
 	try {
 			NOCoub NOPhyCoub;
 			while(true){
@@ -37,5 +38,17 @@ int main()
 		} catch (char const * str) {
 			std::cout << str;
 		}
+*/
+	try {
+		ArCoub ArCoub;
+		while(true){
+			ArCoub.phyCoub();
+			std::cout << ArCoub.argon_[0].coordinate_.x_ << " ; " << ArCoub.argon_[0].coordinate_.y_ << " ; " << ArCoub.argon_[0].coordinate_.z_;
+			std::cout << "	-	" <<ArCoub.argon_[1].coordinate_.x_ << " ; " << ArCoub.argon_[1].coordinate_.y_ << " ; " << ArCoub.argon_[1].coordinate_.z_ << std::endl;
+		}
+	} catch (char const * str) {
+		std::cout << str;
+	}
+
 	return 0;
 }
