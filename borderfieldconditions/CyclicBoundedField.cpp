@@ -1,7 +1,7 @@
 /*
  * CyclicBoundedField.cpp
  *
- *  Created on: 19 окт. 2016 г.
+ *  Created on: 19 пїЅпїЅпїЅ. 2016 пїЅ.
  *      Author: SFrancishkov
  */
 
@@ -12,7 +12,7 @@
 
 namespace phycoub {
 
-CyclicBoundedField::CyclicBoundedField(Vector* bounds, Vector* borders): bounds_(bounds), borders_(borders) {
+CyclicBoundedField::CyclicBoundedField(double* radiusCut, Vector* borders): radiusCut_(radiusCut), borders_(borders) {
 
 	transferConst[0] 	= Vector(-borders_->x_,	+borders_->y_,	-borders_->z_);
 	transferConst[1] 	= Vector(-borders_->x_, 			0,	-borders_->z_);
@@ -49,9 +49,9 @@ CyclicBoundedField::~CyclicBoundedField() {}
 Vector CyclicBoundedField::phySumField(CreateField* createField, const Vector& mark) {
 	Vector result_;
 
-	if((mark - *bounds_).beyond(Vector(0., 0., 0.)) && (mark + *bounds_).below(*borders_)) {
+	if((mark - *radiusCut_).beyond(Vector(0., 0., 0.)) && (mark + *radiusCut_).below(*borders_)) {
 		for_each(createField->particles_.begin(), createField->particles_.end(), [&](const Particle* source) {
-			if(source->coordinate_.beyond(mark - *bounds_) && source->coordinate_.below(mark + *bounds_)) {
+			if(source->coordinate_.beyond(mark - *radiusCut_) && source->coordinate_.below(mark + *radiusCut_)) {
 				result_ += createField->functionField_->psyField(*source, mark);
 			}
 		}
@@ -62,26 +62,26 @@ Vector CyclicBoundedField::phySumField(CreateField* createField, const Vector& m
 		}
 		transferQuantity = 0;
 		//-----
-		if((mark.x_ - bounds_->x_) < 0) {
+		if((mark.x_ - *radiusCut_) < 0) {
 			intersection[0] = true;
 			addTransfer(5 - 1);
-		} else if((mark.x_ + bounds_->x_) > borders_->x_) {
+		} else if((mark.x_ + *radiusCut_) > borders_->x_) {
 			intersection[5] = true;
 			addTransfer(23 - 1);
 		}
 
-		if((mark.y_ - bounds_->y_) < 0) {
+		if((mark.y_ - *radiusCut_) < 0) {
 			intersection[4] = true;
 			addTransfer(13 - 1);
-		} else if((mark.y_ + bounds_->y_) > borders_->y_) {
+		} else if((mark.y_ + *radiusCut_) > borders_->y_) {
 			intersection[2] = true;
 			addTransfer(15 - 1);
 		}
 
-		if((mark.z_ - bounds_->z_) < 0) {
+		if((mark.z_ - *radiusCut_) < 0) {
 			intersection[3] = true;
 			addTransfer(17 - 1);
-		} else if((mark.z_ + bounds_->z_) > borders_->z_) {
+		} else if((mark.z_ + *radiusCut_) > borders_->z_) {
 			intersection[1] = true;
 			addTransfer(11 - 1);
 		}
@@ -159,7 +159,8 @@ Vector CyclicBoundedField::phySumField(CreateField* createField, const Vector& m
 			Vector transferMark = mark;
 			for(int i = 0; i < transferQuantity; ++i) {
 				transferMark = mark + transferNum[i];
-				if(source->coordinate_.beyond(transferMark - *bounds_) && source->coordinate_.below(transferMark + *bounds_)) {
+				//if(source->coordinate_.beyond(transferMark - *bounds_) && source->coordinate_.below(transferMark + *bounds_)) {
+				if((source->coordinate_ - transferMark).getModule() < *radiusCut_) {
 					result_ += createField->functionField_->psyField(*source, transferMark);
 				}
 			}

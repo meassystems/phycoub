@@ -31,7 +31,8 @@ NOCoub::NOCoub() {
 	createField_.push_back(CreateField(&oxygenField_, &borderFieldCondition_, "LD OO Field"));
 	feelField_.push_back(FeelField(&highSpeedModificationVerle_, &createField_.back(), &oxygenInterworking, "LD OO Feel", &dt_));
 	for(int i = 0; i < 100; i++) {
-		oxygen_.push_back(Particle(Vector((rand()/(double)RAND_MAX)*borders_.x_, (rand()/(double)RAND_MAX)*borders_.y_, (rand()/(double)RAND_MAX)*borders_.z_), Vector(.0, .0, .0), mO_, z_, &elasticBorder_));
+		oxygen_.push_back(Particle(Vector((rand()/(double)RAND_MAX)*borders_.x_, (rand()/(double)RAND_MAX)*borders_.y_,
+				(rand()/(double)RAND_MAX)*borders_.z_), Vector(.0, .0, .0), mO_, z_, &elasticBorder_));
 	}
 	createField_.back().addGroupParticle(oxygen_);
 	feelField_.back().addGroupParticle(oxygen_);

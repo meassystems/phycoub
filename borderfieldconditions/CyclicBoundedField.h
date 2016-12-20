@@ -17,12 +17,12 @@ namespace phycoub {
  */
 class CyclicBoundedField: public BorderFieldCondition {
 public:
-	CyclicBoundedField(Vector* bounds, Vector* borders);
+	CyclicBoundedField(double* radiusCut, Vector* borders);
 	virtual ~CyclicBoundedField();
 
 	virtual Vector phySumField(CreateField* createField, const Vector& mark) override;
 
-	Vector* bounds_;
+	double* radiusCut_;
 	Vector* borders_;
 
 private:

@@ -36,7 +36,7 @@ public:
 	double dt_ = 10;
 	double e_ = 1.6E-19, mb_ = 9.1E-31, lb_ = 1E-9 , tb_ = 10E-15, vb_ = lb_/tb_;
 	Vector borders_{10., 10., 10.};
-	Vector bounds_{2., 2., 2.};
+	double bounds_ = 2.;
 	double m_ = 1, z_ = 1.;
 
 
