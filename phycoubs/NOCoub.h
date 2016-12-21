@@ -31,7 +31,7 @@ public:
 	void phyCoub();
 
 	double dt_ = 1E-17, k_ = 1.38E-23, z_ = 0.;
-	Vector borders_{1E-9, 1E-9, 1E-9};
+	Vector borders_{1E-8, 1E-8, 1E-8};
 	double mN_ = 23.24E-27, epsN = 95.05*k_, aN = 3.698E-10;
 	double mO_ = 13.28E-27, epsO = 117.5*k_, aO = 3.58E-10;
 	double epsNO = 131.*k_, aNO = 3.17E-10;
