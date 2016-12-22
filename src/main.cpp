@@ -55,8 +55,8 @@ int main()
 		FigureDemonstration figureDemonstration;
 		while(true){
 			figureDemonstration.phyCoub();
-			std::cout << figureDemonstration.lineN.particles_[0].coordinate_.x_ << " ; " << figureDemonstration.lineN.particles_[0].coordinate_.y_ << " ; " << figureDemonstration.lineN.particles_[0].coordinate_.z_;
-			std::cout << "	-	" << figureDemonstration.lineN.particles_[1].coordinate_.x_ << " ; " << figureDemonstration.lineN.particles_[1].coordinate_.y_ << " ; " << figureDemonstration.lineN.particles_[1].coordinate_.z_ << std::endl;
+			std::cout << figureDemonstration.lineN.particles_[0]->coordinate_.x_ << " ; " << figureDemonstration.lineN.particles_[0]->coordinate_.y_ << " ; " << figureDemonstration.lineN.particles_[0]->coordinate_.z_;
+			std::cout << "	-	" << figureDemonstration.lineN.particles_[1]->coordinate_.x_ << " ; " << figureDemonstration.lineN.particles_[1]->coordinate_.y_ << " ; " << figureDemonstration.lineN.particles_[1]->coordinate_.z_ << std::endl;
 		}
 	} catch (char const * str) {
 		std::cout << str;

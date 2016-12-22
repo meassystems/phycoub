@@ -32,11 +32,11 @@ public:
 
 	void phyCoub();
 
-	double dt_ = 1E-15, k_ = 1.38E-23, z_ = 0.;
+	double dt_ = 1E-16, k_ = 1.38E-23, z_ = 0.;
 	Vector borders_{1E-8, 1E-8, 1E-8};
 	double mN_ = 23.24E-27, epsN = 95.05*k_, aN = 3.698E-10;
 
-	LineFigure lineN{Vector(0, 0, aN), 10, Vector(1E-9), Vector(0, 1,.0), mN_, z_, &elasticBorder_};
+	LineFigure lineN{Vector(0, 0, aN), 10, Vector(1E-9), Vector(0, 10.,.0), mN_, z_, &elasticBorder_};
 private:
 	ElasticCoubCondition elasticBorder_{&borders_};
 	BorderFieldCondition borderFieldCondition_{BorderFieldCondition()};

@@ -31,6 +31,7 @@ public:
 
 	void addParticle(Particle* particle);
 	void addGroupParticle(std::vector<Particle> &particles);
+	void addGroupParticle(std::vector<Particle*> &particles);
 	void removeParticle(Particle* particle);
 
 	CalculationModel* calculationModel_;

@@ -27,6 +27,11 @@ void FeelField::addGroupParticle(std::vector<Particle> &particles) {
 		particles_.push_back(&particle);
 	});
 }
+void FeelField::addGroupParticle(std::vector<Particle*> &particles) {
+	for_each(particles.begin(), particles.end(), [&](Particle* particle){
+		particles_.push_back(particle);
+	});
+}
 void FeelField::removeParticle(Particle* particle) {
 	std::vector<Particle *>::iterator itr = particles_.begin();
 	while(itr != particles_.end()) {
