@@ -20,7 +20,7 @@ class BorderCondition;
 class Particle {
 public:
 	Particle();
-	Particle(const Vector& coordinate, const Vector& speed, double m, double z, BorderCondition* borderCondition);
+	Particle(const Vector& coordinate, const Vector& speed, const double& m, const double& z, BorderCondition* borderCondition);
 	virtual ~Particle();
 
 	bool operator==(const Particle& particle);
@@ -28,6 +28,7 @@ public:
 	void move(const double& dt);
 
 	static long index;
+	long index_;
 	Vector coordinate_, speed_;
 	double m_, z_;
 	BorderCondition* borderCondition_;

@@ -9,13 +9,11 @@
 
 namespace phycoub {
 
-LineFigure::LineFigure() {
-	// TODO Auto-generated constructor stub
-
+LineFigure::LineFigure(const Vector& direction, const int& num, const Vector& coordinateFerstParticle, const Vector& speed, const double& m, const double& z, BorderCondition* borderCondition): direction_(direction), num_(num) {
+	for(int i = 0; i < num_; ++i) {
+		particles_.push_back(Particle(coordinateFerstParticle + direction_*i, speed, m, z, borderCondition));
+	}
 }
-
-LineFigure::~LineFigure() {
-	// TODO Auto-generated destructor stub
-}
+LineFigure::~LineFigure() {}
 
 } /* namespace phycoub */

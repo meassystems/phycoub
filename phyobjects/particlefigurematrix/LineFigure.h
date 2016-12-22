@@ -8,12 +8,23 @@
 #ifndef LINEFIGURE_H_
 #define LINEFIGURE_H_
 
+#include "Vector.h"
+#include "Particle.h"
+#include "BorderCondition.h"
+
+#include <vector>
+
 namespace phycoub {
 
 class LineFigure {
 public:
-	LineFigure();
+	LineFigure(const Vector& direction, const int& num, const Vector& coordinate, const Vector& speed, const double& m, const double& z, BorderCondition* borderCondition);
 	virtual ~LineFigure();
+
+	std::vector<Particle> particles_;
+private:
+	Vector direction_;
+	int num_;
 };
 
 } /* namespace phycoub */
