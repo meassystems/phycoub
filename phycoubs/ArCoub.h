@@ -14,6 +14,7 @@
 #include "Particle.h"
 #include "CreateField.h"
 #include "FeelField.h"
+#include "math.h"
 
 #include "ElasticCoubCondition.h"
 #include "BorderFieldCondition.h"
@@ -30,7 +31,7 @@ public:
 
 	void phyCoub();
 
-	double dt_ = 1E-14, k_ = 1.38E-23, z_ = 0.0;
+	double dt_ = 1E-13, k_ = 1.38E-23, z_ = 0.0;
 	double mAr_ = 6.6E-26, epsAr_ = 1.67E-21, aAr_ = 3.4E-10, radiusCut_ = 2.5 * aAr_;
 	Vector borders_{aAr_*20};
 
