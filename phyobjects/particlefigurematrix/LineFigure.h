@@ -23,8 +23,6 @@ public:
 	virtual ~LineFigure();
 
 	std::vector<Particle*> particles_;
-private:
-	int num_;
 };
 
 } /* namespace phycoub */
