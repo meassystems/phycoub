@@ -26,6 +26,7 @@ public:
 	bool operator==(const Particle& particle);
 
 	void move(const double& dt);
+	void move(const Vector& dr);
 
 	static long index;
 	long index_;

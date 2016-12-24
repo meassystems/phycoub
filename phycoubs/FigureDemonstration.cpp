@@ -25,11 +25,11 @@ FigureDemonstration::FigureDemonstration() {
 //	feelField_.push_back(FeelField(&highSpeedModificationVerle_, &createField_.back(), &azotInterworking, "LD NN Feel", &dt_));
 
 
-//	createField_.back().addGroupParticle(lineN.particles_);
-//	feelField_.back().addGroupParticle(lineN.particles_);
+	createField_.back().addGroupParticle(lineN.particles_);
+	feelField_.back().addGroupParticle(lineN.particles_);
 
-	createField_.back().addGroupParticle(planeN.allParticles_);
-	feelField_.back().addGroupParticle(planeN.allParticles_);
+//	createField_.back().addGroupParticle(planeN.allParticles_);
+//	feelField_.back().addGroupParticle(planeN.allParticles_);
 }
 FigureDemonstration::~FigureDemonstration() {}
 

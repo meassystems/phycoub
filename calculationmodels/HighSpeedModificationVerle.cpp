@@ -35,9 +35,10 @@ void HighSpeedModificationVerle::phyCalculate(FeelField* feelField) {
 		iterator = 0;
 		Vector bufInterworking;
 		for_each(feelField->particles_.begin(), feelField->particles_.end(), [&](Particle* particle) {
+			particle->move(particle->speed_ * (*feelField->dt_) + particle->interworking_ * pow(*feelField->dt_, 2) / (2 * particle->m_));
+
 			bufInterworking = feelField->interworkingFunction_->psyForce(interworking[iterator], *particle);
 			particle->speed_ += (bufInterworking + particle->interworking_) * (*feelField->dt_ / (particle->m_ * 2));
-			particle->move(*feelField->dt_);
 
 			particle->interworking_ = bufInterworking;
 
@@ -82,9 +83,11 @@ void phyCalculateThread(FeelField* feelField, int start, int end) {
 
 	Vector bufInterworking;
 	for(int i = start; i < end; ++i) {
+		feelField->particles_[i]->move(feelField->particles_[i]->speed_ * (*feelField->dt_) + feelField->particles_[i]->interworking_ * pow(*feelField->dt_, 2) / (2 * feelField->particles_[i]->m_));
+
 		bufInterworking = feelField->interworkingFunction_->psyForce(interworking[i], *feelField->particles_[i]);
 		feelField->particles_[i]->speed_ += (bufInterworking + feelField->particles_[i]->interworking_) * (*feelField->dt_ / (feelField->particles_[i]->m_ * 2));
-		feelField->particles_[i]->move(*feelField->dt_);
+
 		feelField->particles_[i]->interworking_ = bufInterworking;
 	}
 

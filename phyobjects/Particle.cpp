@@ -32,6 +32,9 @@ bool Particle::operator==(const Particle& particle) {
 void Particle::move(const double& dt) {
 	borderCondition_->psyMove(this->speed_ * dt, *this);
 }
+void Particle::move(const Vector& dr) {
+	borderCondition_->psyMove(dr, *this);
+}
 
 long Particle::index(0);
 
