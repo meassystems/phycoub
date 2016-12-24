@@ -28,7 +28,7 @@ int main()
 	} catch (char const * str) {
 		std::cout << str;
 	}
-
+*/
 	try {
 			NOCoub NOPhyCoub;
 			while(true){
@@ -39,7 +39,7 @@ int main()
 		} catch (char const * str) {
 			std::cout << str;
 		}
-
+/*
 	try {
 		ArCoub ArCoub;
 		while(true){
@@ -51,6 +51,7 @@ int main()
 		std::cout << str;
 	}
 */
+/*
 	try {
 		FigureDemonstration figureDemonstration;
 		while(true){
@@ -61,6 +62,6 @@ int main()
 	} catch (char const * str) {
 		std::cout << str;
 	}
-
+*/
 	return 0;
 }
