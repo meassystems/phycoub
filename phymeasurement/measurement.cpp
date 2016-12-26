@@ -30,6 +30,7 @@ double getWk(int num, std::vector<Particle>* particles, ...) {
 		for (Particle particle : *particles) {
 			result_ += particle.m_ * pow(particle.speed_.getModule(), 2) / 2;
 		}
+		result_ /= particles->size();
 		++particles;
 	}
 
@@ -42,6 +43,7 @@ double getWk(int num, std::vector<Particle*>* particles, ...) {
 		for (Particle* particle : *particles) {
 			result_ += particle->m_ * pow(particle->speed_.getModule(), 2) / 2;
 		}
+		result_ /= particles->size();
 		++particles;
 	}
 
