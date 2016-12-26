@@ -58,7 +58,7 @@ void NOCoub::phyCoub() {
 		feelField_.moveParticles();
 	}
 	);
-	temperatureControl(0., 2, &azot_, &oxygen_);
+	temperatureControl(0., 2, k_, &azot_, &oxygen_);
 }
 
 } /* namespace phycoub */

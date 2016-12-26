@@ -5,13 +5,18 @@
  *      Author: root
  */
 
-#include <vector>
-#include <math.h>
-
-#include "Vector.h"
-#include "Particle.h"
+#include "temperatureControl.h"
 
 namespace phycoub {
+
+void temperatureControl(const double& temp, const double& kB, Particle& particle) {
+	double speedT = sqrt((3 * kB * temp) / particle.m_);
+	particle.speed_ *= (speedT / particle.speed_.getModule());
+}
+void temperatureControl(const double& temp, const double& kB, Particle* particle) {
+	double speedT = sqrt((3 * kB * temp) / particle->m_);
+	particle->speed_ *= (speedT / particle->speed_.getModule());
+}
 
 void temperatureControl(const double& temp, const double& kB, int num, std::vector<Particle>* particles, ...) {
 	double speedT = .0;
@@ -23,7 +28,6 @@ void temperatureControl(const double& temp, const double& kB, int num, std::vect
 		++particles;
 	}
 }
-
 void temperatureControl(const double& temp, const double& kB, int num, std::vector<Particle*>* particles, ...) {
 	double speedT = .0;
 	for (int i = 0; i < num; ++i) {

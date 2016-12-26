@@ -16,7 +16,7 @@
 #include "FeelField.h"
 #include "math.h"
 
-#include "ElasticCoubCondition.h"
+#include "ThermostatBorder.h"
 #include "BorderFieldCondition.h"
 #include "LeapFrog.h"
 #include "LDFieldFunction.h"
@@ -31,13 +31,13 @@ public:
 
 	void phyCoub();
 
-	double dt_ = 1E-13, k_ = 1.38E-23, z_ = 0.0;
+	double dt_ = 1E-15, k_ = 1.38E-23, z_ = 0.0, temp = 100.0;
 	double mAr_ = 6.6E-26, epsAr_ = 1.67E-21, aAr_ = 3.4E-10, radiusCut_ = 2.5 * aAr_;
 	Vector borders_{aAr_*20};
 
 	std::vector<Particle> argon_;
 private:
-	ElasticCoubCondition elasticBorder_{&borders_};
+	ThermostatBorder thermostatBorder{&borders_, &k_, &temp};
 	BorderFieldCondition borderFieldCondition_{BorderFieldCondition()};
 	LeapFrog leapFrog{LeapFrog()};
 
