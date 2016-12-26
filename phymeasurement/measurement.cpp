@@ -5,24 +5,49 @@
  *      Author: SFrancishkov
  */
 
-#include <vector>
+#include "measurement.h"
+
 #include <algorithm>
 #include <math.h>
-#include "Particle.h"
 
 namespace phycoub {
 
-double getWk(std::vector<Particle>& particles) {
+double getTemperature(const double& kB, const int& num, std::vector<Particle>* particles, ...) {
+	double result_ = getWk(num, particles) * 2./3./kB;
 
-	double result_ = 0.;
-
-	for_each(particles.begin(), particles.end(), [&](Particle& particle) {
-		result_ += particle.m_ * pow(particle.speed_.getModule(), 2) / 2;
-	});
+	return result_;
+}
+double getTemperature(const double& kB, const int& num, std::vector<Particle*>* particles, ...) {
+	double result_ = getWk(num, particles) * 2./3./kB;
 
 	return result_;
 }
 
+double getWk(int num, std::vector<Particle>* particles, ...) {
+
+	double result_ = 0.;
+	for(int i = 0; i < num; ++ i) {
+		for (Particle particle : *particles) {
+			result_ += particle.m_ * pow(particle.speed_.getModule(), 2) / 2;
+		}
+		++particles;
+	}
+
+	return result_;
+}
+double getWk(int num, std::vector<Particle*>* particles, ...) {
+
+	double result_ = 0.;
+	for(int i = 0; i < num; ++ i) {
+		for (Particle* particle : *particles) {
+			result_ += particle->m_ * pow(particle->speed_.getModule(), 2) / 2;
+		}
+		++particles;
+	}
+
+	return result_;
+}
+/*
 double getWp(std::vector<Particle>& particles) {
 
 	double result_ = 0.;
@@ -33,5 +58,5 @@ double getWp(std::vector<Particle>& particles) {
 
 	return result_;
 }
-
+*/
 }
