@@ -12,6 +12,8 @@
 #include <math.h>
 #include <time.h>
 
+#include "temperatureControl.h"
+
 namespace phycoub {
 
 NOCoub::NOCoub() {
@@ -51,10 +53,12 @@ NOCoub::NOCoub() {
 NOCoub::~NOCoub() {}
 
 void NOCoub::phyCoub() {
+
 	for_each(feelField_.begin(), feelField_.end(), [](FeelField& feelField_) {
 		feelField_.moveParticles();
 	}
 	);
+	temperatureControl(0., 2, &azot_, &oxygen_);
 }
 
 } /* namespace phycoub */
