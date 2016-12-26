@@ -6,23 +6,34 @@
  */
 
 #include <vector>
+#include <math.h>
 
 #include "Vector.h"
 #include "Particle.h"
 
 namespace phycoub {
 
-void temperatureControl(const double& temp, int num, std::vector<Particle>* particles, ...) {
-	for(int i = 0; i < num; ++i) {
-		for(Particle& particle : *particles) {
-			particle.speed_.x_ = 0.0;
-			particle.speed_.y_ = 0.0;
-			particle.speed_.z_ = 0.0;
+void temperatureControl(const double& temp, const double& kB, int num, std::vector<Particle>* particles, ...) {
+	double speedT = .0;
+	for (int i = 0; i < num; ++i) {
+		for (Particle& particle : *particles) {
+			speedT = sqrt((3 * kB * temp) / particle.m_);
+			particle.speed_ *= (speedT / particle.speed_.getModule());
+		}
+		++particles;
+	}
+}
+
+void temperatureControl(const double& temp, const double& kB, int num, std::vector<Particle*>* particles, ...) {
+	double speedT = .0;
+	for (int i = 0; i < num; ++i) {
+		for (Particle *particle : *particles) {
+			speedT = sqrt((3 * kB * temp) / particle->m_);
+			particle->speed_ *= (speedT / particle->speed_.getModule());
 		}
 		++particles;
 	}
 }
 
 } /* namespace phycoub */
-
 

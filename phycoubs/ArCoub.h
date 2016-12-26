@@ -18,7 +18,7 @@
 
 #include "ElasticCoubCondition.h"
 #include "BorderFieldCondition.h"
-#include "HighSpeedModificationVerle.h"
+#include "LeapFrog.h"
 #include "LDFieldFunction.h"
 #include "LDInterworking.h"
 
@@ -39,7 +39,7 @@ public:
 private:
 	ElasticCoubCondition elasticBorder_{&borders_};
 	BorderFieldCondition borderFieldCondition_{BorderFieldCondition()};
-	HighSpeedModificationVerle highSpeedModificationVerle_{HighSpeedModificationVerle()};
+	LeapFrog leapFrog{LeapFrog()};
 
 	LDFieldFunction argonField_{aAr_, aAr_, epsAr_};
 	LDInterworking argontInterworking;

@@ -10,7 +10,8 @@
 
 namespace phycoub {
 
-void temperatureControl(const double& temp, int num, std::vector<Particle>* particles, ...);
+void temperatureControl(const double& temp, const double& kB, int num, std::vector<Particle>* particles, ...);
+void temperatureControl(const double& temp, const double& kB, int num, std::vector<Particle*>* particles, ...);
 
 } /* namespace phycoub */
 
