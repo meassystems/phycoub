@@ -24,12 +24,12 @@ double getTemperature(const double& kB, const int& num, std::vector<Particle*>* 
 }
 
 double getTemperatureWithoutEnergyTranslationalMotionSystem(const double& kB, const int& num, std::vector<Particle>* particles, ...) {
-	double result_ = getWkTranslationalMotion(num, particles) * 2./3./kB;
+	double result_ = getWkWithoutTranslationalMotion(num, particles) * 2./3./kB;
 
 	return result_;
 }
 double getTemperatureWithoutEnergyTranslationalMotionSystem(const double& kB, const int& num, std::vector<Particle*>* particles, ...) {
-	double result_ = getWkTranslationalMotion(num, particles) * 2./3./kB;
+	double result_ = getWkWithoutTranslationalMotion(num, particles) * 2./3./kB;
 
 	return result_;
 }
@@ -73,7 +73,7 @@ double getWk(int num, std::vector<Particle*>* particles, ...) {
 	return result_;
 }
 
-double getWkTranslationalMotion(int num, std::vector<Particle>* particles, ...) {
+double getWkWithoutTranslationalMotion(int num, std::vector<Particle>* particles, ...) {
 	double result_ = 0., speedQ = 0.;
 	Vector speedSystem(0);
 
@@ -99,7 +99,7 @@ double getWkTranslationalMotion(int num, std::vector<Particle>* particles, ...) 
 
 	return result_;
 }
-double getWkTranslationalMotion(int num, std::vector<Particle*>* particles, ...) {
+double getWkWithoutTranslationalMotion(int num, std::vector<Particle*>* particles, ...) {
 	double result_ = 0., speedQ = .0;
 	Vector speedSystem(0);
 

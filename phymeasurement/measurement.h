@@ -23,8 +23,8 @@ double getTemperatureWithoutEnergyTranslationalMotionSystem(const double& kB, co
 double getWk(int num, std::vector<Particle>* particles, ...);
 double getWk(int num, std::vector<Particle*>* particles, ...);
 
-double getWkTranslationalMotion(int num, std::vector<Particle>* particles, ...);
-double getWkTranslationalMotion(int num, std::vector<Particle*>* particles, ...);
+double getWkWithoutTranslationalMotion(int num, std::vector<Particle>* particles, ...);
+double getWkWithoutTranslationalMotion(int num, std::vector<Particle*>* particles, ...);
 
 }
 
