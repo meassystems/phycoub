@@ -19,6 +19,8 @@ public:
 	Vector(double x, double y , double z);
 	virtual ~Vector();
 
+	Vector& operator=(const double& vector);
+	//-----------------------------------------
 	Vector operator+(const Vector& vector) const;
 	Vector operator-(const Vector& vector) const;
 	Vector operator*(const Vector& vector) const;

@@ -15,6 +15,14 @@ Vector::Vector(double v): x_(v), y_(v), z_(v) {}
 Vector::Vector(double x, double y, double z): x_(x), y_(y), z_(z) {}
 Vector::~Vector() {}
 
+Vector& Vector::operator=(const double& vector) {
+	x_ = vector;
+	y_ = vector;
+	z_ = vector;
+
+	return *this;
+}
+
 Vector Vector::operator+(const Vector &vector) const {
 	return Vector(this->x_ + vector.x_, this->y_ + vector.y_, this->z_ + vector.z_);
 }

@@ -24,68 +24,104 @@ double getTemperature(const double& kB, const int& num, std::vector<Particle*>* 
 }
 
 double getTemperatureWithoutEnergyTranslationalMotionSystem(const double& kB, const int& num, std::vector<Particle>* particles, ...) {
-	double result_ = (getWk(num, particles) - getWkTranslationalMotion(num, particles)) * 2./3./kB;
+	double result_ = getWkTranslationalMotion(num, particles) * 2./3./kB;
 
 	return result_;
 }
 double getTemperatureWithoutEnergyTranslationalMotionSystem(const double& kB, const int& num, std::vector<Particle*>* particles, ...) {
-	double result_ = (getWk(num, particles) - getWkTranslationalMotion(num, particles)) * 2./3./kB;
+	double result_ = getWkTranslationalMotion(num, particles) * 2./3./kB;
 
 	return result_;
 }
 
 double getWk(int num, std::vector<Particle>* particles, ...) {
-	double result_ = 0.;
-	int numParticles = 0;
+	double result_ = 0., speedQ = 0.;
+
 	for(int i = 0; i < num; ++ i) {
+		speedQ = 0;
 		for(Particle particle : *particles) {
-			result_ += particle.m_ * pow(particle.speed_.getModule(), 2) / 2;
+			speedQ += pow(particle.speed_.getModule(), 2);
 		}
-		numParticles += particles->size();
+		if (i == 0) {
+			result_ = (*particles)[0].m_ * speedQ / particles->size() / 2;
+		}
+		else {
+			result_ += (*particles)[0].m_ * speedQ / particles->size() / 2 / 2;
+		}
 		++particles;
 	}
 
-	return result_ / numParticles;
+	return result_;
 }
 double getWk(int num, std::vector<Particle*>* particles, ...) {
-	double result_ = 0.;
-	int numParticles = 0;
+	double result_ = 0., speedQ = .0;
+
 	for(int i = 0; i < num; ++ i) {
+		speedQ = 0;
 		for(Particle* particle : *particles) {
-			result_ += particle->m_ * pow(particle->speed_.getModule(), 2) / 2;
+			speedQ += pow(particle->speed_.getModule(), 2);
 		}
-		numParticles += particles->size();
+		if (i == 0) {
+			result_ = (*particles)[0]->m_ * speedQ / particles->size() / 2;
+		}
+		else {
+			result_ += (*particles)[0]->m_ * speedQ / particles->size() / 2 / 2;
+		}
 		++particles;
 	}
 
-	return result_ / numParticles;
+	return result_;
 }
 
 double getWkTranslationalMotion(int num, std::vector<Particle>* particles, ...) {
-	double result_ = 0, mSystem = 0.;
-	Vector speedSystem;
+	double result_ = 0., speedQ = 0.;
+	Vector speedSystem(0);
 
 	for(int i = 0; i < num; ++i) {
+		speedSystem = 0;
 		for(Particle particle: *particles) {
 			speedSystem += particle.speed_;
-			mSystem += particle.m_;
 		}
+		speedSystem /= particles->size();
+
+		speedQ = 0;
+		for(Particle particle : *particles) {
+			speedQ += pow((particle.speed_ - speedSystem).getModule(), 2);
+		}
+		if (i == 0) {
+			result_ = (*particles)[0].m_ * speedQ / particles->size() / 2;
+		}
+		else {
+			result_ += (*particles)[0].m_ * speedQ / particles->size() / 2 / 2;
+		}
+		++particles;
 	}
-	result_ = mSystem * pow(speedSystem.getModule(), 2) / 2;
 
 	return result_;
 }
 double getWkTranslationalMotion(int num, std::vector<Particle*>* particles, ...) {
-	double result_ = 0, mSystem = 0.;
-	Vector speedSystem;
+	double result_ = 0., speedQ = .0;
+	Vector speedSystem(0);
 
 	for(int i = 0; i < num; ++i) {
+		speedSystem = 0;
 		for(Particle* particle: *particles) {
 			speedSystem += particle->speed_;
-			mSystem += particle->m_;
 		}
+		speedSystem /= particles->size();
+
+		speedQ = 0;
+		for(Particle* particle : *particles) {
+			speedQ += pow((particle->speed_ - speedSystem).getModule(), 2);
+		}
+		if (i == 0) {
+			result_ = (*particles)[0]->m_ * speedQ / particles->size() / 2;
+		}
+		else {
+			result_ += (*particles)[0]->m_ * speedQ / particles->size() / 2 / 2;
+		}
+		++particles;
 	}
-	result_ = mSystem * pow(speedSystem.getModule(), 2) / 2;
 
 	return result_;
 }
