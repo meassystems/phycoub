@@ -28,8 +28,8 @@ FigureDemonstration::FigureDemonstration() {
 //	createField_.back().addGroupParticle(lineN.particles_);
 //	feelField_.back().addGroupParticle(lineN.particles_);
 
-	createField_.back().addGroupParticle(planeN.allParticles_);
-	feelField_.back().addGroupParticle(planeN.centrallParticles_);
+//	createField_.back().addGroupParticle(planeN.allParticles_);
+//	feelField_.back().addGroupParticle(planeN.centrallParticles_);
 }
 FigureDemonstration::~FigureDemonstration() {}
 
