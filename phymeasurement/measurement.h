@@ -17,8 +17,14 @@ namespace phycoub {
 double getTemperature(const double& kB, const int& num, std::vector<Particle>* particles, ...);
 double getTemperature(const double& kB, const int& num, std::vector<Particle*>* particles, ...);
 
+double getTemperatureWithoutEnergyTranslationalMotionSystem(const double& kB, const int& num, std::vector<Particle>* particles, ...);
+double getTemperatureWithoutEnergyTranslationalMotionSystem(const double& kB, const int& num, std::vector<Particle*>* particles, ...);
+
 double getWk(int num, std::vector<Particle>* particles, ...);
 double getWk(int num, std::vector<Particle*>* particles, ...);
+
+double getWkTranslationalMotion(int num, std::vector<Particle>* particles, ...);
+double getWkTranslationalMotion(int num, std::vector<Particle*>* particles, ...);
 
 }
 
