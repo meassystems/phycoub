@@ -21,7 +21,7 @@ public:
 	HighSpeedModificationVerle();
 	virtual ~HighSpeedModificationVerle();
 
-	virtual void phyCalculate(FeelField* feelField);
+	virtual void phyCalculate(CalculationGroup* calculationGroup);
 };
 
 } /* namespace phycoub */

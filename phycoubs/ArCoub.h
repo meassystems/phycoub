@@ -14,6 +14,7 @@
 #include "Particle.h"
 #include "CreateField.h"
 #include "FeelField.h"
+#include "CalculationGroup.h"
 #include "math.h"
 
 #include "ThermostatBorder.h"
@@ -35,7 +36,7 @@ public:
 	double mAr_ = 6.6E-26, epsAr_ = 1.67E-21, aAr_ = 3.4E-10, radiusCut_ = 2.5 * aAr_;
 	Vector borders_{aAr_*20};
 
-	std::vector<Particle> argon_;
+	std::vector<Particle*> argon_;
 private:
 	ThermostatBorder thermostatBorder{&borders_, &k_, &temp};
 	BorderFieldCondition borderFieldCondition_{BorderFieldCondition()};
@@ -47,6 +48,7 @@ private:
 
 	std::vector<CreateField> createField_;
 	std::vector<FeelField> feelField_;
+	std::vector<CalculationGroup> groupLeapFrog_;
 
 };
 

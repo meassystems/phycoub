@@ -18,16 +18,6 @@ void temperatureControl(const double& temp, const double& kB, Particle* particle
 	particle->speed_ *= (speedT / particle->speed_.getModule());
 }
 
-void temperatureControl(const double& temp, const double& kB, int num, std::vector<Particle>* particles, ...) {
-	double speedT = .0;
-	for (int i = 0; i < num; ++i) {
-		for (Particle& particle : *particles) {
-			speedT = sqrt((3 * kB * temp) / particle.m_);
-			particle.speed_ *= (speedT / particle.speed_.getModule());
-		}
-		++particles;
-	}
-}
 void temperatureControl(const double& temp, const double& kB, int num, std::vector<Particle*>* particles, ...) {
 	double speedT = .0;
 	for (int i = 0; i < num; ++i) {

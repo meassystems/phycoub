@@ -23,23 +23,20 @@ class CalculationModel;
  */
 class FeelField {
 public:
-	FeelField(CalculationModel* calculatiomModel, CreateField* createField, InterworkingFunction* interworkingFunction, std::string fieldName, double* dt);
+	FeelField(CreateField* createField, InterworkingFunction* interworkingFunction, std::string fieldName);
 	virtual ~FeelField();
 
 
-	virtual void moveParticles();
+	virtual void phyCalcInterworking();
 
 	void addParticle(Particle* particle);
-	void addGroupParticle(std::vector<Particle> &particles);
 	void addGroupParticle(std::vector<Particle*> &particles);
 	void removeParticle(Particle* particle);
 
-	CalculationModel* calculationModel_;
 	CreateField* createField_;
 	std::vector<Particle*> particles_;
 	InterworkingFunction* interworkingFunction_;
 	std::string fieldName_;
-	double* dt_;
 };
 
 } /* namespace phycoub */

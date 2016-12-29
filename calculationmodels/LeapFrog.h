@@ -17,7 +17,7 @@ public:
 	LeapFrog();
 	virtual ~LeapFrog();
 
-	virtual void phyCalculate(FeelField* feelField);
+	virtual void phyCalculate(CalculationGroup* calculationGroup);
 };
 
 } /* namespace phycoub */

@@ -12,7 +12,7 @@ namespace phycoub {
 LDInterworking::LDInterworking() {}
 LDInterworking::~LDInterworking() {}
 
-const Vector LDInterworking::psyForce(const Vector &field, Particle particle) {
+const Vector LDInterworking::psyForce(const Vector &field, const Particle* particle) {
 	return field;
 }
 

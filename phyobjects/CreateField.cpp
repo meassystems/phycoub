@@ -22,11 +22,6 @@ Vector CreateField::getFieldInMark(const Vector& mark) {
 void CreateField::addParticle(Particle* particle) {
 	particles_.push_back(particle);
 }
-void CreateField::addGroupParticle(std::vector<Particle> &particles) {
-	for_each(particles.begin(), particles.end(), [&](Particle& particle){
-		particles_.push_back(&particle);
-	});
-}
 void CreateField::addGroupParticle(std::vector<Particle*> &particles) {
 	for_each(particles.begin(), particles.end(), [&](Particle* particle){
 		particles_.push_back(particle);

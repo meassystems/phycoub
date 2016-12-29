@@ -10,31 +10,19 @@
 #include <algorithm>
 #include "Vector.h"
 #include "FeelField.h"
+#include "CalculationGroup.h"
 
 namespace phycoub {
 
 CalculationModel::CalculationModel() {}
 CalculationModel::~CalculationModel() {}
 
-void CalculationModel::phyCalculate(FeelField* feelField) {
-	Vector* interworking = new Vector[feelField->particles_.size()];
-	int iterator = 0;
-
-	for_each(feelField->particles_.begin(), feelField->particles_.end(), [&](const Particle* particle) {
-		interworking[iterator] = feelField->createField_->getFieldInMark(particle->coordinate_);
-		++iterator;
+void CalculationModel::phyCalculate(CalculationGroup* calculationGroup) {
+	for_each(calculationGroup->particles_.begin(), calculationGroup->particles_.end(), [&](Particle* particle) {
+		particle->speed_ += particle->resultant_ * (*calculationGroup->dt_ / particle->m_);
+		particle->move(*calculationGroup->dt_);
 	}
 	);
-
-	iterator = 0;
-	for_each(feelField->particles_.begin(), feelField->particles_.end(), [&](Particle* particle) {
-		particle->speed_ += feelField->interworkingFunction_->psyForce(interworking[iterator], *particle) * (*feelField->dt_ / particle->m_);
-		particle->move(*feelField->dt_);
-		++iterator;
-	}
-	);
-
-	delete[] interworking;
 }
 
 } /* namespace phycoub */

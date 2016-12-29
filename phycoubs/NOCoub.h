@@ -14,6 +14,7 @@
 #include "Particle.h"
 #include "CreateField.h"
 #include "FeelField.h"
+#include "CalculationGroup.h"
 
 #include "ElasticCoubCondition.h"
 #include "CyclicBorder.h"
@@ -42,8 +43,8 @@ public:
 	double radiusCatO_ = aO * 3;
 	double radiusCatNO_ = aNO * 3;
 
-	std::vector<Particle> azot_;
-	std::vector<Particle> oxygen_;
+	std::vector<Particle*> azot_;
+	std::vector<Particle*> oxygen_;
 private:
 	ElasticCoubCondition elasticBorder_{&borders_};
 	CyclicBorder cyclicBorder_{CyclicBorder(&borders_)};
@@ -51,7 +52,6 @@ private:
 	CyclicBoundedField cyclicBoundedFieldN_{CyclicBoundedField(&radiusCatN_, &borders_)};
 	CyclicBoundedField cyclicBoundedFieldO_{CyclicBoundedField(&radiusCatO_, &borders_)};
 	CyclicBoundedField cyclicBoundedFieldNO_{CyclicBoundedField(&radiusCatNO_, &borders_)};
-	HighSpeedModificationVerle highSpeedModificationVerle_{HighSpeedModificationVerle()};
 	LeapFrog leapFrog{LeapFrog()};
 
 	LDFieldFunction azotField_{aN, aN, epsN};
@@ -64,6 +64,7 @@ private:
 
 	std::vector<CreateField> createField_;
 	std::vector<FeelField> feelField_;
+	std::vector<CalculationGroup> groupLeapFrog_;
 
 };
 

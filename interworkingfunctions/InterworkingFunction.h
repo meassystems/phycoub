@@ -21,7 +21,7 @@ class InterworkingFunction {
 public:
 	virtual ~InterworkingFunction();
 
-	const virtual Vector psyForce(const Vector &field, Particle particle) = 0;
+	const virtual Vector psyForce(const Vector &field, const Particle* particle) = 0;
 };
 
 } /* namespace phycoub */

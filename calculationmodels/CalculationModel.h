@@ -10,7 +10,7 @@
 
 namespace phycoub {
 
-class FeelField;
+class CalculationGroup;
 /*
  * Базовый класс для реализации методики расчета.
  * Для реализации собственного метода расчета необходимо унаследоваться от данного класса
@@ -24,7 +24,7 @@ public:
 	CalculationModel();
 	virtual ~CalculationModel();
 
-	virtual void phyCalculate(FeelField* feelField);
+	virtual void phyCalculate(CalculationGroup* calculationGroup);
 };
 
 } /* namespace phycoub */

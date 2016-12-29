@@ -10,55 +10,37 @@
 #include <thread>
 #include <functional>
 #include "Vector.h"
-#include "FeelField.h"
+#include "CalculationGroup.h"
+
 
 namespace phycoub {
 
 HighSpeedModificationVerle::HighSpeedModificationVerle() {}
 HighSpeedModificationVerle::~HighSpeedModificationVerle() {}
 
-void phyCalculateThread(FeelField* feelField, int start, int end);
+void phyCalculateThread(CalculationGroup* calculationGroup, int start, int end);
 
-void HighSpeedModificationVerle::phyCalculate(FeelField* feelField) {
+void HighSpeedModificationVerle::phyCalculate(CalculationGroup* calculationGroup) {
 
 	int numCPU =  std::thread::hardware_concurrency() - 2;
-	if(numCPU < 2 || (int)feelField->particles_.size() < numCPU * 100) {
-		Vector* interworking = new Vector[feelField->particles_.size()];
-		int iterator = 0;
-
-		for_each(feelField->particles_.begin(), feelField->particles_.end(), [&](const Particle* particle) {
-			interworking[iterator] = feelField->createField_->getFieldInMark(particle->coordinate_);
-			++iterator;
+	if(numCPU < 2 || (int)calculationGroup->particles_.size() < numCPU * 100) {
+		for_each(calculationGroup->particles_.begin(), calculationGroup->particles_.end(), [&](Particle* particle) {
+			particle->move(particle->previesSpeed_ * (*calculationGroup->dt_) + particle->previesResultant_ * pow(*calculationGroup->dt_, 2) / (2 * particle->m_));
+			particle->speed_ += (particle->resultant_ + particle->previesResultant_) * (*calculationGroup->dt_ / (particle->m_ * 2));
 		}
 		);
-
-		iterator = 0;
-		Vector bufInterworking;
-		for_each(feelField->particles_.begin(), feelField->particles_.end(), [&](Particle* particle) {
-			particle->move(particle->speed_ * (*feelField->dt_) + particle->interworking_ * pow(*feelField->dt_, 2) / (2 * particle->m_));
-
-			bufInterworking = feelField->interworkingFunction_->psyForce(interworking[iterator], *particle);
-			particle->speed_ += (bufInterworking + particle->interworking_) * (*feelField->dt_ / (particle->m_ * 2));
-
-			particle->interworking_ = bufInterworking;
-
-			++iterator;
-		}
-		);
-
-		delete[] interworking;
 	}
 	else {
-		int sizeBlockOfThread = feelField->particles_.size() / numCPU;
+		int sizeBlockOfThread = calculationGroup->particles_.size() / numCPU;
 		std::thread* threads[numCPU];
 
 		int start = 0, stop = start + sizeBlockOfThread;
 		for(int i = 0; i < numCPU - 1; ++i) {
-			threads[i] = new std::thread(phyCalculateThread, feelField, start, stop);
+			threads[i] = new std::thread(phyCalculateThread, calculationGroup, start, stop);
 			start = stop;
 			stop = start + i * sizeBlockOfThread;
 		}
-		threads[numCPU - 1] = new std::thread(phyCalculateThread, feelField, start, feelField->particles_.size());
+		threads[numCPU - 1] = new std::thread(phyCalculateThread, calculationGroup, start, calculationGroup->particles_.size());
 
 		for(int i = 0; i < numCPU; ++i) {
 			if(threads[i]->joinable()) {
@@ -74,24 +56,11 @@ void HighSpeedModificationVerle::phyCalculate(FeelField* feelField) {
 }
 
 // Функция потока, для распаралеливания процесса моделировани/
-void phyCalculateThread(FeelField* feelField, int start, int end) {
-	Vector* interworking = new Vector[end - start];
-
+void phyCalculateThread(CalculationGroup* calculationGroup, int start, int end) {
 	for(int i = start; i < end; ++i) {
-		interworking[i] = feelField->createField_->getFieldInMark(feelField->particles_[i]->coordinate_);
+		calculationGroup->particles_[i]->move(calculationGroup->particles_[i]->previesSpeed_ * (*calculationGroup->dt_) + calculationGroup->particles_[i]->previesResultant_ * pow(*calculationGroup->dt_, 2) / (2 * calculationGroup->particles_[i]->m_));
+		calculationGroup->particles_[i]->speed_ += (calculationGroup->particles_[i]->resultant_ + calculationGroup->particles_[i]->previesResultant_) * (*calculationGroup->dt_ / (calculationGroup->particles_[i]->m_ * 2));
 	}
-
-	Vector bufInterworking;
-	for(int i = start; i < end; ++i) {
-		feelField->particles_[i]->move(feelField->particles_[i]->speed_ * (*feelField->dt_) + feelField->particles_[i]->interworking_ * pow(*feelField->dt_, 2) / (2 * feelField->particles_[i]->m_));
-
-		bufInterworking = feelField->interworkingFunction_->psyForce(interworking[i], *feelField->particles_[i]);
-		feelField->particles_[i]->speed_ += (bufInterworking + feelField->particles_[i]->interworking_) * (*feelField->dt_ / (feelField->particles_[i]->m_ * 2));
-
-		feelField->particles_[i]->interworking_ = bufInterworking;
-	}
-
-	delete[] interworking;
 }
 //
 

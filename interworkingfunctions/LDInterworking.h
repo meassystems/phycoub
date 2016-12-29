@@ -17,7 +17,7 @@ public:
 	LDInterworking();
 	virtual ~LDInterworking();
 
-	const Vector psyForce(const Vector &field, Particle particle);
+	const Vector psyForce(const Vector &field, const Particle* particle);
 };
 
 } /* namespace phycoub */

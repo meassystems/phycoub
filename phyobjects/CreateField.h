@@ -28,7 +28,6 @@ public:
 	virtual Vector getFieldInMark(const Vector& mark);
 
 	void addParticle(Particle* particle);
-	void addGroupParticle(std::vector<Particle> &particles);
 	void addGroupParticle(std::vector<Particle*> &particles);
 	void removeParticle(Particle* particle);
 

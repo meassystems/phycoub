@@ -30,12 +30,12 @@ public:
 
 	static long index;
 	long index_;
-	Vector coordinate_, speed_;
+	Vector coordinate_, speed_, resultant_{};
 	double m_, z_;
 	BorderCondition* borderCondition_;
 
-	Vector previesCordinate_{}, previesSpeed_{};
-	Vector field_{}, interworking_{};
+	Vector previesCoordinate_{}, previesSpeed_{}, previesResultant_{};
+
 	double potentialEnergy = 0.;
 };
 

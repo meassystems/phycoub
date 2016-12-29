@@ -12,47 +12,20 @@
 
 namespace phycoub {
 
-double getTemperature(const double& kB, const int& num, std::vector<Particle>* particles, ...) {
-	double result_ = getWk(num, particles) * 2./3./kB;
-
-	return result_;
-}
 double getTemperature(const double& kB, const int& num, std::vector<Particle*>* particles, ...) {
 	double result_ = getWk(num, particles) * 2./3./kB;
 
 	return result_;
 }
 
-double getTemperatureWithoutEnergyTranslationalMotionSystem(const double& kB, const int& num, std::vector<Particle>* particles, ...) {
-	double result_ = getWkWithoutTranslationalMotion(num, particles) * 2./3./kB;
 
-	return result_;
-}
 double getTemperatureWithoutEnergyTranslationalMotionSystem(const double& kB, const int& num, std::vector<Particle*>* particles, ...) {
 	double result_ = getWkWithoutTranslationalMotion(num, particles) * 2./3./kB;
 
 	return result_;
 }
 
-double getWk(int num, std::vector<Particle>* particles, ...) {
-	double result_ = 0., speedQ = 0.;
 
-	for(int i = 0; i < num; ++ i) {
-		speedQ = 0;
-		for(Particle particle : *particles) {
-			speedQ += pow(particle.speed_.getModule(), 2);
-		}
-		if (i == 0) {
-			result_ = (*particles)[0].m_ * speedQ / particles->size() / 2;
-		}
-		else {
-			result_ += (*particles)[0].m_ * speedQ / particles->size() / 2 / 2;
-		}
-		++particles;
-	}
-
-	return result_;
-}
 double getWk(int num, std::vector<Particle*>* particles, ...) {
 	double result_ = 0., speedQ = .0;
 
@@ -73,32 +46,6 @@ double getWk(int num, std::vector<Particle*>* particles, ...) {
 	return result_;
 }
 
-double getWkWithoutTranslationalMotion(int num, std::vector<Particle>* particles, ...) {
-	double result_ = 0., speedQ = 0.;
-	Vector speedSystem(0);
-
-	for(int i = 0; i < num; ++i) {
-		speedSystem = 0;
-		for(Particle particle: *particles) {
-			speedSystem += particle.speed_;
-		}
-		speedSystem /= particles->size();
-
-		speedQ = 0;
-		for(Particle particle : *particles) {
-			speedQ += pow((particle.speed_ - speedSystem).getModule(), 2);
-		}
-		if (i == 0) {
-			result_ = (*particles)[0].m_ * speedQ / particles->size() / 2;
-		}
-		else {
-			result_ += (*particles)[0].m_ * speedQ / particles->size() / 2 / 2;
-		}
-		++particles;
-	}
-
-	return result_;
-}
 double getWkWithoutTranslationalMotion(int num, std::vector<Particle*>* particles, ...) {
 	double result_ = 0., speedQ = .0;
 	Vector speedSystem(0);
