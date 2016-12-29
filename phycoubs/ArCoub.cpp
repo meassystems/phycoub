@@ -16,7 +16,7 @@ namespace phycoub {
 ArCoub::ArCoub() {
 	createField_.push_back(CreateField(&argonField_, &borderFieldCondition_, "LD Argon Field"));
 	feelField_.push_back(FeelField(&leapFrog, &createField_.back(), &argontInterworking, "LD Argon Feel", &dt_));
-	for(int i = 0; i < 842; ++i) {
+	for(int i = 0; i < 100; ++i) {
 	argon_.push_back(Particle(Vector((rand()/(double)RAND_MAX)*borders_.x_, (rand()/(double)RAND_MAX)*borders_.y_,
 			(rand()/(double)RAND_MAX)*borders_.z_), Vector(.0,.0,.0), mAr_, z_, &thermostatBorder));
 	}
