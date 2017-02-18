@@ -11,6 +11,8 @@
 #include <math.h>
 #include <time.h>
 
+#include "temperatureControl.h"
+
 namespace phycoub {
 
 ArCoub::ArCoub() {
@@ -20,13 +22,18 @@ ArCoub::ArCoub() {
 
 
 	for(int i = 0; i < 400; ++i) {
-		argon_.push_back(new Particle(Vector((rand()/(double)RAND_MAX)*borders_.x_, (rand()/(double)RAND_MAX)*borders_.y_,
+		argon_.push_back(new Particle(Vector((rand()/(double)RAND_MAX)*borders_.x_ ,
+		(rand()/(double)RAND_MAX)*borders_.y_ * 0.7 + 0.3*borders_.z_,
 		(rand()/(double)RAND_MAX)*borders_.z_), Vector(.0,.0,.0), mAr_, z_, &thermostatBorder));
 	}
 
 	createField_.back().addGroupParticle(argon_);
 	feelField_.back().addGroupParticle(argon_);
 	groupLeapFrog_.back().addGroupParticle(argon_);
+
+	createField_.back().addGroupParticle(parallelepipedFigure.allParticles_);
+	feelField_.back().addGroupParticle(parallelepipedFigure.allParticles_);
+	//groupLeapFrog_.back().addGroupParticle(parallelepipedFigure.allParticles_);
 }
 
 ArCoub::~ArCoub() {
