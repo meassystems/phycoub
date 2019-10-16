@@ -30,9 +30,11 @@
 #include "PlaneFigure.h"
 #include "ParallelepipedFigure.h"
 
-namespace phycoub {
+namespace phycoub
+{
 
-class FigureDemonstration {
+class FigureDemonstration
+{
 public:
 	FigureDemonstration();
 	virtual ~FigureDemonstration();
@@ -41,12 +43,13 @@ public:
 
 	double dt_ = 1E-15, k_ = 1.38E-23, z_ = 0.;
 	Vector borders_{1E-8, 1E-8, 1E-8};
-	double mN_ = 23.24E-27, epsN = 95.05*k_, aN = 3.698E-10;
+	double mN_ = 23.24E-27, epsN = 95.05 * k_, aN = 3.698E-10;
 	double radiusCat_ = aN * 3;
 
-	LineFigure lineN{Vector(0, 0, aN * 2.), 2, Vector(5E-9), Vector(0, 0,.0), mN_, z_, &elasticBorder_};
-	PlaneFigure planeN{Vector(0, 0, aN * pow(2, 1/6.)), Vector(0, aN * pow(2, 1/6.), 0), 20, 20, Vector(1E-9), Vector(0, 0,0), mN_, z_, &elasticBorder_};
-	ParallelepipedFigure parallelepipedN{Vector(0, 0, aN * pow(2, 1/6.)), Vector(0, aN * pow(2, 1/6.), 0), Vector(aN * pow(2, 1/6.), 0, 0), 10, 10, 10, Vector(1E-9), Vector(0, 0, 0), mN_, z_, &elasticBorder_};
+	LineFigure lineN{Vector(0, 0, aN * 2.), 2, Vector(5E-9), Vector(0, 0, .0), mN_, z_, &elasticBorder_};
+	PlaneFigure planeN{Vector(0, 0, aN *pow(2, 1 / 6.)), Vector(0, aN *pow(2, 1 / 6.), 0), 20, 20, Vector(1E-9), Vector(0, 0, 0), mN_, z_, &elasticBorder_};
+	ParallelepipedFigure parallelepipedN{Vector(0, 0, aN *pow(2, 1 / 6.)), Vector(0, aN *pow(2, 1 / 6.), 0), Vector(aN *pow(2, 1 / 6.), 0, 0), 10, 10, 10, Vector(1E-9), Vector(0, 0, 0), mN_, z_, &elasticBorder_};
+
 private:
 	ElasticCoubCondition elasticBorder_{&borders_};
 	BorderFieldCondition borderFieldCondition_{BorderFieldCondition()};

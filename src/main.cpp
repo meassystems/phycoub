@@ -29,18 +29,22 @@ int main()
 			std::cout << str;
 		}
 */
-	try {
+	try
+	{
 		ArCoub ArCoub;
-		while(true){
+		while (true)
+		{
 			ArCoub.phyCoub();
 			std::cout << ArCoub.argon_[0]->coordinate_.x_ << " ; " << ArCoub.argon_[0]->coordinate_.y_ << " ; " << ArCoub.argon_[0]->coordinate_.z_;
-			std::cout << "	-	" <<ArCoub.argon_[1]->coordinate_.x_ << " ; " << ArCoub.argon_[1]->coordinate_.y_ << " ; " << ArCoub.argon_[1]->coordinate_.z_ << std::endl;
+			std::cout << "	-	" << ArCoub.argon_[1]->coordinate_.x_ << " ; " << ArCoub.argon_[1]->coordinate_.y_ << " ; " << ArCoub.argon_[1]->coordinate_.z_ << std::endl;
 		}
-	} catch (char const * str) {
+	}
+	catch (char const *str)
+	{
 		std::cout << str;
 	}
 
-/*
+	/*
 	try {
 		FigureDemonstration figureDemonstration;
 		while(true){

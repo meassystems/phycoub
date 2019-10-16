@@ -25,9 +25,11 @@
 
 #include "ParallelepipedFigure.h"
 
-namespace phycoub {
+namespace phycoub
+{
 
-class ArCoub {
+class ArCoub
+{
 public:
 	ArCoub();
 	virtual ~ArCoub();
@@ -36,18 +38,19 @@ public:
 
 	double dt_ = 1E-15, k_ = 1.38E-23, z_ = 0.0, temp = 500.0, timeExperimet = 0.;
 	double mAr_ = 6.6E-26, epsAr_ = 1.67E-21, aAr_ = 3.4E-10, radiusCut_ = 2.5 * aAr_;
-	Vector borders_{aAr_*20 * pow(2, 1/6.)};
+	Vector borders_{aAr_ * 20 * pow(2, 1 / 6.)};
 
-	std::vector<Particle*> argon_;
+	std::vector<Particle *> argon_;
 	ParallelepipedFigure parallelepipedFigure{
-		Vector(0, 0, aAr_ * pow(2, 1/6.)),
-		Vector(0, aAr_ * pow(2, 1/6.), 0),
-		Vector(aAr_ * pow(2, 1/6.), 0, 0),
+		Vector(0, 0, aAr_ *pow(2, 1 / 6.)),
+		Vector(0, aAr_ *pow(2, 1 / 6.), 0),
+		Vector(aAr_ *pow(2, 1 / 6.), 0, 0),
 		5, 21, 21,
 		Vector(0),
 		Vector(0),
 		mAr_, z_,
 		&thermostatBorder};
+
 private:
 	ThermostatBorder thermostatBorder{&borders_, &k_, &temp};
 	BorderFieldCondition borderFieldCondition_{BorderFieldCondition()};
@@ -56,11 +59,9 @@ private:
 	LDFieldFunction argonField_{aAr_, aAr_, epsAr_};
 	LDInterworking argontInterworking;
 
-
 	std::vector<CreateField> createField_;
 	std::vector<FeelField> feelField_;
 	std::vector<CalculationGroup> groupLeapFrog_;
-
 };
 
 } /* namespace phycoub */
