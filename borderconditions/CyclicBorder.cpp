@@ -8,22 +8,32 @@
 #include <CyclicBorder.h>
 #include "Particle.h"
 
-namespace phycoub {
+namespace phycoub
+{
 
-CyclicBorder::CyclicBorder(Vector* borders): BorderCondition(borders) {}
-CyclicBorder::~CyclicBorder() {}
+CyclicBorder::CyclicBorder( Vector *borders )
+    : BorderCondition( borders )
+{
+}
+CyclicBorder::~CyclicBorder()
+{
+}
 
-void CyclicBorder::psyMove(const Vector& move, Particle& particle){
-	particle.coordinate_ += move;
+void CyclicBorder::psyMove( const Vector &move, Particle &particle )
+{
+    particle.coordinate_ += move;
 
-	for(int i = 0; i < 3; ++i) {
-		if(particle.coordinate_[i] < 0) {
-			particle.coordinate_[i] += (*borders_)[i];
-		}
-		else if(particle.coordinate_[i] > (*borders_)[i]) {
-			particle.coordinate_[i] -= (*borders_)[i];
-		}
-	}
+    for ( int i = 0; i < 3; ++i )
+    {
+        if ( particle.coordinate_[ i ] < 0 )
+        {
+            particle.coordinate_[ i ] += ( *borders_ )[ i ];
+        }
+        else if ( particle.coordinate_[ i ] > ( *borders_ )[ i ] )
+        {
+            particle.coordinate_[ i ] -= ( *borders_ )[ i ];
+        }
+    }
 }
 
 } /* namespace phycoub */

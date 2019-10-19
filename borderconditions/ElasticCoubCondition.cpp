@@ -1,31 +1,42 @@
 /*
  * ElasticCoubCondition.cpp
  *
- *  Created on: 19 окт. 2016 г.
+ *  Created on: 19 пїЅпїЅпїЅ. 2016 пїЅ.
  *      Author: SFrancishkov
  */
 
 #include <ElasticCoubCondition.h>
 #include "Particle.h"
 
-namespace phycoub {
+namespace phycoub
+{
 
-ElasticCoubCondition::ElasticCoubCondition(Vector* borders): BorderCondition(borders) {}
-ElasticCoubCondition::~ElasticCoubCondition() {}
+ElasticCoubCondition::ElasticCoubCondition( Vector *borders )
+    : BorderCondition( borders )
+{
+}
+ElasticCoubCondition::~ElasticCoubCondition()
+{
+}
 
-void ElasticCoubCondition::psyMove(const Vector& move, Particle& particle) {
-	particle.coordinate_ += move;
+void ElasticCoubCondition::psyMove( const Vector &move, Particle &particle )
+{
+    particle.coordinate_ += move;
 
-	for(int i = 0; i < 3; ++i) {
-		if(particle.coordinate_[i] < 0) {
-			particle.coordinate_[i] = -particle.coordinate_[i];
-			particle.speed_[i] = -particle.speed_[i];
-		}
-		else if(particle.coordinate_[i] > (*borders_)[i]) {
-			particle.coordinate_[i] = 2 * (*borders_)[i] - particle.coordinate_[i];
-			particle.speed_[i] = -particle.speed_[i];
-		}
-	}
+    for ( int i = 0; i < 3; ++i )
+    {
+        if ( particle.coordinate_[ i ] < 0 )
+        {
+            particle.coordinate_[ i ] = -particle.coordinate_[ i ];
+            particle.speed_[ i ] = -particle.speed_[ i ];
+        }
+        else if ( particle.coordinate_[ i ] > ( *borders_ )[ i ] )
+        {
+            particle.coordinate_[ i ]
+                = 2 * ( *borders_ )[ i ] - particle.coordinate_[ i ];
+            particle.speed_[ i ] = -particle.speed_[ i ];
+        }
+    }
 }
 
 } /* namespace phycoub */

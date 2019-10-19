@@ -1,7 +1,7 @@
 /*
  * BorderFieldCondition.cpp
  *
- *  Created on: 19 окт. 2016 г.
+ *  Created on: 19 пїЅпїЅпїЅ. 2016 пїЅ.
  *      Author: SFrancishkov
  */
 
@@ -9,20 +9,26 @@
 #include <algorithm>
 #include "CreateField.h"
 
-namespace phycoub {
+namespace phycoub
+{
 
-BorderFieldCondition::BorderFieldCondition() {}
-BorderFieldCondition::~BorderFieldCondition() {}
+BorderFieldCondition::BorderFieldCondition()
+{
+}
+BorderFieldCondition::~BorderFieldCondition()
+{
+}
 
-Vector BorderFieldCondition::phySumField(CreateField* createField, const Vector& mark) {
-	Vector result_;
+Vector BorderFieldCondition::phySumField( CreateField *createField, const Vector &mark )
+{
+    Vector result_;
 
-	for_each(createField->particles_.begin(), createField->particles_.end(), [&](const Particle* source) {
-		result_ += createField->functionField_->psyField(*source, mark);
-	}
-	);
+    for_each( createField->particles_.begin(), createField->particles_.end(),
+        [&]( const Particle *source ) {
+            result_ += createField->functionField_->psyField( *source, mark );
+        } );
 
-	return result_;
+    return result_;
 }
 
 } /* namespace phycoub */

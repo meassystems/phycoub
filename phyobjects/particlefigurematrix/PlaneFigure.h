@@ -14,17 +14,22 @@
 #include "BorderCondition.h"
 #include "Particle.h"
 
-namespace phycoub {
+namespace phycoub
+{
 
-class PlaneFigure {
-public:
-	PlaneFigure(const Vector& directionLine, const Vector& directionPlane, const int& numInLine, const int& numLineInPlane, const Vector& coordinate, const Vector& speed, const double& m, const double& z, BorderCondition* borderCondition);
-	virtual ~PlaneFigure();
+class PlaneFigure
+{
+  public:
+    PlaneFigure( const Vector &directionLine, const Vector &directionPlane,
+        const int &numInLine, const int &numLineInPlane, const Vector &coordinate,
+        const Vector &speed, const double &m, const double &z,
+        BorderCondition *borderCondition );
+    virtual ~PlaneFigure();
 
-	std::vector<Particle*> allParticles_;
+    std::vector< Particle * > allParticles_;
 
-	std::vector<Particle*> centrallParticles_;
-	std::vector<Particle*> borderParticles_;
+    std::vector< Particle * > centrallParticles_;
+    std::vector< Particle * > borderParticles_;
 };
 
 } /* namespace phycoub */

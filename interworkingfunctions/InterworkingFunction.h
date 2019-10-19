@@ -11,17 +11,19 @@
 #include "Vector.h"
 #include "Particle.h"
 
-namespace phycoub {
+namespace phycoub
+{
 /*
  * Абстрактный класс для реализации функции расчета силы.
- * Для создания собственной функции расчета силы необходимо унаследоваться от данного класса и определить
- * функцию psyForce.
+ * Для создания собственной функции расчета силы необходимо унаследоваться от данного
+ * класса и определить функцию psyForce.
  */
-class InterworkingFunction {
-public:
-	virtual ~InterworkingFunction();
+class InterworkingFunction
+{
+  public:
+    virtual ~InterworkingFunction();
 
-	const virtual Vector psyForce(const Vector &field, const Particle* particle) = 0;
+    const virtual Vector psyForce( const Vector &field, const Particle *particle ) = 0;
 };
 
 } /* namespace phycoub */

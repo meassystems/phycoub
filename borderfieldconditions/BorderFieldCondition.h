@@ -10,7 +10,8 @@
 
 #include "Vector.h"
 
-namespace phycoub {
+namespace phycoub
+{
 
 class CreateField;
 /*
@@ -20,12 +21,13 @@ class CreateField;
  *
  * Базовая реализация содержит бесконечные граничные условия.
  */
-class BorderFieldCondition {
-public:
-	BorderFieldCondition();
-	virtual ~BorderFieldCondition();
+class BorderFieldCondition
+{
+  public:
+    BorderFieldCondition();
+    virtual ~BorderFieldCondition();
 
-	virtual Vector phySumField(CreateField* createField, const Vector& mark);
+    virtual Vector phySumField( CreateField *createField, const Vector &mark );
 };
 
 } /* namespace phycoub */

@@ -10,15 +10,18 @@
 
 #include <FieldFunction.h>
 
-namespace phycoub {
+namespace phycoub
+{
 
-class LDFieldFunction: public FieldFunction {
-	double a_, b_, eps_;
-public:
-	LDFieldFunction(double a, double b, double eps);
-	virtual ~LDFieldFunction();
+class LDFieldFunction : public FieldFunction
+{
+    double a_, b_, eps_;
 
-	virtual Vector psyField(const Particle& source, const Vector& mark);
+  public:
+    LDFieldFunction( double a, double b, double eps );
+    virtual ~LDFieldFunction();
+
+    virtual Vector psyField( const Particle &source, const Vector &mark );
 };
 
 } /* namespace phycoub */

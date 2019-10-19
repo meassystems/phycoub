@@ -10,14 +10,16 @@
 
 #include <BorderCondition.h>
 
-namespace phycoub {
+namespace phycoub
+{
 
-class CyclicBorder: public BorderCondition {
-public:
-	CyclicBorder(Vector* borders);
-	virtual ~CyclicBorder();
+class CyclicBorder : public BorderCondition
+{
+  public:
+    CyclicBorder( Vector *borders );
+    virtual ~CyclicBorder();
 
-	virtual void psyMove(const Vector& move, Particle& particle);
+    virtual void psyMove( const Vector &move, Particle &particle );
 };
 
 } /* namespace phycoub */

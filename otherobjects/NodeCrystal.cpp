@@ -7,15 +7,24 @@
 
 #include "NodeCrystal.h"
 
-namespace phycoub {
+namespace phycoub
+{
 
-NodeCrystal::NodeCrystal(): Particle(), shag(0) {
-	++index;
+NodeCrystal::NodeCrystal()
+    : Particle()
+    , shag( 0 )
+{
+    ++index;
 }
-NodeCrystal::NodeCrystal(const Vector& coordinate, const Vector& speed, double m, double q,
-		BorderCondition* borderCondition): Particle(coordinate, speed, m, q, borderCondition), shag(0) {
-			++index;
-		}
-NodeCrystal::~NodeCrystal() {}
+NodeCrystal::NodeCrystal( const Vector &coordinate, const Vector &speed, double m,
+    double q, BorderCondition *borderCondition )
+    : Particle( coordinate, speed, m, q, borderCondition )
+    , shag( 0 )
+{
+    ++index;
+}
+NodeCrystal::~NodeCrystal()
+{
+}
 
 } /* namespace phycoub */

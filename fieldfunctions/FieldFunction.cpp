@@ -1,14 +1,17 @@
 /*
  * FieldFunction.cpp
  *
- *  Created on: 17 окт. 2016 г.
+ *  Created on: 17 пїЅпїЅпїЅ. 2016 пїЅ.
  *      Author: SFrancishkov
  */
 
 #include "FieldFunction.h"
 
-namespace phycoub {
+namespace phycoub
+{
 
-FieldFunction::~FieldFunction() {}
+FieldFunction::~FieldFunction()
+{
+}
 
 } /* namespace phycoub */

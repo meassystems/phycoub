@@ -7,13 +7,19 @@
 
 #include <LDInterworking.h>
 
-namespace phycoub {
+namespace phycoub
+{
 
-LDInterworking::LDInterworking() {}
-LDInterworking::~LDInterworking() {}
+LDInterworking::LDInterworking()
+{
+}
+LDInterworking::~LDInterworking()
+{
+}
 
-const Vector LDInterworking::psyForce(const Vector &field, const Particle* particle) {
-	return field;
+const Vector LDInterworking::psyForce( const Vector &field, const Particle *particle )
+{
+    return field;
 }
 
 } /* namespace phycoub */

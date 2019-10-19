@@ -8,13 +8,20 @@
 #include "BorderCondition.h"
 #include "Particle.h"
 
-namespace phycoub {
+namespace phycoub
+{
 
-BorderCondition::BorderCondition(Vector* borders): borders_(borders) {}
-BorderCondition::~BorderCondition() {}
+BorderCondition::BorderCondition( Vector *borders )
+    : borders_( borders )
+{
+}
+BorderCondition::~BorderCondition()
+{
+}
 
-void BorderCondition::psyMove(const Vector& move, Particle& particle) {
-	particle.coordinate_ += move;
+void BorderCondition::psyMove( const Vector &move, Particle &particle )
+{
+    particle.coordinate_ += move;
 }
 
 } /* namespace phycoub */

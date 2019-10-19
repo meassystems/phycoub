@@ -12,17 +12,20 @@
 
 #include "Vector.h"
 #include "Particle.h"
-namespace phycoub {
+namespace phycoub
+{
 
-class ThermostatBorder: public BorderCondition {
-public:
-	ThermostatBorder(Vector* borders, double* kB, double* temp);
-	virtual ~ThermostatBorder();
+class ThermostatBorder : public BorderCondition
+{
+  public:
+    ThermostatBorder( Vector *borders, double *kB, double *temp );
+    virtual ~ThermostatBorder();
 
-	virtual void psyMove(const Vector& move, Particle& particle);
-private:
-	double* kB_;
-	double* temperature_;
+    virtual void psyMove( const Vector &move, Particle &particle );
+
+  private:
+    double *kB_;
+    double *temperature_;
 };
 
 } /* namespace phycoub */

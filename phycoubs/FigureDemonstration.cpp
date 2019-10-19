@@ -12,19 +12,26 @@
 #include <math.h>
 #include <time.h>
 
-namespace phycoub {
+namespace phycoub
+{
 
-FigureDemonstration::FigureDemonstration() {
-	srand(time(NULL));
-	rand(); rand(); rand();
+FigureDemonstration::FigureDemonstration()
+{
+    srand( time( NULL ) );
+    rand();
+    rand();
+    rand();
 }
-FigureDemonstration::~FigureDemonstration() {}
+FigureDemonstration::~FigureDemonstration()
+{
+}
 
-void FigureDemonstration::phyCoub() {
-	/*for_each(feelField_.begin(), feelField_.end(), [](FeelField& feelField_) {
+void FigureDemonstration::phyCoub()
+{
+    /*for_each(feelField_.begin(), feelField_.end(), [](FeelField& feelField_) {
 
-	}
-	);*/
+    }
+    );*/
 }
 
 } /* namespace phycoub */

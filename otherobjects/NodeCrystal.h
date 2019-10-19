@@ -10,15 +10,18 @@
 
 #include "Particle.h"
 
-namespace phycoub {
+namespace phycoub
+{
 
-class NodeCrystal : public Particle{
-public:
-	NodeCrystal();
-	NodeCrystal(const Vector& coordinate, const Vector& speed, double m, double q, BorderCondition* borderCondition);
-	virtual ~NodeCrystal();
+class NodeCrystal : public Particle
+{
+  public:
+    NodeCrystal();
+    NodeCrystal( const Vector &coordinate, const Vector &speed, double m, double q,
+        BorderCondition *borderCondition );
+    virtual ~NodeCrystal();
 
-	long shag;
+    long shag;
 };
 
 } /* namespace phycoub */

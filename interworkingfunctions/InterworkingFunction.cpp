@@ -7,8 +7,11 @@
 
 #include <InterworkingFunction.h>
 
-namespace phycoub {
+namespace phycoub
+{
 
-InterworkingFunction::~InterworkingFunction() {}
+InterworkingFunction::~InterworkingFunction()
+{
+}
 
 } /* namespace phycoub */

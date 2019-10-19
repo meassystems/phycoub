@@ -10,18 +10,20 @@
 
 #include <CalculationModel.h>
 
-namespace phycoub {
+namespace phycoub
+{
 
 class FeelField;
 /*
  * Методика расчета по скоростной модификации Верле.
  */
-class HighSpeedModificationVerle: public CalculationModel {
-public:
-	HighSpeedModificationVerle();
-	virtual ~HighSpeedModificationVerle();
+class HighSpeedModificationVerle : public CalculationModel
+{
+  public:
+    HighSpeedModificationVerle();
+    virtual ~HighSpeedModificationVerle();
 
-	virtual void phyCalculate(CalculationGroup* calculationGroup);
+    virtual void phyCalculate( CalculationGroup *calculationGroup );
 };
 
 } /* namespace phycoub */

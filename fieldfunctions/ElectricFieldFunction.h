@@ -11,19 +11,21 @@
 #include "FieldFunction.h"
 #include "Particle.h"
 
-namespace phycoub {
+namespace phycoub
+{
 /*
  * Кулоновское электрическое поле.
  */
-class ElectricFieldFunction: public FieldFunction {
-public:
-	ElectricFieldFunction(double e, double mb, double vb, double lb);
-	virtual ~ElectricFieldFunction();
+class ElectricFieldFunction : public FieldFunction
+{
+  public:
+    ElectricFieldFunction( double e, double mb, double vb, double lb );
+    virtual ~ElectricFieldFunction();
 
-	Vector psyField(const Particle &source, const Vector &mark);
-//	void psyField(const Particle& source, const Particle& mark);
+    Vector psyField( const Particle &source, const Vector &mark );
+    //	void psyField(const Particle& source, const Particle& mark);
 
-	double e_, mb_, vb_, lb_;
+    double e_, mb_, vb_, lb_;
 };
 
 } /* namespace phycoub */

@@ -8,13 +8,19 @@
 #include <CulonInterworking.h>
 #include "math.h"
 
-namespace phycoub {
+namespace phycoub
+{
 
-CulonInterworking::CulonInterworking(){}
-CulonInterworking::~CulonInterworking() {}
+CulonInterworking::CulonInterworking()
+{
+}
+CulonInterworking::~CulonInterworking()
+{
+}
 
-const Vector CulonInterworking::psyForce(const Vector &field, const Particle* particle) {
-	return field * particle->z_;
+const Vector CulonInterworking::psyForce( const Vector &field, const Particle *particle )
+{
+    return field * particle->z_;
 }
 
 } /* namespace phycoub */

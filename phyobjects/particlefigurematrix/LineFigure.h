@@ -14,15 +14,19 @@
 
 #include <vector>
 
-namespace phycoub {
+namespace phycoub
+{
 
-class LineFigure {
-public:
-	LineFigure(std::vector<Particle*> particles);
-	LineFigure(const Vector& direction, const int& num, const Vector& coordinate, const Vector& speed, const double& m, const double& z, BorderCondition* borderCondition);
-	virtual ~LineFigure();
+class LineFigure
+{
+  public:
+    LineFigure( std::vector< Particle * > particles );
+    LineFigure( const Vector &direction, const int &num, const Vector &coordinate,
+        const Vector &speed, const double &m, const double &z,
+        BorderCondition *borderCondition );
+    virtual ~LineFigure();
 
-	std::vector<Particle*> particles_;
+    std::vector< Particle * > particles_;
 };
 
 } /* namespace phycoub */

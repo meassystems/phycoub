@@ -10,16 +10,18 @@
 
 #include <BorderCondition.h>
 
-namespace phycoub {
+namespace phycoub
+{
 /*
  * Упругие граничные условия в случае, если пространсво моделирования - прямоугольник.
  */
-class ElasticCoubCondition: public BorderCondition {
-public:
-	ElasticCoubCondition(Vector* borders);
-	virtual ~ElasticCoubCondition();
+class ElasticCoubCondition : public BorderCondition
+{
+  public:
+    ElasticCoubCondition( Vector *borders );
+    virtual ~ElasticCoubCondition();
 
-	void psyMove(const Vector& move, Particle& particle) override;
+    void psyMove( const Vector &move, Particle &particle ) override;
 };
 
 } /* namespace phycoub */

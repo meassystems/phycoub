@@ -10,14 +10,16 @@
 
 #include <InterworkingFunction.h>
 
-namespace phycoub {
+namespace phycoub
+{
 
-class LDInterworking: public InterworkingFunction {
-public:
-	LDInterworking();
-	virtual ~LDInterworking();
+class LDInterworking : public InterworkingFunction
+{
+  public:
+    LDInterworking();
+    virtual ~LDInterworking();
 
-	const Vector psyForce(const Vector &field, const Particle* particle);
+    const Vector psyForce( const Vector &field, const Particle *particle );
 };
 
 } /* namespace phycoub */

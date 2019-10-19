@@ -25,47 +25,52 @@
 #include "LDFieldFunction.h"
 #include "LDInterworking.h"
 
-namespace phycoub {
+namespace phycoub
+{
 
-class NOCoub {
-public:
-	NOCoub();
-	virtual ~NOCoub();
+class NOCoub
+{
+  public:
+    NOCoub();
+    virtual ~NOCoub();
 
-	void phyCoub();
+    void phyCoub();
 
-	double dt_ = 1E-15, k_ = 1.38E-23, z_ = 0.;
-	Vector borders_{1E-8, 1E-8, 1E-8};
-	double mN_ = 23.24E-27, epsN = 95.05*k_, aN = 3.698E-10;
-	double mO_ = 13.28E-27, epsO = 117.5*k_, aO = 3.58E-10;
-	double epsNO = 131.*k_, aNO = 3.17E-10;
-	double radiusCatN_ = aN * 3;
-	double radiusCatO_ = aO * 3;
-	double radiusCatNO_ = aNO * 3;
+    double dt_ = 1E-15, k_ = 1.38E-23, z_ = 0.;
+    Vector borders_{ 1E-8, 1E-8, 1E-8 };
+    double mN_ = 23.24E-27, epsN = 95.05 * k_, aN = 3.698E-10;
+    double mO_ = 13.28E-27, epsO = 117.5 * k_, aO = 3.58E-10;
+    double epsNO = 131. * k_, aNO = 3.17E-10;
+    double radiusCatN_ = aN * 3;
+    double radiusCatO_ = aO * 3;
+    double radiusCatNO_ = aNO * 3;
 
-	std::vector<Particle*> azot_;
-	std::vector<Particle*> oxygen_;
-private:
-	ElasticCoubCondition elasticBorder_{&borders_};
-	CyclicBorder cyclicBorder_{CyclicBorder(&borders_)};
-	BorderFieldCondition borderFieldCondition_{BorderFieldCondition()};
-	CyclicBoundedField cyclicBoundedFieldN_{CyclicBoundedField(&radiusCatN_, &borders_)};
-	CyclicBoundedField cyclicBoundedFieldO_{CyclicBoundedField(&radiusCatO_, &borders_)};
-	CyclicBoundedField cyclicBoundedFieldNO_{CyclicBoundedField(&radiusCatNO_, &borders_)};
-	LeapFrog leapFrog{LeapFrog()};
+    std::vector< Particle * > azot_;
+    std::vector< Particle * > oxygen_;
 
-	LDFieldFunction azotField_{aN, aN, epsN};
-	LDInterworking azotInterworking;
-	LDFieldFunction oxygenField_{aO, aO, epsO};
-	LDInterworking oxygenInterworking;
+  private:
+    ElasticCoubCondition elasticBorder_{ &borders_ };
+    CyclicBorder cyclicBorder_{ CyclicBorder( &borders_ ) };
+    BorderFieldCondition borderFieldCondition_{ BorderFieldCondition() };
+    CyclicBoundedField cyclicBoundedFieldN_{ CyclicBoundedField(
+        &radiusCatN_, &borders_ ) };
+    CyclicBoundedField cyclicBoundedFieldO_{ CyclicBoundedField(
+        &radiusCatO_, &borders_ ) };
+    CyclicBoundedField cyclicBoundedFieldNO_{ CyclicBoundedField(
+        &radiusCatNO_, &borders_ ) };
+    LeapFrog leapFrog{ LeapFrog() };
 
-	LDFieldFunction NOField_{aNO, aNO, epsO};
-	LDInterworking NOInterworking{};
+    LDFieldFunction azotField_{ aN, aN, epsN };
+    LDInterworking azotInterworking;
+    LDFieldFunction oxygenField_{ aO, aO, epsO };
+    LDInterworking oxygenInterworking;
 
-	std::vector<CreateField> createField_;
-	std::vector<FeelField> feelField_;
-	std::vector<CalculationGroup> groupLeapFrog_;
+    LDFieldFunction NOField_{ aNO, aNO, epsO };
+    LDInterworking NOInterworking{};
 
+    std::vector< CreateField > createField_;
+    std::vector< FeelField > feelField_;
+    std::vector< CalculationGroup > groupLeapFrog_;
 };
 
 } /* namespace phycoub */

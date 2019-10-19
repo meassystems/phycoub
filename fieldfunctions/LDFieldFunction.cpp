@@ -9,21 +9,34 @@
 
 #include <math.h>
 
-namespace phycoub {
+namespace phycoub
+{
 
-LDFieldFunction::LDFieldFunction(double a, double b, double eps): a_(a), b_(b), eps_(eps) {}
-LDFieldFunction::~LDFieldFunction() {}
+LDFieldFunction::LDFieldFunction( double a, double b, double eps )
+    : a_( a )
+    , b_( b )
+    , eps_( eps )
+{
+}
+LDFieldFunction::~LDFieldFunction()
+{
+}
 
-Vector LDFieldFunction::psyField(const Particle& source, const Vector& mark) {
-	Vector effect;
-	Vector distance = (mark - source.coordinate_);
-	if(distance == 0.) {
-		return effect;
-	}
+Vector LDFieldFunction::psyField( const Particle &source, const Vector &mark )
+{
+    Vector effect;
+    Vector distance = ( mark - source.coordinate_ );
+    if ( distance == 0. )
+    {
+        return effect;
+    }
 
-	effect = distance * (-24 * eps_ / pow(a_, 2) * (pow(a_ / distance.getModule(), 8) - 2 * pow(b_ / distance.getModule(), 14)));
+    effect = distance
+        * ( -24 * eps_ / pow( a_, 2 )
+              * ( pow( a_ / distance.getModule(), 8 )
+                    - 2 * pow( b_ / distance.getModule(), 14 ) ) );
 
-	return effect;
+    return effect;
 }
 
 } /* namespace phycoub */

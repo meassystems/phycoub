@@ -10,14 +10,16 @@
 
 #include <CalculationModel.h>
 
-namespace phycoub {
+namespace phycoub
+{
 
-class LeapFrog: public CalculationModel {
-public:
-	LeapFrog();
-	virtual ~LeapFrog();
+class LeapFrog : public CalculationModel
+{
+  public:
+    LeapFrog();
+    virtual ~LeapFrog();
 
-	virtual void phyCalculate(CalculationGroup* calculationGroup);
+    virtual void phyCalculate( CalculationGroup *calculationGroup );
 };
 
 } /* namespace phycoub */

@@ -10,7 +10,8 @@
 
 #include "Vector.h"
 
-namespace phycoub {
+namespace phycoub
+{
 
 class Particle;
 /*
@@ -20,14 +21,15 @@ class Particle;
  *
  * Базовая реализация содержит безконечные граничные условия.
  */
-class BorderCondition {
-public:
-	BorderCondition(Vector* borders);
-	virtual ~BorderCondition();
+class BorderCondition
+{
+  public:
+    BorderCondition( Vector *borders );
+    virtual ~BorderCondition();
 
-	virtual void psyMove(const Vector& move, Particle& particle);
+    virtual void psyMove( const Vector &move, Particle &particle );
 
-	Vector* borders_;
+    Vector *borders_;
 };
 
 } /* namespace phycoub */
