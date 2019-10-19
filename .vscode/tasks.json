@@ -2,60 +2,11 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "msvc build",
+            "label": "msvc_clean",
             "type": "shell",
-            "command": "cl.exe",
-            "args": [
-                "-Iborderconditions/",
-                "-Iborderfieldconditions/",
-                "-Icalculationmodels/",
-                "-Ifieldfunctions/",
-                "-Iinterworkingfunctions/",
-                "-Iotherobjects/",
-                "-Iphycoubs/",
-                "-Iphymeasurement/",
-                "-Iphyobjects/",
-                "-Iphyobjects/particlefigurematrix",
-                "-Ispecialmodellingfunctions/",
-                "-Itypes/",
-                "/EHsc",
-                //"/Zi",
-                //"/Fe:",
-                "/MDd",
-                "/c",
-                //"phycoub_test.exe",
-                "borderconditions/BorderCondition.cpp",
-                "borderconditions/CyclicBorder.cpp",
-                "borderconditions/ElasticBorder.cpp",
-                "borderconditions/ElasticCoubCondition.cpp",
-                "borderconditions/ThermostatBorder.cpp",
-                "borderfieldconditions/BorderFieldCondition.cpp",
-                "borderfieldconditions/CyclicBoundedField.cpp",
-                "calculationmodels/CalculationModel.cpp",
-                "calculationmodels/HighSpeedModificationVerle.cpp",
-                "calculationmodels/LeapFrog.cpp",
-                "fieldfunctions/ElectricFieldFunction.cpp",
-                "fieldfunctions/FieldFunction.cpp",
-                "fieldfunctions/LDFieldFunction.cpp",
-                "interworkingfunctions/CulonInterworking.cpp",
-                "interworkingfunctions/InterworkingFunction.cpp",
-                "interworkingfunctions/LDInterworking.cpp",
-                "otherobjects/NodeCrystal.cpp",
-                "phycoubs/ArCoub.cpp",
-                "phycoubs/FigureDemonstration.cpp",
-                "phycoubs/NOCoub.cpp",
-                "phymeasurement/measurement.cpp",
-                "phyobjects/CalculationGroup.cpp",
-                "phyobjects/CreateField.cpp",
-                "phyobjects/FeelField.cpp",
-                "phyobjects/Particle.cpp",
-                "phyobjects/particlefigurematrix/LineFigure.cpp",
-                "phyobjects/particlefigurematrix/ParallelepipedFigure.cpp",
-                "phyobjects/particlefigurematrix/PlaneFigure.cpp",
-                "specialmodellingfunctions/temperatureControl.cpp",
-                //"src/main.cpp",
-                "types/Vector.cpp"
-            ],
+            "windows": {
+                "command": "${workspaceRoot}\\clean.bat"
+            },
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -66,42 +17,26 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "msvc lib",
+            "label": "msvc_build_libd",
             "type": "shell",
-            "command": "lib.exe",
-            "args": [
-                "/out:phycoub.lib",
-                "BorderCondition.obj",
-                "CyclicBorder.obj",
-                "ElasticBorder.obj",
-                "ElasticCoubCondition.obj",
-                "ThermostatBorder.obj",
-                "BorderFieldCondition.obj",
-                "CyclicBoundedField.obj",
-                "CalculationModel.obj",
-                "HighSpeedModificationVerle.obj",
-                "LeapFrog.obj",
-                "ElectricFieldFunction.obj",
-                "FieldFunction.obj",
-                "LDFieldFunction.obj",
-                "CulonInterworking.obj",
-                "InterworkingFunction.obj",
-                "LDInterworking.obj",
-                "NodeCrystal.obj",
-                "ArCoub.obj",
-                "FigureDemonstration.obj",
-                "NOCoub.obj",
-                "measurement.obj",
-                "CalculationGroup.obj",
-                "CreateField.obj",
-                "FeelField.obj",
-                "Particle.obj",
-                "LineFigure.obj",
-                "ParallelepipedFigure.obj",
-                "PlaneFigure.obj",
-                "temperatureControl.obj",
-                "Vector.obj"
-            ],
+            "windows": {
+                "command": "${workspaceRoot}\\build_libd.bat"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "msvc_build_debug_exe",
+            "type": "shell",
+            "windows": {
+                "command": "${workspaceRoot}\\build_debug_exe.bat"
+            },
             "group": {
                 "kind": "build",
                 "isDefault": true
