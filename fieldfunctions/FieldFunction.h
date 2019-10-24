@@ -22,8 +22,7 @@ class FieldFunction
   public:
     virtual ~FieldFunction();
 
-    virtual Vector psyField( const Particle &source, const Vector &mark ) = 0;
-    //	virtual void psyField(const Particle& source, const Particle& mark) = 0;
+    virtual Vector psyField( const Particle& source, const Vector& mark ) = 0;
 };
 
 } /* namespace phycoub */

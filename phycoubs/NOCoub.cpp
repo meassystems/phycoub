@@ -1,11 +1,11 @@
 /*
- * NOCoub.cpp
- *
- *  Created on: Dec 17, 2016
- *      Author: root
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-19 19:07:08
+ * @Last Modified by:   Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-19 19:07:08
  */
 
-#include <NOCoub.h>
+#include <NOCoub.h >
 
 #include <algorithm>
 #include <stdlib.h>

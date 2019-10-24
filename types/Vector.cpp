@@ -1,11 +1,12 @@
 /*
- * Vector.cpp
- *
- *  Created on: Oct 14, 2016
- *      Author: root
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-23 21:35:24
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-23 21:36:42
  */
 
 #include "Vector.h"
+
 #include <math.h>
 
 namespace phycoub
@@ -17,23 +18,22 @@ Vector::Vector()
     , z_( 0. )
 {
 }
+
 Vector::Vector( double v )
     : x_( v )
     , y_( v )
     , z_( v )
 {
 }
+
 Vector::Vector( double x, double y, double z )
     : x_( x )
     , y_( y )
     , z_( z )
 {
 }
-Vector::~Vector()
-{
-}
 
-Vector &Vector::operator=( const double &vector )
+Vector& Vector::operator=( const double& vector )
 {
     x_ = vector;
     y_ = vector;
@@ -42,15 +42,15 @@ Vector &Vector::operator=( const double &vector )
     return *this;
 }
 
-Vector Vector::operator+( const Vector &vector ) const
+Vector Vector::operator+( const Vector& vector ) const
 {
     return Vector( this->x_ + vector.x_, this->y_ + vector.y_, this->z_ + vector.z_ );
 }
-Vector Vector::operator-( const Vector &vector ) const
+Vector Vector::operator-( const Vector& vector ) const
 {
     return Vector( this->x_ - vector.x_, this->y_ - vector.y_, this->z_ - vector.z_ );
 }
-Vector Vector::operator*( const Vector &vector ) const
+Vector Vector::operator*( const Vector& vector ) const
 {
     Vector res_;
     res_.x_ = ( this->y_ * vector.z_ ) - ( this->z_ * vector.y_ );
@@ -59,21 +59,21 @@ Vector Vector::operator*( const Vector &vector ) const
 
     return res_;
 }
-Vector &Vector::operator+=( const Vector &vector )
+Vector& Vector::operator+=( const Vector& vector )
 {
     this->x_ += vector.x_;
     this->y_ += vector.y_;
     this->z_ += vector.z_;
     return *this;
 }
-Vector &Vector::operator-=( const Vector &vector )
+Vector& Vector::operator-=( const Vector& vector )
 {
     this->x_ -= vector.x_;
     this->y_ -= vector.y_;
     this->z_ -= vector.z_;
     return *this;
 }
-Vector &Vector::operator*=( const Vector &vector )
+Vector& Vector::operator*=( const Vector& vector )
 {
     this->x_ = ( this->y_ * vector.z_ ) - ( this->z_ * vector.y_ );
     this->y_ = ( this->x_ * vector.z_ ) - ( this->z_ * vector.x_ );
@@ -81,38 +81,38 @@ Vector &Vector::operator*=( const Vector &vector )
 
     return *this;
 }
-bool Vector::operator==( const Vector &vector ) const
+bool Vector::operator==( const Vector& vector ) const
 {
     if ( this->x_ == vector.x_ && this->y_ == vector.y_ && this->z_ == vector.z_ )
         return true;
     return false;
 }
-bool Vector::operator>( const Vector &vector ) const
+bool Vector::operator>( const Vector& vector ) const
 {
     return this->getModule() > vector.getModule();
 }
-bool Vector::operator<( const Vector &vector ) const
+bool Vector::operator<( const Vector& vector ) const
 {
     return this->getModule() < vector.getModule();
 }
-bool Vector::operator>=( const Vector &vector ) const
+bool Vector::operator>=( const Vector& vector ) const
 {
     return this->getModule() >= vector.getModule();
 }
-bool Vector::operator<=( const Vector &vector ) const
+bool Vector::operator<=( const Vector& vector ) const
 {
     return this->getModule() <= vector.getModule();
 }
 //-----------------------------------------------------
-Vector Vector::operator+( const double &value ) const
+Vector Vector::operator+( const double& value ) const
 {
     return Vector( this->x_ + value, this->y_ + value, this->z_ + value );
 }
-Vector Vector::operator-( const double &value ) const
+Vector Vector::operator-( const double& value ) const
 {
     return Vector( this->x_ - value, this->y_ - value, this->z_ - value );
 }
-Vector Vector::operator*( const double &value ) const
+Vector Vector::operator*( const double& value ) const
 {
     Vector res_;
     res_.x_ = this->x_ * value;
@@ -121,7 +121,7 @@ Vector Vector::operator*( const double &value ) const
 
     return res_;
 }
-Vector Vector::operator/( const double &value ) const
+Vector Vector::operator/( const double& value ) const
 {
     Vector res_;
     res_.x_ = this->x_ / value;
@@ -130,21 +130,21 @@ Vector Vector::operator/( const double &value ) const
 
     return res_;
 }
-Vector &Vector::operator+=( const double &value )
+Vector& Vector::operator+=( const double& value )
 {
     this->x_ += value;
     this->y_ += value;
     this->z_ += value;
     return *this;
 }
-Vector &Vector::operator-=( const double &value )
+Vector& Vector::operator-=( const double& value )
 {
     this->x_ -= value;
     this->y_ -= value;
     this->z_ -= value;
     return *this;
 }
-Vector &Vector::operator*=( const double &value )
+Vector& Vector::operator*=( const double& value )
 {
     this->x_ = this->x_ * value;
     this->y_ = this->y_ * value;
@@ -152,7 +152,7 @@ Vector &Vector::operator*=( const double &value )
 
     return *this;
 }
-Vector &Vector::operator/=( const double &value )
+Vector& Vector::operator/=( const double& value )
 {
     this->x_ = this->x_ / value;
     this->y_ = this->y_ / value;
@@ -160,30 +160,30 @@ Vector &Vector::operator/=( const double &value )
 
     return *this;
 }
-bool Vector::operator==( const double &value ) const
+bool Vector::operator==( const double& value ) const
 {
     if ( this->getModule() == value )
         return true;
     return false;
 }
-bool Vector::operator>( const double &value ) const
+bool Vector::operator>( const double& value ) const
 {
     return this->getModule() > value;
 }
-bool Vector::operator<( const double &value ) const
+bool Vector::operator<( const double& value ) const
 {
     return this->getModule() < value;
 }
-bool Vector::operator>=( const double &value ) const
+bool Vector::operator>=( const double& value ) const
 {
     return this->getModule() >= value;
 }
-bool Vector::operator<=( const double &value ) const
+bool Vector::operator<=( const double& value ) const
 {
     return this->getModule() <= value;
 }
 //---------------------------------------------------------
-double &Vector::operator[]( int index )
+double& Vector::operator[]( int index )
 {
     switch ( index )
     {
@@ -216,7 +216,7 @@ double Vector::getModule() const
 {
     return sqrt( pow( this->x_, 2 ) + pow( this->y_, 2 ) + pow( this->z_, 2 ) );
 }
-bool Vector::below( const Vector &vector ) const
+bool Vector::below( const Vector& vector ) const
 {
 
     if ( this->x_ >= vector.x_ && this->y_ >= vector.y_ && this->z_ >= vector.z_ )
@@ -226,7 +226,7 @@ bool Vector::below( const Vector &vector ) const
 
     return true;
 }
-bool Vector::beyond( const Vector &vector ) const
+bool Vector::beyond( const Vector& vector ) const
 {
     if ( this->x_ <= vector.x_ && this->y_ <= vector.y_ && this->z_ <= vector.z_ )
     {

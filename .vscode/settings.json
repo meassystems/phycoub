@@ -1,5 +1,7 @@
 {
     "editor.formatOnSave": true,
+    "fileheader.Author": "Sergey Frantsishkov, mgistrser@gmail.com",
+    "fileheader.LastModifiedBy": "Sergey Frantsishkov, mgistrser@gmail.com",
     "files.associations": {
         "thread": "cpp",
         "algorithm": "cpp",

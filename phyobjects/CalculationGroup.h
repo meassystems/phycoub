@@ -14,23 +14,26 @@
 #include "Particle.h"
 #include "CalculationModel.h"
 
-namespace phycoub {
+namespace phycoub
+{
 
-class CalculationGroup {
-public:
-	CalculationGroup(CalculationModel* calculatiomModel, double* dt);
-	virtual ~CalculationGroup();
+class CalculationGroup
+{
+  public:
+    CalculationGroup( CalculationModel* calculatiomModel, double* dt );
+    virtual ~CalculationGroup();
 
-	void phyModeling();
+    void phyModeling();
 
-	void addParticle(Particle* particle);
-	void addGroupParticle(std::vector<Particle*> &particles);
-	void removeParticle(Particle* particle);
+    void addParticle( Particle* particle );
+    void addGroupParticle( std::vector< Particle* >& particles );
+    void removeParticle( Particle* particle );
 
-	std::vector<Particle*> particles_;
-	double* dt_;
-private:
-	CalculationModel* calculationModel_;
+    std::vector< Particle* > particles_;
+    double* dt_;
+
+  private:
+    CalculationModel* calculationModel_;
 };
 
 } /* namespace phycoub */

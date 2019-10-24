@@ -1,8 +1,8 @@
 /*
- * NOCoub.h
- *
- *  Created on: Dec 17, 2016
- *      Author: root
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-19 19:07:25
+ * @Last Modified by:   Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-19 19:07:25
  */
 
 #ifndef NOCOUB_H_

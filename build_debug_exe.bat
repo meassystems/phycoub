@@ -1,5 +1,6 @@
 clean.bat^
- && cl  -Iborderconditions/^
+ && cl -Icommon/^
+    -Iborderconditions/^
     -Iborderfieldconditions/^
     -Icalculationmodels/^
     -Ifieldfunctions/^
@@ -24,9 +25,12 @@ clean.bat^
     calculationmodels/CalculationModel.cpp^
     calculationmodels/HighSpeedModificationVerle.cpp^
     calculationmodels/LeapFrog.cpp^
-    fieldfunctions/ElectricFieldFunction.cpp^
+    fieldfunctions/ElectricField.cpp^
+    fieldfunctions/ElectricHomogeneousField.cpp^
     fieldfunctions/FieldFunction.cpp^
+    fieldfunctions/HomogeneousField.cpp^
     fieldfunctions/LDFieldFunction.cpp^
+    fieldfunctions/MagneticHomogeneousField.cpp^
     interworkingfunctions/CulonInterworking.cpp^
     interworkingfunctions/InterworkingFunction.cpp^
     interworkingfunctions/LDInterworking.cpp^
@@ -44,4 +48,5 @@ clean.bat^
     phyobjects/particlefigurematrix/PlaneFigure.cpp^
     specialmodellingfunctions/temperatureControl.cpp^
     src/main.cpp^
-    types/Vector.cpp
+    types/Vector.cpp^
+    types/VectorUtils.cpp
