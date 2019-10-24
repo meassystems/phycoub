@@ -1,12 +1,11 @@
 /*
- * FieldFunction.h
- *
- *  Created on: 17 ���. 2016 �.
- *      Author: SFrancishkov
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-24 20:28:25
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-24 20:46:58
  */
 
-#ifndef FIELDFUNCTION_H_
-#define FIELDFUNCTION_H_
+#pragma once
 
 #include "Vector.h"
 #include "Particle.h"
@@ -20,11 +19,10 @@ namespace phycoub
 class FieldFunction
 {
   public:
-    virtual ~FieldFunction();
+    virtual ~FieldFunction() = default;
 
-    virtual Vector psyField( const Particle& source, const Vector& mark ) = 0;
+    virtual Vector psyField(
+        const Vector& mark, const Particle* particle = nullptr ) const = 0;
 };
 
-} /* namespace phycoub */
-
-#endif /* FIELDFUNCTION_H_ */
+} // namespace phycoub

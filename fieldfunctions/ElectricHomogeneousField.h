@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-20 00:05:50
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-23 19:32:05
+ * @Last Modified time: 2019-10-24 20:47:19
  */
 
 #pragma once
@@ -25,7 +25,8 @@ class ElectricHomogeneousField : public HomogeneousField
         const Vector& direction, double charge, double epselon = 1. );
     virtual ~ElectricHomogeneousField() = default;
 
-    virtual Vector psyField( const Particle& source, const Vector& mark ) override;
+    virtual Vector psyField(
+        const Vector& mark, const Particle* particle = nullptr ) const override;
 
     void setEpselon( double epselon );
     double getEpselon() const;

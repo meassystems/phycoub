@@ -27,7 +27,6 @@ clean.bat^
     calculationmodels/LeapFrog.cpp^
     fieldfunctions/ElectricField.cpp^
     fieldfunctions/ElectricHomogeneousField.cpp^
-    fieldfunctions/FieldFunction.cpp^
     fieldfunctions/HomogeneousField.cpp^
     fieldfunctions/LDFieldFunction.cpp^
     fieldfunctions/MagneticHomogeneousField.cpp^
@@ -41,6 +40,8 @@ clean.bat^
     phymeasurement/measurement.cpp^
     phyobjects/CalculationGroup.cpp^
     phyobjects/CreateField.cpp^
+    phyobjects/CreateFieldBase.cpp^
+    phyobjects/CreateHomogeneousField.cpp^
     phyobjects/FeelField.cpp^
     phyobjects/Particle.cpp^
     phyobjects/particlefigurematrix/LineFigure.cpp^

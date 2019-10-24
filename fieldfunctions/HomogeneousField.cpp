@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 19:08:35
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-23 19:21:42
+ * @Last Modified time: 2019-10-24 20:27:51
  */
 
 #include "HomogeneousField.h"

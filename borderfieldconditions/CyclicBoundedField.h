@@ -1,12 +1,11 @@
 /*
- * CyclicBoundedField.h
- *
- *  Created on: 19 ���. 2016 �.
- *      Author: SFrancishkov
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-24 19:47:12
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-24 20:41:04
  */
 
-#ifndef CYCLICBOUNDEDFIELD_H_
-#define CYCLICBOUNDEDFIELD_H_
+#pragma once
 
 #include <BorderFieldCondition.h>
 #include "Vector.h"
@@ -19,13 +18,14 @@ namespace phycoub
 class CyclicBoundedField : public BorderFieldCondition
 {
   public:
-    CyclicBoundedField( double *radiusCut, Vector *borders );
+    CyclicBoundedField( double* radiusCut, Vector* borders );
     virtual ~CyclicBoundedField();
 
-    virtual Vector phySumField( CreateField *createField, const Vector &mark ) override;
+    virtual Vector phyFieldWithBorderCondition( FieldFunction* fieldFunction,
+        const Particle& particle, const Vector& mark ) override;
 
-    double *radiusCut_;
-    Vector *borders_;
+    double* radiusCut_;
+    Vector* borders_;
 
   private:
     /* Функция добавления грани переноса поля */
@@ -37,6 +37,4 @@ class CyclicBoundedField : public BorderFieldCondition
     int transferQuantity = 0;
 };
 
-} /* namespace phycoub */
-
-#endif /* CYCLICBOUNDEDFIELD_H_ */
+} // namespace phycoub

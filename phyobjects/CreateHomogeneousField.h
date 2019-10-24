@@ -1,0 +1,29 @@
+/*
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-23 22:31:02
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-24 20:16:15
+ */
+
+#pragma once
+
+#include "CreateFieldBase.h"
+#include "HomogeneousField.h"
+
+namespace phycoub
+{
+
+class CreateHomogeneousField : public CreateFieldBase
+{
+  public:
+    CreateHomogeneousField(
+        HomogeneousField* homogeneousField, const std::string& fieldName );
+    virtual ~CreateHomogeneousField() = default;
+
+    virtual Vector getFieldInMark( const Vector& mark ) override;
+
+  private:
+    HomogeneousField* homogeneousField_;
+};
+
+} // namespace phycoub

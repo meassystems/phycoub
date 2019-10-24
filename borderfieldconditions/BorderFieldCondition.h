@@ -1,14 +1,15 @@
 /*
- * BorderFieldCondition.h
- *
- *  Created on: 19 ���. 2016 �.
- *      Author: SFrancishkov
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-24 19:46:31
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-24 20:46:28
  */
 
-#ifndef BORDERFIELDCONDITION_H_
-#define BORDERFIELDCONDITION_H_
+#pragma once
 
 #include "Vector.h"
+#include "Particle.h"
+#include "FieldFunction.h"
 
 namespace phycoub
 {
@@ -17,19 +18,18 @@ class CreateField;
 /*
  * Базовый класс для задания граничных условий поля взаимодействия.
  * Чтобы создать свой метод необходим унаследоваться от данного класса и
- * переопределить метод phySumField.
+ * переопределить метод phyFieldWithBorderCondition.
  *
  * Базовая реализация содержит бесконечные граничные условия.
  */
 class BorderFieldCondition
 {
   public:
-    BorderFieldCondition();
-    virtual ~BorderFieldCondition();
+    BorderFieldCondition() = default;
+    virtual ~BorderFieldCondition() = default;
 
-    virtual Vector phySumField( CreateField *createField, const Vector &mark );
+    virtual Vector phyFieldWithBorderCondition(
+        FieldFunction* fieldFunction, const Particle& particle, const Vector& mark );
 };
 
-} /* namespace phycoub */
-
-#endif /* BORDERFIELDCONDITION_H_ */
+} // namespace phycoub

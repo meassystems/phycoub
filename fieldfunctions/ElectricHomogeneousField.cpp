@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 12:08:09
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-23 21:15:12
+ * @Last Modified time: 2019-10-24 20:47:25
  */
 
 #include "ElectricHomogeneousField.h"
@@ -26,7 +26,8 @@ ElectricHomogeneousField::ElectricHomogeneousField(
 }
 
 // virtual override
-Vector ElectricHomogeneousField::psyField( const Particle& source, const Vector& mark )
+Vector ElectricHomogeneousField::psyField(
+    const Vector& mark, const Particle* particle /* = nullptr*/ ) const
 {
     const Vector resulField = getDirection() * fieldConstatnt_;
     return resulField;

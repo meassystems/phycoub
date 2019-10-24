@@ -1,8 +1,8 @@
 /*
- * CyclicBoundedField.cpp
- *
- *  Created on: 19 ���. 2016 �.
- *      Author: SFrancishkov
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-24 19:54:53
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-24 20:41:22
  */
 
 #include <CyclicBoundedField.h>
@@ -13,7 +13,7 @@
 namespace phycoub
 {
 
-CyclicBoundedField::CyclicBoundedField( double *radiusCut, Vector *borders )
+CyclicBoundedField::CyclicBoundedField( double* radiusCut, Vector* borders )
     : radiusCut_( radiusCut )
     , borders_( borders )
 {
@@ -52,21 +52,21 @@ CyclicBoundedField::~CyclicBoundedField()
 {
 }
 
-Vector CyclicBoundedField::phySumField( CreateField *createField, const Vector &mark )
+// virtual override
+Vector CyclicBoundedField::phyFieldWithBorderCondition(
+    FieldFunction* fieldFunction, const Particle& particle, const Vector& mark )
 {
-    Vector result_;
+    // todo validate this algorithm
 
+    Vector result;
     if ( ( mark - *radiusCut_ ).beyond( Vector( 0., 0., 0. ) )
         && ( mark + *radiusCut_ ).below( *borders_ ) )
     {
-        for_each( createField->particles_.begin(), createField->particles_.end(),
-            [&]( const Particle *source ) {
-                if ( source->coordinate_.beyond( mark - *radiusCut_ )
-                    && source->coordinate_.below( mark + *radiusCut_ ) )
-                {
-                    result_ += createField->functionField_->psyField( *source, mark );
-                }
-            } );
+        if ( particle.coordinate_.beyond( mark - *radiusCut_ )
+            && particle.coordinate_.below( mark + *radiusCut_ ) )
+        {
+            result = fieldFunction->psyField( mark, &particle );
+        }
     }
     else
     {
@@ -197,25 +197,20 @@ Vector CyclicBoundedField::phySumField( CreateField *createField, const Vector &
 
         addTransfer( 14 - 1 );
 
-        for_each( createField->particles_.begin(), createField->particles_.end(),
-            [&]( const Particle *source ) {
-                Vector transferMark = mark;
-                for ( int i = 0; i < transferQuantity; ++i )
-                {
-                    transferMark = mark + transferNum[ i ];
-                    // if(source->coordinate_.beyond(transferMark - *bounds_) &&
-                    // source->coordinate_.below(transferMark + *bounds_)) {
-                    if ( ( source->coordinate_ - transferMark ).getModule()
-                        < *radiusCut_ )
-                    {
-                        result_ += createField->functionField_->psyField(
-                            *source, transferMark );
-                    }
-                }
-            } );
+        Vector transferMark = mark;
+        for ( int i = 0; i < transferQuantity; ++i )
+        {
+            transferMark = mark + transferNum[ i ];
+            // if(source->coordinate_.beyond(transferMark - *bounds_) &&
+            // source->coordinate_.below(transferMark + *bounds_)) {
+            if ( ( particle.coordinate_ - transferMark ).getModule() < *radiusCut_ )
+            {
+                result += fieldFunction->psyField( mark, &particle );
+            }
+        }
     }
 
-    return result_;
+    return result;
 }
 
 void CyclicBoundedField::addTransfer( int num )
@@ -224,4 +219,4 @@ void CyclicBoundedField::addTransfer( int num )
     ++transferQuantity;
 }
 
-} /* namespace phycoub */
+} // namespace phycoub

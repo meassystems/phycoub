@@ -18,14 +18,13 @@ LDFieldFunction::LDFieldFunction( double a, double b, double eps )
     , eps_( eps )
 {
 }
-LDFieldFunction::~LDFieldFunction()
-{
-}
 
-Vector LDFieldFunction::psyField( const Particle &source, const Vector &mark )
+// virtual override
+Vector LDFieldFunction::psyField(
+    const Vector& mark, const Particle* particle /* = nullptr*/ ) const
 {
     Vector effect;
-    Vector distance = ( mark - source.coordinate_ );
+    Vector distance = ( mark - particle->coordinate_ );
     if ( distance == 0. )
     {
         return effect;

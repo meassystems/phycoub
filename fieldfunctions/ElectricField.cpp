@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 12:09:04
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-23 21:06:31
+ * @Last Modified time: 2019-10-24 20:47:14
  */
 
 #include "ElectricField.h"
@@ -33,17 +33,19 @@ double ElectricField::getEpselon() const
     return epselon_;
 }
 
-Vector ElectricField::psyField( const Particle& source, const Vector& mark )
+// virtual override
+Vector ElectricField::psyField(
+    const Vector& mark, const Particle* particle /* = nullptr*/ ) const
 {
     Vector effect;
-    Vector distance = ( mark - source.coordinate_ );
+    Vector distance = ( mark - particle->coordinate_ );
     if ( distance == 0. )
     {
         return effect;
     }
 
-    effect
-        = distance * ( ( fieldConstatnt_ * source.z_ ) / pow( distance.getModule(), 3 ) );
+    effect = distance
+        * ( ( fieldConstatnt_ * particle->z_ ) / pow( distance.getModule(), 3 ) );
 
     return effect;
 }
