@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 22:11:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 12:49:10
+ * @Last Modified time: 2019-10-25 15:17:25
  */
 
 #pragma once
@@ -26,9 +26,9 @@ class CalculationModel;
 class FeelField
 {
   public:
-    FeelField( CreateFieldBase* createField, InterworkingFunction* interworkingFunction,
+    FeelField( CreateFieldBasePtr createField, InterworkingFunction* interworkingFunction,
         std::string fieldName );
-    virtual ~FeelField();
+    virtual ~FeelField() = default;
 
     virtual void phyCalcInterworking();
 
@@ -36,7 +36,7 @@ class FeelField
     void addGroupParticle( std::vector< Particle* >& particles );
     void removeParticle( Particle* particle );
 
-    CreateFieldBase* createField_;
+    CreateFieldBasePtr createField_;
     std::vector< Particle* > particles_;
     InterworkingFunction* interworkingFunction_;
     std::string fieldName_;

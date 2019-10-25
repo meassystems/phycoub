@@ -2,13 +2,14 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 22:09:51
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-24 20:24:40
+ * @Last Modified time: 2019-10-25 14:28:21
  */
 
 #pragma once
 
 #include <vector>
 #include <string>
+#include <memory>
 
 #include "CreateFieldBase.h"
 #include "Vector.h"
@@ -39,5 +40,7 @@ class CreateField : public CreateFieldBase
     FieldFunction* functionField_;
     BorderFieldCondition* borderFieldCondition_;
 };
+
+using CreateFieldPtr = std::shared_ptr< CreateField >;
 
 } /* namespace phycoub */

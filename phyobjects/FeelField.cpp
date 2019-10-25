@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 22:09:28
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 12:38:48
+ * @Last Modified time: 2019-10-25 15:18:03
  */
 
 #include "FeelField.h"
@@ -16,15 +16,12 @@
 namespace phycoub
 {
 
-FeelField::FeelField( CreateFieldBase* createField,
+FeelField::FeelField( CreateFieldBasePtr createField,
     InterworkingFunction* interworkingFunction, std::string fieldName )
     : createField_( createField )
     , particles_( 0 )
     , interworkingFunction_( interworkingFunction )
     , fieldName_( fieldName )
-{
-}
-FeelField::~FeelField()
 {
 }
 

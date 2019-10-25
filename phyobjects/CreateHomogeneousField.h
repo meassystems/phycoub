@@ -2,10 +2,12 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 22:31:02
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-24 20:16:15
+ * @Last Modified time: 2019-10-25 15:22:12
  */
 
 #pragma once
+
+#include <memory>
 
 #include "CreateFieldBase.h"
 #include "HomogeneousField.h"
@@ -25,5 +27,7 @@ class CreateHomogeneousField : public CreateFieldBase
   private:
     HomogeneousField* homogeneousField_;
 };
+
+using CreateHomogeneousFieldPtr = std::shared_ptr< CreateHomogeneousField >;
 
 } // namespace phycoub

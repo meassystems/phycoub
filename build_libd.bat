@@ -38,6 +38,7 @@ clean.bat^
     phycoubs/ElectronInHomogeneousFieldsCoub.cpp^
     phycoubs/FigureDemonstration.cpp^
     phycoubs/NOCoub.cpp^
+    phycoubs/PhyCoub.cpp^
     phymeasurement/measurement.cpp^
     phyobjects/CalculationGroup.cpp^
     phyobjects/CreateField.cpp^

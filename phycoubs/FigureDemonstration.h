@@ -5,27 +5,11 @@
  *      Author: root
  */
 
-#ifndef FIGUREDEMONSTRATION_H_
-#define FIGUREDEMONSTRATION_H_
+#pragma once
 
-#include <vector>
-#include <math.h>
-
+#include "PhyCoub.h"
 #include "Vector.h"
-#include "Particle.h"
-#include "CreateField.h"
-#include "FeelField.h"
-
 #include "ElasticCoubCondition.h"
-#include "BorderFieldCondition.h"
-#include "HighSpeedModificationVerle.h"
-#include "LeapFrog.h"
-#include "LDFieldFunction.h"
-#include "LDInterworking.h"
-
-#include "CyclicBorder.h"
-#include "CyclicBoundedField.h"
-
 #include "LineFigure.h"
 #include "PlaneFigure.h"
 #include "ParallelepipedFigure.h"
@@ -33,13 +17,13 @@
 namespace phycoub
 {
 
-class FigureDemonstration
+class FigureDemonstration final : public PhyCoub
 {
   public:
     FigureDemonstration();
-    virtual ~FigureDemonstration();
+    virtual ~FigureDemonstration() = default;
 
-    void phyCoub();
+    virtual void phyCoub() override;
 
     double dt_ = 1E-15, k_ = 1.38E-23, z_ = 0.;
     Vector borders_{ 1E-8, 1E-8, 1E-8 };
@@ -48,31 +32,15 @@ class FigureDemonstration
 
     LineFigure lineN{ Vector( 0, 0, aN * 2. ), 2, Vector( 5E-9 ), Vector( 0, 0, .0 ), mN_,
         z_, &elasticBorder_ };
-    PlaneFigure planeN{ Vector( 0, 0, aN *pow( 2, 1 / 6. ) ),
-        Vector( 0, aN *pow( 2, 1 / 6. ), 0 ), 20, 20, Vector( 1E-9 ), Vector( 0, 0, 0 ),
+    PlaneFigure planeN{ Vector( 0, 0, aN* pow( 2, 1 / 6. ) ),
+        Vector( 0, aN* pow( 2, 1 / 6. ), 0 ), 20, 20, Vector( 1E-9 ), Vector( 0, 0, 0 ),
         mN_, z_, &elasticBorder_ };
-    ParallelepipedFigure parallelepipedN{ Vector( 0, 0, aN *pow( 2, 1 / 6. ) ),
-        Vector( 0, aN *pow( 2, 1 / 6. ), 0 ), Vector( aN *pow( 2, 1 / 6. ), 0, 0 ), 10,
+    ParallelepipedFigure parallelepipedN{ Vector( 0, 0, aN* pow( 2, 1 / 6. ) ),
+        Vector( 0, aN* pow( 2, 1 / 6. ), 0 ), Vector( aN* pow( 2, 1 / 6. ), 0, 0 ), 10,
         10, 10, Vector( 1E-9 ), Vector( 0, 0, 0 ), mN_, z_, &elasticBorder_ };
 
   private:
     ElasticCoubCondition elasticBorder_{ &borders_ };
-    BorderFieldCondition borderFieldCondition_{ BorderFieldCondition() };
-    HighSpeedModificationVerle highSpeedModificationVerle_{
-        HighSpeedModificationVerle()
-    };
-    LeapFrog leapFrog_{ LeapFrog() };
-
-    CyclicBorder cyclicBorder{ &borders_ };
-    CyclicBoundedField cyclicBoundedField{ &radiusCat_, &borders_ };
-
-    LDFieldFunction azotField_{ aN, aN, epsN };
-    LDInterworking azotInterworking;
-
-    std::vector< CreateField > createField_;
-    std::vector< FeelField > feelField_;
 };
 
-} /* namespace phycoub */
-
-#endif /* FIGUREDEMONSTRATION_H_ */
+} // namespace phycoub
