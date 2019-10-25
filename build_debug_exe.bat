@@ -31,7 +31,6 @@ clean.bat^
     fieldfunctions/LDFieldFunction.cpp^
     fieldfunctions/MagneticHomogeneousField.cpp^
     interworkingfunctions/CulonInterworking.cpp^
-    interworkingfunctions/InterworkingFunction.cpp^
     interworkingfunctions/LDInterworking.cpp^
     otherobjects/NodeCrystal.cpp^
     phycoubs/ArCoub.cpp^
@@ -46,6 +45,7 @@ clean.bat^
     phyobjects/CreateHomogeneousField.cpp^
     phyobjects/FeelField.cpp^
     phyobjects/Particle.cpp^
+    phyobjects/ParticleGroup.cpp^
     phyobjects/particlefigurematrix/LineFigure.cpp^
     phyobjects/particlefigurematrix/ParallelepipedFigure.cpp^
     phyobjects/particlefigurematrix/PlaneFigure.cpp^

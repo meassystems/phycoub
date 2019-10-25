@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-24 19:54:53
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-24 20:41:22
+ * @Last Modified time: 2019-10-25 18:25:30
  */
 
 #include <CyclicBoundedField.h>
@@ -54,7 +54,7 @@ CyclicBoundedField::~CyclicBoundedField()
 
 // virtual override
 Vector CyclicBoundedField::phyFieldWithBorderCondition(
-    FieldFunction* fieldFunction, const Particle& particle, const Vector& mark )
+    FieldFunction* fieldFunction, const ParticlePtr particle, const Vector& mark )
 {
     // todo validate this algorithm
 
@@ -62,10 +62,10 @@ Vector CyclicBoundedField::phyFieldWithBorderCondition(
     if ( ( mark - *radiusCut_ ).beyond( Vector( 0., 0., 0. ) )
         && ( mark + *radiusCut_ ).below( *borders_ ) )
     {
-        if ( particle.coordinate_.beyond( mark - *radiusCut_ )
-            && particle.coordinate_.below( mark + *radiusCut_ ) )
+        if ( particle->coordinate_.beyond( mark - *radiusCut_ )
+            && particle->coordinate_.below( mark + *radiusCut_ ) )
         {
-            result = fieldFunction->psyField( mark, &particle );
+            result = fieldFunction->psyField( mark, particle );
         }
     }
     else
@@ -203,9 +203,9 @@ Vector CyclicBoundedField::phyFieldWithBorderCondition(
             transferMark = mark + transferNum[ i ];
             // if(source->coordinate_.beyond(transferMark - *bounds_) &&
             // source->coordinate_.below(transferMark + *bounds_)) {
-            if ( ( particle.coordinate_ - transferMark ).getModule() < *radiusCut_ )
+            if ( ( particle->coordinate_ - transferMark ).getModule() < *radiusCut_ )
             {
-                result += fieldFunction->psyField( mark, &particle );
+                result += fieldFunction->psyField( mark, particle );
             }
         }
     }

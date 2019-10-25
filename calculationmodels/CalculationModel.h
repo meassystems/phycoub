@@ -1,12 +1,14 @@
 /*
- * CalculationModel.h
- *
- *  Created on: 19 ���. 2016 �.
- *      Author: SFrancishkov
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-25 19:41:30
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-25 22:25:28
  */
 
-#ifndef CALCULATIONMODEL_H_
-#define CALCULATIONMODEL_H_
+#pragma once
+
+#include "ParticleGroup.h"
+#include "BorderCondition.h"
 
 namespace phycoub
 {
@@ -23,12 +25,11 @@ class CalculationGroup;
 class CalculationModel
 {
   public:
-    CalculationModel();
-    virtual ~CalculationModel();
+    CalculationModel() = default;
+    virtual ~CalculationModel() = default;
 
-    virtual void phyCalculate( CalculationGroup *calculationGroup );
+    virtual void phyCalculate( ParticleGroupList* particleGroupList,
+        BorderConditionPtr borderCondition, double dt );
 };
 
-} /* namespace phycoub */
-
-#endif /* CALCULATIONMODEL_H_ */
+} // namespace phycoub

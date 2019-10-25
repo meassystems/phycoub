@@ -10,21 +10,17 @@
 
 #include <vector>
 
-#include "Particle.h"
+#include "ParticleGroup.h"
 
 namespace phycoub
 {
 
-double getTemperature(
-    const double &kB, const int &num, std::vector< Particle * > *particles, ... );
-
+double getTemperature( double kB, ParticleGroupPtr particles );
 double getTemperatureWithoutEnergyTranslationalMotionSystem(
-    const double &kB, const int &num, std::vector< Particle * > *particles, ... );
+    double kB, ParticleGroupPtr particles );
 
-double getWk( int num, std::vector< Particle * > *particles, ... );
-
-double getWkWithoutTranslationalMotion(
-    int num, std::vector< Particle * > *particles, ... );
+double getWk( ParticleGroupPtr particles );
+double getWkWithoutTranslationalMotion( ParticleGroupPtr particles );
 
 } // namespace phycoub
 

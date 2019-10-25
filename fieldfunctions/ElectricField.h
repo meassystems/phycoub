@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 12:08:48
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-24 20:47:08
+ * @Last Modified time: 2019-10-25 18:27:24
  */
 
 #ifndef ELECTRICFIELDFUNCTION_H_
@@ -22,7 +22,8 @@ class ElectricField : public FieldFunction
     explicit ElectricField( double epselon = 1. );
     virtual ~ElectricField() = default;
 
-    Vector psyField( const Vector& mark, const Particle* particle = nullptr ) const;
+    Vector psyField(
+        const Vector& mark, const ParticlePtr particle = nullptr ) const override;
 
     void setEpselon( double epselon );
     double getEpselon() const;

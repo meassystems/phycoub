@@ -20,10 +20,11 @@ class FeelField;
 class HighSpeedModificationVerle : public CalculationModel
 {
   public:
-    HighSpeedModificationVerle();
-    virtual ~HighSpeedModificationVerle();
+    HighSpeedModificationVerle() = default;
+    virtual ~HighSpeedModificationVerle() = default;
 
-    virtual void phyCalculate( CalculationGroup *calculationGroup );
+    virtual void phyCalculate( ParticleGroupList* particleGroupList,
+        BorderConditionPtr borderCondition, double dt ) override;
 };
 
 } /* namespace phycoub */

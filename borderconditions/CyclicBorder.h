@@ -1,12 +1,11 @@
 /*
- * CyclicBorder.h
- *
- *  Created on: 20 дек. 2016 г.
- *      Author: serv
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-25 22:21:14
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-25 22:31:51
  */
 
-#ifndef CYCLICBORDER_H_
-#define CYCLICBORDER_H_
+#pragma once
 
 #include <BorderCondition.h>
 
@@ -16,12 +15,12 @@ namespace phycoub
 class CyclicBorder : public BorderCondition
 {
   public:
-    CyclicBorder( Vector *borders );
-    virtual ~CyclicBorder();
+    CyclicBorder( Vector* borders );
+    virtual ~CyclicBorder() = default;
 
-    virtual void psyMove( const Vector &move, Particle &particle );
+    virtual void psyMove( const Vector& move, ParticlePtr* particle ) override;
 };
 
-} /* namespace phycoub */
+using CyclicBorderPtr = std::shared_ptr< CyclicBorder >;
 
-#endif /* CYCLICBORDER_H_ */
+} // namespace phycoub

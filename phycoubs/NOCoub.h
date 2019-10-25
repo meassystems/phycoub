@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-19 19:07:25
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 15:19:57
+ * @Last Modified time: 2019-10-25 22:57:06
  */
 
 #pragma once
@@ -11,7 +11,7 @@
 
 #include "PhyCoub.h"
 #include "Vector.h"
-#include "Particle.h"
+#include "ParticleGroup.h"
 #include "CreateField.h"
 #include "FeelField.h"
 #include "CalculationGroup.h"
@@ -42,13 +42,13 @@ class NOCoub final : public PhyCoub
     double radiusCatO_ = aO * 3;
     double radiusCatNO_ = aNO * 3;
 
-    std::vector< Particle* > azot_;
-    std::vector< Particle* > oxygen_;
+    ParticleGroupPtr azot_ = std::make_shared< ParticleGroup >();
+    ParticleGroupPtr oxygen_ = std::make_shared< ParticleGroup >();
 
   private:
-    ElasticCoubCondition elasticBorder_{ &borders_ };
-    CyclicBorder cyclicBorder_{ CyclicBorder( &borders_ ) };
-    BorderFieldCondition borderFieldCondition_{ BorderFieldCondition() };
+    CyclicBorderPtr cyclicBorder_
+        = std::make_shared< CyclicBorder >( CyclicBorder( &borders_ ) );
+    BorderFieldCondition borderFieldCondition_;
 
     CyclicBoundedField cyclicBoundedFieldN_{ CyclicBoundedField(
         &radiusCatN_, &borders_ ) };
@@ -59,7 +59,7 @@ class NOCoub final : public PhyCoub
 
     LeapFrog leapFrog_;
     CalculationGroupPtr leapFrogCalculationGroup_
-        = std::make_shared< CalculationGroup >( &leapFrog_, &dt_ );
+        = std::make_shared< CalculationGroup >( &leapFrog_, cyclicBorder_ );
 
     LDFieldFunction azot2azotField_{ aN, aN, epsN };
     CreateFieldPtr azot2azotFieldCreator_ = std::make_shared< CreateField >(

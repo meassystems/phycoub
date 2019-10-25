@@ -15,45 +15,50 @@
 namespace phycoub
 {
 
-HighSpeedModificationVerle::HighSpeedModificationVerle()
-{
-}
-HighSpeedModificationVerle::~HighSpeedModificationVerle()
-{
-}
+void phyCalculateThread( ParticleGroupList::Iterator begin,
+    ParticleGroupList::Iterator end, BorderConditionPtr borderCondition, double dt );
 
-void phyCalculateThread( CalculationGroup *calculationGroup, int start, int end );
-
-void HighSpeedModificationVerle::phyCalculate( CalculationGroup *calculationGroup )
+void HighSpeedModificationVerle::phyCalculate(
+    ParticleGroupList* particleGroupList, BorderConditionPtr borderCondition, double dt )
 {
-
     int numCPU = std::thread::hardware_concurrency() - 2;
-    if ( numCPU < 2 || (int)calculationGroup->particles_.size() < numCPU * 100 )
+    if ( numCPU < 2 || particleGroupList->getParticleCount() < numCPU * 100 )
     {
-        for_each( calculationGroup->particles_.begin(),
-            calculationGroup->particles_.end(), [&]( Particle *particle ) {
-                particle->move( particle->previesSpeed_ * ( *calculationGroup->dt_ )
-                    + particle->previesResultant_ * pow( *calculationGroup->dt_, 2 )
-                        / ( 2 * particle->m_ ) );
-                particle->speed_ += ( particle->resultant_ + particle->previesResultant_ )
-                    * ( *calculationGroup->dt_ / ( particle->m_ * 2 ) );
-            } );
+        for ( ParticlePtr particle : *particleGroupList )
+        {
+            borderCondition->psyMove( particle->previesSpeed_ * dt
+                    + particle->previesResultant_ * pow( dt, 2 ) / ( 2 * particle->m_ ),
+                &particle );
+            particle->speed_ += ( particle->resultant_ + particle->previesResultant_ )
+                * ( dt / ( particle->m_ * 2 ) );
+        }
     }
     else
     {
-        int sizeBlockOfThread = calculationGroup->particles_.size() / numCPU;
-        std::thread **threads = new std::thread *[ numCPU ];
+        size_t sizeBlockOfThread = particleGroupList->getParticleCount() / numCPU;
+        std::thread** threads = new std::thread*[ numCPU ];
 
-        int start = 0, stop = start + sizeBlockOfThread;
-        for ( int i = 0; i < numCPU - 1; ++i )
+        ParticleGroupList::Iterator begin = particleGroupList->begin();
+        ParticleGroupList::Iterator current = begin;
+
+        int currentBlockNumber = 0;
+        size_t currentBlockSize = 1;
+
+        while ( currentBlockNumber < numCPU - 1 )
         {
-            threads[ i ]
-                = new std::thread( phyCalculateThread, calculationGroup, start, stop );
-            start = stop;
-            stop = start + sizeBlockOfThread;
+            ++current;
+            ++currentBlockSize;
+            if ( currentBlockSize == sizeBlockOfThread )
+            {
+                threads[ currentBlockNumber++ ] = new std::thread(
+                    phyCalculateThread, begin, current, borderCondition, dt );
+                begin = current;
+                currentBlockSize = 1;
+            }
         }
-        threads[ numCPU - 1 ] = new std::thread( phyCalculateThread, calculationGroup,
-            start, calculationGroup->particles_.size() );
+
+        threads[ currentBlockNumber ] = new std::thread(
+            phyCalculateThread, begin, particleGroupList->end(), borderCondition, dt );
 
         for ( int i = 0; i < numCPU; ++i )
         {
@@ -68,22 +73,20 @@ void HighSpeedModificationVerle::phyCalculate( CalculationGroup *calculationGrou
         }
         delete[] threads;
     }
-}
+} // namespace phycoub
 
 // Функция потока, для распаралеливания процесса моделировани/
-void phyCalculateThread( CalculationGroup *calculationGroup, int start, int end )
+void phyCalculateThread( ParticleGroupList::Iterator begin,
+    ParticleGroupList::Iterator end, BorderConditionPtr borderCondition, double dt )
 {
-    for ( int i = start; i < end; ++i )
+    while ( begin != end )
     {
-        calculationGroup->particles_[ i ]->move(
-            calculationGroup->particles_[ i ]->previesSpeed_ * ( *calculationGroup->dt_ )
-            + calculationGroup->particles_[ i ]->previesResultant_
-                * pow( *calculationGroup->dt_, 2 )
-                / ( 2 * calculationGroup->particles_[ i ]->m_ ) );
-        calculationGroup->particles_[ i ]->speed_
-            += ( calculationGroup->particles_[ i ]->resultant_
-                   + calculationGroup->particles_[ i ]->previesResultant_ )
-            * ( *calculationGroup->dt_ / ( calculationGroup->particles_[ i ]->m_ * 2 ) );
+        borderCondition->psyMove( ( *begin )->previesSpeed_ * ( dt )
+                + ( *begin )->previesResultant_ * pow( dt, 2 ) / ( 2 * ( *begin )->m_ ),
+            &*begin );
+        ( *begin )->speed_ += ( ( *begin )->resultant_ + ( *begin )->previesResultant_ )
+            * ( dt / ( ( *begin )->m_ * 2 ) );
+        ++begin;
     }
 }
 //

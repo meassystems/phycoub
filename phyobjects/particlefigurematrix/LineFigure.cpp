@@ -1,8 +1,8 @@
 /*
- * LineFigure.cpp
- *
- *  Created on: Dec 22, 2016
- *      Author: root
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-25 18:50:13
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-26 01:23:20
  */
 
 #include <LineFigure.h>
@@ -10,28 +10,19 @@
 namespace phycoub
 {
 
-LineFigure::LineFigure( std::vector< Particle * > particles )
+LineFigure::LineFigure( ParticleGroupPtr particles )
     : particles_( particles )
 {
 }
 
-LineFigure::LineFigure( const Vector &direction, const int &num,
-    const Vector &coordinateFerstParticle, const Vector &speed, const double &m,
-    const double &z, BorderCondition *borderCondition )
+LineFigure::LineFigure( const Vector& direction, int num,
+    const Vector& coordinateFerstParticle, const Vector& speed, double m, double z )
 {
     for ( int i = 0; i < num; ++i )
     {
-        particles_.push_back( new Particle(
-            coordinateFerstParticle + direction * i, speed, m, z, borderCondition ) );
+        particles_->emplace_back( std::make_shared< Particle >(
+            coordinateFerstParticle + direction * i, speed, m, z ) );
     }
-}
-LineFigure::~LineFigure()
-{
-    for ( unsigned int i = 0; i < particles_.size(); ++i )
-    {
-        delete particles_[ i ];
-    }
-    particles_.clear();
 }
 
-} /* namespace phycoub */
+} // namespace phycoub

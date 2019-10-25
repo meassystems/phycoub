@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 19:24:08
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-24 20:48:00
+ * @Last Modified time: 2019-10-25 18:29:03
  */
 
 #include "MagneticHomogeneousField.h"
@@ -19,7 +19,7 @@ MagneticHomogeneousField::MagneticHomogeneousField(
 
 // virtual override
 Vector MagneticHomogeneousField::psyField(
-    const Vector& mark, const Particle* particle /* = nullptr*/ ) const
+    const Vector& mark, const ParticlePtr particle /* = nullptr*/ ) const
 {
     return B_;
 }

@@ -1,8 +1,8 @@
 /*
- * measurement.cpp
- *
- *  Created on: 22 ���. 2016 �.
- *      Author: SFrancishkov
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-25 18:39:46
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-25 18:47:07
  */
 
 #include "measurement.h"
@@ -13,77 +13,48 @@
 namespace phycoub
 {
 
-double getTemperature(
-    const double &kB, const int &num, std::vector< Particle * > *particles, ... )
+double getTemperature( double kB, ParticleGroupPtr particles )
 {
-    double result_ = getWk( num, particles ) * 2. / 3. / kB;
-
+    const double result_ = getWk( particles ) * 2. / 3. / kB;
     return result_;
 }
 
 double getTemperatureWithoutEnergyTranslationalMotionSystem(
-    const double &kB, const int &num, std::vector< Particle * > *particles, ... )
+    double kB, ParticleGroupPtr particles )
 {
-    double result_ = getWkWithoutTranslationalMotion( num, particles ) * 2. / 3. / kB;
-
+    const double result_ = getWkWithoutTranslationalMotion( particles ) * 2. / 3. / kB;
     return result_;
 }
 
-double getWk( int num, std::vector< Particle * > *particles, ... )
+double getWk( ParticleGroupPtr particles )
 {
-    double result_ = 0., speedQ = .0;
-
-    for ( int i = 0; i < num; ++i )
+    double speedQ = .0;
+    for ( ParticlePtr particle : *particles )
     {
-        speedQ = 0;
-        for ( Particle *particle : *particles )
-        {
-            speedQ += pow( particle->speed_.getModule(), 2 );
-        }
-        if ( i == 0 )
-        {
-            result_ = ( *particles )[ 0 ]->m_ * speedQ / particles->size() / 2;
-        }
-        else
-        {
-            result_ += ( *particles )[ 0 ]->m_ * speedQ / particles->size() / 2 / 2;
-        }
-        ++particles;
+        speedQ += pow( particle->speed_.getModule(), 2 );
     }
 
+    const double result_ = ( *particles )[ 0 ]->m_ * speedQ / particles->size() / 2;
     return result_;
 }
 
-double getWkWithoutTranslationalMotion(
-    int num, std::vector< Particle * > *particles, ... )
+double getWkWithoutTranslationalMotion( ParticleGroupPtr particles )
 {
-    double result_ = 0., speedQ = .0;
+    double speedQ = .0;
     Vector speedSystem( 0 );
 
-    for ( int i = 0; i < num; ++i )
+    for ( ParticlePtr particle : *particles )
     {
-        speedSystem = 0;
-        for ( Particle *particle : *particles )
-        {
-            speedSystem += particle->speed_;
-        }
-        speedSystem /= particles->size();
-
-        speedQ = 0;
-        for ( Particle *particle : *particles )
-        {
-            speedQ += pow( ( particle->speed_ - speedSystem ).getModule(), 2 );
-        }
-        if ( i == 0 )
-        {
-            result_ = ( *particles )[ 0 ]->m_ * speedQ / particles->size() / 2;
-        }
-        else
-        {
-            result_ += ( *particles )[ 0 ]->m_ * speedQ / particles->size() / 2 / 2;
-        }
-        ++particles;
+        speedSystem += particle->speed_;
     }
+    speedSystem /= particles->size();
+
+    speedQ = 0;
+    for ( ParticlePtr particle : *particles )
+    {
+        speedQ += pow( ( particle->speed_ - speedSystem ).getModule(), 2 );
+    }
+    double result_ = ( *particles )[ 0 ]->m_ * speedQ / particles->size() / 2;
 
     return result_;
 }

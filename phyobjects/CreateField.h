@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 22:09:51
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 14:28:21
+ * @Last Modified time: 2019-10-25 19:19:21
  */
 
 #pragma once
@@ -13,7 +13,7 @@
 
 #include "CreateFieldBase.h"
 #include "Vector.h"
-#include "Particle.h"
+#include "ParticleGroup.h"
 #include "FieldFunction.h"
 
 namespace phycoub
@@ -32,11 +32,9 @@ class CreateField : public CreateFieldBase
 
     virtual Vector getFieldInMark( const Vector& mark );
 
-    void addParticle( Particle* particle );
-    void addGroupParticle( std::vector< Particle* >& particles );
-    void removeParticle( Particle* particle );
+    void addGroupParticle( ParticleGroupPtr particles );
 
-    std::vector< Particle* > particles_;
+    ParticleGroupList particleGroupList_;
     FieldFunction* functionField_;
     BorderFieldCondition* borderFieldCondition_;
 };

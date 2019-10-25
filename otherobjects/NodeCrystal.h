@@ -1,12 +1,11 @@
 /*
- * NodeCrystal.h
- *
- *  Created on: Oct 14, 2016
- *      Author: root
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-25 18:33:13
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-25 23:14:49
  */
 
-#ifndef NODECRYSTAL_H_
-#define NODECRYSTAL_H_
+#pragma once
 
 #include "Particle.h"
 
@@ -17,13 +16,10 @@ class NodeCrystal : public Particle
 {
   public:
     NodeCrystal();
-    NodeCrystal( const Vector &coordinate, const Vector &speed, double m, double q,
-        BorderCondition *borderCondition );
-    virtual ~NodeCrystal();
+    NodeCrystal( const Vector& coordinate, const Vector& speed, double m, double q );
+    virtual ~NodeCrystal() = default;
 
     long shag;
 };
 
-} /* namespace phycoub */
-
-#endif /* NODECRYSTAL_H_ */
+} // namespace phycoub

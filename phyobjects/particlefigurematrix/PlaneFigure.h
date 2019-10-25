@@ -1,18 +1,17 @@
 /*
- * PlaneFigure.h
- *
- *  Created on: Dec 22, 2016
- *      Author: root
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-25 18:59:49
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-26 01:24:13
  */
 
-#ifndef PARTICLEFIGUREMATRIX_PLANEFIGURE_H_
-#define PARTICLEFIGUREMATRIX_PLANEFIGURE_H_
+#pragma once
 
 #include <vector>
 
 #include "Vector.h"
 #include "BorderCondition.h"
-#include "Particle.h"
+#include "ParticleGroup.h"
 
 namespace phycoub
 {
@@ -20,18 +19,14 @@ namespace phycoub
 class PlaneFigure
 {
   public:
-    PlaneFigure( const Vector &directionLine, const Vector &directionPlane,
-        const int &numInLine, const int &numLineInPlane, const Vector &coordinate,
-        const Vector &speed, const double &m, const double &z,
-        BorderCondition *borderCondition );
-    virtual ~PlaneFigure();
+    PlaneFigure( const Vector& directionLine, const Vector& directionPlane, int numInLine,
+        int numLineInPlane, const Vector& coordinate, const Vector& speed, double m,
+        double z );
+    virtual ~PlaneFigure() = default;
 
-    std::vector< Particle * > allParticles_;
-
-    std::vector< Particle * > centrallParticles_;
-    std::vector< Particle * > borderParticles_;
+    ParticleGroupPtr allParticles_ = std::make_shared< ParticleGroup >();
+    ParticleGroupPtr centrallParticles_ = std::make_shared< ParticleGroup >();
+    ParticleGroupPtr borderParticles_ = std::make_shared< ParticleGroup >();
 };
 
-} /* namespace phycoub */
-
-#endif /* PARTICLEFIGUREMATRIX_PLANEFIGURE_H_ */
+} // namespace phycoub

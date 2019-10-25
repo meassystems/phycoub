@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 13:42:50
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 15:29:05
+ * @Last Modified time: 2019-10-26 00:50:43
  */
 
 #include "PhyCoub.h"
@@ -12,20 +12,16 @@
 namespace phycoub
 {
 
-PhyCoub::PhyCoub( double dt )
-    : dt_( dt )
-{
-}
-
 void PhyCoub::phyCoub()
 {
-    for_each( fieldsResponsive_.begin(), fieldsResponsive_.end(),
-        []( FeelFieldPtr& feelFie ) { feelFie->phyCalcInterworking(); } );
-    for_each( calculationGroups_.begin(), calculationGroups_.end(),
-        []( CalculationGroupPtr& calculationGroup ) {
-            calculationGroup->phyModeling();
-        } );
-
+    for ( FeelFieldPtr& fieldResponsive : fieldsResponsive_ )
+    {
+        fieldResponsive->phyCalcInterworking();
+    }
+    for ( CalculationGroupPtr calculationGroup : calculationGroups_ )
+    {
+        calculationGroup->phyModeling( dt_ );
+    }
     experimentTime += dt_;
 }
 

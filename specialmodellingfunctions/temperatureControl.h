@@ -1,28 +1,24 @@
 /*
- * temperatureControl.h
- *
- *  Created on: Dec 26, 2016
- *      Author: root
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-25 18:18:00
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-26 00:55:41
  */
 
-#ifndef TEMPERATURECONTROL_H_
-#define TEMPERATURECONTROL_H_
+#pragma once
 
 #include <vector>
 #include <math.h>
 
 #include "Vector.h"
 #include "Particle.h"
+#include "ParticleGroup.h"
 
 namespace phycoub
 {
 
-void temperatureControl( const double &temp, const double &kB, Particle &particle );
-void temperatureControl( const double &temp, const double &kB, Particle *particle );
+void temperatureControl( double temp, double kB, ParticlePtr particle );
+void temperatureControl( double temp, double kB, ParticleGroupPtr particleGroup );
+void temperatureControl( double temp, double kB, ParticleGroupList particleGroupList );
 
-void temperatureControl( const double &temp, const double &kB, int num,
-    std::vector< Particle * > *particles, ... );
-
-} /* namespace phycoub */
-
-#endif /* TEMPERATURECONTROL_H_ */
+} // namespace phycoub

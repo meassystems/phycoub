@@ -18,10 +18,10 @@ namespace phycoub
 class CulonInterworking : public InterworkingFunction
 {
   public:
-    CulonInterworking();
-    virtual ~CulonInterworking();
+    CulonInterworking() = default;
+    virtual ~CulonInterworking() = default;
 
-    const Vector psyForce( const Vector &field, const Particle *particle );
+    const Vector psyForce( const Vector& field, const ParticlePtr particle ) override;
 };
 
 } /* namespace phycoub */

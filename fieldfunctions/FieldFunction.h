@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-24 20:28:25
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-24 20:46:58
+ * @Last Modified time: 2019-10-25 18:27:11
  */
 
 #pragma once
@@ -22,7 +22,7 @@ class FieldFunction
     virtual ~FieldFunction() = default;
 
     virtual Vector psyField(
-        const Vector& mark, const Particle* particle = nullptr ) const = 0;
+        const Vector& mark, const ParticlePtr particle = nullptr ) const = 0;
 };
 
 } // namespace phycoub

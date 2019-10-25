@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-24 19:46:31
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-24 20:46:28
+ * @Last Modified time: 2019-10-25 18:23:55
  */
 
 #pragma once
@@ -29,7 +29,7 @@ class BorderFieldCondition
     virtual ~BorderFieldCondition() = default;
 
     virtual Vector phyFieldWithBorderCondition(
-        FieldFunction* fieldFunction, const Particle& particle, const Vector& mark );
+        FieldFunction* fieldFunction, const ParticlePtr particle, const Vector& mark );
 };
 
 } // namespace phycoub

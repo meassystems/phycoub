@@ -15,21 +15,14 @@
 namespace phycoub
 {
 
-CalculationModel::CalculationModel()
+void CalculationModel::phyCalculate(
+    ParticleGroupList* particleGroupList, BorderConditionPtr borderCondition, double dt )
 {
-}
-CalculationModel::~CalculationModel()
-{
-}
-
-void CalculationModel::phyCalculate( CalculationGroup *calculationGroup )
-{
-    for_each( calculationGroup->particles_.begin(), calculationGroup->particles_.end(),
-        [&]( Particle *particle ) {
-            particle->speed_
-                += particle->resultant_ * ( *calculationGroup->dt_ / particle->m_ );
-            particle->move( *calculationGroup->dt_ );
-        } );
+    for ( ParticlePtr particle : *particleGroupList )
+    {
+        particle->speed_ += particle->resultant_ * ( dt / particle->m_ );
+        borderCondition->psyMove( particle->speed_ * dt, &particle );
+    }
 }
 
 } /* namespace phycoub */

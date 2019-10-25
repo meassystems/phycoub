@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 14:14:39
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 14:15:57
+ * @Last Modified time: 2019-10-25 18:32:47
  */
 
 #pragma once
@@ -18,7 +18,7 @@ class LDInterworking : public InterworkingFunction
     LDInterworking() = default;
     virtual ~LDInterworking() = default;
 
-    const Vector psyForce( const Vector& field, const Particle* particle );
+    const Vector psyForce( const Vector& field, const ParticlePtr particle );
 };
 
 } // namespace phycoub
