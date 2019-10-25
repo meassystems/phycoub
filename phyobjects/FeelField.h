@@ -2,16 +2,17 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 22:11:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-24 20:42:20
+ * @Last Modified time: 2019-10-25 12:49:10
  */
 
 #pragma once
 
 #include <vector>
 #include <string>
+#include <memory>
 
 #include "InterworkingFunction.h"
-#include "CreateField.h"
+#include "CreateFieldBase.h"
 #include "Vector.h"
 #include "Particle.h"
 
@@ -25,7 +26,7 @@ class CalculationModel;
 class FeelField
 {
   public:
-    FeelField( CreateField* createField, InterworkingFunction* interworkingFunction,
+    FeelField( CreateFieldBase* createField, InterworkingFunction* interworkingFunction,
         std::string fieldName );
     virtual ~FeelField();
 
@@ -35,10 +36,12 @@ class FeelField
     void addGroupParticle( std::vector< Particle* >& particles );
     void removeParticle( Particle* particle );
 
-    CreateField* createField_;
+    CreateFieldBase* createField_;
     std::vector< Particle* > particles_;
     InterworkingFunction* interworkingFunction_;
     std::string fieldName_;
 };
+
+using FeelFieldPtr = std::shared_ptr< FeelField >;
 
 } // namespace phycoub

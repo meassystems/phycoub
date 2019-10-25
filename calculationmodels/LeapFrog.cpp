@@ -1,8 +1,8 @@
 /*
- * LeapFrog.cpp
- *
- *  Created on: Dec 24, 2016
- *      Author: root
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-25 12:14:47
+ * @Last Modified by:   Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-25 12:14:47
  */
 
 #include <LeapFrog.h>
@@ -16,23 +16,16 @@
 namespace phycoub
 {
 
-LeapFrog::LeapFrog()
-{
-}
-LeapFrog::~LeapFrog()
-{
-}
+void phyCalculateThreadLP( CalculationGroup* calculationGroup, int start, int end );
 
-void phyCalculateThreadLP( CalculationGroup *calculationGroup, int start, int end );
-
-void LeapFrog::phyCalculate( CalculationGroup *calculationGroup )
+void LeapFrog::phyCalculate( CalculationGroup* calculationGroup )
 {
 
     int numCPU = std::thread::hardware_concurrency() - 2;
     if ( numCPU < 2 || (int)calculationGroup->particles_.size() < numCPU * 100 )
     {
         for_each( calculationGroup->particles_.begin(),
-            calculationGroup->particles_.end(), [&]( Particle *particle ) {
+            calculationGroup->particles_.end(), [&]( Particle* particle ) {
                 particle->speed_
                     += particle->resultant_ * ( *calculationGroup->dt_ / particle->m_ );
                 particle->move( *calculationGroup->dt_ );
@@ -41,7 +34,7 @@ void LeapFrog::phyCalculate( CalculationGroup *calculationGroup )
     else
     {
         int sizeBlockOfThread = calculationGroup->particles_.size() / numCPU;
-        std::thread **threads = new std::thread *[ numCPU ];
+        std::thread** threads = new std::thread*[ numCPU ];
 
         int start = 0, stop = start + sizeBlockOfThread;
         for ( int i = 0; i < numCPU - 1; ++i )
@@ -71,7 +64,7 @@ void LeapFrog::phyCalculate( CalculationGroup *calculationGroup )
 }
 
 // Функция потока, для распаралеливания процесса моделировани/
-void phyCalculateThreadLP( CalculationGroup *calculationGroup, int start, int end )
+void phyCalculateThreadLP( CalculationGroup* calculationGroup, int start, int end )
 {
     for ( int i = start; i < end; ++i )
     {
@@ -83,4 +76,4 @@ void phyCalculateThreadLP( CalculationGroup *calculationGroup, int start, int en
 }
 //
 
-} /* namespace phycoub */
+} // namespace phycoub

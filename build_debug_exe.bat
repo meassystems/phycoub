@@ -35,6 +35,7 @@ clean.bat^
     interworkingfunctions/LDInterworking.cpp^
     otherobjects/NodeCrystal.cpp^
     phycoubs/ArCoub.cpp^
+    phycoubs/ElectronInHomogeneousFieldsCoub.cpp^
     phycoubs/FigureDemonstration.cpp^
     phycoubs/NOCoub.cpp^
     phymeasurement/measurement.cpp^

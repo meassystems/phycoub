@@ -1,12 +1,11 @@
 /*
- * LeapFrog.h
- *
- *  Created on: Dec 24, 2016
- *      Author: root
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-25 12:14:33
+ * @Last Modified by:   Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-25 12:14:33
  */
 
-#ifndef LEAPFROG_H_
-#define LEAPFROG_H_
+#pragma once
 
 #include <CalculationModel.h>
 
@@ -16,12 +15,10 @@ namespace phycoub
 class LeapFrog : public CalculationModel
 {
   public:
-    LeapFrog();
-    virtual ~LeapFrog();
+    LeapFrog() = default;
+    virtual ~LeapFrog() = default;
 
-    virtual void phyCalculate( CalculationGroup *calculationGroup );
+    virtual void phyCalculate( CalculationGroup* calculationGroup );
 };
 
-} /* namespace phycoub */
-
-#endif /* LEAPFROG_H_ */
+} // namespace phycoub

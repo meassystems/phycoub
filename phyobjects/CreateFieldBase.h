@@ -2,12 +2,13 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-24 20:03:46
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-24 20:14:28
+ * @Last Modified time: 2019-10-25 12:51:03
  */
 
 #pragma once
 
 #include <string>
+#include <memory>
 
 #include "Vector.h"
 
@@ -28,5 +29,7 @@ class CreateFieldBase
   private:
     std::string fieldName_;
 };
+
+using CreateFieldBasePtr = std::shared_ptr< CreateFieldBase >;
 
 } // namespace phycoub

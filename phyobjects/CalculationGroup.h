@@ -5,10 +5,10 @@
  *      Author: root
  */
 
-#ifndef CALCULATIONGROUP_H_
-#define CALCULATIONGROUP_H_
+#pragma once
 
 #include <vector>
+#include <memory>
 
 #include "Vector.h"
 #include "Particle.h"
@@ -36,6 +36,6 @@ class CalculationGroup
     CalculationModel* calculationModel_;
 };
 
-} /* namespace phycoub */
+using CalculationGroupPtr = std::shared_ptr< CalculationGroup >;
 
-#endif /* CALCULATIONGROUP_H_ */
+} // namespace phycoub
