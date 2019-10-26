@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 12:09:04
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 18:28:10
+ * @Last Modified time: 2019-10-26 10:20:25
  */
 
 #include "ElectricField.h"
@@ -55,4 +55,4 @@ void ElectricField::updateFieldConstant()
     fieldConstatnt_ = 1. / ( 4. * M_PI * ElectricConstants::epselon0 * epselon_ );
 }
 
-} /* namespace phycoub */
+} // namespace phycoub

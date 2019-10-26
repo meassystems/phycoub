@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-20 00:05:50
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 18:28:23
+ * @Last Modified time: 2019-10-26 10:22:31
  */
 
 #pragma once
@@ -42,4 +42,6 @@ class ElectricHomogeneousField : public HomogeneousField
     double fieldConstatnt_ = 0.;
 };
 
-} /* namespace phycoub */
+using ElectricHomogeneousFieldPtr = std::shared_ptr< ElectricHomogeneousField >;
+
+} // namespace phycoub
