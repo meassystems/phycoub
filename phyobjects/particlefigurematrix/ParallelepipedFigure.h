@@ -1,18 +1,17 @@
 /*
- * ParallelepipedFigure.h
- *
- *  Created on: Dec 28, 2016
- *      Author: root
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-25 18:54:39
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-25 23:46:43
  */
 
-#ifndef PARTICLEFIGUREMATRIX_PARALLELEPIPEDFIGURE_H_
-#define PARTICLEFIGUREMATRIX_PARALLELEPIPEDFIGURE_H_
+#pragma once
 
 #include <vector>
 
 #include "Vector.h"
 #include "BorderCondition.h"
-#include "Particle.h"
+#include "ParticleGroup.h"
 
 namespace phycoub
 {
@@ -20,19 +19,15 @@ namespace phycoub
 class ParallelepipedFigure
 {
   public:
-    ParallelepipedFigure( const Vector &directionLine, const Vector &directionPlane,
-        const Vector &directionParallelepiped, const int &numInLine,
-        const int &numLineInPlane, const int &numPlaneInParallelepiped,
-        const Vector &coordinate, const Vector &speed, const double &m, const double &z,
-        BorderCondition *borderCondition );
-    virtual ~ParallelepipedFigure();
+    ParallelepipedFigure( const Vector& directionLine, const Vector& directionPlane,
+        const Vector& directionParallelepiped, int numInLine, int numLineInPlane,
+        int numPlaneInParallelepiped, const Vector& coordinate, const Vector& speed,
+        double m, double z );
+    virtual ~ParallelepipedFigure() = default;
 
-    std::vector< Particle * > allParticles_;
-
-    std::vector< Particle * > centrallParticles_;
-    std::vector< Particle * > borderParticles_;
+    ParticleGroupPtr allParticles_ = std::make_shared< ParticleGroup >();
+    ParticleGroupPtr centrallParticles_ = std::make_shared< ParticleGroup >();
+    ParticleGroupPtr borderParticles_ = std::make_shared< ParticleGroup >();
 };
 
-} /* namespace phycoub */
-
-#endif /* PARTICLEFIGUREMATRIX_PARALLELEPIPEDFIGURE_H_ */
+} // namespace phycoub

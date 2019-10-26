@@ -1,14 +1,15 @@
 /*
- * CulonInterworking.h
- *
- *  Created on: Oct 14, 2016
- *      Author: root
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-26 11:38:48
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-26 11:46:13
  */
 
-#ifndef CULONINTERWORKING_H_
-#define CULONINTERWORKING_H_
+#pragma once
 
-#include <InterworkingFunction.h>
+#include <memory>
+
+#include "InterworkingFunction.h"
 
 namespace phycoub
 {
@@ -18,12 +19,12 @@ namespace phycoub
 class CulonInterworking : public InterworkingFunction
 {
   public:
-    CulonInterworking();
-    virtual ~CulonInterworking();
+    CulonInterworking() = default;
+    virtual ~CulonInterworking() = default;
 
-    const Vector psyForce( const Vector &field, const Particle *particle );
+    const Vector psyForce( const Vector& field, const ParticlePtr particle ) override;
 };
 
-} /* namespace phycoub */
+using CulonInterworkingPtr = std::shared_ptr< CulonInterworking >;
 
-#endif /* CULONINTERWORKING_H_ */
+} // namespace phycoub

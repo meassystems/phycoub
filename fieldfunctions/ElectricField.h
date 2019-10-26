@@ -2,11 +2,10 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 12:08:48
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-24 20:47:08
+ * @Last Modified time: 2019-10-26 10:21:22
  */
 
-#ifndef ELECTRICFIELDFUNCTION_H_
-#define ELECTRICFIELDFUNCTION_H_
+#pragma once
 
 #include "FieldFunction.h"
 #include "Particle.h"
@@ -22,7 +21,8 @@ class ElectricField : public FieldFunction
     explicit ElectricField( double epselon = 1. );
     virtual ~ElectricField() = default;
 
-    Vector psyField( const Vector& mark, const Particle* particle = nullptr ) const;
+    Vector psyField(
+        const Vector& mark, const ParticlePtr particle = nullptr ) const override;
 
     void setEpselon( double epselon );
     double getEpselon() const;
@@ -34,6 +34,6 @@ class ElectricField : public FieldFunction
     double fieldConstatnt_ = 0.;
 };
 
-} /* namespace phycoub */
+using ElectricFieldPtr = std::shared_ptr< ElectricField >;
 
-#endif /* ELECTRICFIELDFUNCTION_H_ */
+} // namespace phycoub

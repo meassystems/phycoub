@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 13:13:41
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 15:27:49
+ * @Last Modified time: 2019-10-26 00:50:37
  */
 
 #pragma once
@@ -19,8 +19,7 @@ namespace phycoub
 class PhyCoub
 {
   public:
-    // todo move dt in private and use as argument in phyModeling()
-    PhyCoub( double dt );
+    explicit PhyCoub() = default;
     virtual ~PhyCoub() = default;
 
     virtual void phyCoub();
@@ -41,8 +40,8 @@ class PhyCoub
     double dt_ = 0.;
     double experimentTime = 0;
 
-    std::vector< FeelFieldPtr > fieldsResponsive_;
-    std::vector< CalculationGroupPtr > calculationGroups_;
+    FeelFieldList fieldsResponsive_;
+    CalculationGroupList calculationGroups_;
 };
 
 } // namespace phycoub

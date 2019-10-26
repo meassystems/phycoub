@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 15:22:57
+ * @Last Modified time: 2019-10-26 12:45:53
  */
 
 #pragma once
@@ -32,21 +32,21 @@ class ElectronInHomogeneousFieldsCoub final : public PhyCoub
 
   private:
     double dt_ = 1E-15;
-    Vector borders_{ 1.e-1 };
-    CyclicBorder cyclicBorder_{ &borders_ };
+    CyclicBorderPtr cyclicBorder_ = std::make_shared< CyclicBorder >( Vector{ 1.e-1 } );
 
-    LeapFrog leapFrog_;
+    LeapFrogPtr leapFrog_ = std::make_shared< LeapFrog >();
     CalculationGroupPtr leapFrogCalculationGroup_
-        = std::make_shared< CalculationGroup >( &leapFrog_, &dt_ );
+        = std::make_shared< CalculationGroup >( leapFrog_, cyclicBorder_ );
 
-    ElectricHomogeneousField electricHomogeneousField_{ { 0, 0, 1 },
-        ElectricConstants::electronCharge * 10 };
+    ElectricHomogeneousFieldPtr electricHomogeneousField_
+        = std::make_shared< ElectricHomogeneousField >(
+            Vector{ 0, 0, 1 }, ElectricConstants::electronCharge * 10 );
     CreateHomogeneousFieldPtr electricHomogeneousFieldCreator_
         = std::make_shared< CreateHomogeneousField >(
-            &electricHomogeneousField_, "ElectricHomogeneousField" );
-    CulonInterworking culonInterworking_;
+            electricHomogeneousField_, "ElectricHomogeneousField" );
+    CulonInterworkingPtr culonInterworking_ = std::make_shared< CulonInterworking >();
     FeelFieldPtr feelWithCulonInterworking_ = std::make_shared< FeelField >(
-        electricHomogeneousFieldCreator_, &culonInterworking_, "culon interworking" );
+        electricHomogeneousFieldCreator_, culonInterworking_, "culon interworking" );
 };
 
 } // namespace phycoub

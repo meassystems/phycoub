@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 18:53:11
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 13:10:21
+ * @Last Modified time: 2019-10-26 10:23:37
  */
 
 #pragma once
@@ -25,5 +25,7 @@ class HomogeneousField : public FieldFunction
   private:
     Vector direction_;
 };
+
+using HomogeneousFieldPtr = std::shared_ptr< HomogeneousField >;
 
 } // namespace phycoub

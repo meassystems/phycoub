@@ -2,10 +2,12 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-24 19:46:31
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-24 20:46:28
+ * @Last Modified time: 2019-10-26 09:03:05
  */
 
 #pragma once
+
+#include <memory>
 
 #include "Vector.h"
 #include "Particle.h"
@@ -29,7 +31,9 @@ class BorderFieldCondition
     virtual ~BorderFieldCondition() = default;
 
     virtual Vector phyFieldWithBorderCondition(
-        FieldFunction* fieldFunction, const Particle& particle, const Vector& mark );
+        FieldFunctionPtr fieldFunction, const ParticlePtr particle, const Vector& mark );
 };
+
+using BorderFieldConditionPtr = std::shared_ptr< BorderFieldCondition >;
 
 } // namespace phycoub

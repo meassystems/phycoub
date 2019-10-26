@@ -31,7 +31,6 @@ clean.bat^
     fieldfunctions/LDFieldFunction.cpp^
     fieldfunctions/MagneticHomogeneousField.cpp^
     interworkingfunctions/CulonInterworking.cpp^
-    interworkingfunctions/InterworkingFunction.cpp^
     interworkingfunctions/LDInterworking.cpp^
     otherobjects/NodeCrystal.cpp^
     phycoubs/ArCoub.cpp^
@@ -39,17 +38,17 @@ clean.bat^
     phycoubs/FigureDemonstration.cpp^
     phycoubs/NOCoub.cpp^
     phycoubs/PhyCoub.cpp^
-    phymeasurement/measurement.cpp^
+    phymeasurement/MeasurementUtils.cpp^
     phyobjects/CalculationGroup.cpp^
     phyobjects/CreateField.cpp^
     phyobjects/CreateFieldBase.cpp^
     phyobjects/CreateHomogeneousField.cpp^
     phyobjects/FeelField.cpp^
     phyobjects/Particle.cpp^
+    phyobjects/ParticleGroup.cpp^
     phyobjects/particlefigurematrix/LineFigure.cpp^
     phyobjects/particlefigurematrix/ParallelepipedFigure.cpp^
     phyobjects/particlefigurematrix/PlaneFigure.cpp^
-    specialmodellingfunctions/temperatureControl.cpp^
     types/Vector.cpp^
     types/VectorUtils.cpp^
  && lib^

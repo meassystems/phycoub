@@ -1,19 +1,18 @@
 /*
- * BorderCondition.h
- *
- *  Created on: Oct 14, 2016
- *      Author: root
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-25 18:05:35
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-26 08:23:53
  */
 
-#ifndef BORDERCONDITION_H_
-#define BORDERCONDITION_H_
+#pragma once
 
 #include "Vector.h"
+#include "Particle.h"
 
 namespace phycoub
 {
 
-class Particle;
 /*
  * Базовый класс для методов реализации граничных условий.
  * Для создания новых граничных условий необходимо унаследоваться от
@@ -24,14 +23,18 @@ class Particle;
 class BorderCondition
 {
   public:
-    BorderCondition( Vector *borders );
-    virtual ~BorderCondition();
+    BorderCondition( const Vector& borders );
+    virtual ~BorderCondition() = default;
 
-    virtual void psyMove( const Vector &move, Particle &particle );
+    virtual void psyMove( const Vector& move, ParticlePtr* particle );
 
-    Vector *borders_;
+    void setBorders( const Vector& borders );
+    const Vector& getBorders() const;
+
+  private:
+    Vector borders_;
 };
 
-} /* namespace phycoub */
+using BorderConditionPtr = std::shared_ptr< BorderCondition >;
 
-#endif /* BORDERCONDITION_H_ */
+} /* namespace phycoub */

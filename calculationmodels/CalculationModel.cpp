@@ -1,8 +1,8 @@
 /*
- * CalculationModel.cpp
- *
- *  Created on: 19 ���. 2016 �.
- *      Author: SFrancishkov
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-26 09:57:56
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-26 10:08:58
  */
 
 #include "../calculationmodels/CalculationModel.h"
@@ -15,21 +15,15 @@
 namespace phycoub
 {
 
-CalculationModel::CalculationModel()
+// virtual
+void CalculationModel::phyCalculate(
+    BorderConditionPtr borderCondition, double dt, ParticleGroupList* particleGroupList )
 {
-}
-CalculationModel::~CalculationModel()
-{
-}
-
-void CalculationModel::phyCalculate( CalculationGroup *calculationGroup )
-{
-    for_each( calculationGroup->particles_.begin(), calculationGroup->particles_.end(),
-        [&]( Particle *particle ) {
-            particle->speed_
-                += particle->resultant_ * ( *calculationGroup->dt_ / particle->m_ );
-            particle->move( *calculationGroup->dt_ );
-        } );
+    for ( ParticlePtr particle : *particleGroupList )
+    {
+        particle->speed_ += particle->resultant_ * ( dt / particle->m_ );
+        borderCondition->psyMove( particle->speed_ * dt, &particle );
+    }
 }
 
-} /* namespace phycoub */
+} // namespace phycoub

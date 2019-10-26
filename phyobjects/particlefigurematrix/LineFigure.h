@@ -1,15 +1,14 @@
 /*
- * LineFigure.h
- *
- *  Created on: Dec 22, 2016
- *      Author: root
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-26 01:24:23
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-26 12:27:16
  */
 
-#ifndef LINEFIGURE_H_
-#define LINEFIGURE_H_
+#pragma once
 
 #include "Vector.h"
-#include "Particle.h"
+#include "ParticleGroup.h"
 #include "BorderCondition.h"
 
 #include <vector>
@@ -20,15 +19,11 @@ namespace phycoub
 class LineFigure
 {
   public:
-    LineFigure( std::vector< Particle * > particles );
-    LineFigure( const Vector &direction, const int &num, const Vector &coordinate,
-        const Vector &speed, const double &m, const double &z,
-        BorderCondition *borderCondition );
-    virtual ~LineFigure();
+    LineFigure( const Vector& direction, int num, const Vector& coordinate,
+        const Vector& speed, double m, double z );
+    virtual ~LineFigure() = default;
 
-    std::vector< Particle * > particles_;
+    ParticleGroupPtr particles_ = std::make_shared< ParticleGroup >();
 };
 
-} /* namespace phycoub */
-
-#endif /* LINEFIGURE_H_ */
+} // namespace phycoub

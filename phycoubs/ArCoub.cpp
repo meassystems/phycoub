@@ -11,21 +11,21 @@
 #include <math.h>
 #include <time.h>
 
-#include "temperatureControl.h"
-
 namespace phycoub
 {
 
 ArCoub::ArCoub()
-    : PhyCoub( dt_ )
 {
+    setDeltaTime( dt_ );
+
+    const Vector& borders = thermostatBorder_->getBorders();
     for ( int i = 0; i < 400; ++i )
     {
-        argon_.push_back( new Particle(
-            Vector( ( rand() / (double)RAND_MAX ) * borders_.x_,
-                ( rand() / (double)RAND_MAX ) * borders_.y_ * 0.7 + 0.3 * borders_.z_,
-                ( rand() / (double)RAND_MAX ) * borders_.z_ ),
-            Vector( .0, .0, .0 ), mAr_, z_, &thermostatBorder ) );
+        argon_->emplace_back( std::make_shared< Particle >(
+            Vector( ( rand() / (double)RAND_MAX ) * borders.x_,
+                ( rand() / (double)RAND_MAX ) * borders.y_ * 0.7 + 0.3 * borders.z_,
+                ( rand() / (double)RAND_MAX ) * borders.z_ ),
+            Vector( .0, .0, .0 ), mAr_, z_ ) );
     }
 
     argonFieldCreator_->addGroupParticle( argon_ );
@@ -37,13 +37,9 @@ ArCoub::ArCoub()
     addCalculationGroup( leapFrogCalculationGroup_ );
 }
 
-ArCoub::~ArCoub()
+const Vector& ArCoub::getBorders() const
 {
-    for ( Particle* particle : argon_ )
-    {
-        delete particle;
-    }
-    argon_.clear();
+    return thermostatBorder_->getBorders();
 }
 
 } // namespace phycoub

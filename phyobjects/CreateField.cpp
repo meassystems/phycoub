@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 22:09:38
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-24 20:25:00
+ * @Last Modified time: 2019-10-26 09:31:15
  */
 
 #include <CreateField.h>
@@ -15,11 +15,10 @@
 namespace phycoub
 {
 
-CreateField::CreateField( FieldFunction* functionField,
-    BorderFieldCondition* borderFieldCondition, const std::string& fieldName )
+CreateField::CreateField( FieldFunctionPtr functionField,
+    BorderFieldConditionPtr borderFieldCondition, const std::string& fieldName )
     : CreateFieldBase( fieldName )
-    , particles_( 0 )
-    , functionField_( functionField )
+    , fieldFunction_( functionField )
     , borderFieldCondition_( borderFieldCondition )
 {
 }
@@ -27,36 +26,37 @@ CreateField::CreateField( FieldFunction* functionField,
 Vector CreateField::getFieldInMark( const Vector& mark )
 {
     Vector result;
-
-    for_each( particles_.begin(), particles_.end(), [&]( const Particle* source ) {
+    for ( ParticlePtr particle : particleGroupList_ )
+    {
         result += borderFieldCondition_->phyFieldWithBorderCondition(
-            functionField_, *source, mark );
-    } );
-
+            fieldFunction_, particle, mark );
+    }
     return result;
 }
 
-void CreateField::addParticle( Particle* particle )
+void CreateField::addGroupParticle( ParticleGroupPtr particles )
 {
-    particles_.push_back( particle );
-}
-void CreateField::addGroupParticle( std::vector< Particle* >& particles )
-{
-    for_each( particles.begin(), particles.end(),
-        [&]( Particle* particle ) { particles_.push_back( particle ); } );
-}
-void CreateField::removeParticle( Particle* particle )
-{
-    std::vector< Particle* >::iterator itr = particles_.begin();
-    while ( itr != particles_.end() )
-    {
-        if ( ( *itr )->index == particle->index )
-        {
-            particles_.erase( itr );
-            break;
-        }
-        ++itr;
-    }
+    particleGroupList_.push_back( particles );
 }
 
-} /* namespace phycoub */
+void CreateField::setFunctionField( FieldFunctionPtr fieldFunction )
+{
+    fieldFunction_ = fieldFunction;
+}
+
+FieldFunctionPtr CreateField::getFieldFunction()
+{
+    return fieldFunction_;
+}
+
+void CreateField::setBorderFieldCondition( BorderFieldConditionPtr borderFieldCondition )
+{
+    borderFieldCondition_ = borderFieldCondition;
+}
+
+BorderFieldConditionPtr CreateField::getBorderFieldCondition()
+{
+    return borderFieldCondition_;
+}
+
+} // namespace phycoub

@@ -1,12 +1,13 @@
 /*
- * InterworkingFunction.h
- *
- *  Created on: Oct 14, 2016
- *      Author: root
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-25 18:30:46
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-26 11:45:58
  */
 
-#ifndef INTERWORKINGFUNCTION_H_
-#define INTERWORKINGFUNCTION_H_
+#pragma once
+
+#include <memory>
 
 #include "Vector.h"
 #include "Particle.h"
@@ -21,11 +22,11 @@ namespace phycoub
 class InterworkingFunction
 {
   public:
-    virtual ~InterworkingFunction();
+    virtual ~InterworkingFunction() = default;
 
-    const virtual Vector psyForce( const Vector &field, const Particle *particle ) = 0;
+    const virtual Vector psyForce( const Vector& field, const ParticlePtr particle ) = 0;
 };
 
-} /* namespace phycoub */
+using InterworkingFunctionPtr = std::shared_ptr< InterworkingFunction >;
 
-#endif /* INTERWORKINGFUNCTION_H_ */
+} // namespace phycoub

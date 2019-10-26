@@ -1,8 +1,8 @@
 /*
- * LDFieldFunction.cpp
- *
- *  Created on: Dec 17, 2016
- *      Author: root
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-26 10:24:16
+ * @Last Modified by:   Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-26 10:24:16
  */
 
 #include <LDFieldFunction.h>
@@ -21,7 +21,7 @@ LDFieldFunction::LDFieldFunction( double a, double b, double eps )
 
 // virtual override
 Vector LDFieldFunction::psyField(
-    const Vector& mark, const Particle* particle /* = nullptr*/ ) const
+    const Vector& mark, const ParticlePtr particle /* = nullptr*/ ) const
 {
     Vector effect;
     Vector distance = ( mark - particle->coordinate_ );
@@ -38,4 +38,4 @@ Vector LDFieldFunction::psyField(
     return effect;
 }
 
-} /* namespace phycoub */
+} // namespace phycoub

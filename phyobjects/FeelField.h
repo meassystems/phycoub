@@ -2,19 +2,20 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 22:11:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 15:17:25
+ * @Last Modified time: 2019-10-26 12:37:19
  */
 
 #pragma once
 
 #include <vector>
+#include <list>
 #include <string>
 #include <memory>
 
 #include "InterworkingFunction.h"
 #include "CreateFieldBase.h"
 #include "Vector.h"
-#include "Particle.h"
+#include "ParticleGroup.h"
 
 namespace phycoub
 {
@@ -26,22 +27,28 @@ class CalculationModel;
 class FeelField
 {
   public:
-    FeelField( CreateFieldBasePtr createField, InterworkingFunction* interworkingFunction,
-        std::string fieldName );
+    FeelField( CreateFieldBasePtr fieldCreator,
+        InterworkingFunctionPtr interworkingFunction, std::string fieldName );
     virtual ~FeelField() = default;
 
     virtual void phyCalcInterworking();
 
-    void addParticle( Particle* particle );
-    void addGroupParticle( std::vector< Particle* >& particles );
-    void removeParticle( Particle* particle );
+    void addGroupParticle( ParticleGroupPtr particles );
 
-    CreateFieldBasePtr createField_;
-    std::vector< Particle* > particles_;
-    InterworkingFunction* interworkingFunction_;
+    void setFieldCreator( CreateFieldBasePtr fieldCreator );
+    CreateFieldBasePtr getFieldCreator();
+
+    void setInterworkingFunction( InterworkingFunctionPtr interworkingFunction );
+    InterworkingFunctionPtr getInterworkingFunction();
+
+  private:
+    CreateFieldBasePtr fieldCreator_;
+    InterworkingFunctionPtr interworkingFunction_;
+    ParticleGroupList particleGroupList_;
     std::string fieldName_;
 };
 
 using FeelFieldPtr = std::shared_ptr< FeelField >;
+using FeelFieldList = std::list< FeelFieldPtr >;
 
 } // namespace phycoub

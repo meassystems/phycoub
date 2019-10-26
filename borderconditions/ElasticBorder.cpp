@@ -1,8 +1,8 @@
 /*
- * ElasticBorder.cpp
- *
- *  Created on: Oct 16, 2016
- *      Author: root
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-25 18:10:42
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-26 09:00:28
  */
 
 #include <ElasticBorder.h>
@@ -11,31 +11,29 @@
 namespace phycoub
 {
 
-ElasticBorder::ElasticBorder( Vector *borders )
+ElasticBorder::ElasticBorder( const Vector& borders )
     : BorderCondition( borders )
 {
 }
-ElasticBorder::~ElasticBorder()
-{
-}
 
-void ElasticBorder::psyMove( const Vector &move, Particle &particle )
+// virtual override
+void ElasticBorder::psyMove( const Vector& move, ParticlePtr* particle )
 {
     Vector move_;
-    IntersectionVector intersectionVector = getIntersectionVector( move, particle );
+    IntersectionVector intersectionVector = getIntersectionVector( move, *particle );
 
     if ( !intersectionVector.intersection )
     {
-        particle.coordinate_ += move;
+        ( *particle )->coordinate_ += move;
     }
     else
     {
         Vector move_ = move;
         do
         {
-            particle.coordinate_ = intersectionVector.intersectionMark;
-            Vector elasticDirection(
-                ( particle.coordinate_ + move_ ) - intersectionVector.intersectionMark );
+            ( *particle )->coordinate_ = intersectionVector.intersectionMark;
+            Vector elasticDirection( ( ( *particle )->coordinate_ + move_ )
+                - intersectionVector.intersectionMark );
             switch ( intersectionVector.planeIntersection )
             {
                 case 1:
@@ -58,70 +56,72 @@ void ElasticBorder::psyMove( const Vector &move, Particle &particle )
                     break;
             }
             move_ = elasticDirection;
-            intersectionVector = getIntersectionVector( move_, particle );
+            intersectionVector = getIntersectionVector( move_, *particle );
         } while ( intersectionVector.intersection );
-        particle.coordinate_ += move_;
+        ( *particle )->coordinate_ += move_;
+        ( *particle )->moved();
     }
 }
 
 const ElasticBorder::IntersectionVector ElasticBorder::getIntersectionVector(
-    const Vector &move, const Particle &particle )
+    const Vector& move, const ParticlePtr particle )
 {
     IntersectionVector result_;
     PlaneMarket planeMarket_;
-    Vector newCoordinate( particle.coordinate_ + move );
+    Vector newCoordinate( particle->coordinate_ + move );
     int lastIntersection = 0;
 
-    result_.intersectionMark = particle.coordinate_ + move;
+    result_.intersectionMark = particle->coordinate_ + move;
     result_.intersection = !isMarkInBorder( result_.intersectionMark );
     if ( !result_.intersection )
     {
         return result_;
     }
 
+    const Vector& borders = getBorders();
     while ( !isMarkInBorder( result_.intersectionMark ) )
     {
-        if ( particle.coordinate_.x_ < 0. && lastIntersection != 1 )
+        if ( particle->coordinate_.x_ < 0. && lastIntersection != 1 )
         {
             lastIntersection = 1;
             planeMarket_.M1 = Vector( 0. );
-            planeMarket_.M2 = Vector( 0., borders_->y_, 0. );
-            planeMarket_.M3 = Vector( 0., 0., borders_->z_ );
+            planeMarket_.M2 = Vector( 0., borders.y_, 0. );
+            planeMarket_.M3 = Vector( 0., 0., borders.z_ );
         }
-        else if ( particle.coordinate_.y_ < 0. && lastIntersection != 2 )
+        else if ( particle->coordinate_.y_ < 0. && lastIntersection != 2 )
         {
             lastIntersection = 2;
             planeMarket_.M1 = Vector( 0. );
-            planeMarket_.M2 = Vector( borders_->x_, 0., 0. );
-            planeMarket_.M3 = Vector( 0., 0., borders_->z_ );
+            planeMarket_.M2 = Vector( borders.x_, 0., 0. );
+            planeMarket_.M3 = Vector( 0., 0., borders.z_ );
         }
-        else if ( particle.coordinate_.z_ < 0. && lastIntersection != 3 )
+        else if ( particle->coordinate_.z_ < 0. && lastIntersection != 3 )
         {
             lastIntersection = 3;
             planeMarket_.M1 = Vector( 0. );
-            planeMarket_.M2 = Vector( borders_->x_, 0., 0. );
-            planeMarket_.M3 = Vector( 0., borders_->y_, 0. );
+            planeMarket_.M2 = Vector( borders.x_, 0., 0. );
+            planeMarket_.M3 = Vector( 0., borders.y_, 0. );
         }
-        else if ( particle.coordinate_.x_ > borders_->x_ && lastIntersection != 4 )
+        else if ( particle->coordinate_.x_ > borders.x_ && lastIntersection != 4 )
         {
             lastIntersection = 4;
-            planeMarket_.M1 = Vector( *borders_ );
-            planeMarket_.M2 = Vector( borders_->x_, 0., borders_->z_ );
-            planeMarket_.M3 = Vector( borders_->x_, borders_->y_, 0. );
+            planeMarket_.M1 = borders;
+            planeMarket_.M2 = Vector( borders.x_, 0., borders.z_ );
+            planeMarket_.M3 = Vector( borders.x_, borders.y_, 0. );
         }
-        else if ( particle.coordinate_.y_ > borders_->y_ && lastIntersection != 5 )
+        else if ( particle->coordinate_.y_ > borders.y_ && lastIntersection != 5 )
         {
             lastIntersection = 5;
-            planeMarket_.M1 = Vector( *borders_ );
-            planeMarket_.M2 = Vector( 0., borders_->y_, borders_->z_ );
-            planeMarket_.M3 = Vector( borders_->x_, borders_->y_, 0. );
+            planeMarket_.M1 = borders;
+            planeMarket_.M2 = Vector( 0., borders.y_, borders.z_ );
+            planeMarket_.M3 = Vector( borders.x_, borders.y_, 0. );
         }
-        else if ( particle.coordinate_.z_ > borders_->z_ && lastIntersection != 6 )
+        else if ( particle->coordinate_.z_ > borders.z_ && lastIntersection != 6 )
         {
             lastIntersection = 6;
-            planeMarket_.M1 = Vector( *borders_ );
-            planeMarket_.M2 = Vector( 0., borders_->y_, borders_->z_ );
-            planeMarket_.M3 = Vector( borders_->x_, 0., borders_->z_ );
+            planeMarket_.M1 = borders;
+            planeMarket_.M2 = Vector( 0., borders.y_, borders.z_ );
+            planeMarket_.M3 = Vector( borders.x_, 0., borders.z_ );
         }
         else
         {
@@ -129,14 +129,14 @@ const ElasticBorder::IntersectionVector ElasticBorder::getIntersectionVector(
                   "\"ElasticBorder::getPlaneMarket\"";
         }
         result_.intersectionMark
-            = getMarkIntersection( planeMarket_, particle.coordinate_, move );
+            = getMarkIntersection( planeMarket_, particle->coordinate_, move );
     }
     result_.planeIntersection = lastIntersection;
 
     return result_;
 }
 const Vector ElasticBorder::getMarkIntersection(
-    const PlaneMarket &planeMarket, const Vector &mark, const Vector &direction )
+    const PlaneMarket& planeMarket, const Vector& mark, const Vector& direction )
 {
     Vector result_;
 
@@ -169,14 +169,15 @@ const Vector ElasticBorder::getMarkIntersection(
 
     return result_;
 }
-bool ElasticBorder::isMarkInBorder( const Vector &mark )
+bool ElasticBorder::isMarkInBorder( const Vector& mark )
 {
-    if ( mark.x_ < 0 || mark.x_ > borders_->x_ || mark.y_ < 0 || mark.y_ > borders_->y_
-        || mark.z_ < 0 || mark.z_ > borders_->z_ )
+    const Vector& borders = getBorders();
+    if ( mark.x_ < 0 || mark.x_ > borders.x_ || mark.y_ < 0 || mark.y_ > borders.y_
+        || mark.z_ < 0 || mark.z_ > borders.z_ )
     {
         return false;
     }
     return true;
 }
 
-} /* namespace phycoub */
+} // namespace phycoub

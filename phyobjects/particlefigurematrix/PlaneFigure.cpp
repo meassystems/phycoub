@@ -1,8 +1,8 @@
 /*
- * PlaneFigure.cpp
- *
- *  Created on: Dec 22, 2016
- *      Author: root
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-25 19:06:43
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-25 22:54:47
  */
 
 #include <PlaneFigure.h>
@@ -10,39 +10,28 @@
 namespace phycoub
 {
 
-PlaneFigure::PlaneFigure( const Vector &directionLine, const Vector &directionPlane,
-    const int &numInLine, const int &numLineInPlane, const Vector &coordinate,
-    const Vector &speed, const double &m, const double &z,
-    BorderCondition *borderCondition )
+PlaneFigure::PlaneFigure( const Vector& directionLine, const Vector& directionPlane,
+    int numInLine, int numLineInPlane, const Vector& coordinate, const Vector& speed,
+    double m, double z )
 {
-    allParticles_.reserve( numInLine * numLineInPlane );
     for ( int i = 0; i < numLineInPlane; ++i )
     {
         for ( int j = 0; j < numInLine; ++j )
         {
-            allParticles_.push_back( new Particle(
+            ParticlePtr particle = std::make_shared< Particle >(
                 Vector( coordinate + directionLine * i + directionPlane * j ), speed, m,
-                z, borderCondition ) );
+                z );
+            allParticles_->emplace_back( particle );
             if ( i == 0 || i == numLineInPlane - 1 || j == 0 || j == numInLine - 1 )
             {
-                borderParticles_.push_back( allParticles_.back() );
+                borderParticles_->emplace_back( particle );
             }
             else
             {
-                centrallParticles_.push_back( allParticles_.back() );
+                centrallParticles_->emplace_back( particle );
             }
         }
     }
 }
-PlaneFigure::~PlaneFigure()
-{
-    for ( unsigned int i = 0; i < allParticles_.size(); ++i )
-    {
-        delete allParticles_[ i ];
-    }
-    allParticles_.clear();
-    borderParticles_.clear();
-    centrallParticles_.clear();
-}
 
-} /* namespace phycoub */
+} // namespace phycoub

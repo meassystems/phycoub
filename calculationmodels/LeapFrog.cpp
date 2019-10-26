@@ -1,8 +1,8 @@
 /*
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 12:14:47
- * @Last Modified by:   Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 12:14:47
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-26 10:13:17
  */
 
 #include <LeapFrog.h>
@@ -16,36 +16,49 @@
 namespace phycoub
 {
 
-void phyCalculateThreadLP( CalculationGroup* calculationGroup, int start, int end );
+void phyCalculateThreadLP( ParticleGroupList::Iterator begin,
+    ParticleGroupList::Iterator end, BorderConditionPtr borderCondition, double dt );
 
-void LeapFrog::phyCalculate( CalculationGroup* calculationGroup )
+// virtual override
+void LeapFrog::phyCalculate(
+    BorderConditionPtr borderCondition, double dt, ParticleGroupList* particleGroupList )
 {
 
     int numCPU = std::thread::hardware_concurrency() - 2;
-    if ( numCPU < 2 || (int)calculationGroup->particles_.size() < numCPU * 100 )
+    if ( numCPU < 2 || particleGroupList->getParticleCount() < numCPU * 100 )
     {
-        for_each( calculationGroup->particles_.begin(),
-            calculationGroup->particles_.end(), [&]( Particle* particle ) {
-                particle->speed_
-                    += particle->resultant_ * ( *calculationGroup->dt_ / particle->m_ );
-                particle->move( *calculationGroup->dt_ );
-            } );
+        for ( ParticlePtr particle : *particleGroupList )
+        {
+            particle->speed_ += particle->resultant_ * ( dt / particle->m_ );
+            borderCondition->psyMove( particle->speed_ * dt, &particle );
+        }
     }
     else
     {
-        int sizeBlockOfThread = calculationGroup->particles_.size() / numCPU;
+        size_t sizeBlockOfThread = particleGroupList->getParticleCount() / numCPU;
         std::thread** threads = new std::thread*[ numCPU ];
 
-        int start = 0, stop = start + sizeBlockOfThread;
-        for ( int i = 0; i < numCPU - 1; ++i )
+        ParticleGroupList::Iterator begin = particleGroupList->begin();
+        ParticleGroupList::Iterator current = begin;
+
+        int currentBlockNumber = 0;
+        size_t currentBlockSize = 1;
+
+        while ( currentBlockNumber < numCPU - 1 )
         {
-            threads[ i ]
-                = new std::thread( phyCalculateThreadLP, calculationGroup, start, stop );
-            start = stop;
-            stop = start + sizeBlockOfThread;
+            ++current;
+            ++currentBlockSize;
+            if ( currentBlockSize == sizeBlockOfThread )
+            {
+                threads[ currentBlockNumber++ ] = new std::thread(
+                    phyCalculateThreadLP, begin, current, borderCondition, dt );
+                begin = current;
+                currentBlockSize = 1;
+            }
         }
-        threads[ numCPU - 1 ] = new std::thread( phyCalculateThreadLP, calculationGroup,
-            start, calculationGroup->particles_.size() );
+
+        threads[ currentBlockNumber ] = new std::thread(
+            phyCalculateThreadLP, begin, particleGroupList->end(), borderCondition, dt );
 
         for ( int i = 0; i < numCPU; ++i )
         {
@@ -58,22 +71,20 @@ void LeapFrog::phyCalculate( CalculationGroup* calculationGroup )
         {
             delete threads[ i ];
         }
-
         delete[] threads;
     }
 }
 
 // Функция потока, для распаралеливания процесса моделировани/
-void phyCalculateThreadLP( CalculationGroup* calculationGroup, int start, int end )
+void phyCalculateThreadLP( ParticleGroupList::Iterator begin,
+    ParticleGroupList::Iterator end, BorderConditionPtr borderCondition, double dt )
 {
-    for ( int i = start; i < end; ++i )
+    while ( begin != end )
     {
-        calculationGroup->particles_[ i ]->speed_
-            += calculationGroup->particles_[ i ]->resultant_
-            * ( *calculationGroup->dt_ / calculationGroup->particles_[ i ]->m_ );
-        calculationGroup->particles_[ i ]->move( *calculationGroup->dt_ );
+        ( *begin )->speed_ += ( *begin )->resultant_ * ( dt / ( *begin )->m_ );
+        borderCondition->psyMove( ( *begin )->speed_ * dt, &*begin );
+        ++begin;
     }
 }
-//
 
 } // namespace phycoub

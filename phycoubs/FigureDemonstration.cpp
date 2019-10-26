@@ -11,7 +11,6 @@ namespace phycoub
 {
 
 FigureDemonstration::FigureDemonstration()
-    : PhyCoub( dt_ )
 {
 }
 

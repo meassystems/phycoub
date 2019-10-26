@@ -2,12 +2,14 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 14:14:39
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 14:15:57
+ * @Last Modified time: 2019-10-26 11:45:43
  */
 
 #pragma once
 
-#include <InterworkingFunction.h>
+#include <memory>
+
+#include "InterworkingFunction.h"
 
 namespace phycoub
 {
@@ -18,7 +20,9 @@ class LDInterworking : public InterworkingFunction
     LDInterworking() = default;
     virtual ~LDInterworking() = default;
 
-    const Vector psyForce( const Vector& field, const Particle* particle );
+    const Vector psyForce( const Vector& field, const ParticlePtr particle );
 };
+
+using LDInterworkingPtr = std::shared_ptr< LDInterworking >;
 
 } // namespace phycoub

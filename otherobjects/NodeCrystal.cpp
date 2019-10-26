@@ -1,8 +1,8 @@
 /*
- * NodeCrystal.cpp
- *
- *  Created on: Oct 14, 2016
- *      Author: root
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-25 18:33:40
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-26 11:47:08
  */
 
 #include "NodeCrystal.h"
@@ -16,15 +16,12 @@ NodeCrystal::NodeCrystal()
 {
     ++index;
 }
-NodeCrystal::NodeCrystal( const Vector &coordinate, const Vector &speed, double m,
-    double q, BorderCondition *borderCondition )
-    : Particle( coordinate, speed, m, q, borderCondition )
+NodeCrystal::NodeCrystal(
+    const Vector& coordinate, const Vector& speed, double m, double q )
+    : Particle( coordinate, speed, m, q )
     , shag( 0 )
 {
     ++index;
 }
-NodeCrystal::~NodeCrystal()
-{
-}
 
-} /* namespace phycoub */
+} // namespace phycoub

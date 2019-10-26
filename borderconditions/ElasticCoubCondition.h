@@ -1,12 +1,11 @@
 /*
- * ElasticCoubCondition.h
- *
- *  Created on: 19 ���. 2016 �.
- *      Author: SFrancishkov
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-25 18:11:55
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-26 08:33:05
  */
 
-#ifndef ELASTICCOUBCONDITION_H_
-#define ELASTICCOUBCONDITION_H_
+#pragma once
 
 #include <BorderCondition.h>
 
@@ -18,12 +17,12 @@ namespace phycoub
 class ElasticCoubCondition : public BorderCondition
 {
   public:
-    ElasticCoubCondition( Vector *borders );
-    virtual ~ElasticCoubCondition();
+    ElasticCoubCondition( const Vector& borders );
+    virtual ~ElasticCoubCondition() = default;
 
-    void psyMove( const Vector &move, Particle &particle ) override;
+    void psyMove( const Vector& move, ParticlePtr* particle ) override;
 };
 
-} /* namespace phycoub */
+using ElasticCoubConditionPtr = std::shared_ptr< ElasticCoubCondition >;
 
-#endif /* ELASTICCOUBCONDITION_H_ */
+} // namespace phycoub

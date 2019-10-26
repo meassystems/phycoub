@@ -1,8 +1,8 @@
 /*
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 21:35:42
- * @Last Modified by:   Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-23 21:35:42
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-26 12:20:42
  */
 
 #pragma once
@@ -20,7 +20,7 @@ class Vector
     Vector( double x, double y, double z );
     virtual ~Vector() = default;
 
-    Vector& operator=( const double& vector );
+    Vector& operator=( double vector );
     //-----------------------------------------
     Vector operator+( const Vector& vector ) const;
     Vector operator-( const Vector& vector ) const;
@@ -34,19 +34,19 @@ class Vector
     bool operator>=( const Vector& vector ) const;
     bool operator<=( const Vector& vector ) const;
     //-----------------------------------------
-    Vector operator+( const double& value ) const;
-    Vector operator-( const double& value ) const;
-    Vector operator*( const double& value ) const;
-    Vector operator/( const double& value ) const;
-    Vector& operator+=( const double& value );
-    Vector& operator-=( const double& value );
-    Vector& operator*=( const double& value );
-    Vector& operator/=( const double& value );
-    bool operator==( const double& value ) const;
-    bool operator>( const double& value ) const;
-    bool operator<( const double& value ) const;
-    bool operator>=( const double& value ) const;
-    bool operator<=( const double& value ) const;
+    Vector operator+( double value ) const;
+    Vector operator-( double value ) const;
+    Vector operator*( double value ) const;
+    Vector operator/( double value ) const;
+    Vector& operator+=( double value );
+    Vector& operator-=( double value );
+    Vector& operator*=( double value );
+    Vector& operator/=( double value );
+    bool operator==( double value ) const;
+    bool operator>( double value ) const;
+    bool operator<( double value ) const;
+    bool operator>=( double value ) const;
+    bool operator<=( double value ) const;
     //-----------------------------------------
     double& operator[]( int index );
     double operator[]( int index ) const;
@@ -58,4 +58,4 @@ class Vector
     double x_, y_, z_;
 };
 
-} /* namespace phycoub */
+} // namespace phycoub

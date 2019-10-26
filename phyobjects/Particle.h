@@ -1,44 +1,44 @@
 /*
- * Particle.h
- *
- *  Created on: Oct 14, 2016
- *      Author: root
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-25 16:28:49
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-26 12:39:17
  */
 
+#pragma once
 
-#ifndef PARTICLE_H_
-#define PARTICLE_H_
+#include <memory>
 
 #include "Vector.h"
 
-namespace phycoub {
+namespace phycoub
+{
 
 class BorderCondition;
 /*
  * Класс/объект моделируемого пространства - частица.
  */
-class Particle {
-public:
-	Particle();
-	Particle(const Vector& coordinate, const Vector& speed, const double& m, const double& z, BorderCondition* borderCondition);
-	virtual ~Particle();
+class Particle
+{
+  public:
+    Particle();
+    Particle( const Vector& coordinate, const Vector& speed, double m, double z );
+    virtual ~Particle() = default;
 
-	bool operator==(const Particle& particle);
+    bool operator==( const Particle& particle );
 
-	void move(const double& dt);
-	void move(const Vector& dr);
+    void moved();
 
-	static long index;
-	long index_;
-	Vector coordinate_, speed_, resultant_{};
-	double m_, z_;
-	BorderCondition* borderCondition_;
+    static long index;
+    long index_;
 
-	Vector previesCoordinate_{}, previesSpeed_{}, previesResultant_{};
+    double m_, z_;
+    Vector coordinate_, speed_, resultant_{};
+    Vector previesCoordinate_{}, previesSpeed_{}, previesResultant_{};
 
-	double potentialEnergy = 0.;
+    double potentialEnergy = 0.;
 };
 
-} /* namespace phycoub */
+using ParticlePtr = std::shared_ptr< Particle >;
 
-#endif /* PARTICLE_H_ */
+} // namespace phycoub

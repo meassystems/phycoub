@@ -1,12 +1,11 @@
 /*
- * ElasticBorder.h
- *
- *  Created on: Oct 16, 2016
- *      Author: root
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-25 18:07:20
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-26 08:27:54
  */
 
-#ifndef ELASTICBORDER_H_
-#define ELASTICBORDER_H_
+#pragma once
 
 #include <BorderCondition.h>
 #include "Vector.h"
@@ -19,10 +18,10 @@ namespace phycoub
 class ElasticBorder : public BorderCondition
 {
   public:
-    ElasticBorder( Vector *borders );
-    virtual ~ElasticBorder();
+    ElasticBorder( const Vector& borders );
+    virtual ~ElasticBorder() = default;
 
-    void psyMove( const Vector &move, Particle &particle );
+    void psyMove( const Vector& move, ParticlePtr* particle ) override;
 
   private:
     struct PlaneMarket
@@ -40,14 +39,14 @@ class ElasticBorder : public BorderCondition
 
     /* Получить новый вектор отражения */
     const IntersectionVector getIntersectionVector(
-        const Vector &move, const Particle &particle );
+        const Vector& move, const ParticlePtr particle );
     /* Функция для получения точки пересечения траектории с границей моделирования */
     const Vector getMarkIntersection(
-        const PlaneMarket &planeMarket, const Vector &mark, const Vector &direction );
+        const PlaneMarket& planeMarket, const Vector& mark, const Vector& direction );
     /* Функция для проверки нахождения частицы в границах TODO */
-    bool isMarkInBorder( const Vector &mark );
+    bool isMarkInBorder( const Vector& mark );
 };
 
-} /* namespace phycoub */
+using ElasticBorderPtr = std::shared_ptr< ElasticBorder >;
 
-#endif /* ELASTICBORDER_H_ */
+} // namespace phycoub

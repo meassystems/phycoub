@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-20 00:05:50
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 12:21:02
+ * @Last Modified time: 2019-10-26 10:22:31
  */
 
 #pragma once
@@ -26,7 +26,7 @@ class ElectricHomogeneousField : public HomogeneousField
     virtual ~ElectricHomogeneousField() = default;
 
     virtual Vector psyField(
-        const Vector& mark, const Particle* particle = nullptr ) const override;
+        const Vector& mark, const ParticlePtr particle = nullptr ) const override;
 
     void setEpselon( double epselon );
     double getEpselon() const;
@@ -42,4 +42,6 @@ class ElectricHomogeneousField : public HomogeneousField
     double fieldConstatnt_ = 0.;
 };
 
-} /* namespace phycoub */
+using ElectricHomogeneousFieldPtr = std::shared_ptr< ElectricHomogeneousField >;
+
+} // namespace phycoub

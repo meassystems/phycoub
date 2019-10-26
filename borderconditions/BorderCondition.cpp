@@ -1,8 +1,8 @@
 /*
- * BorderCondition.cpp
- *
- *  Created on: Oct 14, 2016
- *      Author: root
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-25 18:05:52
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-26 08:20:23
  */
 
 #include "BorderCondition.h"
@@ -11,17 +11,25 @@
 namespace phycoub
 {
 
-BorderCondition::BorderCondition( Vector *borders )
+BorderCondition::BorderCondition( const Vector& borders )
     : borders_( borders )
 {
 }
-BorderCondition::~BorderCondition()
+
+void BorderCondition::psyMove( const Vector& move, ParticlePtr* particle )
 {
+    ( *particle )->coordinate_ += move;
+    ( *particle )->moved();
 }
 
-void BorderCondition::psyMove( const Vector &move, Particle &particle )
+void BorderCondition::setBorders( const Vector& borders )
 {
-    particle.coordinate_ += move;
+    borders_ = borders;
 }
 
-} /* namespace phycoub */
+const Vector& BorderCondition::getBorders() const
+{
+    return borders_;
+}
+
+} // namespace phycoub

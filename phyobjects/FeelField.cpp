@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 22:09:28
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 15:18:03
+ * @Last Modified time: 2019-10-26 12:38:24
  */
 
 #include "FeelField.h"
@@ -16,43 +16,56 @@
 namespace phycoub
 {
 
-FeelField::FeelField( CreateFieldBasePtr createField,
-    InterworkingFunction* interworkingFunction, std::string fieldName )
-    : createField_( createField )
-    , particles_( 0 )
+FeelField::FeelField( CreateFieldBasePtr fieldCreator,
+    InterworkingFunctionPtr interworkingFunction, std::string fieldName )
+    : fieldCreator_( fieldCreator )
     , interworkingFunction_( interworkingFunction )
     , fieldName_( fieldName )
 {
 }
 
-void phyCalcInterworkingThread( FeelField* feelField, int start, int end );
+void phyCalcInterworkingThread( ParticleGroupList::Iterator begin,
+    ParticleGroupList::Iterator end, CreateFieldBasePtr fieldCreator,
+    InterworkingFunctionPtr interworkingFunction );
 
 void FeelField::phyCalcInterworking()
 {
     int numCPU = std::thread::hardware_concurrency() - 2;
-    if ( numCPU < 2 || (int)particles_.size() < numCPU * 100 )
+    if ( numCPU < 2 || particleGroupList_.getParticleCount() < numCPU * 100 )
     {
-        for ( Particle* particle : particles_ )
+        for ( ParticlePtr particle : particleGroupList_ )
         {
             particle->resultant_ += interworkingFunction_->psyForce(
-                createField_->getFieldInMark( particle->coordinate_ ), particle );
+                fieldCreator_->getFieldInMark( particle->coordinate_ ), particle );
         }
     }
     else
     {
-        int sizeBlockOfThread = particles_.size() / numCPU;
+        size_t sizeBlockOfThread = particleGroupList_.getParticleCount() / numCPU;
         std::thread** threads = new std::thread*[ numCPU ];
 
-        int start = 0, stop = start + sizeBlockOfThread;
-        for ( int i = 0; i < numCPU - 1; ++i )
+        ParticleGroupList::Iterator begin = particleGroupList_.begin();
+        ParticleGroupList::Iterator current = begin;
+
+        int currentBlockNumber = 0;
+        size_t currentBlockSize = 1;
+
+        while ( currentBlockNumber < numCPU - 1 )
         {
-            threads[ i ]
-                = new std::thread( phyCalcInterworkingThread, this, start, stop );
-            start = stop;
-            stop = start + sizeBlockOfThread;
+            ++current;
+            ++currentBlockSize;
+            if ( currentBlockSize == sizeBlockOfThread )
+            {
+                threads[ currentBlockNumber++ ]
+                    = new std::thread( phyCalcInterworkingThread, begin, current,
+                        fieldCreator_, interworkingFunction_ );
+                begin = current;
+                currentBlockSize = 1;
+            }
         }
-        threads[ numCPU - 1 ] = new std::thread(
-            phyCalcInterworkingThread, this, start, particles_.size() );
+
+        threads[ currentBlockNumber++ ] = new std::thread( phyCalcInterworkingThread,
+            begin, particleGroupList_.end(), fieldCreator_, interworkingFunction_ );
 
         for ( int i = 0; i < numCPU; ++i )
         {
@@ -65,46 +78,47 @@ void FeelField::phyCalcInterworking()
         {
             delete threads[ i ];
         }
-
         delete[] threads;
     }
 }
 
-void FeelField::addParticle( Particle* particle )
+void FeelField::addGroupParticle( ParticleGroupPtr particles )
 {
-    particles_.push_back( particle );
+    particleGroupList_.push_back( particles );
 }
-void FeelField::addGroupParticle( std::vector< Particle* >& particles )
+
+void FeelField::setFieldCreator( CreateFieldBasePtr fieldCreator )
 {
-    for_each( particles.begin(), particles.end(),
-        [&]( Particle* particle ) { particles_.push_back( particle ); } );
+    fieldCreator_ = fieldCreator;
 }
-void FeelField::removeParticle( Particle* particle )
+
+CreateFieldBasePtr FeelField::getFieldCreator()
 {
-    std::vector< Particle* >::iterator itr = particles_.begin();
-    while ( itr != particles_.end() )
-    {
-        if ( ( *itr )->index == particle->index )
-        {
-            particles_.erase( itr );
-            break;
-        }
-        ++itr;
-    }
+    return fieldCreator_;
+}
+
+void FeelField::setInterworkingFunction( InterworkingFunctionPtr interworkingFunction )
+{
+    interworkingFunction_ = interworkingFunction;
+}
+
+InterworkingFunctionPtr FeelField::getInterworkingFunction()
+{
+    return interworkingFunction_;
 }
 
 // Функция потока, для распаралеливания процесса моделировани/
-void phyCalcInterworkingThread( FeelField* feelField, int start, int end )
+void phyCalcInterworkingThread( ParticleGroupList::Iterator begin,
+    ParticleGroupList::Iterator end, CreateFieldBasePtr fieldCreator,
+    InterworkingFunctionPtr interworkingFunction )
 {
-    for ( int i = start; i < end; ++i )
+    while ( begin != end )
     {
-        feelField->particles_[ i ]->resultant_
-            += feelField->interworkingFunction_->psyForce(
-                feelField->createField_->getFieldInMark(
-                    feelField->particles_[ i ]->coordinate_ ),
-                feelField->particles_[ i ] );
+        ParticlePtr particle = *( begin );
+        particle->resultant_ += interworkingFunction->psyForce(
+            fieldCreator->getFieldInMark( particle->coordinate_ ), particle );
+        ++begin;
     }
 }
-//
 
 } // namespace phycoub

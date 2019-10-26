@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 19:23:35
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-24 20:47:54
+ * @Last Modified time: 2019-10-26 10:24:48
  */
 
 #include "HomogeneousField.h"
@@ -20,7 +20,7 @@ class MagneticHomogeneousField : public HomogeneousField
     virtual ~MagneticHomogeneousField() = default;
 
     virtual Vector psyField(
-        const Vector& mark, const Particle* particle = nullptr ) const override;
+        const Vector& mark, const ParticlePtr particle = nullptr ) const override;
 
     void setMagneticInduction( const Vector& B );
     const Vector& getMagneticInduction() const;
@@ -28,5 +28,7 @@ class MagneticHomogeneousField : public HomogeneousField
   private:
     Vector B_;
 };
+
+using MagneticHomogeneousFieldPtr = std::shared_ptr< MagneticHomogeneousField >;
 
 } // namespace phycoub
