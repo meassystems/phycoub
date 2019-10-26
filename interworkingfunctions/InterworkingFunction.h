@@ -2,10 +2,12 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 18:30:46
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 23:45:36
+ * @Last Modified time: 2019-10-26 11:45:58
  */
 
 #pragma once
+
+#include <memory>
 
 #include "Vector.h"
 #include "Particle.h"
@@ -24,5 +26,7 @@ class InterworkingFunction
 
     const virtual Vector psyForce( const Vector& field, const ParticlePtr particle ) = 0;
 };
+
+using InterworkingFunctionPtr = std::shared_ptr< InterworkingFunction >;
 
 } // namespace phycoub
