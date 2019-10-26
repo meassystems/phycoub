@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 19:13:18
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 22:50:34
+ * @Last Modified time: 2019-10-26 10:11:19
  */
 
 #include <CalculationGroup.h>
@@ -13,7 +13,7 @@ namespace phycoub
 {
 
 CalculationGroup::CalculationGroup(
-    CalculationModel* calculatiomModel, BorderConditionPtr borderCondition )
+    CalculationModelPtr calculatiomModel, BorderConditionPtr borderCondition )
     : calculationModel_( calculatiomModel )
     , borderCondition_( borderCondition )
 {
@@ -21,7 +21,7 @@ CalculationGroup::CalculationGroup(
 
 void CalculationGroup::phyModeling( double dt )
 {
-    calculationModel_->phyCalculate( &particleGroupList_, borderCondition_, dt );
+    calculationModel_->phyCalculate( borderCondition_, dt, &particleGroupList_ );
 }
 
 void CalculationGroup::addGroupParticle( ParticleGroupPtr particles )

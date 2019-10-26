@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 19:13:10
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 22:49:51
+ * @Last Modified time: 2019-10-26 10:11:10
  */
 
 #pragma once
@@ -23,7 +23,7 @@ class CalculationGroup
 {
   public:
     CalculationGroup(
-        CalculationModel* calculatiomModel, BorderConditionPtr borderCondition );
+        CalculationModelPtr calculatiomModel, BorderConditionPtr borderCondition );
     virtual ~CalculationGroup() = default;
 
     void phyModeling( double dt );
@@ -31,7 +31,7 @@ class CalculationGroup
     void addGroupParticle( ParticleGroupPtr particles );
 
   private:
-    CalculationModel* calculationModel_;
+    CalculationModelPtr calculationModel_;
     BorderConditionPtr borderCondition_;
     ParticleGroupList particleGroupList_;
 };

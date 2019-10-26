@@ -2,10 +2,12 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 19:41:30
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 22:25:28
+ * @Last Modified time: 2019-10-26 10:11:34
  */
 
 #pragma once
+
+#include <memory>
 
 #include "ParticleGroup.h"
 #include "BorderCondition.h"
@@ -28,8 +30,10 @@ class CalculationModel
     CalculationModel() = default;
     virtual ~CalculationModel() = default;
 
-    virtual void phyCalculate( ParticleGroupList* particleGroupList,
-        BorderConditionPtr borderCondition, double dt );
+    virtual void phyCalculate( BorderConditionPtr borderCondition, double dt,
+        ParticleGroupList* particleGroupList );
 };
+
+using CalculationModelPtr = std::shared_ptr< CalculationModel >;
 
 } // namespace phycoub

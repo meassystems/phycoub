@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-19 19:07:25
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 09:46:31
+ * @Last Modified time: 2019-10-26 10:16:51
  */
 
 #pragma once
@@ -57,9 +57,9 @@ class NOCoub final : public PhyCoub
     CyclicBoundedFieldPtr cyclicBoundedFieldNO_
         = std::make_shared< CyclicBoundedField >( borders_, radiusCatNO_ );
 
-    LeapFrog leapFrog_;
+    LeapFrogPtr leapFrog_ = std::make_shared< LeapFrog >();
     CalculationGroupPtr leapFrogCalculationGroup_
-        = std::make_shared< CalculationGroup >( &leapFrog_, cyclicBorder_ );
+        = std::make_shared< CalculationGroup >( leapFrog_, cyclicBorder_ );
 
     LDFieldFunctionPtr azot2azotField_
         = std::make_shared< LDFieldFunction >( aN, aN, epsN );

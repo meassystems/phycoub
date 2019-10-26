@@ -1,12 +1,11 @@
 /*
- * HighSpeedModificationVerle.h
- *
- *  Created on: Oct 20, 2016
- *      Author: root
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2019-10-26 10:13:35
+ * @Last Modified by:   Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-26 10:13:35
  */
 
-#ifndef HIGHSPEEDMODIFICATIONVERLE_H_
-#define HIGHSPEEDMODIFICATIONVERLE_H_
+#pragma once
 
 #include <CalculationModel.h>
 
@@ -23,10 +22,8 @@ class HighSpeedModificationVerle : public CalculationModel
     HighSpeedModificationVerle() = default;
     virtual ~HighSpeedModificationVerle() = default;
 
-    virtual void phyCalculate( ParticleGroupList* particleGroupList,
-        BorderConditionPtr borderCondition, double dt ) override;
+    virtual void phyCalculate( BorderConditionPtr borderCondition, double dt,
+        ParticleGroupList* particleGroupList ) override;
 };
 
-} /* namespace phycoub */
-
-#endif /* HIGHSPEEDMODIFICATIONVERLE_H_ */
+} // namespace phycoub

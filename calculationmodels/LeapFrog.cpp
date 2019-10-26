@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 12:14:47
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 23:38:03
+ * @Last Modified time: 2019-10-26 10:13:17
  */
 
 #include <LeapFrog.h>
@@ -19,8 +19,9 @@ namespace phycoub
 void phyCalculateThreadLP( ParticleGroupList::Iterator begin,
     ParticleGroupList::Iterator end, BorderConditionPtr borderCondition, double dt );
 
+// virtual override
 void LeapFrog::phyCalculate(
-    ParticleGroupList* particleGroupList, BorderConditionPtr borderCondition, double dt )
+    BorderConditionPtr borderCondition, double dt, ParticleGroupList* particleGroupList )
 {
 
     int numCPU = std::thread::hardware_concurrency() - 2;
@@ -85,6 +86,5 @@ void phyCalculateThreadLP( ParticleGroupList::Iterator begin,
         ++begin;
     }
 }
-//
 
 } // namespace phycoub
