@@ -19,13 +19,13 @@ class CreateHomogeneousField : public CreateFieldBase
 {
   public:
     CreateHomogeneousField(
-        HomogeneousField* homogeneousField, const std::string& fieldName );
+        HomogeneousFieldPtr homogeneousField, const std::string& fieldName );
     virtual ~CreateHomogeneousField() = default;
 
     virtual Vector getFieldInMark( const Vector& mark ) override;
 
   private:
-    HomogeneousField* homogeneousField_;
+    HomogeneousFieldPtr homogeneousField_;
 };
 
 using CreateHomogeneousFieldPtr = std::shared_ptr< CreateHomogeneousField >;

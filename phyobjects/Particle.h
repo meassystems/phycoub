@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 16:28:49
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 22:48:21
+ * @Last Modified time: 2019-10-26 12:39:17
  */
 
 #pragma once
@@ -31,9 +31,9 @@ class Particle
 
     static long index;
     long index_;
-    Vector coordinate_, speed_, resultant_{};
-    double m_, z_;
 
+    double m_, z_;
+    Vector coordinate_, speed_, resultant_{};
     Vector previesCoordinate_{}, previesSpeed_{}, previesResultant_{};
 
     double potentialEnergy = 0.;

@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-19 19:07:25
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 10:16:51
+ * @Last Modified time: 2019-10-26 12:47:45
  */
 
 #pragma once
@@ -61,36 +61,34 @@ class NOCoub final : public PhyCoub
     CalculationGroupPtr leapFrogCalculationGroup_
         = std::make_shared< CalculationGroup >( leapFrog_, cyclicBorder_ );
 
+    LDInterworkingPtr interworkingFunction = std::make_shared< LDInterworking >();
+
     LDFieldFunctionPtr azot2azotField_
         = std::make_shared< LDFieldFunction >( aN, aN, epsN );
     CreateFieldPtr azot2azotFieldCreator_ = std::make_shared< CreateField >(
         azot2azotField_, cyclicBoundedFieldN_, "LD NN Field" );
-    LDInterworking azot2azotInterworking_;
     FeelFieldPtr azot2azotFieldResponsive_ = std::make_shared< FeelField >(
-        azot2azotFieldCreator_, &azot2azotInterworking_, "LD NN Feel" );
+        azot2azotFieldCreator_, interworkingFunction, "LD NN Feel" );
 
     LDFieldFunctionPtr oxygenField_ = std::make_shared< LDFieldFunction >( aO, aO, epsO );
     CreateFieldPtr oxygen2oxygenFieldCreator_ = std::make_shared< CreateField >(
         oxygenField_, cyclicBoundedFieldO_, "LD OO Field" );
-    LDInterworking oxygenInterworking_;
     FeelFieldPtr oxygen2oxyhenFieldResponsive_ = std::make_shared< FeelField >(
-        oxygen2oxygenFieldCreator_, &oxygenInterworking_, "LD OO Feel" );
+        oxygen2oxygenFieldCreator_, interworkingFunction, "LD OO Feel" );
 
     LDFieldFunctionPtr azot2oxygenField_
         = std::make_shared< LDFieldFunction >( aNO, aNO, epsO );
     CreateFieldPtr azot2oxygenFieldCreator_ = std::make_shared< CreateField >(
         azot2oxygenField_, cyclicBoundedFieldNO_, "LD NO Field" );
-    LDInterworking azot2oxygenInterworking_;
     FeelFieldPtr azot2oxygenFieldResponsive_ = std::make_shared< FeelField >(
-        azot2oxygenFieldCreator_, &azot2oxygenInterworking_, "LD NO Feel" );
+        azot2oxygenFieldCreator_, interworkingFunction, "LD NO Feel" );
 
     LDFieldFunctionPtr oxygen2azotField_
         = std::make_shared< LDFieldFunction >( aNO, aNO, epsO );
     CreateFieldPtr oxygen2azotFieldCreator_ = std::make_shared< CreateField >(
         oxygen2azotField_, cyclicBoundedFieldNO_, "LD ON Field" );
-    LDInterworking oxygen2azotInterworking_;
     FeelFieldPtr oxygen2azotFieldResponsive_ = std::make_shared< FeelField >(
-        oxygen2azotFieldCreator_, &oxygen2azotInterworking_, "LD ON Feel" );
+        oxygen2azotFieldCreator_, interworkingFunction, "LD ON Feel" );
 };
 
 } // namespace phycoub

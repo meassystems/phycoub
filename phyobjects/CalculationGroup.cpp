@@ -2,10 +2,10 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 19:13:18
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 10:11:19
+ * @Last Modified time: 2019-10-26 12:29:37
  */
 
-#include <CalculationGroup.h>
+#include "CalculationGroup.h"
 
 #include <algorithm>
 

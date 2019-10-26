@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 14:54:13
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 10:15:07
+ * @Last Modified time: 2019-10-26 12:41:29
  */
 
 #pragma once
@@ -54,9 +54,9 @@ class ArCoub final : public PhyCoub
         = std::make_shared< LDFieldFunction >( aAr_, aAr_, epsAr_ );
     CreateFieldPtr argonFieldCreator_ = std::make_shared< CreateField >(
         argonField_, borderFieldCondition_, "LD Argon Field" );
-    LDInterworking argontInterworking_;
+    LDInterworkingPtr argontInterworking_ = std::make_shared< LDInterworking >();
     FeelFieldPtr argonFieldResponsive_ = std::make_shared< FeelField >(
-        argonFieldCreator_, &argontInterworking_, "LD Argon Feel" );
+        argonFieldCreator_, argontInterworking_, "LD Argon Feel" );
 };
 
 } // namespace phycoub

@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 10:16:31
+ * @Last Modified time: 2019-10-26 12:45:53
  */
 
 #pragma once
@@ -38,14 +38,15 @@ class ElectronInHomogeneousFieldsCoub final : public PhyCoub
     CalculationGroupPtr leapFrogCalculationGroup_
         = std::make_shared< CalculationGroup >( leapFrog_, cyclicBorder_ );
 
-    ElectricHomogeneousField electricHomogeneousField_{ { 0, 0, 1 },
-        ElectricConstants::electronCharge * 10 };
+    ElectricHomogeneousFieldPtr electricHomogeneousField_
+        = std::make_shared< ElectricHomogeneousField >(
+            Vector{ 0, 0, 1 }, ElectricConstants::electronCharge * 10 );
     CreateHomogeneousFieldPtr electricHomogeneousFieldCreator_
         = std::make_shared< CreateHomogeneousField >(
-            &electricHomogeneousField_, "ElectricHomogeneousField" );
-    CulonInterworking culonInterworking_;
+            electricHomogeneousField_, "ElectricHomogeneousField" );
+    CulonInterworkingPtr culonInterworking_ = std::make_shared< CulonInterworking >();
     FeelFieldPtr feelWithCulonInterworking_ = std::make_shared< FeelField >(
-        electricHomogeneousFieldCreator_, &culonInterworking_, "culon interworking" );
+        electricHomogeneousFieldCreator_, culonInterworking_, "culon interworking" );
 };
 
 } // namespace phycoub
