@@ -28,11 +28,10 @@ clean.bat^
     fieldfunctions/ElectricField.cpp^
     fieldfunctions/ElectricHomogeneousField.cpp^
     fieldfunctions/HomogeneousField.cpp^
-    fieldfunctions/LDFieldFunction.cpp^
+    fieldfunctions/LDField.cpp^
     fieldfunctions/MagneticHomogeneousField.cpp^
     interworkingfunctions/CulonInterworking.cpp^
     interworkingfunctions/LDInterworking.cpp^
-    otherobjects/NodeCrystal.cpp^
     phycoubs/ArCoub.cpp^
     phycoubs/ElectronInHomogeneousFieldsCoub.cpp^
     phycoubs/FigureDemonstration.cpp^
@@ -40,10 +39,10 @@ clean.bat^
     phycoubs/PhyCoub.cpp^
     phymeasurement/MeasurementUtils.cpp^
     phyobjects/CalculationGroup.cpp^
-    phyobjects/CreateField.cpp^
-    phyobjects/CreateFieldBase.cpp^
-    phyobjects/CreateHomogeneousField.cpp^
-    phyobjects/FeelField.cpp^
+    phyobjects/DynamicFieldCreator.cpp^
+    phyobjects/FieldCreator.cpp^
+    phyobjects/FieldReceiver.cpp^
+    phyobjects/HomogeneousFieldCreator.cpp^
     phyobjects/Particle.cpp^
     phyobjects/ParticleGroup.cpp^
     phyobjects/particlefigurematrix/LineFigure.cpp^

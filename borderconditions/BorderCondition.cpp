@@ -16,10 +16,12 @@ BorderCondition::BorderCondition( const Vector& borders )
 {
 }
 
-void BorderCondition::psyMove( const Vector& move, ParticlePtr* particle )
+void BorderCondition::psyMove(
+    const Vector& move, const Vector& newSpeed, ParticlePtr* particle )
 {
-    ( *particle )->coordinate_ += move;
-    ( *particle )->moved();
+    Vector coordinate = ( *particle )->getCoordinate();
+    coordinate += move;
+    ( *particle )->move( coordinate, newSpeed );
 }
 
 void BorderCondition::setBorders( const Vector& borders )

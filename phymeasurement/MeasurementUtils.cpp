@@ -34,7 +34,7 @@ double MeasurementUtils::getWk( ParticleGroupPtr particles )
     double speedQ = .0;
     for ( ParticlePtr particle : *particles )
     {
-        speedQ += pow( particle->speed_.getModule(), 2 );
+        speedQ += pow( particle->getSpeed().getModule(), 2 );
     }
 
     const double result_ = ( *particles )[ 0 ]->m_ * speedQ / particles->size() / 2;
@@ -49,14 +49,14 @@ double MeasurementUtils::getWkWithoutTranslationalMotion( ParticleGroupPtr parti
 
     for ( ParticlePtr particle : *particles )
     {
-        speedSystem += particle->speed_;
+        speedSystem += particle->getSpeed();
     }
     speedSystem /= particles->size();
 
     speedQ = 0;
     for ( ParticlePtr particle : *particles )
     {
-        speedQ += pow( ( particle->speed_ - speedSystem ).getModule(), 2 );
+        speedQ += pow( ( particle->getSpeed() - speedSystem ).getModule(), 2 );
     }
     double result_ = ( *particles )[ 0 ]->m_ * speedQ / particles->size() / 2;
 

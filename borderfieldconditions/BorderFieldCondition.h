@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-24 19:46:31
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 09:03:05
+ * @Last Modified time: 2019-10-26 19:08:30
  */
 
 #pragma once
@@ -11,12 +11,12 @@
 
 #include "Vector.h"
 #include "Particle.h"
-#include "FieldFunction.h"
+#include "FieldIface.h"
 
 namespace phycoub
 {
 
-class CreateField;
+class DynamicFieldCreator;
 /*
  * Базовый класс для задания граничных условий поля взаимодействия.
  * Чтобы создать свой метод необходим унаследоваться от данного класса и
@@ -31,7 +31,7 @@ class BorderFieldCondition
     virtual ~BorderFieldCondition() = default;
 
     virtual Vector phyFieldWithBorderCondition(
-        FieldFunctionPtr fieldFunction, const ParticlePtr particle, const Vector& mark );
+        FieldPtr field, const ParticlePtr particle, const Vector& mark );
 };
 
 using BorderFieldConditionPtr = std::shared_ptr< BorderFieldCondition >;

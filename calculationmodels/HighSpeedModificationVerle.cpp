@@ -27,11 +27,13 @@ void HighSpeedModificationVerle::phyCalculate(
     {
         for ( ParticlePtr particle : *particleGroupList )
         {
+            const Vector speed = particle->getSpeed()
+                + ( particle->resultant_ + particle->previesResultant_ )
+                    * ( dt / ( particle->m_ * 2 ) );
+
             borderCondition->psyMove( particle->previesSpeed_ * dt
                     + particle->previesResultant_ * pow( dt, 2 ) / ( 2 * particle->m_ ),
-                &particle );
-            particle->speed_ += ( particle->resultant_ + particle->previesResultant_ )
-                * ( dt / ( particle->m_ * 2 ) );
+                speed, &particle );
         }
     }
     else
@@ -82,11 +84,13 @@ void phyCalculateThread( ParticleGroupList::Iterator begin,
 {
     while ( begin != end )
     {
+        const Vector speed = ( *begin )->getSpeed()
+            + ( ( *begin )->resultant_ + ( *begin )->previesResultant_ )
+                * ( dt / ( ( *begin )->m_ * 2 ) );
+
         borderCondition->psyMove( ( *begin )->previesSpeed_ * ( dt )
                 + ( *begin )->previesResultant_ * pow( dt, 2 ) / ( 2 * ( *begin )->m_ ),
-            &*begin );
-        ( *begin )->speed_ += ( ( *begin )->resultant_ + ( *begin )->previesResultant_ )
-            * ( dt / ( ( *begin )->m_ * 2 ) );
+            speed, &*begin );
         ++begin;
     }
 }

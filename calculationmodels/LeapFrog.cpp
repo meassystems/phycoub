@@ -29,8 +29,9 @@ void LeapFrog::phyCalculate(
     {
         for ( ParticlePtr particle : *particleGroupList )
         {
-            particle->speed_ += particle->resultant_ * ( dt / particle->m_ );
-            borderCondition->psyMove( particle->speed_ * dt, &particle );
+            const Vector speed
+                = particle->getSpeed() + particle->resultant_ * ( dt / particle->m_ );
+            borderCondition->psyMove( speed * dt, speed, &particle );
         }
     }
     else
@@ -81,8 +82,9 @@ void phyCalculateThreadLP( ParticleGroupList::Iterator begin,
 {
     while ( begin != end )
     {
-        ( *begin )->speed_ += ( *begin )->resultant_ * ( dt / ( *begin )->m_ );
-        borderCondition->psyMove( ( *begin )->speed_ * dt, &*begin );
+        const Vector speed
+            = ( *begin )->getSpeed() + ( *begin )->resultant_ * ( dt / ( *begin )->m_ );
+        borderCondition->psyMove( speed * dt, speed, &*begin );
         ++begin;
     }
 }

@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 14:54:13
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 13:06:20
+ * @Last Modified time: 2019-10-26 18:59:51
  */
 
 #pragma once
@@ -13,13 +13,13 @@
 #include "PhyCoub.h"
 #include "Vector.h"
 #include "ParticleGroup.h"
-#include "CreateField.h"
-#include "FeelField.h"
+#include "DynamicFieldCreator.h"
+#include "FieldReceiver.h"
 #include "CalculationGroup.h"
 #include "ThermostatBorder.h"
 #include "BorderFieldCondition.h"
 #include "LeapFrog.h"
-#include "LDFieldFunction.h"
+#include "LDField.h"
 #include "LDInterworking.h"
 #include "ParallelepipedFigure.h"
 
@@ -52,12 +52,11 @@ class ArCoub final : public PhyCoub
     CalculationGroupPtr leapFrogCalculationGroup_
         = std::make_shared< CalculationGroup >( leapFrog_, thermostatBorder_ );
 
-    LDFieldFunctionPtr argonField_
-        = std::make_shared< LDFieldFunction >( aAr_, aAr_, epsAr_ );
-    CreateFieldPtr argonFieldCreator_ = std::make_shared< CreateField >(
+    LDFieldPtr argonField_ = std::make_shared< LDField >( aAr_, aAr_, epsAr_ );
+    DynamicFieldCreatorPtr argonFieldCreator_ = std::make_shared< DynamicFieldCreator >(
         argonField_, borderFieldCondition_, "LD Argon Field" );
     LDInterworkingPtr argontInterworking_ = std::make_shared< LDInterworking >();
-    FeelFieldPtr argonFieldResponsive_ = std::make_shared< FeelField >(
+    FieldReceiverPtr argonFieldResponsive_ = std::make_shared< FieldReceiver >(
         argonFieldCreator_, argontInterworking_, "LD Argon Feel" );
 };
 

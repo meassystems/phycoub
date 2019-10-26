@@ -2,21 +2,21 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-26 11:38:48
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 11:46:13
+ * @Last Modified time: 2019-10-26 18:56:42
  */
 
 #pragma once
 
 #include <memory>
 
-#include "InterworkingFunction.h"
+#include "InterworkingIface.h"
 
 namespace phycoub
 {
 /*
  * Кулоновская сила
  */
-class CulonInterworking : public InterworkingFunction
+class CulonInterworking : public InterworkingIface
 {
   public:
     CulonInterworking() = default;

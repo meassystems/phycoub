@@ -18,38 +18,43 @@ ThermostatBorder::ThermostatBorder( const Vector& borders, double kB, double tem
 }
 
 // virtual override
-void ThermostatBorder::psyMove( const Vector& move, ParticlePtr* particle )
+void ThermostatBorder::psyMove(
+    const Vector& move, const Vector& newSpeed, ParticlePtr* particle )
 {
-    ( *particle )->coordinate_ += move;
-
-    bool fl = false;
     const Vector& borders = getBorders();
+    Vector coordinate = ( *particle )->getCoordinate();
+    Vector speed = newSpeed;
+
+    bool isBorderReached = false;
+    coordinate += move;
 
     for ( int i = 0; i < 3; ++i )
     {
-        if ( i == 0 )
+        if ( coordinate[ i ] < 0 )
         {
-            fl = false;
+            isBorderReached = true;
+            coordinate[ i ] *= -1;
+            speed[ i ] *= -1;
         }
-        if ( ( *particle )->coordinate_[ i ] < 0 )
+        else if ( coordinate[ i ] > borders[ i ] )
         {
-            fl = true;
-            ( *particle )->coordinate_[ i ] = -( *particle )->coordinate_[ i ];
-            ( *particle )->speed_[ i ] = -( *particle )->speed_[ i ];
-        }
-        else if ( ( *particle )->coordinate_[ i ] > borders[ i ] )
-        {
-            fl = true;
-            ( *particle )->coordinate_[ i ]
-                = 2 * borders[ i ] - ( *particle )->coordinate_[ i ];
-            ( *particle )->speed_[ i ] = -( *particle )->speed_[ i ];
+            isBorderReached = true;
+            coordinate[ i ] = 2 * borders[ i ] - coordinate[ i ];
+            speed[ i ] *= -1;
         }
     }
-    if ( fl )
+    if ( isBorderReached )
     {
-        temperatureControl( temperature_, kB_, particle );
+        temperatureControl( temperature_, kB_, ( *particle )->m_, &speed );
     }
-    ( *particle )->moved();
+
+    ( *particle )->move( coordinate, speed );
+    // todo: twice becose if once - invalid result for calculation models uses previes
+    // values
+    if ( isBorderReached )
+    {
+        ( *particle )->move( coordinate, speed );
+    }
 }
 
 void ThermostatBorder::setKb( double kB )
@@ -73,10 +78,11 @@ double ThermostatBorder::getTemperature() const
 }
 
 // static
-void ThermostatBorder::temperatureControl( double temp, double kB, ParticlePtr* particle )
+void ThermostatBorder::temperatureControl(
+    double temp, double kB, double m, Vector* speed )
 {
-    double speedT = sqrt( ( 3 * kB * temp ) / ( *particle )->m_ );
-    ( *particle )->speed_ *= ( speedT / ( *particle )->speed_.getModule() );
+    double speedT = sqrt( ( 3 * kB * temp ) / m );
+    *speed *= ( speedT / speed->getModule() );
 }
 
 } // namespace phycoub

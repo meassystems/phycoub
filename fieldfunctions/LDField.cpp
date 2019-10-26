@@ -1,18 +1,18 @@
 /*
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-26 10:24:16
- * @Last Modified by:   Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 10:24:16
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-26 18:59:47
  */
 
-#include <LDFieldFunction.h>
+#include "LDField.h"
 
 #include <math.h>
 
 namespace phycoub
 {
 
-LDFieldFunction::LDFieldFunction( double a, double b, double eps )
+LDField::LDField( double a, double b, double eps )
     : a_( a )
     , b_( b )
     , eps_( eps )
@@ -20,11 +20,11 @@ LDFieldFunction::LDFieldFunction( double a, double b, double eps )
 }
 
 // virtual override
-Vector LDFieldFunction::psyField(
+Vector LDField::psyField(
     const Vector& mark, const ParticlePtr particle /* = nullptr*/ ) const
 {
     Vector effect;
-    Vector distance = ( mark - particle->coordinate_ );
+    Vector distance = ( mark - particle->getCoordinate() );
     if ( distance == 0. )
     {
         return effect;

@@ -38,7 +38,7 @@ Vector ElectricField::psyField(
     const Vector& mark, const ParticlePtr particle /* = nullptr*/ ) const
 {
     Vector effect;
-    Vector distance = ( mark - particle->coordinate_ );
+    Vector distance = ( mark - particle->getCoordinate() );
     if ( distance == 0. )
     {
         return effect;

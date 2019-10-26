@@ -2,19 +2,19 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 14:14:39
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 11:45:43
+ * @Last Modified time: 2019-10-26 18:53:51
  */
 
 #pragma once
 
 #include <memory>
 
-#include "InterworkingFunction.h"
+#include "InterworkingIface.h"
 
 namespace phycoub
 {
 
-class LDInterworking : public InterworkingFunction
+class LDInterworking : public InterworkingIface
 {
   public:
     LDInterworking() = default;

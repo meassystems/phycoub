@@ -17,23 +17,36 @@ CyclicBorder::CyclicBorder( const Vector& borders )
 }
 
 // virtual override
-void CyclicBorder::psyMove( const Vector& move, ParticlePtr* particle )
+void CyclicBorder::psyMove(
+    const Vector& move, const Vector& newSpeed, ParticlePtr* particle )
 {
-    ( *particle )->coordinate_ += move;
+    Vector coordinate = ( *particle )->getCoordinate();
+    coordinate += move;
 
+    bool isBorderReached = false;
     const Vector& borders = getBorders();
+
     for ( int i = 0; i < 3; ++i )
     {
-        if ( ( *particle )->coordinate_[ i ] < 0 )
+        if ( coordinate[ i ] < 0 )
         {
-            ( *particle )->coordinate_[ i ] += borders[ i ];
+            coordinate[ i ] += borders[ i ];
+            isBorderReached = true;
         }
-        else if ( ( *particle )->coordinate_[ i ] > borders[ i ] )
+        else if ( coordinate[ i ] > borders[ i ] )
         {
-            ( *particle )->coordinate_[ i ] -= borders[ i ];
+            coordinate[ i ] -= borders[ i ];
+            isBorderReached = true;
         }
     }
-    ( *particle )->moved();
+
+    ( *particle )->move( coordinate, newSpeed );
+    // todo: twice becose if once - invalid result for calculation models uses previes
+    // values
+    if ( isBorderReached )
+    {
+        ( *particle )->move( coordinate, newSpeed );
+    }
 }
 
 } // namespace phycoub

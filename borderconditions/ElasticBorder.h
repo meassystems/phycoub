@@ -18,12 +18,14 @@ namespace phycoub
 class ElasticBorder : public BorderCondition
 {
   public:
+    void psyMove(
+        const Vector& move, const Vector& newSpeed, ParticlePtr* particle ) override;
+
+  private:
+    // todo correct speed vector
     ElasticBorder( const Vector& borders );
     virtual ~ElasticBorder() = default;
 
-    void psyMove( const Vector& move, ParticlePtr* particle ) override;
-
-  private:
     struct PlaneMarket
     {
         Vector M1;
@@ -39,7 +41,7 @@ class ElasticBorder : public BorderCondition
 
     /* Получить новый вектор отражения */
     const IntersectionVector getIntersectionVector(
-        const Vector& move, const ParticlePtr particle );
+        const Vector& move, const Vector& coordinate );
     /* Функция для получения точки пересечения траектории с границей моделирования */
     const Vector getMarkIntersection(
         const PlaneMarket& planeMarket, const Vector& mark, const Vector& direction );

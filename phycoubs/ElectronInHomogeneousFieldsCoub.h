@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 12:45:53
+ * @Last Modified time: 2019-10-26 18:47:16
  */
 
 #pragma once
@@ -16,9 +16,9 @@
 #include "ElectricHomogeneousField.h"
 #include "Constants.h"
 #include "CulonInterworking.h"
-#include "CreateFieldBase.h"
-#include "FeelField.h"
-#include "CreateHomogeneousField.h"
+#include "FieldCreator.h"
+#include "FieldReceiver.h"
+#include "HomogeneousFieldCreator.h"
 #include "CalculationGroup.h"
 
 namespace phycoub
@@ -41,11 +41,11 @@ class ElectronInHomogeneousFieldsCoub final : public PhyCoub
     ElectricHomogeneousFieldPtr electricHomogeneousField_
         = std::make_shared< ElectricHomogeneousField >(
             Vector{ 0, 0, 1 }, ElectricConstants::electronCharge * 10 );
-    CreateHomogeneousFieldPtr electricHomogeneousFieldCreator_
-        = std::make_shared< CreateHomogeneousField >(
+    HomogeneousFieldCreatorPtr electricHomogeneousFieldCreator_
+        = std::make_shared< HomogeneousFieldCreator >(
             electricHomogeneousField_, "ElectricHomogeneousField" );
     CulonInterworkingPtr culonInterworking_ = std::make_shared< CulonInterworking >();
-    FeelFieldPtr feelWithCulonInterworking_ = std::make_shared< FeelField >(
+    FieldReceiverPtr feelWithCulonInterworking_ = std::make_shared< FieldReceiver >(
         electricHomogeneousFieldCreator_, culonInterworking_, "culon interworking" );
 };
 

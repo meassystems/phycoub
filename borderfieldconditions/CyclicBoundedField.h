@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-24 19:47:12
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 09:12:44
+ * @Last Modified time: 2019-10-26 19:09:04
  */
 
 #pragma once
@@ -23,8 +23,8 @@ class CyclicBoundedField : public BorderFieldCondition
     CyclicBoundedField( const Vector& borders, double radiusCut );
     virtual ~CyclicBoundedField() = default;
 
-    virtual Vector phyFieldWithBorderCondition( FieldFunctionPtr fieldFunction,
-        const ParticlePtr particle, const Vector& mark ) override;
+    virtual Vector phyFieldWithBorderCondition(
+        FieldPtr field, const ParticlePtr particle, const Vector& mark ) override;
 
     void setBorders( const Vector& borders );
     const Vector& getBorders() const;

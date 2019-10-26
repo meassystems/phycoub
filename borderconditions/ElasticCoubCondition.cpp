@@ -17,26 +17,39 @@ ElasticCoubCondition::ElasticCoubCondition( const Vector& borders )
 }
 
 // virtual override
-void ElasticCoubCondition::psyMove( const Vector& move, ParticlePtr* particle )
+void ElasticCoubCondition::psyMove(
+    const Vector& move, const Vector& newSpeed, ParticlePtr* particle )
 {
-    ( *particle )->coordinate_ += move;
-
     const Vector& borders = getBorders();
+    Vector coordinate = ( *particle )->getCoordinate();
+    Vector speed = ( *particle )->getSpeed();
+
+    bool isBorderReached = false;
+    coordinate += move;
+
     for ( int i = 0; i < 3; ++i )
     {
-        if ( ( *particle )->coordinate_[ i ] < 0 )
+        if ( coordinate[ i ] < 0 )
         {
-            ( *particle )->coordinate_[ i ] = -( *particle )->coordinate_[ i ];
-            ( *particle )->speed_[ i ] = -( *particle )->speed_[ i ];
+            coordinate[ i ] *= -1;
+            speed[ i ] *= -1;
+            isBorderReached = true;
         }
-        else if ( ( *particle )->coordinate_[ i ] > borders[ i ] )
+        else if ( coordinate > borders[ i ] )
         {
-            ( *particle )->coordinate_[ i ]
-                = 2 * borders[ i ] - ( *particle )->coordinate_[ i ];
-            ( *particle )->speed_[ i ] = -( *particle )->speed_[ i ];
+            coordinate[ i ] = 2 * borders[ i ] - coordinate[ i ];
+            speed[ i ] *= -1;
+            isBorderReached = true;
         }
     }
-    ( *particle )->moved();
+
+    ( *particle )->move( coordinate, speed );
+    // todo: twice becose if once - invalid result for calculation models uses previes
+    // values
+    if ( isBorderReached )
+    {
+        ( *particle )->move( coordinate, speed );
+    }
 }
 
 } // namespace phycoub

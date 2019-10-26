@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 21:35:24
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 12:15:37
+ * @Last Modified time: 2019-10-26 19:25:03
  */
 
 #include "Vector.h"
@@ -11,13 +11,6 @@
 
 namespace phycoub
 {
-
-Vector::Vector()
-    : x_( 0. )
-    , y_( 0. )
-    , z_( 0. )
-{
-}
 
 Vector::Vector( double v )
     : x_( v )

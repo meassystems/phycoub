@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 21:35:42
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 12:20:42
+ * @Last Modified time: 2019-10-26 19:25:12
  */
 
 #pragma once
@@ -15,7 +15,7 @@ namespace phycoub
 class Vector
 {
   public:
-    Vector();
+    Vector() = default;
     explicit Vector( double v );
     Vector( double x, double y, double z );
     virtual ~Vector() = default;
@@ -55,7 +55,9 @@ class Vector
     bool below( const Vector& vector ) const;
     bool beyond( const Vector& vector ) const;
 
-    double x_, y_, z_;
+    double x_ = 0.;
+    double y_ = 0.;
+    double z_ = 0.;
 };
 
 } // namespace phycoub

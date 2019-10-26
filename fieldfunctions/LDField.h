@@ -2,21 +2,21 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-24 20:37:03
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 09:37:18
+ * @Last Modified time: 2019-10-26 19:00:07
  */
 
 #pragma once
 
-#include <FieldFunction.h>
+#include "FieldIface.h"
 
 namespace phycoub
 {
 
-class LDFieldFunction : public FieldFunction
+class LDField : public FieldIface
 {
   public:
-    LDFieldFunction( double a, double b, double eps );
-    virtual ~LDFieldFunction() = default;
+    LDField( double a, double b, double eps );
+    virtual ~LDField() = default;
 
     virtual Vector psyField(
         const Vector& mark, const ParticlePtr particle = nullptr ) const override;
@@ -25,6 +25,6 @@ class LDFieldFunction : public FieldFunction
     double a_, b_, eps_;
 };
 
-using LDFieldFunctionPtr = std::shared_ptr< LDFieldFunction >;
+using LDFieldPtr = std::shared_ptr< LDField >;
 
 } // namespace phycoub

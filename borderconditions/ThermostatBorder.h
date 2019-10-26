@@ -20,7 +20,8 @@ class ThermostatBorder : public BorderCondition
     ThermostatBorder( const Vector& borders, double kB, double temp );
     virtual ~ThermostatBorder() = default;
 
-    virtual void psyMove( const Vector& move, ParticlePtr* particle ) override;
+    virtual void psyMove(
+        const Vector& move, const Vector& newSpeed, ParticlePtr* particle ) override;
 
     void setKb( double kB );
     double getKb() const;
@@ -29,7 +30,7 @@ class ThermostatBorder : public BorderCondition
     double getTemperature() const;
 
   private:
-    static void temperatureControl( double temp, double kB, ParticlePtr* particle );
+    static void temperatureControl( double temp, double kB, double m, Vector* speed );
 
     double kB_;
     double temperature_;

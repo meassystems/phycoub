@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 13:42:50
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 00:50:43
+ * @Last Modified time: 2019-10-26 18:45:18
  */
 
 #include "PhyCoub.h"
@@ -14,7 +14,7 @@ namespace phycoub
 
 void PhyCoub::phyCoub()
 {
-    for ( FeelFieldPtr& fieldResponsive : fieldsResponsive_ )
+    for ( FieldReceiverPtr& fieldResponsive : fieldsResponsive_ )
     {
         fieldResponsive->phyCalcInterworking();
     }
@@ -40,7 +40,7 @@ double PhyCoub::getExperimentTime() const
     return experimentTime;
 }
 
-void PhyCoub::addFieldResponsive( FeelFieldPtr fieldResponsive )
+void PhyCoub::addFieldResponsive( FieldReceiverPtr fieldResponsive )
 {
     fieldsResponsive_.push_back( fieldResponsive );
 }

@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-24 20:03:46
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 12:51:03
+ * @Last Modified time: 2019-10-26 18:41:27
  */
 
 #pragma once
@@ -15,11 +15,11 @@
 namespace phycoub
 {
 
-class CreateFieldBase
+class FieldCreator
 {
   public:
-    CreateFieldBase( const std::string& fieldName );
-    virtual ~CreateFieldBase() = default;
+    FieldCreator( const std::string& fieldName );
+    virtual ~FieldCreator() = default;
 
     virtual Vector getFieldInMark( const Vector& mark ) = 0;
 
@@ -30,6 +30,6 @@ class CreateFieldBase
     std::string fieldName_;
 };
 
-using CreateFieldBasePtr = std::shared_ptr< CreateFieldBase >;
+using FieldCreatorPtr = std::shared_ptr< FieldCreator >;
 
 } // namespace phycoub

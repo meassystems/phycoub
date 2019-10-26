@@ -1,18 +1,18 @@
 /*
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-26 10:13:35
- * @Last Modified by:   Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 10:13:35
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-26 18:44:19
  */
 
 #pragma once
 
-#include <CalculationModel.h>
+#include "CalculationModel.h"
 
 namespace phycoub
 {
 
-class FeelField;
+class FieldReceiver;
 /*
  * Методика расчета по скоростной модификации Верле.
  */

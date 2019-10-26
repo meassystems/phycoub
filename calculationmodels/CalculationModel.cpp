@@ -2,14 +2,14 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-26 09:57:56
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 10:08:58
+ * @Last Modified time: 2019-10-26 18:46:56
  */
 
-#include "../calculationmodels/CalculationModel.h"
-
 #include <algorithm>
+
+#include "CalculationModel.h"
 #include "Vector.h"
-#include "FeelField.h"
+#include "FieldReceiver.h"
 #include "CalculationGroup.h"
 
 namespace phycoub
@@ -21,8 +21,9 @@ void CalculationModel::phyCalculate(
 {
     for ( ParticlePtr particle : *particleGroupList )
     {
-        particle->speed_ += particle->resultant_ * ( dt / particle->m_ );
-        borderCondition->psyMove( particle->speed_ * dt, &particle );
+        const Vector speed
+            = particle->getSpeed() + particle->resultant_ * ( dt / particle->m_ );
+        borderCondition->psyMove( speed * dt, speed, &particle );
     }
 }
 

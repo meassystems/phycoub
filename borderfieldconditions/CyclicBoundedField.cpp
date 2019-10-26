@@ -2,12 +2,13 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-24 19:54:53
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 09:17:27
+ * @Last Modified time: 2019-10-26 19:09:39
  */
 
-#include <CyclicBoundedField.h>
 #include <algorithm>
-#include "CreateField.h"
+
+#include "CyclicBoundedField.h"
+#include "DynamicFieldCreator.h"
 #include "Particle.h"
 
 namespace phycoub
@@ -51,18 +52,19 @@ CyclicBoundedField::CyclicBoundedField( const Vector& borders, double radiusCut 
 
 // virtual override
 Vector CyclicBoundedField::phyFieldWithBorderCondition(
-    FieldFunctionPtr fieldFunction, const ParticlePtr particle, const Vector& mark )
+    FieldPtr field, const ParticlePtr particle, const Vector& mark )
 {
     // todo validate this algorithm
+    const Vector& coordinate = particle->getCoordinate();
 
     Vector result;
     if ( ( mark - radiusCut_ ).beyond( Vector( 0., 0., 0. ) )
         && ( mark + radiusCut_ ).below( borders_ ) )
     {
-        if ( particle->coordinate_.beyond( mark - radiusCut_ )
-            && particle->coordinate_.below( mark + radiusCut_ ) )
+        if ( coordinate.beyond( mark - radiusCut_ )
+            && coordinate.below( mark + radiusCut_ ) )
         {
-            result = fieldFunction->psyField( mark, particle );
+            result = field->psyField( mark, particle );
         }
     }
     else
@@ -198,11 +200,9 @@ Vector CyclicBoundedField::phyFieldWithBorderCondition(
         for ( int i = 0; i < transferQuantity; ++i )
         {
             transferMark = mark + transferNum[ i ];
-            // if(source->coordinate_.beyond(transferMark - *bounds_) &&
-            // source->coordinate_.below(transferMark + *bounds_)) {
-            if ( ( particle->coordinate_ - transferMark ).getModule() < radiusCut_ )
+            if ( ( coordinate - transferMark ).getModule() < radiusCut_ )
             {
-                result += fieldFunction->psyField( mark, particle );
+                result += field->psyField( mark, particle );
             }
         }
     }

@@ -26,7 +26,8 @@ class BorderCondition
     BorderCondition( const Vector& borders );
     virtual ~BorderCondition() = default;
 
-    virtual void psyMove( const Vector& move, ParticlePtr* particle );
+    virtual void psyMove(
+        const Vector& move, const Vector& newSpeed, ParticlePtr* particle );
 
     void setBorders( const Vector& borders );
     const Vector& getBorders() const;
