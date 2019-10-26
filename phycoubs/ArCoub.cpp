@@ -37,4 +37,9 @@ ArCoub::ArCoub()
     addCalculationGroup( leapFrogCalculationGroup_ );
 }
 
+const Vector& ArCoub::getBorders() const
+{
+    return thermostatBorder_->getBorders();
+}
+
 } // namespace phycoub

@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 18:39:46
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 11:59:11
+ * @Last Modified time: 2019-10-26 13:11:12
  */
 
 #include <algorithm>
@@ -13,12 +13,14 @@
 namespace phycoub
 {
 
+// static
 double MeasurementUtils::getTemperature( double kB, ParticleGroupPtr particles )
 {
     const double result_ = getWk( particles ) * 2. / 3. / kB;
     return result_;
 }
 
+// static
 double MeasurementUtils::getTemperatureWithoutEnergyTranslationalMotionSystem(
     double kB, ParticleGroupPtr particles )
 {
@@ -26,6 +28,7 @@ double MeasurementUtils::getTemperatureWithoutEnergyTranslationalMotionSystem(
     return result_;
 }
 
+// static
 double MeasurementUtils::getWk( ParticleGroupPtr particles )
 {
     double speedQ = .0;
@@ -38,6 +41,7 @@ double MeasurementUtils::getWk( ParticleGroupPtr particles )
     return result_;
 }
 
+// static
 double MeasurementUtils::getWkWithoutTranslationalMotion( ParticleGroupPtr particles )
 {
     double speedQ = .0;

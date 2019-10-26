@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 14:54:13
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 12:41:29
+ * @Last Modified time: 2019-10-26 13:06:20
  */
 
 #pragma once
@@ -31,6 +31,8 @@ class ArCoub final : public PhyCoub
   public:
     ArCoub();
     virtual ~ArCoub() = default;
+
+    const Vector& getBorders() const;
 
     double dt_ = 1E-15, k_ = 1.38E-23, z_ = 0.0, temp = 500.0;
     double mAr_ = 6.6E-26, epsAr_ = 1.67E-21, aAr_ = 3.4E-10, radiusCut_ = 2.5 * aAr_;
