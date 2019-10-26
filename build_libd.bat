@@ -49,7 +49,6 @@ clean.bat^
     phyobjects/particlefigurematrix/LineFigure.cpp^
     phyobjects/particlefigurematrix/ParallelepipedFigure.cpp^
     phyobjects/particlefigurematrix/PlaneFigure.cpp^
-    specialmodellingfunctions/temperatureControl.cpp^
     types/Vector.cpp^
     types/VectorUtils.cpp^
  && lib^

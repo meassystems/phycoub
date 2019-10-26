@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 18:11:55
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 22:31:19
+ * @Last Modified time: 2019-10-26 08:33:05
  */
 
 #pragma once
@@ -17,7 +17,7 @@ namespace phycoub
 class ElasticCoubCondition : public BorderCondition
 {
   public:
-    ElasticCoubCondition( Vector* borders );
+    ElasticCoubCondition( const Vector& borders );
     virtual ~ElasticCoubCondition() = default;
 
     void psyMove( const Vector& move, ParticlePtr* particle ) override;

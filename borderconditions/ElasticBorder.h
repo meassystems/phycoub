@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 18:07:20
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 22:31:37
+ * @Last Modified time: 2019-10-26 08:27:54
  */
 
 #pragma once
@@ -18,7 +18,7 @@ namespace phycoub
 class ElasticBorder : public BorderCondition
 {
   public:
-    ElasticBorder( Vector* borders );
+    ElasticBorder( const Vector& borders );
     virtual ~ElasticBorder() = default;
 
     void psyMove( const Vector& move, ParticlePtr* particle ) override;

@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 18:10:42
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 22:42:51
+ * @Last Modified time: 2019-10-26 09:00:28
  */
 
 #include <ElasticBorder.h>
@@ -11,11 +11,12 @@
 namespace phycoub
 {
 
-ElasticBorder::ElasticBorder( Vector* borders )
+ElasticBorder::ElasticBorder( const Vector& borders )
     : BorderCondition( borders )
 {
 }
 
+// virtual override
 void ElasticBorder::psyMove( const Vector& move, ParticlePtr* particle )
 {
     Vector move_;
@@ -77,49 +78,50 @@ const ElasticBorder::IntersectionVector ElasticBorder::getIntersectionVector(
         return result_;
     }
 
+    const Vector& borders = getBorders();
     while ( !isMarkInBorder( result_.intersectionMark ) )
     {
         if ( particle->coordinate_.x_ < 0. && lastIntersection != 1 )
         {
             lastIntersection = 1;
             planeMarket_.M1 = Vector( 0. );
-            planeMarket_.M2 = Vector( 0., borders_->y_, 0. );
-            planeMarket_.M3 = Vector( 0., 0., borders_->z_ );
+            planeMarket_.M2 = Vector( 0., borders.y_, 0. );
+            planeMarket_.M3 = Vector( 0., 0., borders.z_ );
         }
         else if ( particle->coordinate_.y_ < 0. && lastIntersection != 2 )
         {
             lastIntersection = 2;
             planeMarket_.M1 = Vector( 0. );
-            planeMarket_.M2 = Vector( borders_->x_, 0., 0. );
-            planeMarket_.M3 = Vector( 0., 0., borders_->z_ );
+            planeMarket_.M2 = Vector( borders.x_, 0., 0. );
+            planeMarket_.M3 = Vector( 0., 0., borders.z_ );
         }
         else if ( particle->coordinate_.z_ < 0. && lastIntersection != 3 )
         {
             lastIntersection = 3;
             planeMarket_.M1 = Vector( 0. );
-            planeMarket_.M2 = Vector( borders_->x_, 0., 0. );
-            planeMarket_.M3 = Vector( 0., borders_->y_, 0. );
+            planeMarket_.M2 = Vector( borders.x_, 0., 0. );
+            planeMarket_.M3 = Vector( 0., borders.y_, 0. );
         }
-        else if ( particle->coordinate_.x_ > borders_->x_ && lastIntersection != 4 )
+        else if ( particle->coordinate_.x_ > borders.x_ && lastIntersection != 4 )
         {
             lastIntersection = 4;
-            planeMarket_.M1 = Vector( *borders_ );
-            planeMarket_.M2 = Vector( borders_->x_, 0., borders_->z_ );
-            planeMarket_.M3 = Vector( borders_->x_, borders_->y_, 0. );
+            planeMarket_.M1 = borders;
+            planeMarket_.M2 = Vector( borders.x_, 0., borders.z_ );
+            planeMarket_.M3 = Vector( borders.x_, borders.y_, 0. );
         }
-        else if ( particle->coordinate_.y_ > borders_->y_ && lastIntersection != 5 )
+        else if ( particle->coordinate_.y_ > borders.y_ && lastIntersection != 5 )
         {
             lastIntersection = 5;
-            planeMarket_.M1 = Vector( *borders_ );
-            planeMarket_.M2 = Vector( 0., borders_->y_, borders_->z_ );
-            planeMarket_.M3 = Vector( borders_->x_, borders_->y_, 0. );
+            planeMarket_.M1 = borders;
+            planeMarket_.M2 = Vector( 0., borders.y_, borders.z_ );
+            planeMarket_.M3 = Vector( borders.x_, borders.y_, 0. );
         }
-        else if ( particle->coordinate_.z_ > borders_->z_ && lastIntersection != 6 )
+        else if ( particle->coordinate_.z_ > borders.z_ && lastIntersection != 6 )
         {
             lastIntersection = 6;
-            planeMarket_.M1 = Vector( *borders_ );
-            planeMarket_.M2 = Vector( 0., borders_->y_, borders_->z_ );
-            planeMarket_.M3 = Vector( borders_->x_, 0., borders_->z_ );
+            planeMarket_.M1 = borders;
+            planeMarket_.M2 = Vector( 0., borders.y_, borders.z_ );
+            planeMarket_.M3 = Vector( borders.x_, 0., borders.z_ );
         }
         else
         {
@@ -169,8 +171,9 @@ const Vector ElasticBorder::getMarkIntersection(
 }
 bool ElasticBorder::isMarkInBorder( const Vector& mark )
 {
-    if ( mark.x_ < 0 || mark.x_ > borders_->x_ || mark.y_ < 0 || mark.y_ > borders_->y_
-        || mark.z_ < 0 || mark.z_ > borders_->z_ )
+    const Vector& borders = getBorders();
+    if ( mark.x_ < 0 || mark.x_ > borders.x_ || mark.y_ < 0 || mark.y_ > borders.y_
+        || mark.z_ < 0 || mark.z_ > borders.z_ )
     {
         return false;
     }

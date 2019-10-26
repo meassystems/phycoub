@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-19 19:07:25
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 22:57:06
+ * @Last Modified time: 2019-10-26 08:55:45
  */
 
 #pragma once
@@ -47,7 +47,7 @@ class NOCoub final : public PhyCoub
 
   private:
     CyclicBorderPtr cyclicBorder_
-        = std::make_shared< CyclicBorder >( CyclicBorder( &borders_ ) );
+        = std::make_shared< CyclicBorder >( CyclicBorder( borders_ ) );
     BorderFieldCondition borderFieldCondition_;
 
     CyclicBoundedField cyclicBoundedFieldN_{ CyclicBoundedField(

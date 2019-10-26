@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 14:54:13
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 23:00:06
+ * @Last Modified time: 2019-10-26 08:52:28
  */
 
 #pragma once
@@ -34,7 +34,6 @@ class ArCoub final : public PhyCoub
 
     double dt_ = 1E-15, k_ = 1.38E-23, z_ = 0.0, temp = 500.0;
     double mAr_ = 6.6E-26, epsAr_ = 1.67E-21, aAr_ = 3.4E-10, radiusCut_ = 2.5 * aAr_;
-    Vector borders_{ aAr_ * 20 * pow( 2, 1 / 6. ) };
 
     ParticleGroupPtr argon_ = std::make_shared< ParticleGroup >();
     ParallelepipedFigure parallelepipedFigure{ Vector( 0, 0, aAr_* pow( 2, 1 / 6. ) ),
@@ -42,13 +41,13 @@ class ArCoub final : public PhyCoub
         21, 21, Vector( 0 ), Vector( 0 ), mAr_, z_ };
 
   private:
-    ThermostatBorderPtr thermostatBorder
-        = std::make_shared< ThermostatBorder >( &borders_, &k_, &temp );
+    ThermostatBorderPtr thermostatBorder_ = std::make_shared< ThermostatBorder >(
+        Vector{ aAr_ * 20 * pow( 2, 1 / 6. ) }, k_, temp );
     BorderFieldCondition borderFieldCondition_;
 
     LeapFrog leapFrog_;
     CalculationGroupPtr leapFrogCalculationGroup_
-        = std::make_shared< CalculationGroup >( &leapFrog_, thermostatBorder );
+        = std::make_shared< CalculationGroup >( &leapFrog_, thermostatBorder_ );
 
     LDFieldFunction argonField_{ aAr_, aAr_, epsAr_ };
     CreateFieldPtr argonFieldCreator_ = std::make_shared< CreateField >(
