@@ -38,7 +38,7 @@ clean.bat^
     phycoubs/FigureDemonstration.cpp^
     phycoubs/NOCoub.cpp^
     phycoubs/PhyCoub.cpp^
-    phymeasurement/measurement.cpp^
+    phymeasurement/MeasurementUtils.cpp^
     phyobjects/CalculationGroup.cpp^
     phyobjects/CreateField.cpp^
     phyobjects/CreateFieldBase.cpp^
