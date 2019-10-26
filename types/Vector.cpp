@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 21:35:24
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-23 21:36:42
+ * @Last Modified time: 2019-10-26 12:15:37
  */
 
 #include "Vector.h"
@@ -33,7 +33,7 @@ Vector::Vector( double x, double y, double z )
 {
 }
 
-Vector& Vector::operator=( const double& vector )
+Vector& Vector::operator=( double vector )
 {
     x_ = vector;
     y_ = vector;
@@ -104,15 +104,15 @@ bool Vector::operator<=( const Vector& vector ) const
     return this->getModule() <= vector.getModule();
 }
 //-----------------------------------------------------
-Vector Vector::operator+( const double& value ) const
+Vector Vector::operator+( double value ) const
 {
     return Vector( this->x_ + value, this->y_ + value, this->z_ + value );
 }
-Vector Vector::operator-( const double& value ) const
+Vector Vector::operator-( double value ) const
 {
     return Vector( this->x_ - value, this->y_ - value, this->z_ - value );
 }
-Vector Vector::operator*( const double& value ) const
+Vector Vector::operator*( double value ) const
 {
     Vector res_;
     res_.x_ = this->x_ * value;
@@ -121,7 +121,7 @@ Vector Vector::operator*( const double& value ) const
 
     return res_;
 }
-Vector Vector::operator/( const double& value ) const
+Vector Vector::operator/( double value ) const
 {
     Vector res_;
     res_.x_ = this->x_ / value;
@@ -130,21 +130,21 @@ Vector Vector::operator/( const double& value ) const
 
     return res_;
 }
-Vector& Vector::operator+=( const double& value )
+Vector& Vector::operator+=( double value )
 {
     this->x_ += value;
     this->y_ += value;
     this->z_ += value;
     return *this;
 }
-Vector& Vector::operator-=( const double& value )
+Vector& Vector::operator-=( double value )
 {
     this->x_ -= value;
     this->y_ -= value;
     this->z_ -= value;
     return *this;
 }
-Vector& Vector::operator*=( const double& value )
+Vector& Vector::operator*=( double value )
 {
     this->x_ = this->x_ * value;
     this->y_ = this->y_ * value;
@@ -152,7 +152,7 @@ Vector& Vector::operator*=( const double& value )
 
     return *this;
 }
-Vector& Vector::operator/=( const double& value )
+Vector& Vector::operator/=( double value )
 {
     this->x_ = this->x_ / value;
     this->y_ = this->y_ / value;
@@ -160,25 +160,25 @@ Vector& Vector::operator/=( const double& value )
 
     return *this;
 }
-bool Vector::operator==( const double& value ) const
+bool Vector::operator==( double value ) const
 {
     if ( this->getModule() == value )
         return true;
     return false;
 }
-bool Vector::operator>( const double& value ) const
+bool Vector::operator>( double value ) const
 {
     return this->getModule() > value;
 }
-bool Vector::operator<( const double& value ) const
+bool Vector::operator<( double value ) const
 {
     return this->getModule() < value;
 }
-bool Vector::operator>=( const double& value ) const
+bool Vector::operator>=( double value ) const
 {
     return this->getModule() >= value;
 }
-bool Vector::operator<=( const double& value ) const
+bool Vector::operator<=( double value ) const
 {
     return this->getModule() <= value;
 }
@@ -236,4 +236,4 @@ bool Vector::beyond( const Vector& vector ) const
     return true;
 }
 
-} /* namespace phycoub */
+} // namespace phycoub
