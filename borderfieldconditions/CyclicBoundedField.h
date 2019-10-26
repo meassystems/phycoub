@@ -2,10 +2,12 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-24 19:47:12
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 18:24:47
+ * @Last Modified time: 2019-10-26 09:12:44
  */
 
 #pragma once
+
+#include <memory>
 
 #include <BorderFieldCondition.h>
 #include "Vector.h"
@@ -18,23 +20,31 @@ namespace phycoub
 class CyclicBoundedField : public BorderFieldCondition
 {
   public:
-    CyclicBoundedField( double* radiusCut, Vector* borders );
-    virtual ~CyclicBoundedField();
+    CyclicBoundedField( const Vector& borders, double radiusCut );
+    virtual ~CyclicBoundedField() = default;
 
-    virtual Vector phyFieldWithBorderCondition( FieldFunction* fieldFunction,
+    virtual Vector phyFieldWithBorderCondition( FieldFunctionPtr fieldFunction,
         const ParticlePtr particle, const Vector& mark ) override;
 
-    double* radiusCut_;
-    Vector* borders_;
+    void setBorders( const Vector& borders );
+    const Vector& getBorders() const;
+
+    void setRadiusCut( double radiusCut );
+    double getRadiusCut() const;
 
   private:
     /* Функция добавления грани переноса поля */
     void addTransfer( int num );
+
+    double radiusCut_;
+    Vector borders_;
 
     Vector transferConst[ 27 ];
     bool intersection[ 6 ] = { false };
     int transferNum[ 27 ] = { 0 };
     int transferQuantity = 0;
 };
+
+using CyclicBoundedFieldPtr = std::shared_ptr< CyclicBoundedField >;
 
 } // namespace phycoub

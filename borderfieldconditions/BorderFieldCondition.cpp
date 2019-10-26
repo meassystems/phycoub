@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-24 19:54:37
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 18:24:16
+ * @Last Modified time: 2019-10-26 09:05:56
  */
 
 #include "BorderFieldCondition.h"
@@ -12,8 +12,9 @@
 namespace phycoub
 {
 
+// virtual
 Vector BorderFieldCondition::phyFieldWithBorderCondition(
-    FieldFunction* fieldFunction, const ParticlePtr particle, const Vector& mark )
+    FieldFunctionPtr fieldFunction, const ParticlePtr particle, const Vector& mark )
 {
     const Vector result = fieldFunction->psyField( mark, particle );
     return result;

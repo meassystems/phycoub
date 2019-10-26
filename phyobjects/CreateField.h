@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 22:09:51
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 19:19:21
+ * @Last Modified time: 2019-10-26 09:44:07
  */
 
 #pragma once
@@ -12,6 +12,7 @@
 #include <memory>
 
 #include "CreateFieldBase.h"
+#include "BorderFieldCondition.h"
 #include "Vector.h"
 #include "ParticleGroup.h"
 #include "FieldFunction.h"
@@ -26,17 +27,24 @@ class BorderFieldCondition;
 class CreateField : public CreateFieldBase
 {
   public:
-    CreateField( FieldFunction* functionField, BorderFieldCondition* borderFieldCondition,
-        const std::string& fieldName );
+    CreateField( FieldFunctionPtr functionField,
+        BorderFieldConditionPtr borderFieldCondition, const std::string& fieldName );
     virtual ~CreateField() = default;
 
     virtual Vector getFieldInMark( const Vector& mark );
 
     void addGroupParticle( ParticleGroupPtr particles );
 
+    void setFunctionField( FieldFunctionPtr fieldFunction );
+    FieldFunctionPtr getFieldFunction();
+
+    void setBorderFieldCondition( BorderFieldConditionPtr borderFieldCondition );
+    BorderFieldConditionPtr getBorderFieldCondition();
+
+  private:
     ParticleGroupList particleGroupList_;
-    FieldFunction* functionField_;
-    BorderFieldCondition* borderFieldCondition_;
+    FieldFunctionPtr fieldFunction_;
+    BorderFieldConditionPtr borderFieldCondition_;
 };
 
 using CreateFieldPtr = std::shared_ptr< CreateField >;

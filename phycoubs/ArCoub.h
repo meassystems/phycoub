@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 14:54:13
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 08:52:28
+ * @Last Modified time: 2019-10-26 09:40:56
  */
 
 #pragma once
@@ -43,15 +43,17 @@ class ArCoub final : public PhyCoub
   private:
     ThermostatBorderPtr thermostatBorder_ = std::make_shared< ThermostatBorder >(
         Vector{ aAr_ * 20 * pow( 2, 1 / 6. ) }, k_, temp );
-    BorderFieldCondition borderFieldCondition_;
+    BorderFieldConditionPtr borderFieldCondition_
+        = std::make_shared< BorderFieldCondition >();
 
     LeapFrog leapFrog_;
     CalculationGroupPtr leapFrogCalculationGroup_
         = std::make_shared< CalculationGroup >( &leapFrog_, thermostatBorder_ );
 
-    LDFieldFunction argonField_{ aAr_, aAr_, epsAr_ };
+    LDFieldFunctionPtr argonField_
+        = std::make_shared< LDFieldFunction >( aAr_, aAr_, epsAr_ );
     CreateFieldPtr argonFieldCreator_ = std::make_shared< CreateField >(
-        &argonField_, &borderFieldCondition_, "LD Argon Field" );
+        argonField_, borderFieldCondition_, "LD Argon Field" );
     LDInterworking argontInterworking_;
     FeelFieldPtr argonFieldResponsive_ = std::make_shared< FeelField >(
         argonFieldCreator_, &argontInterworking_, "LD Argon Feel" );
