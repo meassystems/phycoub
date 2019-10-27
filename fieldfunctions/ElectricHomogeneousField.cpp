@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 12:08:09
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 18:28:31
+ * @Last Modified time: 2019-10-27 22:56:21
  */
 
 #include "ElectricHomogeneousField.h"
@@ -57,7 +57,7 @@ double ElectricHomogeneousField::getCharge() const
 
 void ElectricHomogeneousField::updateFieldConstant()
 {
-    fieldConstatnt_ = 1. / ( 4. * M_PI * ElectricConstants::epselon0 * epselon_ );
+    fieldConstatnt_ = charge_ / ( 4. * M_PI * ElectricConstants::epselon0 * epselon_ );
 }
 
 } // namespace phycoub
