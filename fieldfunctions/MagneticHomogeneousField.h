@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 19:23:35
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 10:24:48
+ * @Last Modified time: 2019-10-27 11:40:57
  */
 
 #include "HomogeneousField.h"
@@ -16,17 +16,17 @@ class Particle;
 class MagneticHomogeneousField : public HomogeneousField
 {
   public:
-    MagneticHomogeneousField( const Vector& direction, const Vector& B );
+    MagneticHomogeneousField( const Vector& direction, double B );
     virtual ~MagneticHomogeneousField() = default;
 
     virtual Vector psyField(
         const Vector& mark, const ParticlePtr particle = nullptr ) const override;
 
-    void setMagneticInduction( const Vector& B );
-    const Vector& getMagneticInduction() const;
+    void setMagneticInduction( double B );
+    double getMagneticInduction() const;
 
   private:
-    Vector B_;
+    double B_;
 };
 
 using MagneticHomogeneousFieldPtr = std::shared_ptr< MagneticHomogeneousField >;

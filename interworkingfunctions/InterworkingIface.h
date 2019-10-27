@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 18:30:46
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 18:54:01
+ * @Last Modified time: 2019-10-27 11:47:01
  */
 
 #pragma once
@@ -24,7 +24,7 @@ class InterworkingIface
   public:
     virtual ~InterworkingIface() = default;
 
-    const virtual Vector psyForce( const Vector& field, const ParticlePtr particle ) = 0;
+    virtual const Vector psyForce( const Vector& field, const ParticlePtr particle ) = 0;
 };
 
 using InterworkingPtr = std::shared_ptr< InterworkingIface >;

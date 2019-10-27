@@ -32,6 +32,7 @@ clean.bat^
     fieldfunctions/MagneticHomogeneousField.cpp^
     interworkingfunctions/CulonInterworking.cpp^
     interworkingfunctions/LDInterworking.cpp^
+    interworkingfunctions/MagneticInterworking.cpp^
     phycoubs/ArCoub.cpp^
     phycoubs/ElectronInHomogeneousFieldsCoub.cpp^
     phycoubs/FigureDemonstration.cpp^

@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-27 09:42:32
+ * @Last Modified time: 2019-10-27 13:56:14
  */
 
 #include "ElectronInHomogeneousFieldsCoub.h"
@@ -23,9 +23,11 @@ ElectronInHomogeneousFieldsCoub::ElectronInHomogeneousFieldsCoub()
         ElectricConstants::electronWeight ) );
 
     feelWithCulonInterworking_->addGroupParticle( electrons_ );
-    leapFrogCalculationGroup_->addGroupParticle( electrons_ );
-
     addFieldResponsive( feelWithCulonInterworking_ );
+    feelWithMagneticInterworking_->addGroupParticle( electrons_ );
+    addFieldResponsive( feelWithMagneticInterworking_ );
+
+    leapFrogCalculationGroup_->addGroupParticle( electrons_ );
     addCalculationGroup( leapFrogCalculationGroup_ );
 }
 
