@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 18:47:16
+ * @Last Modified time: 2019-10-27 10:19:54
  */
 
 #pragma once
@@ -20,6 +20,7 @@
 #include "FieldReceiver.h"
 #include "HomogeneousFieldCreator.h"
 #include "CalculationGroup.h"
+#include "ElasticCoubCondition.h"
 
 namespace phycoub
 {
@@ -30,17 +31,24 @@ class ElectronInHomogeneousFieldsCoub final : public PhyCoub
     ElectronInHomogeneousFieldsCoub();
     ~ElectronInHomogeneousFieldsCoub() = default;
 
+    const Vector& getBorders() const;
+    ParticleGroupPtr getParticleGroup();
+
   private:
-    double dt_ = 1E-15;
+    double dt_ = 1E-11;
+    ParticleGroupPtr electrons_ = std::make_shared< ParticleGroup >();
+
     CyclicBorderPtr cyclicBorder_ = std::make_shared< CyclicBorder >( Vector{ 1.e-1 } );
+    ElasticCoubConditionPtr elascticBorder_
+        = std::make_shared< ElasticCoubCondition >( Vector{ 1.e-1 } );
 
     LeapFrogPtr leapFrog_ = std::make_shared< LeapFrog >();
-    CalculationGroupPtr leapFrogCalculationGroup_
-        = std::make_shared< CalculationGroup >( leapFrog_, cyclicBorder_ );
+    CalculationGroupPtr leapFrogCalculationGroup_ = std::make_shared< CalculationGroup >(
+        leapFrog_, /*cyclicBorder_*/ elascticBorder_ );
 
     ElectricHomogeneousFieldPtr electricHomogeneousField_
         = std::make_shared< ElectricHomogeneousField >(
-            Vector{ 0, 0, 1 }, ElectricConstants::electronCharge * 10 );
+            Vector{ 0, 0, 1 }, ElectricConstants::electronCharge * 100'000 );
     HomogeneousFieldCreatorPtr electricHomogeneousFieldCreator_
         = std::make_shared< HomogeneousFieldCreator >(
             electricHomogeneousField_, "ElectricHomogeneousField" );

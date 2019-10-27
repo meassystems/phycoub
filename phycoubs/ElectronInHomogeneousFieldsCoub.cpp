@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 18:47:06
+ * @Last Modified time: 2019-10-27 09:42:32
  */
 
 #include "ElectronInHomogeneousFieldsCoub.h"
@@ -16,8 +16,27 @@ ElectronInHomogeneousFieldsCoub::ElectronInHomogeneousFieldsCoub()
 {
     setDeltaTime( dt_ );
 
+    const Vector& borders = getBorders();
+    electrons_->emplace_back( std::make_shared< Particle >(
+        Vector( 0.5 * borders.x_, 0.5 * borders.y_, 0.5 * borders.z_ ),
+        Vector( .0, .0, .0 ), ElectricConstants::electronWeight,
+        ElectricConstants::electronWeight ) );
+
+    feelWithCulonInterworking_->addGroupParticle( electrons_ );
+    leapFrogCalculationGroup_->addGroupParticle( electrons_ );
+
     addFieldResponsive( feelWithCulonInterworking_ );
     addCalculationGroup( leapFrogCalculationGroup_ );
+}
+
+const Vector& ElectronInHomogeneousFieldsCoub::getBorders() const
+{
+    return cyclicBorder_->getBorders();
+}
+
+ParticleGroupPtr ElectronInHomogeneousFieldsCoub::getParticleGroup()
+{
+    return electrons_;
 }
 
 } // namespace phycoub
