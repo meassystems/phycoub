@@ -17,11 +17,10 @@ BorderCondition::BorderCondition( const Vector& borders )
 }
 
 void BorderCondition::psyMove(
-    const Vector& move, const Vector& newSpeed, ParticlePtr* particle )
+    const Vector& move, const Vector& speed, ParticlePtr* particle )
 {
-    Vector coordinate = ( *particle )->getCoordinate();
-    coordinate += move;
-    ( *particle )->move( coordinate, newSpeed );
+    const Vector coordinate = ( *particle )->getCoordinate() + move;
+    moveParticle( coordinate, speed, false, particle );
 }
 
 void BorderCondition::setBorders( const Vector& borders )
@@ -32,6 +31,18 @@ void BorderCondition::setBorders( const Vector& borders )
 const Vector& BorderCondition::getBorders() const
 {
     return borders_;
+}
+
+void BorderCondition::moveParticle( const Vector& coordinate, const Vector& speed,
+    bool isBorderReached, ParticlePtr* particle )
+{
+    ( *particle )->move( coordinate, speed );
+    // todo: twice becose if once - invalid result for calculation models uses previes
+    // values
+    if ( isBorderReached )
+    {
+        ( *particle )->move( coordinate, speed );
+    }
 }
 
 } // namespace phycoub

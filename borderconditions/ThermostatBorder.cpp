@@ -19,11 +19,11 @@ ThermostatBorder::ThermostatBorder( const Vector& borders, double kB, double tem
 
 // virtual override
 void ThermostatBorder::psyMove(
-    const Vector& move, const Vector& newSpeed, ParticlePtr* particle )
+    const Vector& move, const Vector& speed, ParticlePtr* particle )
 {
     const Vector& borders = getBorders();
     Vector coordinate = ( *particle )->getCoordinate();
-    Vector speed = newSpeed;
+    Vector newSpeed = speed;
 
     bool isBorderReached = false;
     coordinate += move;
@@ -34,27 +34,21 @@ void ThermostatBorder::psyMove(
         {
             isBorderReached = true;
             coordinate[ i ] *= -1;
-            speed[ i ] *= -1;
+            newSpeed[ i ] *= -1;
         }
         else if ( coordinate[ i ] > borders[ i ] )
         {
             isBorderReached = true;
             coordinate[ i ] = 2 * borders[ i ] - coordinate[ i ];
-            speed[ i ] *= -1;
+            newSpeed[ i ] *= -1;
         }
     }
     if ( isBorderReached )
     {
-        temperatureControl( temperature_, kB_, ( *particle )->m_, &speed );
+        temperatureControl( temperature_, kB_, ( *particle )->m_, &newSpeed );
     }
 
-    ( *particle )->move( coordinate, speed );
-    // todo: twice becose if once - invalid result for calculation models uses previes
-    // values
-    if ( isBorderReached )
-    {
-        ( *particle )->move( coordinate, speed );
-    }
+    moveParticle( coordinate, newSpeed, isBorderReached, particle );
 }
 
 void ThermostatBorder::setKb( double kB )

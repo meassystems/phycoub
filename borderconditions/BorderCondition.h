@@ -27,10 +27,14 @@ class BorderCondition
     virtual ~BorderCondition() = default;
 
     virtual void psyMove(
-        const Vector& move, const Vector& newSpeed, ParticlePtr* particle );
+        const Vector& move, const Vector& speed, ParticlePtr* particle );
 
     void setBorders( const Vector& borders );
     const Vector& getBorders() const;
+
+  protected:
+    void moveParticle( const Vector& coordinate, const Vector& speed,
+        bool isBorderReached, ParticlePtr* particle );
 
   private:
     Vector borders_;

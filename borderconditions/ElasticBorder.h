@@ -19,7 +19,7 @@ class ElasticBorder : public BorderCondition
 {
   public:
     void psyMove(
-        const Vector& move, const Vector& newSpeed, ParticlePtr* particle ) override;
+        const Vector& move, const Vector& speed, ParticlePtr* particle ) override;
 
   private:
     // todo correct speed vector

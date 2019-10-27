@@ -18,11 +18,11 @@ ElasticCoubCondition::ElasticCoubCondition( const Vector& borders )
 
 // virtual override
 void ElasticCoubCondition::psyMove(
-    const Vector& move, const Vector& newSpeed, ParticlePtr* particle )
+    const Vector& move, const Vector& speed, ParticlePtr* particle )
 {
     const Vector& borders = getBorders();
     Vector coordinate = ( *particle )->getCoordinate();
-    Vector speed = ( *particle )->getSpeed();
+    Vector newSpeed = speed;
 
     bool isBorderReached = false;
     coordinate += move;
@@ -32,24 +32,18 @@ void ElasticCoubCondition::psyMove(
         if ( coordinate[ i ] < 0 )
         {
             coordinate[ i ] *= -1;
-            speed[ i ] *= -1;
+            newSpeed[ i ] *= -1;
             isBorderReached = true;
         }
         else if ( coordinate > borders[ i ] )
         {
             coordinate[ i ] = 2 * borders[ i ] - coordinate[ i ];
-            speed[ i ] *= -1;
+            newSpeed[ i ] *= -1;
             isBorderReached = true;
         }
     }
 
-    ( *particle )->move( coordinate, speed );
-    // todo: twice becose if once - invalid result for calculation models uses previes
-    // values
-    if ( isBorderReached )
-    {
-        ( *particle )->move( coordinate, speed );
-    }
+    moveParticle( coordinate, newSpeed, isBorderReached, particle );
 }
 
 } // namespace phycoub

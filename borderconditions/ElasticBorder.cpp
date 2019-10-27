@@ -18,7 +18,7 @@ ElasticBorder::ElasticBorder( const Vector& borders )
 
 // virtual override
 void ElasticBorder::psyMove(
-    const Vector& move, const Vector& newSpeed, ParticlePtr* particle )
+    const Vector& move, const Vector& speed, ParticlePtr* particle )
 {
     Vector coordinate = ( *particle )->getCoordinate();
     IntersectionVector intersectionVector = getIntersectionVector( move, coordinate );
@@ -26,7 +26,7 @@ void ElasticBorder::psyMove(
     if ( intersectionVector.intersection )
     {
         coordinate += move;
-        ( *particle )->move( coordinate, newSpeed );
+        moveParticle( coordinate, speed, false, particle );
         return;
     }
 
@@ -61,11 +61,9 @@ void ElasticBorder::psyMove(
         move_ = elasticDirection;
         intersectionVector = getIntersectionVector( move_, coordinate );
     } while ( intersectionVector.intersection );
-    coordinate += move;
-    // todo: twice becose if once - invalid result for calculation models uses previes
-    // values
-    ( *particle )->move( coordinate, newSpeed );
-    ( *particle )->move( coordinate, newSpeed );
+
+    coordinate += move_; // ? move or move_
+    moveParticle( coordinate, speed, true, particle );
 }
 
 const ElasticBorder::IntersectionVector ElasticBorder::getIntersectionVector(

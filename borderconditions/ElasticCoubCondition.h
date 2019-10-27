@@ -21,7 +21,7 @@ class ElasticCoubCondition : public BorderCondition
     virtual ~ElasticCoubCondition() = default;
 
     void psyMove(
-        const Vector& move, const Vector& newSpeed, ParticlePtr* particle ) override;
+        const Vector& move, const Vector& speed, ParticlePtr* particle ) override;
 };
 
 using ElasticCoubConditionPtr = std::shared_ptr< ElasticCoubCondition >;

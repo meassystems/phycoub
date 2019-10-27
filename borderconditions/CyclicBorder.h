@@ -19,7 +19,7 @@ class CyclicBorder : public BorderCondition
     virtual ~CyclicBorder() = default;
 
     virtual void psyMove(
-        const Vector& move, const Vector& newSpeed, ParticlePtr* particle ) override;
+        const Vector& move, const Vector& speed, ParticlePtr* particle ) override;
 };
 
 using CyclicBorderPtr = std::shared_ptr< CyclicBorder >;

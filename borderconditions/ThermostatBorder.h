@@ -21,7 +21,7 @@ class ThermostatBorder : public BorderCondition
     virtual ~ThermostatBorder() = default;
 
     virtual void psyMove(
-        const Vector& move, const Vector& newSpeed, ParticlePtr* particle ) override;
+        const Vector& move, const Vector& speed, ParticlePtr* particle ) override;
 
     void setKb( double kB );
     double getKb() const;
