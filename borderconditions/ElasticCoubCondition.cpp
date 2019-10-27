@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 18:12:31
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 09:00:45
+ * @Last Modified time: 2019-10-27 10:32:00
  */
 
 #include <ElasticCoubCondition.h>
@@ -35,7 +35,7 @@ void ElasticCoubCondition::psyMove(
             newSpeed[ i ] *= -1;
             isBorderReached = true;
         }
-        else if ( coordinate > borders[ i ] )
+        else if ( coordinate[ i ] > borders[ i ] )
         {
             coordinate[ i ] = 2 * borders[ i ] - coordinate[ i ];
             newSpeed[ i ] *= -1;
