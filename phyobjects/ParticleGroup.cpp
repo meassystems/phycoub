@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 16:32:05
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 00:41:23
+ * @Last Modified time: 2019-10-28 16:24:42
  */
 
 #include "ParticleGroup.h"
@@ -12,7 +12,7 @@
 namespace phycoub
 {
 
-ParticleGroupList::ConstIterator ParticleGroupList::cbegin() const
+ParticleGroupList::ConstIterator ParticleGroupList::begin() const
 {
     if ( size() == 0 )
     {
@@ -28,7 +28,7 @@ ParticleGroupList::ConstIterator ParticleGroupList::cbegin() const
             ( *groupBeginIterator )->cbegin() ) };
 }
 
-ParticleGroupList::ConstIterator ParticleGroupList::cend() const
+ParticleGroupList::ConstIterator ParticleGroupList::end() const
 {
     if ( size() == 0 )
     {

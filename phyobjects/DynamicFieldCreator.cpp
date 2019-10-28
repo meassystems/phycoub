@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 22:09:38
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 19:07:34
+ * @Last Modified time: 2019-10-28 17:04:18
  */
 
 #include "DynamicFieldCreator.h"
@@ -23,6 +23,7 @@ DynamicFieldCreator::DynamicFieldCreator( FieldPtr field,
 {
 }
 
+// virtual override
 Vector DynamicFieldCreator::getFieldInMark( const Vector& mark )
 {
     Vector result;

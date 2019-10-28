@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 16:20:27
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 00:14:13
+ * @Last Modified time: 2019-10-28 16:21:39
  */
 
 #pragma once
@@ -97,8 +97,8 @@ class ParticleGroupList final : public std::list< ParticleGroupPtr >
         std::shared_ptr< ParticleGroup::iterator > particleIterator_;
     };
 
-    ConstIterator cbegin() const;
-    ConstIterator cend() const;
+    ConstIterator begin() const;
+    ConstIterator end() const;
 
     Iterator begin();
     Iterator end();

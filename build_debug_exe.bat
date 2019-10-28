@@ -44,6 +44,8 @@ clean.bat^
     phyobjects/FieldCreator.cpp^
     phyobjects/FieldReceiver.cpp^
     phyobjects/HomogeneousFieldCreator.cpp^
+    phyobjects/InterCommunication.cpp^
+    phyobjects/InterworkingCalculatorBase.cpp^
     phyobjects/Particle.cpp^
     phyobjects/ParticleGroup.cpp^
     phyobjects/particlefigurematrix/LineFigure.cpp^
