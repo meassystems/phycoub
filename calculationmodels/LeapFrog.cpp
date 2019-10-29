@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 12:14:47
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 10:13:17
+ * @Last Modified time: 2019-10-29 14:03:35
  */
 
 #include <LeapFrog.h>
@@ -16,8 +16,9 @@
 namespace phycoub
 {
 
-void phyCalculateThreadLP( ParticleGroupList::Iterator begin,
-    ParticleGroupList::Iterator end, BorderConditionPtr borderCondition, double dt );
+void phyCalculateThreadLP( ParticleGroupList::ParticleIterator begin,
+    ParticleGroupList::ParticleIterator end, BorderConditionPtr borderCondition,
+    double dt );
 
 // virtual override
 void LeapFrog::phyCalculate(
@@ -39,8 +40,8 @@ void LeapFrog::phyCalculate(
         size_t sizeBlockOfThread = particleGroupList->getParticleCount() / numCPU;
         std::thread** threads = new std::thread*[ numCPU ];
 
-        ParticleGroupList::Iterator begin = particleGroupList->begin();
-        ParticleGroupList::Iterator current = begin;
+        ParticleGroupList::ParticleIterator begin = particleGroupList->begin();
+        ParticleGroupList::ParticleIterator current = begin;
 
         int currentBlockNumber = 0;
         size_t currentBlockSize = 1;
@@ -77,8 +78,9 @@ void LeapFrog::phyCalculate(
 }
 
 // Функция потока, для распаралеливания процесса моделировани/
-void phyCalculateThreadLP( ParticleGroupList::Iterator begin,
-    ParticleGroupList::Iterator end, BorderConditionPtr borderCondition, double dt )
+void phyCalculateThreadLP( ParticleGroupList::ParticleIterator begin,
+    ParticleGroupList::ParticleIterator end, BorderConditionPtr borderCondition,
+    double dt )
 {
     while ( begin != end )
     {

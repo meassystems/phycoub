@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-28 16:25:34
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-28 17:40:18
+ * @Last Modified time: 2019-10-29 13:56:29
  */
 
 #include <thread>
@@ -12,10 +12,12 @@
 namespace phycoub
 {
 
-InterCommunication::InterCommunication(
-    FieldPtr field, InterworkingPtr interworking, std::string fieldName )
+InterCommunication::InterCommunication( FieldPtr field,
+    BorderFieldConditionPtr borderFieldCondition, InterworkingPtr interworking,
+    std::string fieldName )
     : InterworkingCalculatorBase( interworking, fieldName )
     , field_( field )
+    , borderFieldCondition_( borderFieldCondition )
 {
 }
 
@@ -29,19 +31,20 @@ void InterCommunication::phyCalcInterworking()
     if ( /*numCPU < 2 || particleGroupList.getParticleCount() < numCPU * 100*/ true )
     {
 
-        for ( ParticleGroupList::ConstIterator particleIterator
+        for ( ParticleGroupList::ParticleConstIterator particleIterator
               = particleGroupList.begin();
               particleIterator != particleGroupList.end(); )
         {
             ParticlePtr particle = *particleIterator;
-            for ( ParticleGroupList::ConstIterator interParticleIterator
+            for ( ParticleGroupList::ParticleConstIterator interParticleIterator
                   = ++particleIterator;
                   interParticleIterator != particleGroupList.end();
                   ++interParticleIterator )
             {
                 ParticlePtr interParticle = *interParticleIterator;
                 const Vector resultant = interworking->psyForce(
-                    field_->psyField( particle->getCoordinate(), interParticle ),
+                    borderFieldCondition_->phyFieldWithBorderCondition(
+                        field_, interParticle, particle->getCoordinate() ),
                     interParticle );
 
                 particle->resultant_ += resultant;
@@ -65,7 +68,7 @@ void InterCommunication::setField( FieldPtr field )
     field_ = field;
 }
 
-FieldPtr InterCommunication::getDynamicFieldCreator()
+FieldPtr InterCommunication::getFieldCreator()
 {
     return field_;
 }

@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 16:32:05
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-28 16:24:42
+ * @Last Modified time: 2019-10-29 14:36:39
  */
 
 #include "ParticleGroup.h"
@@ -12,73 +12,84 @@
 namespace phycoub
 {
 
-ParticleGroupList::ConstIterator ParticleGroupList::begin() const
+ParticleGroupList::GroupConstIterator ParticleGroupList::beginGroup() const
+{
+    return ParticleGroupList::ParticleGroupContainerType::begin();
+}
+
+ParticleGroupList::GroupConstIterator ParticleGroupList::endGroup() const
+{
+    return ParticleGroupList::ParticleGroupContainerType::end();
+}
+
+ParticleGroupList::GroupIterator ParticleGroupList::beginGroup()
+{
+    return ParticleGroupList::ParticleGroupContainerType::begin();
+}
+
+ParticleGroupList::GroupIterator ParticleGroupList::endGroup()
+{
+    return ParticleGroupList::ParticleGroupContainerType::end();
+}
+
+ParticleGroupList::ParticleConstIterator ParticleGroupList::begin() const
 {
     if ( size() == 0 )
     {
-        return ConstIterator{ nullptr, nullptr, nullptr };
+        return ParticleConstIterator{ nullptr, nullptr, nullptr };
     }
 
     auto groupBeginIterator = ParticleGroupContainerType::cbegin();
-    return ConstIterator{ std::make_shared< ParticleGroupContainerType::const_iterator >(
-                              groupBeginIterator ),
-        std::make_shared< ParticleGroupContainerType::const_iterator >(
-            ParticleGroupContainerType::cend() ),
+    return ParticleConstIterator{ std::make_shared< GroupConstIterator >(
+                                      groupBeginIterator ),
+        std::make_shared< GroupConstIterator >( ParticleGroupContainerType::cend() ),
         std::make_shared< ParticleGroup::const_iterator >(
             ( *groupBeginIterator )->cbegin() ) };
 }
 
-ParticleGroupList::ConstIterator ParticleGroupList::end() const
+ParticleGroupList::ParticleConstIterator ParticleGroupList::end() const
 {
     if ( size() == 0 )
     {
-        return ConstIterator{ nullptr, nullptr, nullptr };
+        return ParticleConstIterator{ nullptr, nullptr, nullptr };
     }
 
-    ParticleGroupContainerType::const_iterator endGroupIterator
-        = ParticleGroupContainerType::cend();
-    ParticleGroupContainerType::const_iterator lastGroupIterator
-        = --ParticleGroupContainerType::cend();
+    GroupConstIterator endGroupIterator = ParticleGroupContainerType::cend();
+    GroupConstIterator lastGroupIterator = --ParticleGroupContainerType::cend();
     ParticleGroup::const_iterator endParticleIterator = ( *lastGroupIterator )->cend();
 
-    return ConstIterator{ std::make_shared< ParticleGroupContainerType::const_iterator >(
-                              endGroupIterator ),
-        std::make_shared< ParticleGroupContainerType::const_iterator >(
-            endGroupIterator ),
+    return ParticleConstIterator{ std::make_shared< GroupConstIterator >(
+                                      endGroupIterator ),
+        std::make_shared< GroupConstIterator >( endGroupIterator ),
         std::make_shared< ParticleGroup::const_iterator >( endParticleIterator ) };
 }
 
-ParticleGroupList::Iterator ParticleGroupList::begin()
+ParticleGroupList::ParticleIterator ParticleGroupList::begin()
 {
     if ( size() == 0 )
     {
-        return Iterator{ nullptr, nullptr, nullptr };
+        return ParticleIterator{ nullptr, nullptr, nullptr };
     }
 
     auto groupBeginIterator = ParticleGroupContainerType::begin();
-    return Iterator{ std::make_shared< ParticleGroupContainerType::iterator >(
-                         groupBeginIterator ),
-        std::make_shared< ParticleGroupContainerType::iterator >(
-            ParticleGroupContainerType::end() ),
+    return ParticleIterator{ std::make_shared< GroupIterator >( groupBeginIterator ),
+        std::make_shared< GroupIterator >( ParticleGroupContainerType::end() ),
         std::make_shared< ParticleGroup::iterator >( ( *groupBeginIterator )->begin() ) };
 }
 
-ParticleGroupList::Iterator ParticleGroupList::end()
+ParticleGroupList::ParticleIterator ParticleGroupList::end()
 {
     if ( size() == 0 )
     {
-        return Iterator{ nullptr, nullptr, nullptr };
+        return ParticleIterator{ nullptr, nullptr, nullptr };
     }
 
-    ParticleGroupContainerType::iterator endGroupIterator
-        = ParticleGroupContainerType::end();
-    ParticleGroupContainerType::iterator lastGroupIterator
-        = --ParticleGroupContainerType::end();
+    GroupIterator endGroupIterator = ParticleGroupContainerType::end();
+    GroupIterator lastGroupIterator = --ParticleGroupContainerType::end();
     ParticleGroup::iterator endParticleIterator = ( *lastGroupIterator )->end();
 
-    return Iterator{ std::make_shared< ParticleGroupContainerType::iterator >(
-                         endGroupIterator ),
-        std::make_shared< ParticleGroupContainerType::iterator >( endGroupIterator ),
+    return ParticleIterator{ std::make_shared< GroupIterator >( endGroupIterator ),
+        std::make_shared< GroupIterator >( endGroupIterator ),
         std::make_shared< ParticleGroup::iterator >( endParticleIterator ) };
 }
 
@@ -93,9 +104,9 @@ size_t ParticleGroupList::getParticleCount() const
     return particleCount;
 }
 
-ParticleGroupList::ConstIterator::ConstIterator(
-    std::shared_ptr< ParticleGroupContainerType::const_iterator > groupIterator,
-    std::shared_ptr< ParticleGroupContainerType::const_iterator > groupIteratorEnd,
+ParticleGroupList::ParticleConstIterator::ParticleConstIterator(
+    std::shared_ptr< GroupConstIterator > groupIterator,
+    std::shared_ptr< GroupConstIterator > groupIteratorEnd,
     std::shared_ptr< ParticleGroup::const_iterator > particleIterator )
 {
     groupIterator_ = groupIterator;
@@ -103,7 +114,8 @@ ParticleGroupList::ConstIterator::ConstIterator(
     particleIterator_ = particleIterator;
 }
 
-ParticleGroupList::ConstIterator& ParticleGroupList::ConstIterator::operator++()
+ParticleGroupList::ParticleConstIterator& ParticleGroupList::ParticleConstIterator::
+operator++()
 {
     ++*particleIterator_;
     if ( *particleIterator_ == ( **groupIterator_ )->cend() )
@@ -118,9 +130,10 @@ ParticleGroupList::ConstIterator& ParticleGroupList::ConstIterator::operator++()
     return *this;
 }
 
-ParticleGroupList::ConstIterator ParticleGroupList::ConstIterator::operator++( int )
+ParticleGroupList::ParticleConstIterator ParticleGroupList::ParticleConstIterator::
+operator++( int )
 {
-    ConstIterator current = *this;
+    ParticleConstIterator current = *this;
 
     ++*particleIterator_;
     if ( *particleIterator_ == ( **groupIterator_ )->cend() )
@@ -135,33 +148,35 @@ ParticleGroupList::ConstIterator ParticleGroupList::ConstIterator::operator++( i
     return current;
 }
 
-const ParticleGroupList::ConstIterator::reference ParticleGroupList::ConstIterator::
-operator*()
+const ParticleGroupList::ParticleConstIterator::reference
+    ParticleGroupList::ParticleConstIterator::operator*()
 {
     return **particleIterator_;
 }
 
-const ParticleGroupList::ConstIterator::pointer ParticleGroupList::ConstIterator::
-operator->()
+const ParticleGroupList::ParticleConstIterator::pointer
+    ParticleGroupList::ParticleConstIterator::operator->()
 {
     return &**particleIterator_;
 }
 
-bool ParticleGroupList::ConstIterator::operator==( const ConstIterator& another )
+bool ParticleGroupList::ParticleConstIterator::operator==(
+    const ParticleConstIterator& another )
 {
     return *groupIterator_ == *another.groupIterator_
         && *groupIteratorEnd_ == *another.groupIteratorEnd_
         && *particleIterator_ == *another.particleIterator_;
 }
 
-bool ParticleGroupList::ConstIterator::operator!=( const ConstIterator& another )
+bool ParticleGroupList::ParticleConstIterator::operator!=(
+    const ParticleConstIterator& another )
 {
     return !operator==( another );
 }
 
-ParticleGroupList::Iterator::Iterator(
-    std::shared_ptr< ParticleGroupContainerType::iterator > groupIterator,
-    std::shared_ptr< ParticleGroupContainerType::iterator > groupIteratorEnd,
+ParticleGroupList::ParticleIterator::ParticleIterator(
+    std::shared_ptr< GroupIterator > groupIterator,
+    std::shared_ptr< GroupIterator > groupIteratorEnd,
     std::shared_ptr< ParticleGroup::iterator > particleIterator )
 {
     groupIterator_ = groupIterator;
@@ -169,7 +184,7 @@ ParticleGroupList::Iterator::Iterator(
     particleIterator_ = particleIterator;
 }
 
-ParticleGroupList::Iterator& ParticleGroupList::Iterator::operator++()
+ParticleGroupList::ParticleIterator& ParticleGroupList::ParticleIterator::operator++()
 {
     ++*particleIterator_;
     if ( *particleIterator_ == ( **groupIterator_ )->end() )
@@ -184,9 +199,9 @@ ParticleGroupList::Iterator& ParticleGroupList::Iterator::operator++()
     return *this;
 }
 
-ParticleGroupList::Iterator ParticleGroupList::Iterator::operator++( int )
+ParticleGroupList::ParticleIterator ParticleGroupList::ParticleIterator::operator++( int )
 {
-    Iterator current = *this;
+    ParticleIterator current = *this;
 
     ++*particleIterator_;
     if ( *particleIterator_ == ( **groupIterator_ )->end() )
@@ -201,24 +216,26 @@ ParticleGroupList::Iterator ParticleGroupList::Iterator::operator++( int )
     return current;
 }
 
-ParticleGroupList::Iterator::reference ParticleGroupList::Iterator::operator*()
+ParticleGroupList::ParticleIterator::reference ParticleGroupList::ParticleIterator::
+operator*()
 {
     return **particleIterator_;
 }
 
-ParticleGroupList::Iterator::pointer ParticleGroupList::Iterator::operator->()
+ParticleGroupList::ParticleIterator::pointer ParticleGroupList::ParticleIterator::
+operator->()
 {
     return &**particleIterator_;
 }
 
-bool ParticleGroupList::Iterator::operator==( const Iterator& another )
+bool ParticleGroupList::ParticleIterator::operator==( const ParticleIterator& another )
 {
     return *groupIterator_ == *another.groupIterator_
         && *groupIteratorEnd_ == *another.groupIteratorEnd_
         && *particleIterator_ == *another.particleIterator_;
 }
 
-bool ParticleGroupList::Iterator::operator!=( const Iterator& another )
+bool ParticleGroupList::ParticleIterator::operator!=( const ParticleIterator& another )
 {
     return !operator==( another );
 }

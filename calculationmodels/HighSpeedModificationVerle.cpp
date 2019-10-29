@@ -1,8 +1,8 @@
 /*
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-26 10:13:55
- * @Last Modified by:   Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 10:13:55
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2019-10-29 14:03:12
  */
 
 #include <HighSpeedModificationVerle.h>
@@ -15,8 +15,9 @@
 namespace phycoub
 {
 
-void phyCalculateThread( ParticleGroupList::Iterator begin,
-    ParticleGroupList::Iterator end, BorderConditionPtr borderCondition, double dt );
+void phyCalculateThread( ParticleGroupList::ParticleIterator begin,
+    ParticleGroupList::ParticleIterator end, BorderConditionPtr borderCondition,
+    double dt );
 
 // virtual override
 void HighSpeedModificationVerle::phyCalculate(
@@ -41,8 +42,8 @@ void HighSpeedModificationVerle::phyCalculate(
         size_t sizeBlockOfThread = particleGroupList->getParticleCount() / numCPU;
         std::thread** threads = new std::thread*[ numCPU ];
 
-        ParticleGroupList::Iterator begin = particleGroupList->begin();
-        ParticleGroupList::Iterator current = begin;
+        ParticleGroupList::ParticleIterator begin = particleGroupList->begin();
+        ParticleGroupList::ParticleIterator current = begin;
 
         int currentBlockNumber = 0;
         size_t currentBlockSize = 1;
@@ -79,8 +80,9 @@ void HighSpeedModificationVerle::phyCalculate(
 } // namespace phycoub
 
 // Функция потока, для распаралеливания процесса моделировани/
-void phyCalculateThread( ParticleGroupList::Iterator begin,
-    ParticleGroupList::Iterator end, BorderConditionPtr borderCondition, double dt )
+void phyCalculateThread( ParticleGroupList::ParticleIterator begin,
+    ParticleGroupList::ParticleIterator end, BorderConditionPtr borderCondition,
+    double dt )
 {
     while ( begin != end )
     {

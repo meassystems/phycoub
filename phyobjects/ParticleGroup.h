@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 16:20:27
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-28 16:21:39
+ * @Last Modified time: 2019-10-29 14:16:32
  */
 
 #pragma once
@@ -34,7 +34,16 @@ class ParticleGroupList final : public std::list< ParticleGroupPtr >
     ParticleGroupList() = default;
     ~ParticleGroupList() = default;
 
-    class ConstIterator
+    using GroupConstIterator = ParticleGroupContainerType::const_iterator;
+    using GroupIterator = ParticleGroupContainerType::iterator;
+
+    GroupConstIterator beginGroup() const;
+    GroupConstIterator endGroup() const;
+
+    GroupIterator beginGroup();
+    GroupIterator endGroup();
+
+    class ParticleConstIterator
     {
       public:
         // Implementation of std::iterator
@@ -44,29 +53,27 @@ class ParticleGroupList final : public std::list< ParticleGroupPtr >
         using pointer = const ParticlePtr*;
         using reference = const ParticlePtr&;
 
-        ConstIterator(
-            std::shared_ptr< ParticleGroupContainerType::const_iterator > groupIterator,
-            std::shared_ptr< ParticleGroupContainerType::const_iterator >
-                groupIteratorEnd,
+        ParticleConstIterator( std::shared_ptr< GroupConstIterator > groupIterator,
+            std::shared_ptr< GroupConstIterator > groupIteratorEnd,
             std::shared_ptr< ParticleGroup::const_iterator > particleIterator );
-        ~ConstIterator() = default;
+        ~ParticleConstIterator() = default;
 
-        ConstIterator& operator++();
-        ConstIterator operator++( int );
+        ParticleConstIterator& operator++();
+        ParticleConstIterator operator++( int );
 
         const reference operator*();
         const pointer operator->();
 
-        bool operator==( const ConstIterator& another );
-        bool operator!=( const ConstIterator& another );
+        bool operator==( const ParticleConstIterator& another );
+        bool operator!=( const ParticleConstIterator& another );
 
       private:
-        std::shared_ptr< ParticleGroupContainerType::const_iterator > groupIterator_;
-        std::shared_ptr< ParticleGroupContainerType::const_iterator > groupIteratorEnd_;
+        std::shared_ptr< GroupConstIterator > groupIterator_;
+        std::shared_ptr< GroupConstIterator > groupIteratorEnd_;
         std::shared_ptr< ParticleGroup::const_iterator > particleIterator_;
     };
 
-    class Iterator
+    class ParticleIterator
     {
       public:
         // Implementation of std::iterator
@@ -76,32 +83,31 @@ class ParticleGroupList final : public std::list< ParticleGroupPtr >
         using pointer = ParticlePtr*;
         using reference = ParticlePtr&;
 
-        explicit Iterator(
-            std::shared_ptr< ParticleGroupContainerType::iterator > groupIterator,
-            std::shared_ptr< ParticleGroupContainerType::iterator > groupIteratorEnd,
+        explicit ParticleIterator( std::shared_ptr< GroupIterator > groupIterator,
+            std::shared_ptr< GroupIterator > groupIteratorEnd,
             std::shared_ptr< ParticleGroup::iterator > particleIterator );
-        ~Iterator() = default;
+        ~ParticleIterator() = default;
 
-        Iterator& operator++();
-        Iterator operator++( int );
+        ParticleIterator& operator++();
+        ParticleIterator operator++( int );
 
         reference operator*();
         pointer operator->();
 
-        bool operator==( const Iterator& another );
-        bool operator!=( const Iterator& another );
+        bool operator==( const ParticleIterator& another );
+        bool operator!=( const ParticleIterator& another );
 
       private:
-        std::shared_ptr< ParticleGroupContainerType::iterator > groupIterator_;
-        std::shared_ptr< ParticleGroupContainerType::iterator > groupIteratorEnd_;
+        std::shared_ptr< GroupIterator > groupIterator_;
+        std::shared_ptr< GroupIterator > groupIteratorEnd_;
         std::shared_ptr< ParticleGroup::iterator > particleIterator_;
     };
 
-    ConstIterator begin() const;
-    ConstIterator end() const;
+    ParticleConstIterator begin() const;
+    ParticleConstIterator end() const;
 
-    Iterator begin();
-    Iterator end();
+    ParticleIterator begin();
+    ParticleIterator end();
 
     size_t getParticleCount() const;
 };

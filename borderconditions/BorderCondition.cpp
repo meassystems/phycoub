@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 18:05:52
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 08:20:23
+ * @Last Modified time: 2019-10-29 12:41:24
  */
 
 #include "BorderCondition.h"

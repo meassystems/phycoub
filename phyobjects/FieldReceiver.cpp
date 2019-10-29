@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 22:09:28
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-28 17:14:30
+ * @Last Modified time: 2019-10-29 13:56:22
  */
 
 #include <algorithm>
@@ -22,8 +22,8 @@ FieldReceiver::FieldReceiver(
 {
 }
 
-void phyCalcInterworkingThread( ParticleGroupList::ConstIterator begin,
-    ParticleGroupList::ConstIterator end, FieldCreatorPtr fieldCreator,
+void phyCalcInterworkingThread( ParticleGroupList::ParticleConstIterator begin,
+    ParticleGroupList::ParticleConstIterator end, FieldCreatorPtr fieldCreator,
     InterworkingPtr interworkingFunction );
 
 // virtual override
@@ -46,8 +46,8 @@ void FieldReceiver::phyCalcInterworking()
         size_t sizeBlockOfThread = particleGroupList.getParticleCount() / numCPU;
         std::thread** threads = new std::thread*[ numCPU ];
 
-        ParticleGroupList::ConstIterator begin = particleGroupList.begin();
-        ParticleGroupList::ConstIterator current = begin;
+        ParticleGroupList::ParticleConstIterator begin = particleGroupList.begin();
+        ParticleGroupList::ParticleConstIterator current = begin;
 
         int currentBlockNumber = 0;
         size_t currentBlockSize = 1;
@@ -95,8 +95,8 @@ FieldCreatorPtr FieldReceiver::getFieldCreator()
 }
 
 // Функция потока, для распаралеливания процесса моделировани/
-void phyCalcInterworkingThread( ParticleGroupList::ConstIterator begin,
-    ParticleGroupList::ConstIterator end, FieldCreatorPtr fieldCreator,
+void phyCalcInterworkingThread( ParticleGroupList::ParticleConstIterator begin,
+    ParticleGroupList::ParticleConstIterator end, FieldCreatorPtr fieldCreator,
     InterworkingPtr interworkingFunction )
 {
     while ( begin != end )
