@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 22:11:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-28 17:09:45
+ * @Last Modified time: 2019-10-29 14:50:08
  */
 
 #pragma once
@@ -39,6 +39,5 @@ class FieldReceiver final : public InterworkingCalculatorBase
 };
 
 using FieldReceiverPtr = std::shared_ptr< FieldReceiver >;
-using FieldReceiverList = std::list< FieldReceiverPtr >;
 
 } // namespace phycoub

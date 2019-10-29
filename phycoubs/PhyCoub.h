@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 13:13:41
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 18:47:24
+ * @Last Modified time: 2019-10-29 14:51:04
  */
 
 #pragma once
@@ -10,7 +10,7 @@
 #include <vector>
 #include <string>
 
-#include "FieldReceiver.h"
+#include "InterworkingCalculatorBase.h"
 #include "CalculationGroup.h"
 
 namespace phycoub
@@ -30,7 +30,7 @@ class PhyCoub
     double getExperimentTime() const;
 
   protected:
-    void addFieldResponsive( FieldReceiverPtr fieldResponsive );
+    void addFieldResponsive( InterworkingCalculatorPtr interworkingCalculator );
     void removeFieldResponsive( std::string id );
 
     void addCalculationGroup( CalculationGroupPtr calculationGroup );
@@ -40,7 +40,7 @@ class PhyCoub
     double dt_ = 0.;
     double experimentTime = 0;
 
-    FieldReceiverList fieldsResponsive_;
+    InterworkingCalculatorList interworkingCalculatorList_;
     CalculationGroupList calculationGroups_;
 };
 

@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-28 16:25:34
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-29 13:56:29
+ * @Last Modified time: 2019-10-29 15:04:14
  */
 
 #include <thread>
@@ -45,10 +45,10 @@ void InterCommunication::phyCalcInterworking()
                 const Vector resultant = interworking->psyForce(
                     borderFieldCondition_->phyFieldWithBorderCondition(
                         field_, interParticle, particle->getCoordinate() ),
-                    interParticle );
+                    particle );
 
                 particle->resultant_ += resultant;
-                interParticle->resultant_ += resultant;
+                interParticle->resultant_ -= resultant;
             }
         }
 

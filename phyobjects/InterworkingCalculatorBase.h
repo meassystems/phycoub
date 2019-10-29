@@ -2,12 +2,13 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-28 15:43:54
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-28 17:11:47
+ * @Last Modified time: 2019-10-29 14:50:41
  */
 
 #pragma once
 
 #include <memory>
+#include <list>
 
 #include "FieldCreator.h"
 #include "InterworkingIface.h"
@@ -40,6 +41,7 @@ class InterworkingCalculatorBase
     std::string fieldName_;
 };
 
-using InterwowrkingCalculatorPtr = std::shared_ptr< InterworkingCalculatorBase >;
+using InterworkingCalculatorPtr = std::shared_ptr< InterworkingCalculatorBase >;
+using InterworkingCalculatorList = std::list< InterworkingCalculatorPtr >;
 
 } // namespace phycoub

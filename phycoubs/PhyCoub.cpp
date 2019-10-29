@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 13:42:50
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 18:45:18
+ * @Last Modified time: 2019-10-29 14:51:50
  */
 
 #include "PhyCoub.h"
@@ -14,9 +14,10 @@ namespace phycoub
 
 void PhyCoub::phyCoub()
 {
-    for ( FieldReceiverPtr& fieldResponsive : fieldsResponsive_ )
+    for ( InterworkingCalculatorPtr& interworkingCalculator :
+        interworkingCalculatorList_ )
     {
-        fieldResponsive->phyCalcInterworking();
+        interworkingCalculator->phyCalcInterworking();
     }
     for ( CalculationGroupPtr calculationGroup : calculationGroups_ )
     {
@@ -40,9 +41,9 @@ double PhyCoub::getExperimentTime() const
     return experimentTime;
 }
 
-void PhyCoub::addFieldResponsive( FieldReceiverPtr fieldResponsive )
+void PhyCoub::addFieldResponsive( InterworkingCalculatorPtr interworkingCalculator )
 {
-    fieldsResponsive_.push_back( fieldResponsive );
+    interworkingCalculatorList_.push_back( interworkingCalculator );
 }
 
 void PhyCoub::removeFieldResponsive( std::string id )

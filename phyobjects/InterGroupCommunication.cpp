@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-29 13:26:16
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-29 14:32:31
+ * @Last Modified time: 2019-10-29 15:04:04
  */
 
 #include <thread>
@@ -83,10 +83,10 @@ void InterGroupCommunication::calculateInterCommunicationFor2Group(
             const Vector resultant = interworking->psyForce(
                 borderFieldCondition_->phyFieldWithBorderCondition(
                     field_, interParticle, particle->getCoordinate() ),
-                interParticle );
+                particle );
 
             particle->resultant_ += resultant;
-            interParticle->resultant_ += resultant;
+            interParticle->resultant_ -= resultant;
         }
     }
 }
