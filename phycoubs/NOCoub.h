@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-19 19:07:25
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 18:59:55
+ * @Last Modified time: 2019-10-29 15:11:45
  */
 
 #pragma once
@@ -23,6 +23,7 @@
 #include "LeapFrog.h"
 #include "LDField.h"
 #include "LDInterworking.h"
+#include "InterGroupCommunication.h"
 
 namespace phycoub
 {
@@ -78,18 +79,9 @@ class NOCoub final : public PhyCoub
         oxygen2oxygenFieldCreator_, interworkingFunction, "LD OO Feel" );
 
     LDFieldPtr azot2oxygenField_ = std::make_shared< LDField >( aNO, aNO, epsO );
-    DynamicFieldCreatorPtr azot2oxygenFieldCreator_
-        = std::make_shared< DynamicFieldCreator >(
-            azot2oxygenField_, cyclicBoundedFieldNO_, "LD NO Field" );
-    FieldReceiverPtr azot2oxygenFieldResponsive_ = std::make_shared< FieldReceiver >(
-        azot2oxygenFieldCreator_, interworkingFunction, "LD NO Feel" );
-
-    LDFieldPtr oxygen2azotField_ = std::make_shared< LDField >( aNO, aNO, epsO );
-    DynamicFieldCreatorPtr oxygen2azotFieldCreator_
-        = std::make_shared< DynamicFieldCreator >(
-            oxygen2azotField_, cyclicBoundedFieldNO_, "LD ON Field" );
-    FieldReceiverPtr oxygen2azotFieldResponsive_ = std::make_shared< FieldReceiver >(
-        oxygen2azotFieldCreator_, interworkingFunction, "LD ON Feel" );
+    InterGroupCommunicationPtr azot2oxygenInterCommunication_
+        = std::make_shared< InterGroupCommunication >( azot2oxygenField_,
+            cyclicBoundedFieldNO_, interworkingFunction, "LD NO InterCommunication" );
 };
 
 } // namespace phycoub

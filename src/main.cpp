@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-27 09:26:39
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-27 09:31:10
+ * @Last Modified time: 2019-10-29 14:43:55
  */
 
 #include <iostream>
@@ -17,7 +17,7 @@ using namespace phycoub;
 
 int main()
 {
-
+    /*
     std::cout.precision( 17 );
     try
     {
@@ -37,7 +37,8 @@ int main()
     {
         std::cout << str;
     }
-    /*
+    */
+
     try
     {
         NOCoub NOPhyCoub;
@@ -53,7 +54,7 @@ int main()
     {
         std::cout << str;
     }
-    */
+
     /*
     try
     {

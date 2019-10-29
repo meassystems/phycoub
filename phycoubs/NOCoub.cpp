@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-19 19:07:08
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 13:16:51
+ * @Last Modified time: 2019-10-29 15:11:36
  */
 
 #include <NOCoub.h >
@@ -37,14 +37,10 @@ NOCoub::NOCoub()
     oxygen2oxygenFieldCreator_->addGroupParticle( oxygen_ );
     oxygen2oxyhenFieldResponsive_->addGroupParticle( oxygen_ );
     addFieldResponsive( oxygen2oxyhenFieldResponsive_ );
-    // NO
-    azot2oxygenFieldCreator_->addGroupParticle( azot_ );
-    azot2oxygenFieldResponsive_->addGroupParticle( oxygen_ );
-    addFieldResponsive( azot2oxygenFieldResponsive_ );
-    // ON
-    oxygen2azotFieldCreator_->addGroupParticle( oxygen_ );
-    oxygen2azotFieldResponsive_->addGroupParticle( azot_ );
-    addFieldResponsive( oxygen2azotFieldResponsive_ );
+
+    azot2oxygenInterCommunication_->addGroupParticle( azot_ );
+    azot2oxygenInterCommunication_->addGroupParticle( oxygen_ );
+    addFieldResponsive( azot2oxygenInterCommunication_ );
 
     leapFrogCalculationGroup_->addGroupParticle( azot_ );
     leapFrogCalculationGroup_->addGroupParticle( oxygen_ );

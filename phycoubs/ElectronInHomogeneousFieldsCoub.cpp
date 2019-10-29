@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-27 13:56:14
+ * @Last Modified time: 2019-10-27 22:26:23
  */
 
 #include "ElectronInHomogeneousFieldsCoub.h"
@@ -19,8 +19,8 @@ ElectronInHomogeneousFieldsCoub::ElectronInHomogeneousFieldsCoub()
     const Vector& borders = getBorders();
     electrons_->emplace_back( std::make_shared< Particle >(
         Vector( 0.5 * borders.x_, 0.5 * borders.y_, 0.5 * borders.z_ ),
-        Vector( .0, .0, .0 ), ElectricConstants::electronWeight,
-        ElectricConstants::electronWeight ) );
+        Vector( .0, .0, 1. ) * 1e6, ElectricConstants::electronWeight,
+        ElectricConstants::electronCharge ) );
 
     feelWithCulonInterworking_->addGroupParticle( electrons_ );
     addFieldResponsive( feelWithCulonInterworking_ );

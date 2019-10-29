@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-27 13:56:12
+ * @Last Modified time: 2019-10-27 23:10:31
  */
 
 #pragma once
@@ -37,10 +37,10 @@ class ElectronInHomogeneousFieldsCoub final : public PhyCoub
     ParticleGroupPtr getParticleGroup();
 
   private:
-    double dt_ = 1E-14;
+    double dt_ = 1E-13;
     ParticleGroupPtr electrons_ = std::make_shared< ParticleGroup >();
 
-    CyclicBorderPtr cyclicBorder_ = std::make_shared< CyclicBorder >( Vector{ 1.e-8 } );
+    CyclicBorderPtr cyclicBorder_ = std::make_shared< CyclicBorder >( Vector{ 5.e-3 } );
     ElasticCoubConditionPtr elascticBorder_
         = std::make_shared< ElasticCoubCondition >( Vector{ 1.e-1 } );
 
@@ -50,7 +50,7 @@ class ElectronInHomogeneousFieldsCoub final : public PhyCoub
 
     ElectricHomogeneousFieldPtr electricHomogeneousField_
         = std::make_shared< ElectricHomogeneousField >(
-            Vector{ 0, 0, 1 }, ElectricConstants::electronCharge * 100'000 );
+            Vector{ 0, 0, 1 }, ElectricConstants::electronCharge * 0 );
     HomogeneousFieldCreatorPtr electricHomogeneousFieldCreator_
         = std::make_shared< HomogeneousFieldCreator >(
             electricHomogeneousField_, "ElectricHomogeneousField" );
@@ -59,7 +59,7 @@ class ElectronInHomogeneousFieldsCoub final : public PhyCoub
         electricHomogeneousFieldCreator_, culonInterworking_, "culon interworking" );
 
     MagneticHomogeneousFieldPtr _magneticHomogeneousFieldPtr
-        = std::make_shared< MagneticHomogeneousField >( Vector{ 0, 0, 1 }, 1e-20 );
+        = std::make_shared< MagneticHomogeneousField >( Vector{ 0, 1, 1 }, 1e-2 );
     HomogeneousFieldCreatorPtr magneticHomogeneousFieldCreator_
         = std::make_shared< HomogeneousFieldCreator >(
             _magneticHomogeneousFieldPtr, "MagneticHomogeneousField" );
