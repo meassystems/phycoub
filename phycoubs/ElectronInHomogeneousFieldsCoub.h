@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-27 23:10:31
+ * @Last Modified time: 2019-10-31 01:00:29
  */
 
 #pragma once
@@ -34,11 +34,23 @@ class ElectronInHomogeneousFieldsCoub final : public PhyCoub
     ~ElectronInHomogeneousFieldsCoub() = default;
 
     const Vector& getBorders() const;
-    ParticleGroupPtr getParticleGroup();
+    const ParticleGroupList& getParticleGroupList();
+
+    void addElectron( const Vector& coordinate, const Vector& speed );
+    void removeParticle( long index );
+
+    void setElectricFieldDirection( const Vector& direction );
+    const Vector& getElectricFieldDirection() const;
+    void setElectricFieldCharge( double charge );
+
+    void setMagneticFieldDirection( const Vector& direction );
+    const Vector& getMagneticFieldDirection() const;
+    void setMagneticFieldInduction( double B );
 
   private:
     double dt_ = 1E-13;
     ParticleGroupPtr electrons_ = std::make_shared< ParticleGroup >();
+    ParticleGroupList particleGroupList_;
 
     CyclicBorderPtr cyclicBorder_ = std::make_shared< CyclicBorder >( Vector{ 5.e-3 } );
     ElasticCoubConditionPtr elascticBorder_
@@ -58,11 +70,11 @@ class ElectronInHomogeneousFieldsCoub final : public PhyCoub
     FieldReceiverPtr feelWithCulonInterworking_ = std::make_shared< FieldReceiver >(
         electricHomogeneousFieldCreator_, culonInterworking_, "culon interworking" );
 
-    MagneticHomogeneousFieldPtr _magneticHomogeneousFieldPtr
+    MagneticHomogeneousFieldPtr magneticHomogeneousField_
         = std::make_shared< MagneticHomogeneousField >( Vector{ 0, 1, 1 }, 1e-2 );
     HomogeneousFieldCreatorPtr magneticHomogeneousFieldCreator_
         = std::make_shared< HomogeneousFieldCreator >(
-            _magneticHomogeneousFieldPtr, "MagneticHomogeneousField" );
+            magneticHomogeneousField_, "MagneticHomogeneousField" );
     MagneticInterworkingPtr magneticInterworking_
         = std::make_shared< MagneticInterworking >();
     FieldReceiverPtr feelWithMagneticInterworking_ = std::make_shared< FieldReceiver >(

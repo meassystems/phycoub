@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-27 22:26:23
+ * @Last Modified time: 2019-10-31 01:01:37
  */
 
 #include "ElectronInHomogeneousFieldsCoub.h"
@@ -22,6 +22,8 @@ ElectronInHomogeneousFieldsCoub::ElectronInHomogeneousFieldsCoub()
         Vector( .0, .0, 1. ) * 1e6, ElectricConstants::electronWeight,
         ElectricConstants::electronCharge ) );
 
+    particleGroupList_.push_back( electrons_ );
+
     feelWithCulonInterworking_->addGroupParticle( electrons_ );
     addFieldResponsive( feelWithCulonInterworking_ );
     feelWithMagneticInterworking_->addGroupParticle( electrons_ );
@@ -36,9 +38,51 @@ const Vector& ElectronInHomogeneousFieldsCoub::getBorders() const
     return cyclicBorder_->getBorders();
 }
 
-ParticleGroupPtr ElectronInHomogeneousFieldsCoub::getParticleGroup()
+const ParticleGroupList& ElectronInHomogeneousFieldsCoub::getParticleGroupList()
 {
-    return electrons_;
+    return particleGroupList_;
+}
+
+void ElectronInHomogeneousFieldsCoub::addElectron(
+    const Vector& coordinate, const Vector& speed )
+{
+    electrons_->push_back( std::make_shared< Particle >( coordinate, speed,
+        ElectricConstants::electronWeight, ElectricConstants::electronCharge ) );
+}
+
+void ElectronInHomogeneousFieldsCoub::removeParticle( long index )
+{
+    electrons_->remove( index );
+}
+
+void ElectronInHomogeneousFieldsCoub::setElectricFieldDirection( const Vector& direction )
+{
+    electricHomogeneousField_->setDirection( direction );
+}
+
+const Vector& ElectronInHomogeneousFieldsCoub::getElectricFieldDirection() const
+{
+    return electricHomogeneousField_->getDirection();
+}
+
+void ElectronInHomogeneousFieldsCoub::setElectricFieldCharge( double charge )
+{
+    electricHomogeneousField_->setCharge( charge );
+}
+
+void ElectronInHomogeneousFieldsCoub::setMagneticFieldDirection( const Vector& direction )
+{
+    magneticHomogeneousField_->setDirection( direction );
+}
+
+const Vector& ElectronInHomogeneousFieldsCoub::getMagneticFieldDirection() const
+{
+    return magneticHomogeneousField_->getDirection();
+}
+
+void ElectronInHomogeneousFieldsCoub::setMagneticFieldInduction( double B )
+{
+    magneticHomogeneousField_->setMagneticInduction( B );
 }
 
 } // namespace phycoub

@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 18:39:46
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 13:11:12
+ * @Last Modified time: 2019-10-31 00:29:59
  */
 
 #include <algorithm>
@@ -37,7 +37,7 @@ double MeasurementUtils::getWk( ParticleGroupPtr particles )
         speedQ += pow( particle->getSpeed().getModule(), 2 );
     }
 
-    const double result_ = ( *particles )[ 0 ]->m_ * speedQ / particles->size() / 2;
+    const double result_ = ( *particles ).front()->m_ * speedQ / particles->size() / 2;
     return result_;
 }
 
@@ -58,7 +58,7 @@ double MeasurementUtils::getWkWithoutTranslationalMotion( ParticleGroupPtr parti
     {
         speedQ += pow( ( particle->getSpeed() - speedSystem ).getModule(), 2 );
     }
-    double result_ = ( *particles )[ 0 ]->m_ * speedQ / particles->size() / 2;
+    double result_ = ( *particles ).front()->m_ * speedQ / particles->size() / 2;
 
     return result_;
 }
