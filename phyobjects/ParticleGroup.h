@@ -2,12 +2,11 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 16:20:27
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-29 14:16:32
+ * @Last Modified time: 2019-10-31 00:34:53
  */
 
 #pragma once
 
-#include <vector>
 #include <list>
 #include <cstdint>
 
@@ -16,11 +15,13 @@
 namespace phycoub
 {
 
-class ParticleGroup final : public std::vector< ParticlePtr >
+class ParticleGroup final : public std::list< ParticlePtr >
 {
   public:
     ParticleGroup() = default;
     ~ParticleGroup() = default;
+
+    void remove( long index );
 };
 
 using ParticleGroupPtr = std::shared_ptr< ParticleGroup >;
@@ -33,6 +34,8 @@ class ParticleGroupList final : public std::list< ParticleGroupPtr >
   public:
     ParticleGroupList() = default;
     ~ParticleGroupList() = default;
+
+    void removeParticle( long index );
 
     using GroupConstIterator = ParticleGroupContainerType::const_iterator;
     using GroupIterator = ParticleGroupContainerType::iterator;
@@ -67,6 +70,8 @@ class ParticleGroupList final : public std::list< ParticleGroupPtr >
         bool operator==( const ParticleConstIterator& another );
         bool operator!=( const ParticleConstIterator& another );
 
+        GroupConstIterator getGropIterator();
+
       private:
         std::shared_ptr< GroupConstIterator > groupIterator_;
         std::shared_ptr< GroupConstIterator > groupIteratorEnd_;
@@ -96,6 +101,8 @@ class ParticleGroupList final : public std::list< ParticleGroupPtr >
 
         bool operator==( const ParticleIterator& another );
         bool operator!=( const ParticleIterator& another );
+
+        GroupIterator getGropIterator();
 
       private:
         std::shared_ptr< GroupIterator > groupIterator_;

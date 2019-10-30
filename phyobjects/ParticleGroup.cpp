@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 16:32:05
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-29 14:36:39
+ * @Last Modified time: 2019-10-31 00:37:02
  */
 
 #include "ParticleGroup.h"
@@ -11,6 +11,34 @@
 
 namespace phycoub
 {
+
+void ParticleGroup::remove( long index )
+{
+
+    for ( iterator particleIterator = begin(); particleIterator != end();
+          ++particleIterator )
+    {
+        if ( ( *particleIterator )->getIndex() == index )
+        {
+            erase( particleIterator );
+            return;
+        }
+    }
+}
+
+void ParticleGroupList::removeParticle( long index )
+{
+    for ( ParticleIterator particleIterator = begin(); particleIterator != end();
+          ++particleIterator )
+    {
+        if ( ( *particleIterator )->getIndex() == index )
+        {
+            GroupIterator groupIterator = particleIterator.getGropIterator();
+            ( *groupIterator )->remove( index );
+            return;
+        }
+    }
+}
 
 ParticleGroupList::GroupConstIterator ParticleGroupList::beginGroup() const
 {
@@ -174,6 +202,12 @@ bool ParticleGroupList::ParticleConstIterator::operator!=(
     return !operator==( another );
 }
 
+ParticleGroupList::GroupConstIterator
+ParticleGroupList::ParticleConstIterator::getGropIterator()
+{
+    return *groupIterator_;
+}
+
 ParticleGroupList::ParticleIterator::ParticleIterator(
     std::shared_ptr< GroupIterator > groupIterator,
     std::shared_ptr< GroupIterator > groupIteratorEnd,
@@ -238,6 +272,11 @@ bool ParticleGroupList::ParticleIterator::operator==( const ParticleIterator& an
 bool ParticleGroupList::ParticleIterator::operator!=( const ParticleIterator& another )
 {
     return !operator==( another );
+}
+
+ParticleGroupList::GroupIterator ParticleGroupList::ParticleIterator::getGropIterator()
+{
+    return *groupIterator_;
 }
 
 } // namespace phycoub

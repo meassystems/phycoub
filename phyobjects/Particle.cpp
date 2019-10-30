@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 16:29:19
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 19:23:49
+ * @Last Modified time: 2019-10-30 16:46:31
  */
 
 #include "Particle.h"
@@ -52,6 +52,11 @@ const Vector& Particle::getCoordinate() const
 const Vector& Particle::getSpeed() const
 {
     return speed_;
+}
+
+long int Particle::getIndex() const
+{
+    return index_;
 }
 
 long Particle::index( 0 );

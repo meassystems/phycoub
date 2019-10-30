@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 16:28:49
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 19:22:03
+ * @Last Modified time: 2019-10-30 16:46:06
  */
 
 #pragma once
@@ -28,6 +28,7 @@ class Particle
     void move( const Vector& coordinate, const Vector& speed );
     const Vector& getCoordinate() const;
     const Vector& getSpeed() const;
+    long int getIndex() const;
 
     bool operator==( const Particle& particle );
 
