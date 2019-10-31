@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 16:32:05
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-31 00:37:02
+ * @Last Modified time: 2019-10-31 16:23:33
  */
 
 #include "ParticleGroup.h"
@@ -62,7 +62,7 @@ ParticleGroupList::GroupIterator ParticleGroupList::endGroup()
 
 ParticleGroupList::ParticleConstIterator ParticleGroupList::begin() const
 {
-    if ( size() == 0 )
+    if ( getParticleCount() == 0 )
     {
         return ParticleConstIterator{ nullptr, nullptr, nullptr };
     }
@@ -77,7 +77,7 @@ ParticleGroupList::ParticleConstIterator ParticleGroupList::begin() const
 
 ParticleGroupList::ParticleConstIterator ParticleGroupList::end() const
 {
-    if ( size() == 0 )
+    if ( getParticleCount() == 0 )
     {
         return ParticleConstIterator{ nullptr, nullptr, nullptr };
     }
@@ -94,7 +94,7 @@ ParticleGroupList::ParticleConstIterator ParticleGroupList::end() const
 
 ParticleGroupList::ParticleIterator ParticleGroupList::begin()
 {
-    if ( size() == 0 )
+    if ( getParticleCount() == 0 )
     {
         return ParticleIterator{ nullptr, nullptr, nullptr };
     }
@@ -107,7 +107,7 @@ ParticleGroupList::ParticleIterator ParticleGroupList::begin()
 
 ParticleGroupList::ParticleIterator ParticleGroupList::end()
 {
-    if ( size() == 0 )
+    if ( getParticleCount() == 0 )
     {
         return ParticleIterator{ nullptr, nullptr, nullptr };
     }
@@ -191,6 +191,11 @@ const ParticleGroupList::ParticleConstIterator::pointer
 bool ParticleGroupList::ParticleConstIterator::operator==(
     const ParticleConstIterator& another )
 {
+    if ( groupIterator_ == nullptr )
+    {
+        return another.groupIterator_ == nullptr;
+    }
+
     return *groupIterator_ == *another.groupIterator_
         && *groupIteratorEnd_ == *another.groupIteratorEnd_
         && *particleIterator_ == *another.particleIterator_;
@@ -264,6 +269,11 @@ operator->()
 
 bool ParticleGroupList::ParticleIterator::operator==( const ParticleIterator& another )
 {
+    if ( groupIterator_ == nullptr )
+    {
+        return another.groupIterator_ == nullptr;
+    }
+
     return *groupIterator_ == *another.groupIterator_
         && *groupIteratorEnd_ == *another.groupIteratorEnd_
         && *particleIterator_ == *another.particleIterator_;
