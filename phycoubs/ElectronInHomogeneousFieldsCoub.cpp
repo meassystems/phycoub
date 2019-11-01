@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-31 01:01:37
+ * @Last Modified time: 2019-11-01 21:10:58
  */
 
 #include "ElectronInHomogeneousFieldsCoub.h"
@@ -70,6 +70,11 @@ void ElectronInHomogeneousFieldsCoub::setElectricFieldCharge( double charge )
     electricHomogeneousField_->setCharge( charge );
 }
 
+double ElectronInHomogeneousFieldsCoub::getElectricFieldCharge() const
+{
+    return electricHomogeneousField_->getCharge();
+}
+
 void ElectronInHomogeneousFieldsCoub::setMagneticFieldDirection( const Vector& direction )
 {
     magneticHomogeneousField_->setDirection( direction );
@@ -83,6 +88,11 @@ const Vector& ElectronInHomogeneousFieldsCoub::getMagneticFieldDirection() const
 void ElectronInHomogeneousFieldsCoub::setMagneticFieldInduction( double B )
 {
     magneticHomogeneousField_->setMagneticInduction( B );
+}
+
+double ElectronInHomogeneousFieldsCoub::getMagneticFieldInduction() const
+{
+    return magneticHomogeneousField_->getMagneticInduction();
 }
 
 } // namespace phycoub

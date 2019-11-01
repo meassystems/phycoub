@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-31 01:00:29
+ * @Last Modified time: 2019-11-01 21:09:34
  */
 
 #pragma once
@@ -42,10 +42,12 @@ class ElectronInHomogeneousFieldsCoub final : public PhyCoub
     void setElectricFieldDirection( const Vector& direction );
     const Vector& getElectricFieldDirection() const;
     void setElectricFieldCharge( double charge );
+    double getElectricFieldCharge() const;
 
     void setMagneticFieldDirection( const Vector& direction );
     const Vector& getMagneticFieldDirection() const;
     void setMagneticFieldInduction( double B );
+    double getMagneticFieldInduction() const;
 
   private:
     double dt_ = 1E-13;
