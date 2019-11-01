@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-01 21:10:58
+ * @Last Modified time: 2019-11-01 22:26:33
  */
 
 #include "ElectronInHomogeneousFieldsCoub.h"
@@ -67,7 +67,7 @@ const Vector& ElectronInHomogeneousFieldsCoub::getElectricFieldDirection() const
 
 void ElectronInHomogeneousFieldsCoub::setElectricFieldCharge( double charge )
 {
-    electricHomogeneousField_->setCharge( charge );
+    electricHomogeneousField_->setCharge( charge * ElectricConstants::electronCharge );
 }
 
 double ElectronInHomogeneousFieldsCoub::getElectricFieldCharge() const
