@@ -34,6 +34,8 @@ class ElectronInHomogeneousFieldsCoub final : public PhyCoub
     ~ElectronInHomogeneousFieldsCoub() = default;
 
     const Vector& getBorders() const;
+    void setBorders( const Vector& borders );
+
     const ParticleGroupList& getParticleGroupList();
 
     void addElectron( const Vector& coordinate, const Vector& speed );
@@ -55,8 +57,8 @@ class ElectronInHomogeneousFieldsCoub final : public PhyCoub
     ParticleGroupList particleGroupList_;
 
     CyclicBorderPtr cyclicBorder_ = std::make_shared< CyclicBorder >( Vector{ 5.e-3 } );
-    ElasticCoubConditionPtr elascticBorder_
-        = std::make_shared< ElasticCoubCondition >( Vector{ 1.e-1 } );
+    /*ElasticCoubConditionPtr elascticBorder_
+        = std::make_shared< ElasticCoubCondition >( Vector{ 1.e-1 } );*/
 
     LeapFrogPtr leapFrog_ = std::make_shared< LeapFrog >();
     CalculationGroupPtr leapFrogCalculationGroup_

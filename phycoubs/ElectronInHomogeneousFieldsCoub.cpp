@@ -38,6 +38,11 @@ const Vector& ElectronInHomogeneousFieldsCoub::getBorders() const
     return cyclicBorder_->getBorders();
 }
 
+void ElectronInHomogeneousFieldsCoub::setBorders( const Vector& borders )
+{
+    cyclicBorder_->setBorders( borders );
+}
+
 const ParticleGroupList& ElectronInHomogeneousFieldsCoub::getParticleGroupList()
 {
     return particleGroupList_;

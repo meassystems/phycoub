@@ -28,6 +28,7 @@ class PhyCoub
     double getDeltaTime() const;
 
     double getExperimentTime() const;
+    void resetToZeroExperimentTime();
 
   protected:
     void addFieldResponsive( InterworkingCalculatorPtr interworkingCalculator );
@@ -38,7 +39,7 @@ class PhyCoub
 
   private:
     double dt_ = 0.;
-    double experimentTime = 0;
+    double experimentTime_ = 0;
 
     InterworkingCalculatorList interworkingCalculatorList_;
     CalculationGroupList calculationGroups_;

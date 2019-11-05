@@ -23,7 +23,7 @@ void PhyCoub::phyCoub()
     {
         calculationGroup->phyModeling( dt_ );
     }
-    experimentTime += dt_;
+    experimentTime_ += dt_;
 }
 
 void PhyCoub::setDeltaTime( double dt )
@@ -38,7 +38,12 @@ double PhyCoub::getDeltaTime() const
 
 double PhyCoub::getExperimentTime() const
 {
-    return experimentTime;
+    return experimentTime_;
+}
+
+void PhyCoub::resetToZeroExperimentTime()
+{
+    experimentTime_ = 0;
 }
 
 void PhyCoub::addFieldResponsive( InterworkingCalculatorPtr interworkingCalculator )
