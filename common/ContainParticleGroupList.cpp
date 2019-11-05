@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-11-05 23:22:22
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-05 23:52:30
+ * @Last Modified time: 2019-11-06 00:32:05
  */
 
 #include "ContainParticleGroupList.h"
@@ -20,6 +20,12 @@ void ContainParticleGroupList::addParticleGroup( ParticleGroupPtr particleGroup 
 void ContainParticleGroupList::removeParticleGroup( IDType id )
 {
     particleGroupList.removeGroup( id );
+}
+
+// virtual override
+void ContainParticleGroupList::removeParticleGroup( ParticleGroupPtr particleGroup )
+{
+    removeParticleGroup( particleGroup->getId() );
 }
 
 ParticleGroupList* ContainParticleGroupList::getParticleGroupList()

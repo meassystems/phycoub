@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 16:32:05
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-05 23:47:00
+ * @Last Modified time: 2019-11-06 00:29:26
  */
 
 #include "ParticleGroup.h"
@@ -11,6 +11,11 @@
 
 namespace phycoub
 {
+
+bool ParticleGroup::operator==( const ParticleGroup& particleGroup )
+{
+    return getId() == particleGroup.getId();
+}
 
 void ParticleGroup::remove( IDType id )
 {

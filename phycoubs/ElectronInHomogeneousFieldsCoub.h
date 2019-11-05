@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-05 23:53:07
+ * @Last Modified time: 2019-11-06 00:26:54
  */
 
 #pragma once
@@ -24,6 +24,10 @@
 #include "HomogeneousFieldCreator.h"
 #include "CalculationGroup.h"
 #include "ElasticCoubCondition.h"
+#include "BorderFieldCondition.h"
+#include "ElectricField.h"
+#include "CulonInterworking.h"
+#include "InterCommunication.h"
 
 namespace phycoub
 {
@@ -54,13 +58,13 @@ class ElectronInHomogeneousFieldsCoub final
     void setMagneticFieldInduction( double B );
     double getMagneticFieldInduction() const;
 
+    void onElectron2ElectronInterworking();
+    void offElectron2ElectronInterworking();
+
   private:
-    double dt_ = 1E-13;
     ParticleGroupPtr electrons_ = std::make_shared< ParticleGroup >();
 
     CyclicBorderPtr cyclicBorder_ = std::make_shared< CyclicBorder >( Vector{ 5.e-3 } );
-    /*ElasticCoubConditionPtr elascticBorder_
-        = std::make_shared< ElasticCoubCondition >( Vector{ 1.e-1 } );*/
 
     LeapFrogPtr leapFrog_ = std::make_shared< LeapFrog >();
     CalculationGroupPtr leapFrogCalculationGroup_
@@ -85,6 +89,14 @@ class ElectronInHomogeneousFieldsCoub final
         = std::make_shared< MagneticInterworking >();
     FieldReceiverPtr feelWithMagneticInterworking_ = std::make_shared< FieldReceiver >(
         magneticHomogeneousFieldCreator_, magneticInterworking_, "culon interworking" );
+
+    BorderFieldConditionPtr borderFieldCondition_
+        = std::make_shared< BorderFieldCondition >();
+    ElectricFieldPtr electricField_ = std::make_shared< ElectricField >();
+    InterworkingPtr interworking_ = std::make_shared< CulonInterworking >();
+    InterCommunicationPtr electron2electronInterCommunication_
+        = std::make_shared< InterCommunication >( electricField_, borderFieldCondition_,
+            interworking_, "electron-electron InterCommunication" );
 };
 
 } // namespace phycoub

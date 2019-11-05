@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-05 23:59:42
+ * @Last Modified time: 2019-11-06 00:32:47
  */
 
 #include "ElectronInHomogeneousFieldsCoub.h"
@@ -14,7 +14,7 @@ namespace phycoub
 
 ElectronInHomogeneousFieldsCoub::ElectronInHomogeneousFieldsCoub()
 {
-    setDeltaTime( dt_ );
+    setDeltaTime( 1E-13 );
 
     const Vector& borders = getBorders();
     electrons_->emplace_back( std::make_shared< Particle >(
@@ -98,6 +98,16 @@ void ElectronInHomogeneousFieldsCoub::setMagneticFieldInduction( double B )
 double ElectronInHomogeneousFieldsCoub::getMagneticFieldInduction() const
 {
     return magneticHomogeneousField_->getMagneticInduction();
+}
+
+void ElectronInHomogeneousFieldsCoub::onElectron2ElectronInterworking()
+{
+    electron2electronInterCommunication_->addParticleGroup( electrons_ );
+}
+
+void ElectronInHomogeneousFieldsCoub::offElectron2ElectronInterworking()
+{
+    electron2electronInterCommunication_->removeParticleGroup( electrons_ );
 }
 
 } // namespace phycoub
