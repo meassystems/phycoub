@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-27 09:26:39
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-06 00:33:55
+ * @Last Modified time: 2019-11-06 00:51:48
  */
 
 #include <iostream>
@@ -22,8 +22,8 @@ int main()
     try
     {
         ElectronInHomogeneousFieldsCoub electronInHomogeneousFieldsCoub;
-        electronInHomogeneousFieldsCoub.onElectron2ElectronInterworking();
-        electronInHomogeneousFieldsCoub.offElectron2ElectronInterworking();
+        electronInHomogeneousFieldsCoub.switchElectron2ElectronInterworking( true );
+        electronInHomogeneousFieldsCoub.switchElectron2ElectronInterworking( false );
 
         while ( true )
         {

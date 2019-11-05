@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-06 00:26:54
+ * @Last Modified time: 2019-11-06 00:51:00
  */
 
 #pragma once
@@ -58,8 +58,7 @@ class ElectronInHomogeneousFieldsCoub final
     void setMagneticFieldInduction( double B );
     double getMagneticFieldInduction() const;
 
-    void onElectron2ElectronInterworking();
-    void offElectron2ElectronInterworking();
+    void switchElectron2ElectronInterworking( bool flag );
 
   private:
     ParticleGroupPtr electrons_ = std::make_shared< ParticleGroup >();

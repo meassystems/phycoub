@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-06 00:32:47
+ * @Last Modified time: 2019-11-06 00:52:07
  */
 
 #include "ElectronInHomogeneousFieldsCoub.h"
@@ -100,14 +100,16 @@ double ElectronInHomogeneousFieldsCoub::getMagneticFieldInduction() const
     return magneticHomogeneousField_->getMagneticInduction();
 }
 
-void ElectronInHomogeneousFieldsCoub::onElectron2ElectronInterworking()
+void ElectronInHomogeneousFieldsCoub::switchElectron2ElectronInterworking( bool flag )
 {
-    electron2electronInterCommunication_->addParticleGroup( electrons_ );
-}
-
-void ElectronInHomogeneousFieldsCoub::offElectron2ElectronInterworking()
-{
-    electron2electronInterCommunication_->removeParticleGroup( electrons_ );
+    if ( flag )
+    {
+        electron2electronInterCommunication_->addParticleGroup( electrons_ );
+    }
+    else
+    {
+        electron2electronInterCommunication_->removeParticleGroup( electrons_ );
+    }
 }
 
 } // namespace phycoub
