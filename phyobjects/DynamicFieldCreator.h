@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 22:09:51
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-28 17:17:46
+ * @Last Modified time: 2019-11-05 23:54:46
  */
 
 #pragma once
@@ -12,6 +12,7 @@
 #include <memory>
 
 #include "FieldCreator.h"
+#include "ContainParticleGroupList.h"
 #include "BorderFieldCondition.h"
 #include "Vector.h"
 #include "ParticleGroup.h"
@@ -24,7 +25,9 @@ class BorderFieldCondition;
 /*
  * Класс/объект моделируемого пространства - группа частиц создающих поле.
  */
-class DynamicFieldCreator : public FieldCreator
+class DynamicFieldCreator
+    : public FieldCreator
+    , public ContainParticleGroupList
 {
   public:
     DynamicFieldCreator( FieldPtr field, BorderFieldConditionPtr borderFieldCondition,
@@ -33,8 +36,6 @@ class DynamicFieldCreator : public FieldCreator
 
     virtual Vector getFieldInMark( const Vector& mark );
 
-    void addGroupParticle( ParticleGroupPtr particles );
-
     void setFunctionField( FieldPtr fieldFunction );
     FieldPtr getFieldFunction();
 
@@ -42,7 +43,6 @@ class DynamicFieldCreator : public FieldCreator
     BorderFieldConditionPtr getBorderFieldCondition();
 
   private:
-    ParticleGroupList particleGroupList_;
     FieldPtr field_;
     BorderFieldConditionPtr borderFieldCondition_;
 };

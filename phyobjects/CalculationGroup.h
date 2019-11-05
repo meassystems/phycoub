@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 19:13:10
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 10:11:10
+ * @Last Modified time: 2019-11-05 23:53:34
  */
 
 #pragma once
@@ -11,6 +11,7 @@
 #include <list>
 #include <memory>
 
+#include "ContainParticleGroupList.h"
 #include "Vector.h"
 #include "ParticleGroup.h"
 #include "CalculationModel.h"
@@ -19,7 +20,7 @@
 namespace phycoub
 {
 
-class CalculationGroup
+class CalculationGroup : public ContainParticleGroupList
 {
   public:
     CalculationGroup(
@@ -28,12 +29,9 @@ class CalculationGroup
 
     void phyModeling( double dt );
 
-    void addGroupParticle( ParticleGroupPtr particles );
-
   private:
     CalculationModelPtr calculationModel_;
     BorderConditionPtr borderCondition_;
-    ParticleGroupList particleGroupList_;
 };
 
 using CalculationGroupPtr = std::shared_ptr< CalculationGroup >;

@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-01 21:09:34
+ * @Last Modified time: 2019-11-05 23:53:07
  */
 
 #pragma once
@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "PhyCoub.h"
+#include "ContainParticleGroupList.h"
 #include "Vector.h"
 #include "CyclicBorder.h"
 #include "LeapFrog.h"
@@ -27,7 +28,9 @@
 namespace phycoub
 {
 
-class ElectronInHomogeneousFieldsCoub final : public PhyCoub
+class ElectronInHomogeneousFieldsCoub final
+    : public PhyCoub
+    , public ContainParticleGroupList
 {
   public:
     ElectronInHomogeneousFieldsCoub();
@@ -54,7 +57,6 @@ class ElectronInHomogeneousFieldsCoub final : public PhyCoub
   private:
     double dt_ = 1E-13;
     ParticleGroupPtr electrons_ = std::make_shared< ParticleGroup >();
-    ParticleGroupList particleGroupList_;
 
     CyclicBorderPtr cyclicBorder_ = std::make_shared< CyclicBorder >( Vector{ 5.e-3 } );
     /*ElasticCoubConditionPtr elascticBorder_

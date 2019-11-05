@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 16:32:05
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-31 16:23:33
+ * @Last Modified time: 2019-11-05 23:47:00
  */
 
 #include "ParticleGroup.h"
@@ -12,13 +12,13 @@
 namespace phycoub
 {
 
-void ParticleGroup::remove( long index )
+void ParticleGroup::remove( IDType id )
 {
 
     for ( iterator particleIterator = begin(); particleIterator != end();
           ++particleIterator )
     {
-        if ( ( *particleIterator )->getIndex() == index )
+        if ( ( *particleIterator )->getId() == id )
         {
             erase( particleIterator );
             return;
@@ -26,15 +26,28 @@ void ParticleGroup::remove( long index )
     }
 }
 
-void ParticleGroupList::removeParticle( long index )
+void ParticleGroupList::removeParticle( IDType id )
 {
     for ( ParticleIterator particleIterator = begin(); particleIterator != end();
           ++particleIterator )
     {
-        if ( ( *particleIterator )->getIndex() == index )
+        if ( ( *particleIterator )->getId() == id )
         {
             GroupIterator groupIterator = particleIterator.getGropIterator();
-            ( *groupIterator )->remove( index );
+            ( *groupIterator )->remove( id );
+            return;
+        }
+    }
+}
+
+void ParticleGroupList::removeGroup( IDType id )
+{
+    for ( GroupIterator groupIterator = beginGroup(); groupIterator != endGroup();
+          ++groupIterator )
+    {
+        if ( ( *groupIterator )->getId() == id )
+        {
+            erase( groupIterator );
             return;
         }
     }

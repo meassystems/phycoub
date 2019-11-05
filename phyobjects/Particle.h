@@ -2,13 +2,14 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 16:28:49
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-30 16:46:06
+ * @Last Modified time: 2019-11-05 23:09:30
  */
 
 #pragma once
 
 #include <memory>
 
+#include "HasId.h"
 #include "Vector.h"
 
 namespace phycoub
@@ -18,7 +19,7 @@ class BorderCondition;
 /*
  * Класс/объект моделируемого пространства - частица.
  */
-class Particle
+class Particle : public HasId
 {
   public:
     Particle();
@@ -28,7 +29,6 @@ class Particle
     void move( const Vector& coordinate, const Vector& speed );
     const Vector& getCoordinate() const;
     const Vector& getSpeed() const;
-    long int getIndex() const;
 
     bool operator==( const Particle& particle );
 
@@ -45,9 +45,6 @@ class Particle
   private:
     Vector coordinate_;
     Vector speed_;
-
-    static long index;
-    long index_;
 };
 
 using ParticlePtr = std::shared_ptr< Particle >;

@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-28 16:05:28
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-28 17:11:24
+ * @Last Modified time: 2019-11-05 23:56:37
  */
 
 #include "InterworkingCalculatorBase.h"
@@ -17,11 +17,6 @@ InterworkingCalculatorBase::InterworkingCalculatorBase(
 {
 }
 
-void InterworkingCalculatorBase::addGroupParticle( ParticleGroupPtr particles )
-{
-    particleGroupList_.push_back( particles );
-}
-
 void InterworkingCalculatorBase::setInterworkingFunction(
     InterworkingPtr interworkingFunction )
 {
@@ -31,11 +26,6 @@ void InterworkingCalculatorBase::setInterworkingFunction(
 InterworkingPtr InterworkingCalculatorBase::getInterworkingFunction()
 {
     return interworking_;
-}
-
-const ParticleGroupList& InterworkingCalculatorBase::getParticleGroupList()
-{
-    return particleGroupList_;
 }
 
 } // namespace phycoub

@@ -28,12 +28,12 @@ ArCoub::ArCoub()
             Vector( .0, .0, .0 ), mAr_, z_ ) );
     }
 
-    argonFieldCreator_->addGroupParticle( argon_ );
-    argonFieldCreator_->addGroupParticle( parallelepipedFigure.allParticles_ );
-    argonFieldResponsive_->addGroupParticle( argon_ );
+    argonFieldCreator_->addParticleGroup( argon_ );
+    argonFieldCreator_->addParticleGroup( parallelepipedFigure.allParticles_ );
+    argonFieldResponsive_->addParticleGroup( argon_ );
     addFieldResponsive( argonFieldResponsive_ );
 
-    leapFrogCalculationGroup_->addGroupParticle( argon_ );
+    leapFrogCalculationGroup_->addParticleGroup( argon_ );
     addCalculationGroup( leapFrogCalculationGroup_ );
 }
 

@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 22:09:28
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-29 13:56:22
+ * @Last Modified time: 2019-11-05 23:58:58
  */
 
 #include <algorithm>
@@ -29,7 +29,7 @@ void phyCalcInterworkingThread( ParticleGroupList::ParticleConstIterator begin,
 // virtual override
 void FieldReceiver::phyCalcInterworking()
 {
-    const ParticleGroupList& particleGroupList = getParticleGroupList();
+    const ParticleGroupList& particleGroupList = *getParticleGroupList();
     InterworkingPtr interworking = getInterworkingFunction();
 
     int numCPU = std::thread::hardware_concurrency() - 2;

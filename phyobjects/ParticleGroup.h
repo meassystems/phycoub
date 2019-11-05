@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 16:20:27
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-31 00:34:53
+ * @Last Modified time: 2019-11-05 23:46:54
  */
 
 #pragma once
@@ -15,13 +15,15 @@
 namespace phycoub
 {
 
-class ParticleGroup final : public std::list< ParticlePtr >
+class ParticleGroup final
+    : public std::list< ParticlePtr >
+    , public HasId
 {
   public:
     ParticleGroup() = default;
     ~ParticleGroup() = default;
 
-    void remove( long index );
+    void remove( IDType id );
 };
 
 using ParticleGroupPtr = std::shared_ptr< ParticleGroup >;
@@ -35,7 +37,8 @@ class ParticleGroupList final : public std::list< ParticleGroupPtr >
     ParticleGroupList() = default;
     ~ParticleGroupList() = default;
 
-    void removeParticle( long index );
+    void removeParticle( IDType id );
+    void removeGroup( IDType id );
 
     using GroupConstIterator = ParticleGroupContainerType::const_iterator;
     using GroupIterator = ParticleGroupContainerType::iterator;

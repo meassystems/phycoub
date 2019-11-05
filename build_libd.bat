@@ -25,6 +25,8 @@ clean.bat^
     calculationmodels/CalculationModel.cpp^
     calculationmodels/HighSpeedModificationVerle.cpp^
     calculationmodels/LeapFrog.cpp^
+    common/HasId.cpp^
+    common/ContainParticleGroupList.cpp^
     fieldfunctions/ElectricField.cpp^
     fieldfunctions/ElectricHomogeneousField.cpp^
     fieldfunctions/HomogeneousField.cpp^

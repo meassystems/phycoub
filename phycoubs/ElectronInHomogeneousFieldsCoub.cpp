@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-01 22:26:33
+ * @Last Modified time: 2019-11-05 23:59:42
  */
 
 #include "ElectronInHomogeneousFieldsCoub.h"
@@ -22,14 +22,14 @@ ElectronInHomogeneousFieldsCoub::ElectronInHomogeneousFieldsCoub()
         Vector( .0, .0, 1. ) * 1e6, ElectricConstants::electronWeight,
         ElectricConstants::electronCharge ) );
 
-    particleGroupList_.push_back( electrons_ );
+    addParticleGroup( electrons_ );
 
-    feelWithCulonInterworking_->addGroupParticle( electrons_ );
+    feelWithCulonInterworking_->addParticleGroup( electrons_ );
     addFieldResponsive( feelWithCulonInterworking_ );
-    feelWithMagneticInterworking_->addGroupParticle( electrons_ );
+    feelWithMagneticInterworking_->addParticleGroup( electrons_ );
     addFieldResponsive( feelWithMagneticInterworking_ );
 
-    leapFrogCalculationGroup_->addGroupParticle( electrons_ );
+    leapFrogCalculationGroup_->addParticleGroup( electrons_ );
     addCalculationGroup( leapFrogCalculationGroup_ );
 }
 
@@ -45,7 +45,7 @@ void ElectronInHomogeneousFieldsCoub::setBorders( const Vector& borders )
 
 const ParticleGroupList& ElectronInHomogeneousFieldsCoub::getParticleGroupList()
 {
-    return particleGroupList_;
+    return *ContainParticleGroupList::getParticleGroupList();
 }
 
 void ElectronInHomogeneousFieldsCoub::addElectron(
