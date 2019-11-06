@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-06 01:04:01
+ * @Last Modified time: 2019-11-06 01:45:34
  */
 
 #include "ElectronInHomogeneousFieldsCoub.h"
@@ -19,7 +19,7 @@ ElectronInHomogeneousFieldsCoub::ElectronInHomogeneousFieldsCoub()
     const Vector& borders = getBorders();
     electrons_->emplace_back( std::make_shared< Particle >(
         Vector( 0.5 * borders.x_, 0.5 * borders.y_, 0.5 * borders.z_ ),
-        Vector( .0, .0, 1. ) * 1e6, ElectricConstants::electronWeight,
+        Vector( .0, .0, 1. ) * 1e4, ElectricConstants::electronWeight,
         ElectricConstants::electronCharge ) );
 
     addParticleGroup( electrons_ );
