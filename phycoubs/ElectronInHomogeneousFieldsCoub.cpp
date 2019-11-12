@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-06 01:45:34
+ * @Last Modified time: 2019-11-12 22:48:45
  */
 
 #include "ElectronInHomogeneousFieldsCoub.h"
@@ -24,6 +24,8 @@ ElectronInHomogeneousFieldsCoub::ElectronInHomogeneousFieldsCoub()
 
     addParticleGroup( electrons_ );
 
+    feelElectricHomogeneousRadialWithCulonInterworking_->addParticleGroup( electrons_ );
+    addFieldResponsive( feelElectricHomogeneousRadialWithCulonInterworking_ );
     feelWithCulonInterworking_->addParticleGroup( electrons_ );
     addFieldResponsive( feelWithCulonInterworking_ );
     feelWithMagneticInterworking_->addParticleGroup( electrons_ );
@@ -60,6 +62,37 @@ void ElectronInHomogeneousFieldsCoub::addElectron(
 void ElectronInHomogeneousFieldsCoub::removeParticle( long index )
 {
     electrons_->remove( index );
+}
+
+void ElectronInHomogeneousFieldsCoub::setElectricRadialCenter( const Vector& center )
+{
+    electricHomogeneousRadialField_->setCenter( center );
+}
+
+const Vector& ElectronInHomogeneousFieldsCoub::getElectricRadialCenter() const
+{
+    return electricHomogeneousRadialField_->getCenter();
+}
+
+void ElectronInHomogeneousFieldsCoub::setElectricRadialRadius( double radius )
+{
+    electricHomogeneousRadialField_->setRadius( radius );
+}
+
+double ElectronInHomogeneousFieldsCoub::getElectricRadialRadius() const
+{
+    return electricHomogeneousRadialField_->getRadius();
+}
+
+void ElectronInHomogeneousFieldsCoub::setElectricRadialFieldCharge( double charge )
+{
+    electricHomogeneousRadialField_->setCharge(
+        charge * ElectricConstants::electronCharge );
+}
+
+double ElectronInHomogeneousFieldsCoub::getElectricRadialFieldCharge() const
+{
+    return electricHomogeneousRadialField_->getCharge();
 }
 
 void ElectronInHomogeneousFieldsCoub::setElectricFieldDirection( const Vector& direction )

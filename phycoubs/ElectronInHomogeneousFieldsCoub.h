@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-06 01:44:01
+ * @Last Modified time: 2019-11-12 22:40:47
  */
 
 #pragma once
@@ -14,6 +14,7 @@
 #include "Vector.h"
 #include "CyclicBorder.h"
 #include "LeapFrog.h"
+#include "ElectricHomogeneousRadialField.h"
 #include "ElectricHomogeneousField.h"
 #include "MagneticHomogeneousField.h"
 #include "Constants.h"
@@ -48,6 +49,13 @@ class ElectronInHomogeneousFieldsCoub final
     void addElectron( const Vector& coordinate, const Vector& speed );
     void removeParticle( long index );
 
+    void setElectricRadialCenter( const Vector& center );
+    const Vector& getElectricRadialCenter() const;
+    void setElectricRadialRadius( double radius );
+    double getElectricRadialRadius() const;
+    void setElectricRadialFieldCharge( double charge );
+    double getElectricRadialFieldCharge() const;
+
     void setElectricFieldDirection( const Vector& direction );
     const Vector& getElectricFieldDirection() const;
     void setElectricFieldCharge( double charge );
@@ -63,11 +71,25 @@ class ElectronInHomogeneousFieldsCoub final
   private:
     ParticleGroupPtr electrons_ = std::make_shared< ParticleGroup >();
 
-    CyclicBorderPtr cyclicBorder_ = std::make_shared< CyclicBorder >( Vector{ 1.e-4 } );
+    constexpr static double borderSize_ = 1.e-4;
+    CyclicBorderPtr cyclicBorder_
+        = std::make_shared< CyclicBorder >( Vector{ borderSize_ } );
 
     LeapFrogPtr leapFrog_ = std::make_shared< LeapFrog >();
     CalculationGroupPtr leapFrogCalculationGroup_
         = std::make_shared< CalculationGroup >( leapFrog_, cyclicBorder_ );
+
+    CulonInterworkingPtr culonInterworking_ = std::make_shared< CulonInterworking >();
+
+    ElectricHomogeneousRadialFieldPtr electricHomogeneousRadialField_
+        = std::make_shared< ElectricHomogeneousRadialField >( Vector{ borderSize_ },
+            borderSize_ * 0.7, ElectricConstants::electronCharge * 0 );
+    HomogeneousFieldCreatorPtr electricHomogeneousRadialFieldCreator_
+        = std::make_shared< HomogeneousFieldCreator >(
+            electricHomogeneousField_, "ElectricHomogeneousRadialField" );
+    FieldReceiverPtr feelElectricHomogeneousRadialWithCulonInterworking_
+        = std::make_shared< FieldReceiver >( electricHomogeneousRadialFieldCreator_,
+            culonInterworking_, "ElectricHomogeneousRadialField culon interworking" );
 
     ElectricHomogeneousFieldPtr electricHomogeneousField_
         = std::make_shared< ElectricHomogeneousField >(
@@ -75,7 +97,6 @@ class ElectronInHomogeneousFieldsCoub final
     HomogeneousFieldCreatorPtr electricHomogeneousFieldCreator_
         = std::make_shared< HomogeneousFieldCreator >(
             electricHomogeneousField_, "ElectricHomogeneousField" );
-    CulonInterworkingPtr culonInterworking_ = std::make_shared< CulonInterworking >();
     FieldReceiverPtr feelWithCulonInterworking_ = std::make_shared< FieldReceiver >(
         electricHomogeneousFieldCreator_, culonInterworking_, "culon interworking" );
 
@@ -86,8 +107,9 @@ class ElectronInHomogeneousFieldsCoub final
             magneticHomogeneousField_, "MagneticHomogeneousField" );
     MagneticInterworkingPtr magneticInterworking_
         = std::make_shared< MagneticInterworking >();
-    FieldReceiverPtr feelWithMagneticInterworking_ = std::make_shared< FieldReceiver >(
-        magneticHomogeneousFieldCreator_, magneticInterworking_, "culon interworking" );
+    FieldReceiverPtr feelWithMagneticInterworking_
+        = std::make_shared< FieldReceiver >( magneticHomogeneousFieldCreator_,
+            magneticInterworking_, "magnetic interworking" );
 
     BorderFieldConditionPtr borderFieldCondition_
         = std::make_shared< BorderFieldCondition >();

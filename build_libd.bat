@@ -29,9 +29,11 @@ clean.bat^
     common/ContainParticleGroupList.cpp^
     fieldfunctions/ElectricField.cpp^
     fieldfunctions/ElectricHomogeneousField.cpp^
+    fieldfunctions/ElectricHomogeneousRadialField.cpp^
     fieldfunctions/HomogeneousField.cpp^
     fieldfunctions/LDField.cpp^
     fieldfunctions/MagneticHomogeneousField.cpp^
+    fieldfunctions/RadialHomogeneousField.cpp^
     interworkingfunctions/CulonInterworking.cpp^
     interworkingfunctions/LDInterworking.cpp^
     interworkingfunctions/MagneticInterworking.cpp^
