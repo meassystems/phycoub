@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-12 23:17:30
+ * @Last Modified time: 2019-11-13 00:17:45
  */
 
 #pragma once
@@ -57,12 +57,12 @@ class ElectronInHomogeneousFieldsCoub final
     double getElectricRadialFieldCharge() const;
 
     void setElectricFieldDirection( const Vector& direction );
-    const Vector& getElectricFieldDirection() const;
+    Vector getElectricFieldDirection() const;
     void setElectricFieldCharge( double charge );
     double getElectricFieldCharge() const;
 
     void setMagneticFieldDirection( const Vector& direction );
-    const Vector& getMagneticFieldDirection() const;
+    Vector getMagneticFieldDirection() const;
     void setMagneticFieldInduction( double B );
     double getMagneticFieldInduction() const;
 
@@ -82,8 +82,8 @@ class ElectronInHomogeneousFieldsCoub final
     CulonInterworkingPtr culonInterworking_ = std::make_shared< CulonInterworking >();
 
     ElectricHomogeneousRadialFieldPtr electricHomogeneousRadialField_
-        = std::make_shared< ElectricHomogeneousRadialField >( Vector{ borderSize_ },
-            borderSize_ * 0.7, ElectricConstants::electronCharge * 0 );
+        = std::make_shared< ElectricHomogeneousRadialField >( Vector{ borderSize_ * 0.5 },
+            borderSize_ * 0.8, ElectricConstants::electronCharge * 1e9 );
     HomogeneousFieldCreatorPtr electricHomogeneousRadialFieldCreator_
         = std::make_shared< HomogeneousFieldCreator >(
             electricHomogeneousRadialField_, "ElectricHomogeneousRadialField" );

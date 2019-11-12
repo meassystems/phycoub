@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 16:30:01
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-23 21:55:51
+ * @Last Modified time: 2019-11-13 00:15:25
  */
 
 #include "VectorUtils.h"
@@ -16,6 +16,11 @@ namespace phycoub
 Vector VectorUtils::normalizeVector( Vector vector )
 {
     const double vectorModulo = vector.getModule();
+    if ( vectorModulo == 0 )
+    {
+        return vector;
+    }
+
     vector /= vectorModulo;
     return vector;
 }

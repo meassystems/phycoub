@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-12 23:18:07
+ * @Last Modified time: 2019-11-12 23:32:52
  */
 
 #include "ElectronInHomogeneousFieldsCoub.h"
@@ -45,6 +45,8 @@ const Vector& ElectronInHomogeneousFieldsCoub::getBorders() const
 void ElectronInHomogeneousFieldsCoub::setBorders( const Vector& borders )
 {
     cyclicBorder_->setBorders( borders );
+    electricHomogeneousRadialField_->setCenter( borders * 0.5 );
+    electricHomogeneousRadialField_->setRadius( borders.x_ * 0.8 );
 }
 
 const ParticleGroupList& ElectronInHomogeneousFieldsCoub::getParticleGroupList()
@@ -100,7 +102,7 @@ void ElectronInHomogeneousFieldsCoub::setElectricFieldDirection( const Vector& d
     electricHomogeneousDirectField_->setDirection( direction );
 }
 
-const Vector& ElectronInHomogeneousFieldsCoub::getElectricFieldDirection() const
+Vector ElectronInHomogeneousFieldsCoub::getElectricFieldDirection() const
 {
     return electricHomogeneousDirectField_->getDirection();
 }
@@ -121,7 +123,7 @@ void ElectronInHomogeneousFieldsCoub::setMagneticFieldDirection( const Vector& d
     magneticHomogeneousDirectField_->setDirection( direction );
 }
 
-const Vector& ElectronInHomogeneousFieldsCoub::getMagneticFieldDirection() const
+Vector ElectronInHomogeneousFieldsCoub::getMagneticFieldDirection() const
 {
     return magneticHomogeneousDirectField_->getDirection();
 }
