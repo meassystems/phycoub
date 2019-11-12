@@ -2,10 +2,10 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 19:23:35
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-27 11:40:57
+ * @Last Modified time: 2019-11-12 23:16:34
  */
 
-#include "HomogeneousField.h"
+#include "DirectHomogeneousField.h"
 #include "Vector.h"
 
 namespace phycoub
@@ -13,11 +13,11 @@ namespace phycoub
 
 class Particle;
 
-class MagneticHomogeneousField : public HomogeneousField
+class MagneticHomogeneousDirectField : public DirectHomogeneousField
 {
   public:
-    MagneticHomogeneousField( const Vector& direction, double B );
-    virtual ~MagneticHomogeneousField() = default;
+    MagneticHomogeneousDirectField( const Vector& direction, double B );
+    virtual ~MagneticHomogeneousDirectField() = default;
 
     virtual Vector psyField(
         const Vector& mark, const ParticlePtr particle = nullptr ) const override;
@@ -29,6 +29,7 @@ class MagneticHomogeneousField : public HomogeneousField
     double B_;
 };
 
-using MagneticHomogeneousFieldPtr = std::shared_ptr< MagneticHomogeneousField >;
+using MagneticHomogeneousDirectFieldPtr
+    = std::shared_ptr< MagneticHomogeneousDirectField >;
 
 } // namespace phycoub

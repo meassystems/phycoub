@@ -2,10 +2,10 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 12:08:09
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-27 22:56:21
+ * @Last Modified time: 2019-11-12 23:10:03
  */
 
-#include "ElectricHomogeneousField.h"
+#include "ElectricHomogeneousDirectField.h"
 
 #define _USE_MATH_DEFINES
 
@@ -16,9 +16,9 @@
 namespace phycoub
 {
 
-ElectricHomogeneousField::ElectricHomogeneousField(
+ElectricHomogeneousDirectField::ElectricHomogeneousDirectField(
     const Vector& direction, double charge, double epselon /* = 1. */ )
-    : HomogeneousField( direction )
+    : DirectHomogeneousField( direction )
     , charge_( charge )
     , epselon_( epselon )
 {
@@ -26,36 +26,36 @@ ElectricHomogeneousField::ElectricHomogeneousField(
 }
 
 // virtual override
-Vector ElectricHomogeneousField::psyField(
+Vector ElectricHomogeneousDirectField::psyField(
     const Vector& mark, const ParticlePtr particle /* = nullptr*/ ) const
 {
     const Vector resulField = getDirection() * fieldConstatnt_;
     return resulField;
 }
 
-void ElectricHomogeneousField::setEpselon( double epselon )
+void ElectricHomogeneousDirectField::setEpselon( double epselon )
 {
     epselon_ = epselon;
     updateFieldConstant();
 }
 
-double ElectricHomogeneousField::getEpselon() const
+double ElectricHomogeneousDirectField::getEpselon() const
 {
     return epselon_;
 }
 
-void ElectricHomogeneousField::setCharge( double charge )
+void ElectricHomogeneousDirectField::setCharge( double charge )
 {
     charge_ = charge;
     updateFieldConstant();
 }
 
-double ElectricHomogeneousField::getCharge() const
+double ElectricHomogeneousDirectField::getCharge() const
 {
     return charge_;
 }
 
-void ElectricHomogeneousField::updateFieldConstant()
+void ElectricHomogeneousDirectField::updateFieldConstant()
 {
     fieldConstatnt_ = charge_ / ( 4. * M_PI * ElectricConstants::epselon0 * epselon_ );
 }

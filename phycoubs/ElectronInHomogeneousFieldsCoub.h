@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-12 22:40:47
+ * @Last Modified time: 2019-11-12 23:17:30
  */
 
 #pragma once
@@ -15,8 +15,8 @@
 #include "CyclicBorder.h"
 #include "LeapFrog.h"
 #include "ElectricHomogeneousRadialField.h"
-#include "ElectricHomogeneousField.h"
-#include "MagneticHomogeneousField.h"
+#include "ElectricHomogeneousDirectField.h"
+#include "MagneticHomogeneousDirectField.h"
 #include "Constants.h"
 #include "CulonInterworking.h"
 #include "MagneticInterworking.h"
@@ -86,29 +86,30 @@ class ElectronInHomogeneousFieldsCoub final
             borderSize_ * 0.7, ElectricConstants::electronCharge * 0 );
     HomogeneousFieldCreatorPtr electricHomogeneousRadialFieldCreator_
         = std::make_shared< HomogeneousFieldCreator >(
-            electricHomogeneousField_, "ElectricHomogeneousRadialField" );
+            electricHomogeneousRadialField_, "ElectricHomogeneousRadialField" );
     FieldReceiverPtr feelElectricHomogeneousRadialWithCulonInterworking_
         = std::make_shared< FieldReceiver >( electricHomogeneousRadialFieldCreator_,
             culonInterworking_, "ElectricHomogeneousRadialField culon interworking" );
 
-    ElectricHomogeneousFieldPtr electricHomogeneousField_
-        = std::make_shared< ElectricHomogeneousField >(
+    ElectricHomogeneousDirectFieldPtr electricHomogeneousDirectField_
+        = std::make_shared< ElectricHomogeneousDirectField >(
             Vector{ 0, 0, 1 }, ElectricConstants::electronCharge * 0 );
-    HomogeneousFieldCreatorPtr electricHomogeneousFieldCreator_
+    HomogeneousFieldCreatorPtr electricHomogeneousDirectFieldCreator_
         = std::make_shared< HomogeneousFieldCreator >(
-            electricHomogeneousField_, "ElectricHomogeneousField" );
-    FieldReceiverPtr feelWithCulonInterworking_ = std::make_shared< FieldReceiver >(
-        electricHomogeneousFieldCreator_, culonInterworking_, "culon interworking" );
+            electricHomogeneousDirectField_, "ElectricHomogeneousField" );
+    FieldReceiverPtr feelElectricHomogeneousDirectWithCulonInterworking_
+        = std::make_shared< FieldReceiver >( electricHomogeneousDirectFieldCreator_,
+            culonInterworking_, "culon interworking" );
 
-    MagneticHomogeneousFieldPtr magneticHomogeneousField_
-        = std::make_shared< MagneticHomogeneousField >( Vector{ 0, 1, 1 }, 3e-2 );
-    HomogeneousFieldCreatorPtr magneticHomogeneousFieldCreator_
+    MagneticHomogeneousDirectFieldPtr magneticHomogeneousDirectField_
+        = std::make_shared< MagneticHomogeneousDirectField >( Vector{ 0, 1, 1 }, 3e-2 );
+    HomogeneousFieldCreatorPtr magneticHomogeneousDirectFieldCreator_
         = std::make_shared< HomogeneousFieldCreator >(
-            magneticHomogeneousField_, "MagneticHomogeneousField" );
+            magneticHomogeneousDirectField_, "MagneticHomogeneousField" );
     MagneticInterworkingPtr magneticInterworking_
         = std::make_shared< MagneticInterworking >();
     FieldReceiverPtr feelWithMagneticInterworking_
-        = std::make_shared< FieldReceiver >( magneticHomogeneousFieldCreator_,
+        = std::make_shared< FieldReceiver >( magneticHomogeneousDirectFieldCreator_,
             magneticInterworking_, "magnetic interworking" );
 
     BorderFieldConditionPtr borderFieldCondition_

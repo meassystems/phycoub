@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-12 22:48:45
+ * @Last Modified time: 2019-11-12 23:18:07
  */
 
 #include "ElectronInHomogeneousFieldsCoub.h"
@@ -26,8 +26,8 @@ ElectronInHomogeneousFieldsCoub::ElectronInHomogeneousFieldsCoub()
 
     feelElectricHomogeneousRadialWithCulonInterworking_->addParticleGroup( electrons_ );
     addFieldResponsive( feelElectricHomogeneousRadialWithCulonInterworking_ );
-    feelWithCulonInterworking_->addParticleGroup( electrons_ );
-    addFieldResponsive( feelWithCulonInterworking_ );
+    feelElectricHomogeneousDirectWithCulonInterworking_->addParticleGroup( electrons_ );
+    addFieldResponsive( feelElectricHomogeneousDirectWithCulonInterworking_ );
     feelWithMagneticInterworking_->addParticleGroup( electrons_ );
     addFieldResponsive( feelWithMagneticInterworking_ );
 
@@ -97,42 +97,43 @@ double ElectronInHomogeneousFieldsCoub::getElectricRadialFieldCharge() const
 
 void ElectronInHomogeneousFieldsCoub::setElectricFieldDirection( const Vector& direction )
 {
-    electricHomogeneousField_->setDirection( direction );
+    electricHomogeneousDirectField_->setDirection( direction );
 }
 
 const Vector& ElectronInHomogeneousFieldsCoub::getElectricFieldDirection() const
 {
-    return electricHomogeneousField_->getDirection();
+    return electricHomogeneousDirectField_->getDirection();
 }
 
 void ElectronInHomogeneousFieldsCoub::setElectricFieldCharge( double charge )
 {
-    electricHomogeneousField_->setCharge( charge * ElectricConstants::electronCharge );
+    electricHomogeneousDirectField_->setCharge(
+        charge * ElectricConstants::electronCharge );
 }
 
 double ElectronInHomogeneousFieldsCoub::getElectricFieldCharge() const
 {
-    return electricHomogeneousField_->getCharge();
+    return electricHomogeneousDirectField_->getCharge();
 }
 
 void ElectronInHomogeneousFieldsCoub::setMagneticFieldDirection( const Vector& direction )
 {
-    magneticHomogeneousField_->setDirection( direction );
+    magneticHomogeneousDirectField_->setDirection( direction );
 }
 
 const Vector& ElectronInHomogeneousFieldsCoub::getMagneticFieldDirection() const
 {
-    return magneticHomogeneousField_->getDirection();
+    return magneticHomogeneousDirectField_->getDirection();
 }
 
 void ElectronInHomogeneousFieldsCoub::setMagneticFieldInduction( double B )
 {
-    magneticHomogeneousField_->setMagneticInduction( B );
+    magneticHomogeneousDirectField_->setMagneticInduction( B );
 }
 
 double ElectronInHomogeneousFieldsCoub::getMagneticFieldInduction() const
 {
-    return magneticHomogeneousField_->getMagneticInduction();
+    return magneticHomogeneousDirectField_->getMagneticInduction();
 }
 
 void ElectronInHomogeneousFieldsCoub::switchElectron2ElectronInterworking( bool flag )

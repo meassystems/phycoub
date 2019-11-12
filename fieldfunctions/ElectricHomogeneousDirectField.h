@@ -2,12 +2,12 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-20 00:05:50
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 10:22:31
+ * @Last Modified time: 2019-11-12 23:09:16
  */
 
 #pragma once
 
-#include "HomogeneousField.h"
+#include "DirectHomogeneousField.h"
 
 namespace phycoub
 {
@@ -18,12 +18,12 @@ class Vector;
 /*
  * Static Coulomb field
  */
-class ElectricHomogeneousField : public HomogeneousField
+class ElectricHomogeneousDirectField : public DirectHomogeneousField
 {
   public:
-    ElectricHomogeneousField(
+    ElectricHomogeneousDirectField(
         const Vector& direction, double charge, double epselon = 1. );
-    virtual ~ElectricHomogeneousField() = default;
+    virtual ~ElectricHomogeneousDirectField() = default;
 
     virtual Vector psyField(
         const Vector& mark, const ParticlePtr particle = nullptr ) const override;
@@ -42,6 +42,7 @@ class ElectricHomogeneousField : public HomogeneousField
     double fieldConstatnt_ = 0.;
 };
 
-using ElectricHomogeneousFieldPtr = std::shared_ptr< ElectricHomogeneousField >;
+using ElectricHomogeneousDirectFieldPtr
+    = std::shared_ptr< ElectricHomogeneousDirectField >;
 
 } // namespace phycoub

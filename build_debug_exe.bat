@@ -27,12 +27,12 @@ clean.bat^
     calculationmodels/LeapFrog.cpp^
     common/HasId.cpp^
     common/ContainParticleGroupList.cpp^
+    fieldfunctions/DirectHomogeneousField.cpp^
     fieldfunctions/ElectricField.cpp^
-    fieldfunctions/ElectricHomogeneousField.cpp^
+    fieldfunctions/ElectricHomogeneousDirectField.cpp^
     fieldfunctions/ElectricHomogeneousRadialField.cpp^
-    fieldfunctions/HomogeneousField.cpp^
     fieldfunctions/LDField.cpp^
-    fieldfunctions/MagneticHomogeneousField.cpp^
+    fieldfunctions/MagneticHomogeneousDirectField.cpp^
     fieldfunctions/RadialHomogeneousField.cpp^
     interworkingfunctions/CulonInterworking.cpp^
     interworkingfunctions/LDInterworking.cpp^

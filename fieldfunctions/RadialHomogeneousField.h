@@ -2,24 +2,25 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-11-11 23:15:56
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-12 22:37:34
+ * @Last Modified time: 2019-11-12 23:21:14
  */
 
 #pragma once
 
-#include "FieldIface.h"
+#include "HomogeneousFieldIface.h"
 
 namespace phycoub
 {
 
-class RadialHomogeneousField : public FieldIface
+class RadialHomogeneousField : public HomogeneousFieldIface
 {
 
   public:
     RadialHomogeneousField( const Vector& center, double radius );
     virtual ~RadialHomogeneousField() = default;
 
-    Vector getDirection( const Vector& mark ) const;
+    // Implementation of HomogeneousFieldIface
+    virtual Vector getDirection( const Vector& mark ) const override;
 
     void setCenter( const Vector& center );
     const Vector& getCenter() const;
