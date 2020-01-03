@@ -34,4 +34,18 @@ Vector VectorUtils::vectorMultiplication( const Vector& first, const Vector& sec
     return resultVector;
 }
 
+// static
+double VectorUtils::scalarMultiplication( const Vector& first, const Vector& second )
+{
+    double result = first.x_ * second.x_ + first.y_ * second.y_ + first.z_ * second.z_;
+    return result;
+}
+
+// static
+double VectorUtils::projectionToVector( const Vector& distance, const Vector& source )
+{
+    double result = scalarMultiplication( distance, source ) / distance.getModule();
+    return result;
+}
+
 } // namespace phycoub

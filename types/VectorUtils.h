@@ -19,6 +19,8 @@ class VectorUtils final
 
     static Vector normalizeVector( Vector vector );
     static Vector vectorMultiplication( const Vector& first, const Vector& second );
+    static double scalarMultiplication( const Vector& first, const Vector& second );
+    static double projectionToVector( const Vector& distance, const Vector& source );
 };
 
 } // namespace phycoub
