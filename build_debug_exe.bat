@@ -7,17 +7,19 @@ clean.bat^
     -Ifieldfunctions/^
     -Iinterworkingfunctions/^
     -Iotherobjects/^
+    -Ilifetimecontrollers/^
+    -Iparticlesources/^
     -Iphycoubs/^
     -Iphymeasurement/^
     -Iphyobjects/^
     -Iphyobjects/particlefigurematrix/^
     -Ispecialmodellingfunctions/^
+    -Ishapes/^
     -Itypes/^
     /EHsc^
     /Zi^
     /Fe:phycoub_test.exe^
     borderconditions/BorderCondition.cpp^
-    borderconditions/CubicShape.cpp^
     borderconditions/CyclicBorder.cpp^
     borderconditions/CylinderBorderCondition.cpp^
     borderconditions/ElasticBorder.cpp^
@@ -60,6 +62,8 @@ clean.bat^
     phyobjects/particlefigurematrix/LineFigure.cpp^
     phyobjects/particlefigurematrix/ParallelepipedFigure.cpp^
     phyobjects/particlefigurematrix/PlaneFigure.cpp^
+    shapes/CubicShape.cpp^
+    shapes/CylindricShape.cpp^
     src/main.cpp^
     types/Vector.cpp^
     types/VectorUtils.cpp
