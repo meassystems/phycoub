@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-26 08:23:20
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 08:26:47
+ * @Last Modified time: 2020-01-04 14:24:20
  */
 
 #include <CyclicBorder.h>
@@ -12,7 +12,7 @@ namespace phycoub
 {
 
 CyclicBorder::CyclicBorder( const Vector& borders )
-    : BorderCondition( borders )
+    : CubicShape( borders )
 {
 }
 

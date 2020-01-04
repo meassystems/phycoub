@@ -2,17 +2,20 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 22:21:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 08:23:03
+ * @Last Modified time: 2020-01-04 14:24:12
  */
 
 #pragma once
 
-#include <BorderCondition.h>
+#include "BorderCondition.h"
+#include "CubicShape.h"
 
 namespace phycoub
 {
 
-class CyclicBorder : public BorderCondition
+class CyclicBorder
+    : public BorderCondition
+    , public CubicShape
 {
   public:
     CyclicBorder( const Vector& borders );

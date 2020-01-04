@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 18:05:35
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 08:23:53
+ * @Last Modified time: 2020-01-04 14:19:38
  */
 
 #pragma once
@@ -23,21 +23,14 @@ namespace phycoub
 class BorderCondition
 {
   public:
-    BorderCondition( const Vector& borders );
     virtual ~BorderCondition() = default;
 
     virtual void psyMove(
         const Vector& move, const Vector& speed, ParticlePtr* particle );
 
-    void setBorders( const Vector& borders );
-    const Vector& getBorders() const;
-
   protected:
     void moveParticle( const Vector& coordinate, const Vector& speed,
         bool isBorderReached, ParticlePtr* particle );
-
-  private:
-    Vector borders_;
 };
 
 using BorderConditionPtr = std::shared_ptr< BorderCondition >;

@@ -2,12 +2,13 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 18:07:20
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 08:27:54
+ * @Last Modified time: 2020-01-04 14:25:38
  */
 
 #pragma once
 
-#include <BorderCondition.h>
+#include "BorderCondition.h"
+#include "CubicShape.h"
 #include "Vector.h"
 
 namespace phycoub
@@ -15,7 +16,9 @@ namespace phycoub
 /*
  * Упругие граничные условия.
  */
-class ElasticBorder : public BorderCondition
+class ElasticBorder
+    : public BorderCondition
+    , public CubicShape
 {
   public:
     void psyMove(

@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 18:10:42
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 09:00:28
+ * @Last Modified time: 2020-01-04 14:25:47
  */
 
 #include <ElasticBorder.h>
@@ -12,7 +12,7 @@ namespace phycoub
 {
 
 ElasticBorder::ElasticBorder( const Vector& borders )
-    : BorderCondition( borders )
+    : CubicShape( borders )
 {
 }
 

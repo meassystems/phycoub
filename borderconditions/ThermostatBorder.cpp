@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-26 08:38:39
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 09:01:06
+ * @Last Modified time: 2020-01-04 14:26:43
  */
 
 #include <ThermostatBorder.h>
@@ -11,7 +11,7 @@ namespace phycoub
 {
 
 ThermostatBorder::ThermostatBorder( const Vector& borders, double kB, double temp )
-    : BorderCondition( borders )
+    : CubicShape( borders )
     , kB_( kB )
     , temperature_( temp )
 {

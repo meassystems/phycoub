@@ -2,19 +2,22 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 18:14:29
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 08:44:35
+ * @Last Modified time: 2020-01-04 14:26:33
  */
 
 #pragma once
 
-#include <BorderCondition.h>
-
+#include "BorderCondition.h"
+#include "CubicShape.h"
 #include "Vector.h"
 #include "Particle.h"
+
 namespace phycoub
 {
 
-class ThermostatBorder : public BorderCondition
+class ThermostatBorder
+    : public BorderCondition
+    , public CubicShape
 {
   public:
     ThermostatBorder( const Vector& borders, double kB, double temp );

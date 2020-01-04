@@ -1,6 +1,7 @@
 clean.bat^
  && cl -Icommon/^
     -Iborderconditions/^
+    -Iborderevents/^
     -Iborderfieldconditions/^
     -Icalculationmodels/^
     -Ifieldfunctions/^
@@ -16,10 +17,13 @@ clean.bat^
     /Zi^
     /Fe:phycoub_test.exe^
     borderconditions/BorderCondition.cpp^
+    borderconditions/CubicShape.cpp^
     borderconditions/CyclicBorder.cpp^
+    borderconditions/CylinderBorderCondition.cpp^
     borderconditions/ElasticBorder.cpp^
     borderconditions/ElasticCoubCondition.cpp^
     borderconditions/ThermostatBorder.cpp^
+    borderevents/BorderReachedEventGenerator.cpp^
     borderfieldconditions/BorderFieldCondition.cpp^
     borderfieldconditions/CyclicBoundedField.cpp^
     calculationmodels/CalculationModel.cpp^
