@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 13:13:41
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-29 14:51:04
+ * @Last Modified time: 2020-01-06 01:21:26
  */
 
 #pragma once
@@ -12,6 +12,7 @@
 
 #include "InterworkingCalculatorBase.h"
 #include "CalculationGroup.h"
+#include "LifeTimeControllerIface.h"
 
 namespace phycoub
 {
@@ -37,12 +38,16 @@ class PhyCoub
     void addCalculationGroup( CalculationGroupPtr calculationGroup );
     void removeCalculationGroup( std::string id );
 
+    void addLifeTimeController( LifeTimeControllerPtr lifeTimeController );
+    void removeLifeTimeController( std::string id );
+
   private:
     double dt_ = 0.;
     double experimentTime_ = 0;
 
     InterworkingCalculatorList interworkingCalculatorList_;
     CalculationGroupList calculationGroups_;
+    LifeTimeControllerList lifeTimeControllers_;
 };
 
 } // namespace phycoub

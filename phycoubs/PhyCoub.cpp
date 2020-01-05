@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 13:42:50
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-29 14:51:50
+ * @Last Modified time: 2020-01-06 01:24:50
  */
 
 #include "PhyCoub.h"
@@ -22,6 +22,10 @@ void PhyCoub::phyCoub()
     for ( CalculationGroupPtr calculationGroup : calculationGroups_ )
     {
         calculationGroup->phyModeling( dt_ );
+    }
+    for ( LifeTimeControllerPtr lifeTimeController : lifeTimeControllers_ )
+    {
+        lifeTimeController->phyControlLifeTime();
     }
     experimentTime_ += dt_;
 }
@@ -62,6 +66,16 @@ void PhyCoub::addCalculationGroup( CalculationGroupPtr calculationGroup )
 }
 
 void PhyCoub::removeCalculationGroup( std::string id )
+{
+    // todo
+}
+
+void PhyCoub::addLifeTimeController( LifeTimeControllerPtr lifeTimeController )
+{
+    lifeTimeControllers_.push_back( lifeTimeController );
+}
+
+void PhyCoub::removeLifeTimeController( std::string id )
 {
     // todo
 }
