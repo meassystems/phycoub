@@ -43,6 +43,7 @@ clean.bat^
     interworkingfunctions/CulonInterworking.cpp^
     interworkingfunctions/LDInterworking.cpp^
     interworkingfunctions/MagneticInterworking.cpp^
+    lifetimecontrollers/QuantityLifeTimeController.cpp^
     particlesources/CylindricalXYParticleSource.cpp^
     phycoubs/ArCoub.cpp^
     phycoubs/ElectronInHomogeneousFieldsCoub.cpp^
