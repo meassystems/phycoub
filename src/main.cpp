@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-27 09:26:39
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-06 00:51:48
+ * @Last Modified time: 2020-01-08 01:29:35
  */
 
 #include <iostream>
@@ -12,6 +12,7 @@
 #include "ArCoub.h"
 #include "FigureDemonstration.h"
 #include "ElectronInHomogeneousFieldsCoub.h"
+#include "Magnetron.h"
 
 using namespace phycoub;
 
@@ -19,6 +20,22 @@ int main()
 {
 
     std::cout.precision( 17 );
+
+    try
+    {
+        Magnetron magnetron;
+
+        while ( true )
+        {
+            magnetron.phyCoub();
+        }
+    }
+    catch ( char const* str )
+    {
+        std::cout << str;
+    }
+
+    /*
     try
     {
         ElectronInHomogeneousFieldsCoub electronInHomogeneousFieldsCoub;
@@ -42,7 +59,7 @@ int main()
     {
         std::cout << str;
     }
-
+    */
     /*
     try
     {

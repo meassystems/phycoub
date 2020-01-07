@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-06 21:20:28
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-06 21:40:40
+ * @Last Modified time: 2020-01-08 01:38:06
  */
 
 #include "QuantityLifeTimeController.h"
@@ -31,7 +31,8 @@ void QuantityLifeTimeController::phyControlLifeTime()
     const long givreBirthParticleCount = lifeParticleCount_ - particleGroup_->size();
     for ( long i = 0; i < givreBirthParticleCount; ++i )
     {
-        particleSource_->phyGiveBirthParticle();
+        ParticlePtr particle = particleSource_->phyGiveBirthParticle();
+        particleGroup_->push_back( particle );
     }
 }
 

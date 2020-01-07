@@ -2,8 +2,10 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 12:33:52
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 12:11:39
+ * @Last Modified time: 2020-01-08 01:32:25
  */
+
+#pragma once
 
 namespace phycoub
 {

@@ -2,8 +2,10 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-28 15:41:31
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-29 13:05:29
+ * @Last Modified time: 2020-01-08 01:33:44
  */
+
+#pragma once
 
 #include <memory>
 

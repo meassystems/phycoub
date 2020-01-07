@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-06 22:12:25
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-08 01:11:13
+ * @Last Modified time: 2020-01-08 01:44:24
  */
 
 #pragma once
@@ -76,7 +76,7 @@ class Magnetron final
 
     ParticleGroupPtr electrons_ = std::make_shared< ParticleGroup >();
     CylindricalXYPartcleSourcePtr cylindricalXYPartcleSource_
-        = std::make_shared< CylindricalXYPartcleSource >( 0., 1., 1.,
+        = std::make_shared< CylindricalXYPartcleSource >( 0., 1., 1e-20,
             ElectricConstants::electronWeight, ElectricConstants::electronCharge,
             Vector{ 1., 1., 0. } );
     QuantityLifeTimeControllerPtr quantityLifeTimeController_

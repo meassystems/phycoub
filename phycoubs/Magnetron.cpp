@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-08 01:14:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-08 01:21:28
+ * @Last Modified time: 2020-01-08 01:49:11
  */
 
 #include "Magnetron.h"
@@ -24,6 +24,7 @@ Magnetron::Magnetron()
 
     addFieldResponsive( electron2electronInterCommunication_ );
 
+    cylinderBorderCondition_->addBorderReachedObserver( quantityLifeTimeController_ );
     addLifeTimeController( quantityLifeTimeController_ );
 
     leapFrogCalculationGroup_->addParticleGroup( electrons_ );
