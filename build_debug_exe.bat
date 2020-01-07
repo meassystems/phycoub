@@ -48,6 +48,7 @@ clean.bat^
     phycoubs/ArCoub.cpp^
     phycoubs/ElectronInHomogeneousFieldsCoub.cpp^
     phycoubs/FigureDemonstration.cpp^
+    phycoubs/Magnetron.cpp^
     phycoubs/NOCoub.cpp^
     phycoubs/PhyCoub.cpp^
     phymeasurement/MeasurementUtils.cpp^

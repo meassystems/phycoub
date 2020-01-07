@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-05 01:17:18
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-06 00:42:46
+ * @Last Modified time: 2020-01-07 02:52:41
  */
 
 #pragma once
@@ -47,5 +47,7 @@ class CylindricalXYPartcleSource
     Vector sourceCoordinate_;
     //
 };
+
+using CylindricalXYPartcleSourcePtr = std::shared_ptr< CylindricalXYPartcleSource >;
 
 } // namespace phycoub

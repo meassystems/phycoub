@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-11-11 23:14:09
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-12 22:26:15
+ * @Last Modified time: 2020-01-08 01:12:01
  */
 
 #pragma once
@@ -14,6 +14,7 @@
 namespace phycoub
 {
 
+// todo rename to ElectricHomogeneousRadiaXYlField
 class ElectricHomogeneousRadialField : public RadialHomogeneousField
 {
   public:

@@ -2,10 +2,12 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-06 20:23:47
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-06 21:32:27
+ * @Last Modified time: 2020-01-07 02:59:00
  */
 
 #pragma once
+
+#include <memory>
 
 #include "LifeTimeControllerIface.h"
 #include "BorderReachedObserver.h"
@@ -37,5 +39,7 @@ class QuantityLifeTimeController
 
     ParticleGroupPtr particleGroupReachedBorder_;
 };
+
+using QuantityLifeTimeControllerPtr = std::shared_ptr< QuantityLifeTimeController >;
 
 } // namespace phycoub

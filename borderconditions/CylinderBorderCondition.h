@@ -2,10 +2,12 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-04 14:06:27
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-05 01:57:49
+ * @Last Modified time: 2020-01-06 22:22:29
  */
 
 #pragma once
+
+#include <memory>
 
 #include "BorderCondition.h"
 #include "BorderReachedEventGenerator.h"
@@ -27,5 +29,7 @@ class CylinderBorderCondition
     virtual void psyMove(
         const Vector& move, const Vector& speed, ParticlePtr* particle ) override;
 };
+
+using CylinderBorderConditionPtr = std::shared_ptr< CylinderBorderCondition >;
 
 } // namespace phycoub

@@ -1,0 +1,87 @@
+/*
+ * @Author: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Date: 2020-01-06 22:12:25
+ * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
+ * @Last Modified time: 2020-01-08 01:11:13
+ */
+
+#pragma once
+
+#include "PhyCoub.h"
+#include "ContainParticleGroupList.h"
+#include "CylinderBorderCondition.h"
+#include "LeapFrog.h"
+#include "CulonInterworking.h"
+#include "MagneticInterworking.h"
+#include "Constants.h"
+#include "ElectricHomogeneousRadialField.h"
+#include "MagneticHomogeneousDirectField.h"
+#include "HomogeneousFieldCreator.h"
+#include "FieldReceiver.h"
+#include "BorderFieldCondition.h"
+#include "ElectricField.h"
+#include "InterCommunication.h"
+#include "CylindricalXYParticleSource.h"
+#include "QuantityLifeTimeController.h"
+
+namespace phycoub
+{
+
+class Magnetron final
+    : public PhyCoub
+    , public ContainParticleGroupList
+{
+  public:
+    Magnetron();
+    ~Magnetron() = default;
+
+  private:
+    CylinderBorderConditionPtr cylinderBorderCondition_
+        = std::make_shared< CylinderBorderCondition >( 1., 1. );
+
+    LeapFrogPtr leapFrog_ = std::make_shared< LeapFrog >();
+    CalculationGroupPtr leapFrogCalculationGroup_
+        = std::make_shared< CalculationGroup >( leapFrog_, cylinderBorderCondition_ );
+
+    ElectricHomogeneousRadialFieldPtr electricHomogeneousRadialField_
+        = std::make_shared< ElectricHomogeneousRadialField >(
+            Vector{ 1., 1., 0 }, 1., ElectricConstants::electronCharge * 0 );
+    HomogeneousFieldCreatorPtr electricHomogeneousRadialFieldCreator_
+        = std::make_shared< HomogeneousFieldCreator >(
+            electricHomogeneousRadialField_, "ElectricHomogeneousRadialField" );
+    CulonInterworkingPtr culonInterworking_ = std::make_shared< CulonInterworking >();
+    FieldReceiverPtr feelElectricHomogeneousRadialWithCulonInterworking_
+        = std::make_shared< FieldReceiver >( electricHomogeneousRadialFieldCreator_,
+            culonInterworking_, "ElectricHomogeneousRadialField culon interworking" );
+
+    MagneticHomogeneousDirectFieldPtr magneticHomogeneousDirectField_
+        = std::make_shared< MagneticHomogeneousDirectField >(
+            Vector{ 0., 1., 1. }, 3e-2 );
+    HomogeneousFieldCreatorPtr magneticHomogeneousDirectFieldCreator_
+        = std::make_shared< HomogeneousFieldCreator >(
+            magneticHomogeneousDirectField_, "MagneticHomogeneousField" );
+    MagneticInterworkingPtr magneticInterworking_
+        = std::make_shared< MagneticInterworking >();
+    FieldReceiverPtr feelWithMagneticInterworking_
+        = std::make_shared< FieldReceiver >( magneticHomogeneousDirectFieldCreator_,
+            magneticInterworking_, "Magnetic interworking" );
+
+    BorderFieldConditionPtr borderFieldCondition_
+        = std::make_shared< BorderFieldCondition >();
+    ElectricFieldPtr electricField_ = std::make_shared< ElectricField >();
+    InterworkingPtr interworking_ = std::make_shared< CulonInterworking >();
+    InterCommunicationPtr electron2electronInterCommunication_
+        = std::make_shared< InterCommunication >( electricField_, borderFieldCondition_,
+            interworking_, "electron-electron InterCommunication" );
+
+    ParticleGroupPtr electrons_ = std::make_shared< ParticleGroup >();
+    CylindricalXYPartcleSourcePtr cylindricalXYPartcleSource_
+        = std::make_shared< CylindricalXYPartcleSource >( 0., 1., 1.,
+            ElectricConstants::electronWeight, ElectricConstants::electronCharge,
+            Vector{ 1., 1., 0. } );
+    QuantityLifeTimeControllerPtr quantityLifeTimeController_
+        = std::make_shared< QuantityLifeTimeController >(
+            1, electrons_, cylindricalXYPartcleSource_ );
+};
+
+} // namespace phycoub
