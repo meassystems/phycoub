@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-06 20:23:47
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-07 02:59:00
+ * @Last Modified time: 2020-01-09 00:16:34
  */
 
 #pragma once
@@ -31,6 +31,9 @@ class QuantityLifeTimeController
 
     // Implementation of BorderReachedObserver
     virtual void onBorderReached( ParticlePtr particle ) override;
+
+    long getLifeParticleCount() const;
+    void setLifeParticleCount( long count );
 
   private:
     long lifeParticleCount_ = 0;

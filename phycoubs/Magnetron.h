@@ -2,10 +2,12 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-06 22:12:25
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-08 01:44:24
+ * @Last Modified time: 2020-01-09 01:11:48
  */
 
 #pragma once
+
+#include <memory>
 
 #include "PhyCoub.h"
 #include "ContainParticleGroupList.h"
@@ -34,6 +36,26 @@ class Magnetron final
   public:
     Magnetron();
     ~Magnetron() = default;
+
+    const ParticleGroupList& getParticleGroupList();
+
+    double getRadius() const;
+    void setRadius( double radius );
+
+    double getHeight() const;
+    void setHeigtht( double height );
+
+    double getElectricRadialFieldCharge() const;
+    void setElectricRadialFieldCharge( double charge );
+
+    double getMagneticFieldInduction() const;
+    void setMagneticFieldInduction( double B );
+
+    double getEnergy() const;
+    void setEnergy( double energy );
+
+    long getLifeParticleCount() const;
+    void setLifeParticleCount( long count );
 
   private:
     CylinderBorderConditionPtr cylinderBorderCondition_
@@ -83,5 +105,7 @@ class Magnetron final
         = std::make_shared< QuantityLifeTimeController >(
             1, electrons_, cylindricalXYPartcleSource_ );
 };
+
+using MagnetronPtr = std::shared_ptr< Magnetron >;
 
 } // namespace phycoub

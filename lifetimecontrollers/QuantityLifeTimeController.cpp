@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-06 21:20:28
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-08 01:38:06
+ * @Last Modified time: 2020-01-09 00:17:37
  */
 
 #include "QuantityLifeTimeController.h"
@@ -40,6 +40,16 @@ void QuantityLifeTimeController::phyControlLifeTime()
 void QuantityLifeTimeController::onBorderReached( ParticlePtr particle )
 {
     particleGroupReachedBorder_->push_back( particle );
+}
+
+long QuantityLifeTimeController::getLifeParticleCount() const
+{
+    return lifeParticleCount_;
+}
+
+void QuantityLifeTimeController::setLifeParticleCount( long count )
+{
+    lifeParticleCount_ = count;
 }
 
 } // namespace phycoub
