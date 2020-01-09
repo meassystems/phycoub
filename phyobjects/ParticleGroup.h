@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 16:20:27
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-06 00:29:01
+ * @Last Modified time: 2020-01-09 17:38:13
  */
 
 #pragma once
@@ -38,6 +38,8 @@ class ParticleGroupList final : public std::list< ParticleGroupPtr >
   public:
     ParticleGroupList() = default;
     ~ParticleGroupList() = default;
+
+    ParticleGroupList deepCopy() const;
 
     void removeParticle( IDType id );
     void removeGroup( IDType id );

@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 16:32:05
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-06 00:29:26
+ * @Last Modified time: 2020-01-09 17:44:48
  */
 
 #include "ParticleGroup.h"
@@ -29,6 +29,23 @@ void ParticleGroup::remove( IDType id )
             return;
         }
     }
+}
+
+ParticleGroupList ParticleGroupList::deepCopy() const
+{
+    ParticleGroupList copy;
+    for ( auto groupIterator = beginGroup(); groupIterator != endGroup();
+          ++groupIterator )
+    {
+        ParticleGroupPtr group = std::make_shared< ParticleGroup >();
+        for ( auto particle : **groupIterator )
+        {
+            group->push_back( particle );
+        }
+        copy.push_back( group );
+    }
+
+    return copy;
 }
 
 void ParticleGroupList::removeParticle( IDType id )

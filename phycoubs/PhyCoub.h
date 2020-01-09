@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 13:13:41
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-08 15:36:26
+ * @Last Modified time: 2020-01-09 17:22:31
  */
 
 #pragma once
@@ -11,6 +11,7 @@
 #include <string>
 #include <memory>
 
+#include "ContainParticleGroupList.h"
 #include "InterworkingCalculatorBase.h"
 #include "CalculationGroup.h"
 #include "LifeTimeControllerIface.h"
@@ -18,13 +19,14 @@
 namespace phycoub
 {
 
-class PhyCoub
+class PhyCoub : public ContainParticleGroupList
 {
   public:
     explicit PhyCoub() = default;
-    virtual ~PhyCoub() = default;
+    virtual ~PhyCoub() override = default;
 
     virtual void phyCoub();
+    const ParticleGroupList& getParticleGroupList();
 
     void setDeltaTime( double dt );
     double getDeltaTime() const;

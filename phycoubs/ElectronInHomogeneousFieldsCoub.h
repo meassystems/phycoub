@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-13 00:17:45
+ * @Last Modified time: 2020-01-09 17:23:36
  */
 
 #pragma once
@@ -10,7 +10,6 @@
 #include <vector>
 
 #include "PhyCoub.h"
-#include "ContainParticleGroupList.h"
 #include "Vector.h"
 #include "CyclicBorder.h"
 #include "LeapFrog.h"
@@ -33,9 +32,7 @@
 namespace phycoub
 {
 
-class ElectronInHomogeneousFieldsCoub final
-    : public PhyCoub
-    , public ContainParticleGroupList
+class ElectronInHomogeneousFieldsCoub final : public PhyCoub
 {
   public:
     ElectronInHomogeneousFieldsCoub();
@@ -43,8 +40,6 @@ class ElectronInHomogeneousFieldsCoub final
 
     const Vector& getBorders() const;
     void setBorders( const Vector& borders );
-
-    const ParticleGroupList& getParticleGroupList();
 
     void addElectron( const Vector& coordinate, const Vector& speed );
     void removeParticle( long index );

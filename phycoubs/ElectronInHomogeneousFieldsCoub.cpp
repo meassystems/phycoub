@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-12 23:32:52
+ * @Last Modified time: 2020-01-09 17:23:51
  */
 
 #include "ElectronInHomogeneousFieldsCoub.h"
@@ -47,11 +47,6 @@ void ElectronInHomogeneousFieldsCoub::setBorders( const Vector& borders )
     cyclicBorder_->setBorders( borders );
     electricHomogeneousRadialField_->setCenter( borders * 0.5 );
     electricHomogeneousRadialField_->setRadius( borders.x_ * 0.8 );
-}
-
-const ParticleGroupList& ElectronInHomogeneousFieldsCoub::getParticleGroupList()
-{
-    return *ContainParticleGroupList::getParticleGroupList();
 }
 
 void ElectronInHomogeneousFieldsCoub::addElectron(

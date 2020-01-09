@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 13:42:50
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-06 01:24:50
+ * @Last Modified time: 2020-01-09 17:24:05
  */
 
 #include "PhyCoub.h"
@@ -28,6 +28,11 @@ void PhyCoub::phyCoub()
         lifeTimeController->phyControlLifeTime();
     }
     experimentTime_ += dt_;
+}
+
+const ParticleGroupList& PhyCoub::getParticleGroupList()
+{
+    return *ContainParticleGroupList::getParticleGroupList();
 }
 
 void PhyCoub::setDeltaTime( double dt )

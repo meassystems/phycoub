@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-08 01:14:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-09 01:12:05
+ * @Last Modified time: 2020-01-09 17:23:05
  */
 
 #include "Magnetron.h"
@@ -29,11 +29,6 @@ Magnetron::Magnetron()
 
     leapFrogCalculationGroup_->addParticleGroup( electrons_ );
     addCalculationGroup( leapFrogCalculationGroup_ );
-}
-
-const ParticleGroupList& Magnetron::getParticleGroupList()
-{
-    return *ContainParticleGroupList::getParticleGroupList();
 }
 
 double Magnetron::getRadius() const

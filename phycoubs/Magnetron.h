@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-06 22:12:25
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-09 01:11:48
+ * @Last Modified time: 2020-01-09 17:22:39
  */
 
 #pragma once
@@ -10,7 +10,6 @@
 #include <memory>
 
 #include "PhyCoub.h"
-#include "ContainParticleGroupList.h"
 #include "CylinderBorderCondition.h"
 #include "LeapFrog.h"
 #include "CulonInterworking.h"
@@ -29,15 +28,11 @@
 namespace phycoub
 {
 
-class Magnetron final
-    : public PhyCoub
-    , public ContainParticleGroupList
+class Magnetron final : public PhyCoub
 {
   public:
     Magnetron();
     ~Magnetron() = default;
-
-    const ParticleGroupList& getParticleGroupList();
 
     double getRadius() const;
     void setRadius( double radius );
