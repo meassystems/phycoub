@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-05 01:47:13
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-09 00:08:13
+ * @Last Modified time: 2020-01-09 18:10:39
  */
 
 #include "CylindricalXYParticleSource.h"
@@ -20,7 +20,7 @@ CylindricalXYPartcleSource::CylindricalXYPartcleSource( double radius, double he
     , energy_( energy )
     , particleWeight_( particleWeight )
     , particleCharge_( particleCharge )
-    , sourceCoordinate_( Vector{ sourceCoordinate.x_, sourceCoordinate_.y_, 0 } )
+    , sourceCoordinate_( Vector{ sourceCoordinate.x_, sourceCoordinate.y_, 0 } )
 {
     speedFactor_ = sqrt( 2 * energy_ / particleWeight_ );
 }

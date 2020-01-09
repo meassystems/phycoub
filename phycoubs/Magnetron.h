@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-06 22:12:25
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-09 17:22:39
+ * @Last Modified time: 2020-01-09 18:14:07
  */
 
 #pragma once
@@ -73,7 +73,7 @@ class Magnetron final : public PhyCoub
 
     MagneticHomogeneousDirectFieldPtr magneticHomogeneousDirectField_
         = std::make_shared< MagneticHomogeneousDirectField >(
-            Vector{ 0., 1., 1. }, 3e-2 );
+            Vector{ 0., 0., 1. }, 3e-2 );
     HomogeneousFieldCreatorPtr magneticHomogeneousDirectFieldCreator_
         = std::make_shared< HomogeneousFieldCreator >(
             magneticHomogeneousDirectField_, "MagneticHomogeneousField" );
