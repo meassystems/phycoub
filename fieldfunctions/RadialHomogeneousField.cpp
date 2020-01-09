@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-11-11 23:20:40
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-12 22:38:01
+ * @Last Modified time: 2020-01-09 19:01:35
  */
 
 #include "RadialHomogeneousField.h"

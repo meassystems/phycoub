@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-08 01:14:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-09 17:23:05
+ * @Last Modified time: 2020-01-09 19:16:13
  */
 
 #include "Magnetron.h"
@@ -54,7 +54,8 @@ void Magnetron::setHeigtht( double height )
 
 double Magnetron::getElectricRadialFieldCharge() const
 {
-    return electricHomogeneousRadialField_->getCharge();
+    return electricHomogeneousRadialField_->getCharge()
+        / ElectricConstants::electronCharge;
 }
 
 void Magnetron::setElectricRadialFieldCharge( double charge )

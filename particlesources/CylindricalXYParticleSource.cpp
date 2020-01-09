@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-05 01:47:13
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-09 18:10:39
+ * @Last Modified time: 2020-01-09 19:11:55
  */
 
 #include "CylindricalXYParticleSource.h"
@@ -72,10 +72,21 @@ double CylindricalXYPartcleSource::generateNormalizedDouble()
 }
 
 // static
+double CylindricalXYPartcleSource::getRandomSign()
+{
+    if ( generateNormalizedDouble() >= 0.5 )
+    {
+        return 1.;
+    }
+
+    return -1.;
+}
+
+// static
 Vector CylindricalXYPartcleSource::generateXYDirection()
 {
-    const double x = generateNormalizedDouble();
-    const double y = sqrt( 1 - pow( x, 2 ) );
+    const double x = generateNormalizedDouble() * getRandomSign();
+    const double y = sqrt( 1 - pow( x, 2 ) ) * getRandomSign();
     return Vector{ x, y, 0 };
 }
 

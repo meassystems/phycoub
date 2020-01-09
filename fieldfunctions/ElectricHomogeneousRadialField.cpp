@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-11-11 23:14:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-12 22:40:16
+ * @Last Modified time: 2020-01-09 19:02:09
  */
 
 #include "ElectricHomogeneousRadialField.h"
@@ -30,7 +30,10 @@ ElectricHomogeneousRadialField::ElectricHomogeneousRadialField(
 Vector ElectricHomogeneousRadialField::psyField(
     const Vector& mark, const ParticlePtr particle /* = nullptr*/ ) const
 {
-    const Vector notNormalizedDirection = mark - getCenter();
+    const Vector& center = getCenter();
+    const Vector centerForMark{ center.x_, center.y_, mark.z_ };
+    const Vector notNormalizedDirection = mark - centerForMark;
+
     if ( notNormalizedDirection.getModule() > getRadius() )
     {
         return Vector{ .0, .0, .0 };

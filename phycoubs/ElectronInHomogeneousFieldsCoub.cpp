@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-09 17:23:51
+ * @Last Modified time: 2020-01-09 19:16:28
  */
 
 #include "ElectronInHomogeneousFieldsCoub.h"
@@ -89,7 +89,8 @@ void ElectronInHomogeneousFieldsCoub::setElectricRadialFieldCharge( double charg
 
 double ElectronInHomogeneousFieldsCoub::getElectricRadialFieldCharge() const
 {
-    return electricHomogeneousRadialField_->getCharge();
+    return electricHomogeneousRadialField_->getCharge()
+        / ElectricConstants::electronCharge;
 }
 
 void ElectronInHomogeneousFieldsCoub::setElectricFieldDirection( const Vector& direction )

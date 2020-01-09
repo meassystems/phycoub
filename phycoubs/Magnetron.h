@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-06 22:12:25
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-09 18:14:07
+ * @Last Modified time: 2020-01-09 19:19:20
  */
 
 #pragma once
@@ -62,7 +62,7 @@ class Magnetron final : public PhyCoub
 
     ElectricHomogeneousRadialFieldPtr electricHomogeneousRadialField_
         = std::make_shared< ElectricHomogeneousRadialField >(
-            Vector{ 1., 1., 0 }, 1., ElectricConstants::electronCharge * 0 );
+            Vector{ 1., 1., 0 }, 1., ElectricConstants::electronCharge * 1e16 );
     HomogeneousFieldCreatorPtr electricHomogeneousRadialFieldCreator_
         = std::make_shared< HomogeneousFieldCreator >(
             electricHomogeneousRadialField_, "ElectricHomogeneousRadialField" );
@@ -93,12 +93,12 @@ class Magnetron final : public PhyCoub
 
     ParticleGroupPtr electrons_ = std::make_shared< ParticleGroup >();
     CylindricalXYPartcleSourcePtr cylindricalXYPartcleSource_
-        = std::make_shared< CylindricalXYPartcleSource >( 0., 1., 1e-20,
+        = std::make_shared< CylindricalXYPartcleSource >( 0., 1., 1e-14,
             ElectricConstants::electronWeight, ElectricConstants::electronCharge,
             Vector{ 1., 1., 0. } );
     QuantityLifeTimeControllerPtr quantityLifeTimeController_
         = std::make_shared< QuantityLifeTimeController >(
-            1, electrons_, cylindricalXYPartcleSource_ );
+            10, electrons_, cylindricalXYPartcleSource_ );
 };
 
 using MagnetronPtr = std::shared_ptr< Magnetron >;
