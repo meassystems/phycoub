@@ -12,6 +12,8 @@ clean.bat^
     -Iphycoubs/^
     -Iphymeasurement/^
     -Iphyobjects/^
+    -Iphyobjects/fieldcreators/^
+    -Iphyobjects/intercommunications/^
     -Iphyobjects/particlefigurematrix/^
     -Ispecialmodellingfunctions/^
     -Ishapes/^
@@ -52,19 +54,19 @@ clean.bat^
     phycoubs/NOCoub.cpp^
     phycoubs/PhyCoub.cpp^
     phymeasurement/MeasurementUtils.cpp^
-    phyobjects/CalculationGroup.cpp^
-    phyobjects/DynamicFieldCreator.cpp^
-    phyobjects/FieldCreator.cpp^
-    phyobjects/FieldReceiver.cpp^
-    phyobjects/HomogeneousFieldCreator.cpp^
-    phyobjects/InterCommunication.cpp^
-    phyobjects/InterGroupCommunication.cpp^
-    phyobjects/InterworkingCalculatorBase.cpp^
-    phyobjects/Particle.cpp^
-    phyobjects/ParticleGroup.cpp^
+    phyobjects/fieldcreators/DynamicFieldCreator.cpp^
+    phyobjects/fieldcreators/FieldCreator.cpp^
+    phyobjects/fieldcreators/HomogeneousFieldCreator.cpp^
+    phyobjects/intercommunications/InterCommunication.cpp^
+    phyobjects/intercommunications/InterGroupCommunication.cpp^
+    phyobjects/intercommunications/InterworkingCalculatorBase.cpp^
     phyobjects/particlefigurematrix/LineFigure.cpp^
     phyobjects/particlefigurematrix/ParallelepipedFigure.cpp^
     phyobjects/particlefigurematrix/PlaneFigure.cpp^
+    phyobjects/CalculationGroup.cpp^
+    phyobjects/FieldReceiver.cpp^
+    phyobjects/Particle.cpp^
+    phyobjects/ParticleGroup.cpp^
     shapes/CubicShape.cpp^
     shapes/CylindricShape.cpp^
     src/main.cpp^
