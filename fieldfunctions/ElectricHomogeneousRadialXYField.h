@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-11-11 23:14:09
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-08 01:12:01
+ * @Last Modified time: 2020-01-10 15:38:36
  */
 
 #pragma once
@@ -14,13 +14,12 @@
 namespace phycoub
 {
 
-// todo rename to ElectricHomogeneousRadiaXYlField
-class ElectricHomogeneousRadialField : public RadialHomogeneousField
+class ElectricHomogeneousRadialXYField : public RadialHomogeneousField
 {
   public:
-    ElectricHomogeneousRadialField(
+    ElectricHomogeneousRadialXYField(
         const Vector& center, double radius, double charge, double epselon = 1. );
-    virtual ~ElectricHomogeneousRadialField() override = default;
+    virtual ~ElectricHomogeneousRadialXYField() override = default;
 
     virtual Vector psyField(
         const Vector& mark, const ParticlePtr particle = nullptr ) const override;
@@ -39,7 +38,7 @@ class ElectricHomogeneousRadialField : public RadialHomogeneousField
     double fieldConstatnt_ = 0.;
 };
 
-using ElectricHomogeneousRadialFieldPtr
-    = std::shared_ptr< ElectricHomogeneousRadialField >;
+using ElectricHomogeneousRadialXYFieldPtr
+    = std::shared_ptr< ElectricHomogeneousRadialXYField >;
 
 } // namespace phycoub

@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-06 22:12:25
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-09 19:19:20
+ * @Last Modified time: 2020-01-10 15:35:30
  */
 
 #pragma once
@@ -15,7 +15,7 @@
 #include "CulonInterworking.h"
 #include "MagneticInterworking.h"
 #include "Constants.h"
-#include "ElectricHomogeneousRadialField.h"
+#include "ElectricHomogeneousRadialXYField.h"
 #include "MagneticHomogeneousDirectField.h"
 #include "HomogeneousFieldCreator.h"
 #include "FieldReceiver.h"
@@ -60,8 +60,8 @@ class Magnetron final : public PhyCoub
     CalculationGroupPtr leapFrogCalculationGroup_
         = std::make_shared< CalculationGroup >( leapFrog_, cylinderBorderCondition_ );
 
-    ElectricHomogeneousRadialFieldPtr electricHomogeneousRadialField_
-        = std::make_shared< ElectricHomogeneousRadialField >(
+    ElectricHomogeneousRadialXYFieldPtr electricHomogeneousRadialField_
+        = std::make_shared< ElectricHomogeneousRadialXYField >(
             Vector{ 1., 1., 0 }, 1., ElectricConstants::electronCharge * 1e16 );
     HomogeneousFieldCreatorPtr electricHomogeneousRadialFieldCreator_
         = std::make_shared< HomogeneousFieldCreator >(

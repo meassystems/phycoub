@@ -36,7 +36,7 @@ clean.bat^
     fieldfunctions/DirectHomogeneousField.cpp^
     fieldfunctions/ElectricField.cpp^
     fieldfunctions/ElectricHomogeneousDirectField.cpp^
-    fieldfunctions/ElectricHomogeneousRadialField.cpp^
+    fieldfunctions/ElectricHomogeneousRadialXYField.cpp^
     fieldfunctions/LDField.cpp^
     fieldfunctions/MagneticHomogeneousDirectField.cpp^
     fieldfunctions/RadialHomogeneousField.cpp^

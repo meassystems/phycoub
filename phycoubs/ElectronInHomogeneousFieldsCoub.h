@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-09 17:23:36
+ * @Last Modified time: 2020-01-10 15:36:09
  */
 
 #pragma once
@@ -13,7 +13,7 @@
 #include "Vector.h"
 #include "CyclicBorder.h"
 #include "LeapFrog.h"
-#include "ElectricHomogeneousRadialField.h"
+#include "ElectricHomogeneousRadialXYField.h"
 #include "ElectricHomogeneousDirectField.h"
 #include "MagneticHomogeneousDirectField.h"
 #include "Constants.h"
@@ -76,9 +76,10 @@ class ElectronInHomogeneousFieldsCoub final : public PhyCoub
 
     CulonInterworkingPtr culonInterworking_ = std::make_shared< CulonInterworking >();
 
-    ElectricHomogeneousRadialFieldPtr electricHomogeneousRadialField_
-        = std::make_shared< ElectricHomogeneousRadialField >( Vector{ borderSize_ * 0.5 },
-            borderSize_ * 0.8, ElectricConstants::electronCharge * 1e9 );
+    ElectricHomogeneousRadialXYFieldPtr electricHomogeneousRadialField_
+        = std::make_shared< ElectricHomogeneousRadialXYField >(
+            Vector{ borderSize_ * 0.5 }, borderSize_ * 0.8,
+            ElectricConstants::electronCharge * 1e9 );
     HomogeneousFieldCreatorPtr electricHomogeneousRadialFieldCreator_
         = std::make_shared< HomogeneousFieldCreator >(
             electricHomogeneousRadialField_, "ElectricHomogeneousRadialField" );

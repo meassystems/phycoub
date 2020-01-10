@@ -2,10 +2,10 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-11-11 23:14:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-09 19:02:09
+ * @Last Modified time: 2020-01-10 15:36:26
  */
 
-#include "ElectricHomogeneousRadialField.h"
+#include "ElectricHomogeneousRadialXYField.h"
 
 #define _USE_MATH_DEFINES
 
@@ -17,7 +17,7 @@
 namespace phycoub
 {
 
-ElectricHomogeneousRadialField::ElectricHomogeneousRadialField(
+ElectricHomogeneousRadialXYField::ElectricHomogeneousRadialXYField(
     const Vector& center, double radius, double charge, double epselon /* = 1. */ )
     : RadialHomogeneousField( center, radius )
     , charge_( charge )
@@ -27,7 +27,7 @@ ElectricHomogeneousRadialField::ElectricHomogeneousRadialField(
 }
 
 // virtual override
-Vector ElectricHomogeneousRadialField::psyField(
+Vector ElectricHomogeneousRadialXYField::psyField(
     const Vector& mark, const ParticlePtr particle /* = nullptr*/ ) const
 {
     const Vector& center = getCenter();
@@ -44,29 +44,29 @@ Vector ElectricHomogeneousRadialField::psyField(
     return resulField;
 }
 
-void ElectricHomogeneousRadialField::setEpselon( double epselon )
+void ElectricHomogeneousRadialXYField::setEpselon( double epselon )
 {
     epselon_ = epselon;
     updateFieldConstant();
 }
 
-double ElectricHomogeneousRadialField::getEpselon() const
+double ElectricHomogeneousRadialXYField::getEpselon() const
 {
     return epselon_;
 }
 
-void ElectricHomogeneousRadialField::setCharge( double charge )
+void ElectricHomogeneousRadialXYField::setCharge( double charge )
 {
     charge_ = charge;
     updateFieldConstant();
 }
 
-double ElectricHomogeneousRadialField::getCharge() const
+double ElectricHomogeneousRadialXYField::getCharge() const
 {
     return charge_;
 }
 
-void ElectricHomogeneousRadialField::updateFieldConstant()
+void ElectricHomogeneousRadialXYField::updateFieldConstant()
 {
     fieldConstatnt_ = charge_ / ( 4. * M_PI * ElectricConstants::epselon0 * epselon_ );
 }
