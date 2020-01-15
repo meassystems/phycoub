@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-27 11:46:03
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-27 16:03:00
+ * @Last Modified time: 2020-01-10 20:49:36
  */
 
 #include "MagneticInterworking.h"
@@ -14,8 +14,8 @@ namespace phycoub
 const Vector MagneticInterworking::psyForce(
     const Vector& field, const ParticlePtr particle )
 {
-    const Vector force
-        = VectorUtils::vectorMultiplication( particle->getSpeed(), field ) * particle->z_;
+    const Vector force = VectorUtils::vectorMultiplication( particle->getSpeed(), field )
+        * particle->getOptions().q_;
     return force;
 }
 

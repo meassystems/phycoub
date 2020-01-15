@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-05 01:17:18
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-09 19:11:45
+ * @Last Modified time: 2020-01-10 20:39:38
  */
 
 #pragma once
@@ -39,14 +39,11 @@ class CylindricalXYPartcleSource
     static double getRandomSign();
     static Vector generateXYDirection();
 
-    double energy_ = 0.;
+    ParticleOptions particleOptions;
 
-    // create base class for it
-    double particleWeight_ = 0.;
-    double particleCharge_ = 0.;
+    double energy_ = 0.;
     double speedFactor_ = 0.;
     Vector sourceCoordinate_;
-    //
 };
 
 using CylindricalXYPartcleSourcePtr = std::shared_ptr< CylindricalXYPartcleSource >;

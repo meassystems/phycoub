@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 12:09:04
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 10:20:25
+ * @Last Modified time: 2020-01-10 20:51:14
  */
 
 #include "ElectricField.h"
@@ -45,7 +45,8 @@ Vector ElectricField::psyField(
     }
 
     effect = distance
-        * ( ( fieldConstatnt_ * particle->z_ ) / pow( distance.getModule(), 3 ) );
+        * ( ( fieldConstatnt_ * particle->getOptions().q_ )
+              / pow( distance.getModule(), 3 ) );
 
     return effect;
 }

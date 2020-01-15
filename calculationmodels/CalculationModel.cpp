@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-26 09:57:56
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 18:46:56
+ * @Last Modified time: 2020-01-10 20:32:25
  */
 
 #include <algorithm>
@@ -21,8 +21,8 @@ void CalculationModel::phyCalculate(
 {
     for ( ParticlePtr particle : *particleGroupList )
     {
-        const Vector speed
-            = particle->getSpeed() + particle->resultant_ * ( dt / particle->m_ );
+        const Vector speed = particle->getSpeed()
+            + particle->resultant_ * ( dt / particle->getOptions().m_ );
         borderCondition->psyMove( speed * dt, speed, &particle );
     }
 }

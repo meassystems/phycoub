@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 12:14:47
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-29 14:03:35
+ * @Last Modified time: 2020-01-10 20:37:31
  */
 
 #include <LeapFrog.h>
@@ -30,8 +30,8 @@ void LeapFrog::phyCalculate(
     {
         for ( ParticlePtr particle : *particleGroupList )
         {
-            const Vector speed
-                = particle->getSpeed() + particle->resultant_ * ( dt / particle->m_ );
+            const Vector speed = particle->getSpeed()
+                + particle->resultant_ * ( dt / particle->getOptions().m_ );
             borderCondition->psyMove( speed * dt, speed, &particle );
         }
     }
@@ -84,8 +84,8 @@ void phyCalculateThreadLP( ParticleGroupList::ParticleIterator begin,
 {
     while ( begin != end )
     {
-        const Vector speed
-            = ( *begin )->getSpeed() + ( *begin )->resultant_ * ( dt / ( *begin )->m_ );
+        const Vector speed = ( *begin )->getSpeed()
+            + ( *begin )->resultant_ * ( dt / ( *begin )->getOptions().m_ );
         borderCondition->psyMove( speed * dt, speed, &*begin );
         ++begin;
     }

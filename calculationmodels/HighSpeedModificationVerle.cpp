@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-26 10:13:55
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-29 14:03:12
+ * @Last Modified time: 2020-01-10 20:36:58
  */
 
 #include <HighSpeedModificationVerle.h>
@@ -28,12 +28,14 @@ void HighSpeedModificationVerle::phyCalculate(
     {
         for ( ParticlePtr particle : *particleGroupList )
         {
+            const ParticleOptions& particleOptions = particle->getOptions();
             const Vector speed = particle->getSpeed()
                 + ( particle->resultant_ + particle->previesResultant_ )
-                    * ( dt / ( particle->m_ * 2 ) );
+                    * ( dt / ( particleOptions.m_ * 2 ) );
 
             borderCondition->psyMove( particle->previesSpeed_ * dt
-                    + particle->previesResultant_ * pow( dt, 2 ) / ( 2 * particle->m_ ),
+                    + particle->previesResultant_ * pow( dt, 2 )
+                        / ( 2 * particleOptions.m_ ),
                 speed, &particle );
         }
     }
@@ -86,12 +88,14 @@ void phyCalculateThread( ParticleGroupList::ParticleIterator begin,
 {
     while ( begin != end )
     {
+        const ParticleOptions& particleOptions = ( *begin )->getOptions();
         const Vector speed = ( *begin )->getSpeed()
             + ( ( *begin )->resultant_ + ( *begin )->previesResultant_ )
-                * ( dt / ( ( *begin )->m_ * 2 ) );
+                * ( dt / ( particleOptions.m_ * 2 ) );
 
         borderCondition->psyMove( ( *begin )->previesSpeed_ * ( dt )
-                + ( *begin )->previesResultant_ * pow( dt, 2 ) / ( 2 * ( *begin )->m_ ),
+                + ( *begin )->previesResultant_ * pow( dt, 2 )
+                    / ( 2 * particleOptions.m_ ),
             speed, &*begin );
         ++begin;
     }

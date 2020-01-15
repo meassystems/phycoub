@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-05 01:47:13
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-09 19:11:55
+ * @Last Modified time: 2020-01-10 20:40:50
  */
 
 #include "CylindricalXYParticleSource.h"
@@ -18,11 +18,10 @@ CylindricalXYPartcleSource::CylindricalXYPartcleSource( double radius, double he
     const Vector& sourceCoordinate )
     : CylindricShape( radius, height )
     , energy_( energy )
-    , particleWeight_( particleWeight )
-    , particleCharge_( particleCharge )
+    , particleOptions( particleWeight, particleCharge )
     , sourceCoordinate_( Vector{ sourceCoordinate.x_, sourceCoordinate.y_, 0 } )
 {
-    speedFactor_ = sqrt( 2 * energy_ / particleWeight_ );
+    speedFactor_ = sqrt( 2 * energy_ / particleOptions.m_ );
 }
 
 // virtual override
@@ -36,14 +35,13 @@ ParticlePtr CylindricalXYPartcleSource::phyGiveBirthParticle()
     const Vector coordinate = xyDirection * squaredRadius
         + Vector{ sourceCoordinate_.x_, sourceCoordinate_.y_, z };
 
-    return std::make_shared< Particle >(
-        coordinate, speed, particleWeight_, particleCharge_ );
+    return std::make_shared< Particle >( coordinate, speed, particleOptions );
 }
 
 void CylindricalXYPartcleSource::setEnergy( double energy )
 {
     energy_ = energy;
-    speedFactor_ = sqrt( 2 * energy_ / particleWeight_ );
+    speedFactor_ = sqrt( 2 * energy_ / particleOptions.m_ );
 }
 
 double CylindricalXYPartcleSource::getEnergy() const
