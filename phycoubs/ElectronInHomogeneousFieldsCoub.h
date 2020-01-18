@@ -2,12 +2,13 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-10 15:36:09
+ * @Last Modified time: 2020-01-18 19:53:44
  */
 
 #pragma once
 
 #include <vector>
+#include <memory>
 
 #include "PhyCoub.h"
 #include "Vector.h"
@@ -38,25 +39,19 @@ class ElectronInHomogeneousFieldsCoub final : public PhyCoub
     ElectronInHomogeneousFieldsCoub();
     ~ElectronInHomogeneousFieldsCoub() = default;
 
-    const Vector& getBorders() const;
-    void setBorders( const Vector& borders );
+    Vector getBorders() const;
+    void setBorders( Vector borders );
 
-    void addElectron( const Vector& coordinate, const Vector& speed );
+    void addElectron(
+        const Vector& coordinate, const Vector& speed, const ParticleOptions& options );
     void removeParticle( long index );
 
-    void setElectricRadialCenter( const Vector& center );
-    const Vector& getElectricRadialCenter() const;
-    void setElectricRadialRadius( double radius );
-    double getElectricRadialRadius() const;
-    void setElectricRadialFieldCharge( double charge );
-    double getElectricRadialFieldCharge() const;
-
-    void setElectricFieldDirection( const Vector& direction );
+    void setElectricFieldDirection( Vector direction );
     Vector getElectricFieldDirection() const;
     void setElectricFieldCharge( double charge );
     double getElectricFieldCharge() const;
 
-    void setMagneticFieldDirection( const Vector& direction );
+    void setMagneticFieldDirection( Vector direction );
     Vector getMagneticFieldDirection() const;
     void setMagneticFieldInduction( double B );
     double getMagneticFieldInduction() const;
@@ -75,17 +70,6 @@ class ElectronInHomogeneousFieldsCoub final : public PhyCoub
         = std::make_shared< CalculationGroup >( leapFrog_, cyclicBorder_ );
 
     CulonInterworkingPtr culonInterworking_ = std::make_shared< CulonInterworking >();
-
-    ElectricHomogeneousRadialXYFieldPtr electricHomogeneousRadialField_
-        = std::make_shared< ElectricHomogeneousRadialXYField >(
-            Vector{ borderSize_ * 0.5 }, borderSize_ * 0.8,
-            ElectricConstants::electronCharge * 1e9 );
-    HomogeneousFieldCreatorPtr electricHomogeneousRadialFieldCreator_
-        = std::make_shared< HomogeneousFieldCreator >(
-            electricHomogeneousRadialField_, "ElectricHomogeneousRadialField" );
-    FieldReceiverPtr feelElectricHomogeneousRadialWithCulonInterworking_
-        = std::make_shared< FieldReceiver >( electricHomogeneousRadialFieldCreator_,
-            culonInterworking_, "ElectricHomogeneousRadialField culon interworking" );
 
     ElectricHomogeneousDirectFieldPtr electricHomogeneousDirectField_
         = std::make_shared< ElectricHomogeneousDirectField >(
@@ -116,5 +100,8 @@ class ElectronInHomogeneousFieldsCoub final : public PhyCoub
         = std::make_shared< InterCommunication >( electricField_, borderFieldCondition_,
             interworking_, "electron-electron InterCommunication" );
 };
+
+using ElectronInHomogeneousFieldsCoubPtr
+    = std::shared_ptr< ElectronInHomogeneousFieldsCoub >;
 
 } // namespace phycoub

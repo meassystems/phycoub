@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-09 19:16:28
+ * @Last Modified time: 2020-01-18 19:53:58
  */
 
 #include "ElectronInHomogeneousFieldsCoub.h"
@@ -24,8 +24,6 @@ ElectronInHomogeneousFieldsCoub::ElectronInHomogeneousFieldsCoub()
 
     addParticleGroup( electrons_ );
 
-    feelElectricHomogeneousRadialWithCulonInterworking_->addParticleGroup( electrons_ );
-    addFieldResponsive( feelElectricHomogeneousRadialWithCulonInterworking_ );
     feelElectricHomogeneousDirectWithCulonInterworking_->addParticleGroup( electrons_ );
     addFieldResponsive( feelElectricHomogeneousDirectWithCulonInterworking_ );
     feelWithMagneticInterworking_->addParticleGroup( electrons_ );
@@ -37,23 +35,20 @@ ElectronInHomogeneousFieldsCoub::ElectronInHomogeneousFieldsCoub()
     addCalculationGroup( leapFrogCalculationGroup_ );
 }
 
-const Vector& ElectronInHomogeneousFieldsCoub::getBorders() const
+Vector ElectronInHomogeneousFieldsCoub::getBorders() const
 {
     return cyclicBorder_->getBorders();
 }
 
-void ElectronInHomogeneousFieldsCoub::setBorders( const Vector& borders )
+void ElectronInHomogeneousFieldsCoub::setBorders( Vector borders )
 {
     cyclicBorder_->setBorders( borders );
-    electricHomogeneousRadialField_->setCenter( borders * 0.5 );
-    electricHomogeneousRadialField_->setRadius( borders.x_ * 0.8 );
 }
 
 void ElectronInHomogeneousFieldsCoub::addElectron(
-    const Vector& coordinate, const Vector& speed )
+    const Vector& coordinate, const Vector& speed, const ParticleOptions& options )
 {
-    electrons_->push_back( std::make_shared< Particle >( coordinate, speed,
-        ElectricConstants::electronWeight, ElectricConstants::electronCharge ) );
+    electrons_->push_back( std::make_shared< Particle >( coordinate, speed, options ) );
 }
 
 void ElectronInHomogeneousFieldsCoub::removeParticle( long index )
@@ -61,39 +56,7 @@ void ElectronInHomogeneousFieldsCoub::removeParticle( long index )
     electrons_->remove( index );
 }
 
-void ElectronInHomogeneousFieldsCoub::setElectricRadialCenter( const Vector& center )
-{
-    electricHomogeneousRadialField_->setCenter( center );
-}
-
-const Vector& ElectronInHomogeneousFieldsCoub::getElectricRadialCenter() const
-{
-    return electricHomogeneousRadialField_->getCenter();
-}
-
-void ElectronInHomogeneousFieldsCoub::setElectricRadialRadius( double radius )
-{
-    electricHomogeneousRadialField_->setRadius( radius );
-}
-
-double ElectronInHomogeneousFieldsCoub::getElectricRadialRadius() const
-{
-    return electricHomogeneousRadialField_->getRadius();
-}
-
-void ElectronInHomogeneousFieldsCoub::setElectricRadialFieldCharge( double charge )
-{
-    electricHomogeneousRadialField_->setCharge(
-        charge * ElectricConstants::electronCharge );
-}
-
-double ElectronInHomogeneousFieldsCoub::getElectricRadialFieldCharge() const
-{
-    return electricHomogeneousRadialField_->getCharge()
-        / ElectricConstants::electronCharge;
-}
-
-void ElectronInHomogeneousFieldsCoub::setElectricFieldDirection( const Vector& direction )
+void ElectronInHomogeneousFieldsCoub::setElectricFieldDirection( Vector direction )
 {
     electricHomogeneousDirectField_->setDirection( direction );
 }
@@ -114,7 +77,7 @@ double ElectronInHomogeneousFieldsCoub::getElectricFieldCharge() const
     return electricHomogeneousDirectField_->getCharge();
 }
 
-void ElectronInHomogeneousFieldsCoub::setMagneticFieldDirection( const Vector& direction )
+void ElectronInHomogeneousFieldsCoub::setMagneticFieldDirection( Vector direction )
 {
     magneticHomogeneousDirectField_->setDirection( direction );
 }

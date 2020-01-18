@@ -18,6 +18,7 @@ RadialHomogeneousField::RadialHomogeneousField( const Vector& center, double rad
 {
 }
 
+// virtual override
 Vector RadialHomogeneousField::getDirection( const Vector& mark ) const
 {
     Vector result = mark - center_;
