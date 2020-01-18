@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-18 19:53:44
+ * @Last Modified time: 2020-01-18 22:46:34
  */
 
 #pragma once
@@ -56,7 +56,8 @@ class ElectronInHomogeneousFieldsCoub final : public PhyCoub
     void setMagneticFieldInduction( double B );
     double getMagneticFieldInduction() const;
 
-    void switchElectron2ElectronInterworking( bool flag );
+    void setElectron2ElectronInterworkingFlag( bool flag );
+    bool getElectron2ElectronInterworkingFlag() const;
 
   private:
     ParticleGroupPtr electrons_ = std::make_shared< ParticleGroup >();
@@ -92,6 +93,7 @@ class ElectronInHomogeneousFieldsCoub final : public PhyCoub
         = std::make_shared< FieldReceiver >( magneticHomogeneousDirectFieldCreator_,
             magneticInterworking_, "magnetic interworking" );
 
+    bool electron2ElectronInterworkingFlag = false;
     BorderFieldConditionPtr borderFieldCondition_
         = std::make_shared< BorderFieldCondition >();
     ElectricFieldPtr electricField_ = std::make_shared< ElectricField >();
