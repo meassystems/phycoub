@@ -7,6 +7,8 @@
 
 #include <ThermostatBorder.h>
 
+#include <math.h>
+
 namespace phycoub
 {
 

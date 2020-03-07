@@ -3,3 +3,12 @@
 *.exe
 *.lib
 *.ilk
+*.a
+*.dylib
+empty_stub.cpp
+
+**/CMakeFiles/
+**/Makefile
+**/cmake_install.cmake
+**/CMakeLists.txt
+CMakeCache.txt

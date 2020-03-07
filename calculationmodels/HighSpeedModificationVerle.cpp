@@ -12,6 +12,8 @@
 #include "Vector.h"
 #include "CalculationGroup.h"
 
+#include <math.h>
+
 namespace phycoub
 {
 

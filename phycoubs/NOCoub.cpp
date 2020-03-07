@@ -5,7 +5,7 @@
  * @Last Modified time: 2019-11-06 00:04:26
  */
 
-#include <NOCoub.h >
+#include <NOCoub.h>
 
 #include <algorithm>
 #include <stdlib.h>

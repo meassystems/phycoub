@@ -14,6 +14,8 @@
 #include "PlaneFigure.h"
 #include "ParallelepipedFigure.h"
 
+#include <math.h>
+
 namespace phycoub
 {
 
