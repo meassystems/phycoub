@@ -21,18 +21,17 @@ function writeSources {
 function writeSubdirectories {
     #$1 - folder
 
-    # return subdirectories
+    #return recursiveSubdirectories
 
     local cmakeFilePath=$1/$cmakeFileName
+    recursiveSubdirectories=$(find $1 -type d | grep -v 'CMakeFiles\|\.' | tail -n +2)
 
-    subdirectories=$(ls -F $1 | grep \/$ | grep -v CMakeFiles)
-    if [ ! -z "$subdirectories" ]; then
-        for subDirectory in $subdirectories
+    if [ ! -z "$recursiveSubdirectories" ]; then
+        for subDirectory in $recursiveSubdirectories
         do
-            local subDirectoryName=$(basename $subDirectory)
-            echo "add_subdirectory( $subDirectoryName )" >> $cmakeFilePath
+            echo -e "add_subdirectory(${subDirectory#"$1/"})" >> $cmakeFilePath
         done
-        echo "" >> $cmakeFilePath
+        echo >> $cmakeFilePath
     fi 
 }
 
@@ -88,6 +87,28 @@ function writeTargetLinkLibraries {
     fi
 }
 
+function writeAddLibrary {
+    #$1 - folder
+    #$2 - library type
+    #$3 - subdirectories
+    #$4 - sources
+
+    local cmakeFilePath=$1/$cmakeFileName
+    local projectName=$(basename $1)
+
+    if [ -z "$3" ]; then
+        echo -e "add_library($projectName $2 $4)\n" >> $cmakeFilePath
+    else
+        echo "add_library($projectName $2 $4" >> $cmakeFilePath
+        for subdirectory in $3
+        do
+            local subDirectoryName=$(basename $subdirectory)
+            echo -e "\t $<TARGET_OBJECTS:$subDirectoryName>" >> $cmakeFilePath
+        done
+        echo -e ")\n" >> $cmakeFilePath
+    fi
+}
+
 function writeHead {
     #$1 - folder
 
@@ -101,32 +122,14 @@ function writeHead {
     echo -e "set(CMAKE_CXX_STANDARD_REQUIRED True)\n" >> $cmakeFilePath
 }
 
-function writeBody {
-    #$1 - folder
-
-    writeSources $1
-    writeSubdirectories $1 # return subsubDirectories
-}
-
-function writeTail {
-    #$1 - folder
-    #$2 - subtargets
-
-    local cmakeFilePath=$1/$cmakeFileName
-    local projectName=$(basename $1)
-
-    echo -e "add_library($projectName STATIC \${SOURCES})\n" >> $cmakeFilePath
-}
-
 function createCMakeLists {
     #$1 - folder
 
     writeHead $1
-    writeBody $1 # return subdirectories
-    writeTail $1
+    writeSources $1
+    writeAddLibrary $1 OBJECT "" "\${SOURCES}"
 
-    writeTargetIncludeDirectories $1
-    writeTargetLinkLibraries $1 "$subdirectories"
+    #writeTargetIncludeDirectories $1
 }
 
 function generateDeep {
@@ -155,14 +158,11 @@ function generateMainCmake {
     writeHead $PWD
     writeIncludeDirectories $PWD
 
-    writeSubdirectories $PWD # return subdirectories
+    writeSubdirectories $PWD #return recursiveSubdirectories
+    writeAddLibrary $PWD STATIC "$recursiveSubdirectories"
 
-    local stubForSharedLibrary="empty_stub.cpp"
-    touch $stubForSharedLibrary 2> /dev/null
-    echo -e "add_library($projectName SHARED $stubForSharedLibrary)\n" >> $cmakeFileName
-
-    writeTargetIncludeDirectories $PWD
-    writeTargetLinkLibraries $PWD "$subdirectories"
+    #writeTargetIncludeDirectories $PWD
+    #writeTargetLinkLibraries $PWD "$recursiveSubdirectories"
 }
 
 function generateCmakeDefaults {
