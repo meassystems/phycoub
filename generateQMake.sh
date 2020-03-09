@@ -28,7 +28,7 @@ function writeWidgetsSpecific {
     local projectName=$(basename $1)
     local qmakePath=$1/$projectName.qmake
 
-    echo -e "LIBS += -L../$projectName/ -l$projectName\n" >> $qmakePath
+    echo -e "LIBS += -L\$\$PWD/../$projectName/ -l$projectName\n" >> $qmakePath
 }
 
 function generateQMake {
