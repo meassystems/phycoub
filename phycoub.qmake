@@ -17,5 +17,5 @@ INCLUDEPATH += ../phycoub/mathematic
 INCLUDEPATH += ../phycoub/fieldfunctions
 INCLUDEPATH += ../phycoub/src
 
-LIBS += -L../phycoub/ -lphycoub
+LIBS += -L$$PWD/../phycoub/ -lphycoub
 
