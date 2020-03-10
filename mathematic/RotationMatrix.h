@@ -2,12 +2,13 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-03-10 18:32:39
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-10 19:21:15
+ * @Last Modified time: 2020-03-11 01:29:22
  */
 
 #pragma once
 
 #include "Vector.h"
+#include "Matrix.h"
 
 namespace phycoub
 {
@@ -27,10 +28,7 @@ class RotationMatrix final
     void updateMatrix();
 
     Vector guideCosines_;
-
-    Vector column1_;
-    Vector column2_;
-    Vector column3_;
+    Matrix matrix_;
 };
 
 } // namespace phycoub

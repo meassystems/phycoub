@@ -45,7 +45,7 @@ add_subdirectory(mathematic)
 add_subdirectory(fieldfunctions)
 add_subdirectory(src)
 
-add_library(phycoub STATIC
+add_library(phycoub STATIC 
 	 $<TARGET_OBJECTS:phycoubs>
 	 $<TARGET_OBJECTS:lifetimecontrollers>
 	 $<TARGET_OBJECTS:phyobjects>

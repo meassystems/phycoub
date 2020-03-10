@@ -2,12 +2,14 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 21:35:24
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-10 20:53:16
+ * @Last Modified time: 2020-03-11 01:22:35
  */
 
 #include "Vector.h"
 
 #include <math.h>
+
+#include "Matrix.h"
 
 namespace phycoub
 {
@@ -229,6 +231,20 @@ double Vector::operator[]( int index ) const
 {
     Vector copy = *this;
     return copy[ index ];
+}
+
+Vector Vector::operator*( const Matrix& matrix ) const
+{
+    Vector result;
+    for ( uint32_t i = 0; i < numSize; ++i )
+    {
+        for ( uint32_t j = 0; j < numSize; ++j )
+        {
+            result[ i ] += vector_[ j ] * matrix[ j * numSize + i ];
+        }
+    }
+
+    return result;
 }
 
 double Vector::getModule() const

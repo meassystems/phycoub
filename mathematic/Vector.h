@@ -2,23 +2,29 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 21:35:42
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 19:25:12
+ * @Last Modified time: 2020-03-11 01:15:30
  */
 
 #pragma once
 
+#include <stdint.h>
+
 namespace phycoub
 {
+
+class Matrix;
+
 /*
  * Класс вектора в трехмерном пространстве.
  */
-class Vector
+class Vector final
 {
   public:
     Vector() = default;
+    ~Vector() = default;
+
     explicit Vector( double v );
     Vector( double x, double y, double z );
-    virtual ~Vector() = default;
 
     Vector& operator=( double vector );
     //-----------------------------------------
@@ -50,14 +56,29 @@ class Vector
     //-----------------------------------------
     double& operator[]( int index );
     double operator[]( int index ) const;
+    //-----------------------------------------
+    Vector operator*( const Matrix& matrix ) const;
 
     double getModule() const;
     bool below( const Vector& vector ) const;
     bool beyond( const Vector& vector ) const;
 
-    double x_ = 0.;
-    double y_ = 0.;
-    double z_ = 0.;
+  private:
+    static constexpr uint32_t numSize = 3;
+
+  public:
+#pragma pack( push, 1 )
+    union
+    {
+        double vector_[ 3 ] = { .0 };
+        struct
+        {
+            double x_;
+            double y_;
+            double z_;
+        };
+    };
+#pragma pack( pop )
 };
 
 } // namespace phycoub

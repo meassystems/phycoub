@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(SOURCES 
+	 Matrix.cpp
+	 Matrix.h
 	 RotationMatrix.cpp
 	 RotationMatrix.h
 	 Vector.cpp
