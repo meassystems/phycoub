@@ -8,7 +8,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 include_directories(
 	 phycoubs
 	 lifetimecontrollers
-	 types
 	 phyobjects
 	 phyobjects/particlefigurematrix
 	 phyobjects/intercommunications
@@ -22,13 +21,13 @@ include_directories(
 	 common
 	 interworkingfunctions
 	 phymeasurement
+	 mathematic
 	 fieldfunctions
 	 src
 )
 
 add_subdirectory(phycoubs)
 add_subdirectory(lifetimecontrollers)
-add_subdirectory(types)
 add_subdirectory(phyobjects)
 add_subdirectory(phyobjects/particlefigurematrix)
 add_subdirectory(phyobjects/intercommunications)
@@ -42,13 +41,13 @@ add_subdirectory(borderconditions)
 add_subdirectory(common)
 add_subdirectory(interworkingfunctions)
 add_subdirectory(phymeasurement)
+add_subdirectory(mathematic)
 add_subdirectory(fieldfunctions)
 add_subdirectory(src)
 
-add_library(phycoub STATIC 
+add_library(phycoub STATIC
 	 $<TARGET_OBJECTS:phycoubs>
 	 $<TARGET_OBJECTS:lifetimecontrollers>
-	 $<TARGET_OBJECTS:types>
 	 $<TARGET_OBJECTS:phyobjects>
 	 $<TARGET_OBJECTS:particlefigurematrix>
 	 $<TARGET_OBJECTS:intercommunications>
@@ -62,6 +61,7 @@ add_library(phycoub STATIC
 	 $<TARGET_OBJECTS:common>
 	 $<TARGET_OBJECTS:interworkingfunctions>
 	 $<TARGET_OBJECTS:phymeasurement>
+	 $<TARGET_OBJECTS:mathematic>
 	 $<TARGET_OBJECTS:fieldfunctions>
 	 $<TARGET_OBJECTS:src>
 )

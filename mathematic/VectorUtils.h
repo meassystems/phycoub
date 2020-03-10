@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 16:30:04
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-23 21:39:36
+ * @Last Modified time: 2020-03-10 20:53:36
  */
 
 #pragma once
@@ -18,7 +18,6 @@ class VectorUtils final
     VectorUtils() = delete;
 
     static Vector normalizeVector( Vector vector );
-    static Vector vectorMultiplication( const Vector& first, const Vector& second );
     static double scalarMultiplication( const Vector& first, const Vector& second );
     static double projectionToVector( const Vector& distance, const Vector& source );
 };

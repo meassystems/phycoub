@@ -1,6 +1,5 @@
 INCLUDEPATH += ../phycoub/phycoubs
 INCLUDEPATH += ../phycoub/lifetimecontrollers
-INCLUDEPATH += ../phycoub/types
 INCLUDEPATH += ../phycoub/phyobjects
 INCLUDEPATH += ../phycoub/phyobjects/particlefigurematrix
 INCLUDEPATH += ../phycoub/phyobjects/intercommunications
@@ -14,6 +13,7 @@ INCLUDEPATH += ../phycoub/borderconditions
 INCLUDEPATH += ../phycoub/common
 INCLUDEPATH += ../phycoub/interworkingfunctions
 INCLUDEPATH += ../phycoub/phymeasurement
+INCLUDEPATH += ../phycoub/mathematic
 INCLUDEPATH += ../phycoub/fieldfunctions
 INCLUDEPATH += ../phycoub/src
 
