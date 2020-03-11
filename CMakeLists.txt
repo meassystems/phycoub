@@ -66,5 +66,6 @@ add_library(phycoub STATIC
 	 $<TARGET_OBJECTS:src>
 )
 
-set_target_properties(phycoub PROPERTIES LIBRARY_OUTPUT_DIRECTORY .)
+add_custom_command(TARGET phycoub 
+        POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:phycoub> .)
 
