@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-11-05 23:22:22
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-11 13:30:22
+ * @Last Modified time: 2020-03-11 16:57:51
  */
 
 #include "ContainParticleGroupList.h"
@@ -31,14 +31,7 @@ void ContainParticleGroupList::removeParticleGroup( ParticleGroupPtr particleGro
 // virtual override
 void ContainParticleGroupList::removeParticle( IDType id )
 {
-    for ( ParticleGroupList::GroupIterator groupIterator = particleGroupList.beginGroup();
-          groupIterator != particleGroupList.endGroup(); ++groupIterator )
-    {
-        if ( ( *groupIterator )->remove( id ) )
-        {
-            continue;
-        }
-    }
+    particleGroupList.removeParticle( id );
 }
 
 // virtual override

@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 13:42:50
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-11 13:44:49
+ * @Last Modified time: 2020-03-11 17:12:46
  */
 
 #include "PhyCoub.h"
@@ -15,8 +15,7 @@ namespace phycoub
 
 void PhyCoub::phyCoub()
 {
-    for ( InterworkingCalculatorPtr& interworkingCalculator :
-        interworkingCalculatorList_ )
+    for ( InterworkingCalculatorPtr interworkingCalculator : interworkingCalculatorList_ )
     {
         interworkingCalculator->phyCalcInterworking();
     }
@@ -51,7 +50,7 @@ void PhyCoub::resetToZeroExperimentTime()
     experimentTime_ = 0;
 }
 
-ParticleGroupList PhyCoub::getUniqParticleGroupList()
+const ParticleGroupList& PhyCoub::getUniqParticleGroupList()
 {
     return uniqParticleGroupList_;
 }
@@ -59,35 +58,29 @@ ParticleGroupList PhyCoub::getUniqParticleGroupList()
 void PhyCoub::updateUniqParticleGroupList()
 {
     std::unordered_set< IDType > addedGroupIds;
-
     for ( auto containParticleGroupList : containsParticleGroup_ )
     {
-        ParticleGroupList particleGroupList
+        const ParticleGroupList& particleGroupList
             = containParticleGroupList->getParticleGroupList();
 
-        for ( ParticleGroupList::GroupIterator groupIterator
-              = particleGroupList.beginGroup();
-              groupIterator != particleGroupList.endGroup(); ++groupIterator )
-        {
-            const IDType groupId = ( *groupIterator )->getId();
+        particleGroupList.forEachGroup( [&addedGroupIds, this]( ParticleGroupPtr group ) {
+            const IDType groupId = group->getId();
             if ( addedGroupIds.find( groupId ) == addedGroupIds.end() )
             {
-                uniqParticleGroupList_.push_back( *groupIterator );
+                uniqParticleGroupList_.push_back( group );
                 addedGroupIds.emplace( groupId );
             }
-        }
+        } );
     }
 }
 
 ParticleGroupPtr PhyCoub::getGroup( IDType id )
 {
-    for ( ParticleGroupList::GroupIterator groupIterator
-          = uniqParticleGroupList_.beginGroup();
-          groupIterator != uniqParticleGroupList_.endGroup(); ++groupIterator )
+    for ( auto group : uniqParticleGroupList_ )
     {
-        if ( ( *groupIterator )->getId() == id )
+        if ( group->getId() == id )
         {
-            return *groupIterator;
+            return group;
         }
     }
 

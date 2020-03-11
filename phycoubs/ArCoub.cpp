@@ -23,7 +23,7 @@ ArCoub::ArCoub()
     const Vector& borders = thermostatBorder_->getBorders();
     for ( int i = 0; i < 400; ++i )
     {
-        argon->emplace_back( std::make_shared< Particle >(
+        argon->push_back( std::make_shared< Particle >(
             Vector( ( rand() / (double)RAND_MAX ) * borders.x_,
                 ( rand() / (double)RAND_MAX ) * borders.y_ * 0.7 + 0.3 * borders.z_,
                 ( rand() / (double)RAND_MAX ) * borders.z_ ),

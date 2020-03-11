@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-11 13:45:28
+ * @Last Modified time: 2020-03-11 15:31:56
  */
 
 #include "ElectronInHomogeneousFieldsCoub.h"
@@ -20,7 +20,7 @@ ElectronInHomogeneousFieldsCoub::ElectronInHomogeneousFieldsCoub()
     setDeltaTime( 1E-13 );
 
     const Vector& borders = getBorders();
-    electrons->emplace_back( std::make_shared< Particle >(
+    electrons->push_back( std::make_shared< Particle >(
         Vector( 0.5 * borders.x_, 0.5 * borders.y_, 0.5 * borders.z_ ),
         Vector( .0, .0, 1. ) * 1e4, ElectricConstants::electronWeight,
         ElectricConstants::electronCharge ) );

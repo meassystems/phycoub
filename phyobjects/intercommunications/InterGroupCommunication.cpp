@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-29 13:26:16
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-11 02:00:37
+ * @Last Modified time: 2020-03-11 17:47:01
  */
 
 #include <thread>
@@ -24,36 +24,19 @@ InterGroupCommunication::InterGroupCommunication( FieldPtr field,
 // virtual override
 void InterGroupCommunication::phyCalcInterworking()
 {
-    ParticleGroupList particleGroupList = getParticleGroupList();
+    const ParticleGroupList& particleGroupList = getParticleGroupList();
     InterworkingPtr interworking = getInterworkingFunction();
 
-    int numCPU = std::thread::hardware_concurrency() - 2;
-    if ( /*numCPU < 2 || particleGroupList.getParticleCount() < numCPU * 100*/ true )
+    auto groupIterator = particleGroupList.cbegin();
+    while ( groupIterator != particleGroupList.cend() )
     {
+        auto interGroupIterator = groupIterator;
+        ++interGroupIterator;
 
-        for ( ParticleGroupList::GroupConstIterator groupIterator
-              = particleGroupList.beginGroup();
-              groupIterator != particleGroupList.endGroup(); )
+        while ( interGroupIterator != particleGroupList.cend() )
         {
-            ParticleGroupPtr particleGroup = *groupIterator;
-            for ( ParticleGroupList::GroupConstIterator interGroupIterator
-                  = ++groupIterator;
-                  interGroupIterator != particleGroupList.endGroup();
-                  ++interGroupIterator )
-            {
-                calculateInterCommunicationFor2Group(
-                    particleGroup, *interGroupIterator );
-            }
+            calculateInterCommunicationFor2Group( *groupIterator, *interGroupIterator );
         }
-
-        for ( ParticlePtr particle : particleGroupList )
-        {
-            particle->resultant_ += interworking->psyForce(
-                field_->psyField( particle->getCoordinate(), particle ), particle );
-        }
-    }
-    else
-    {
     }
 }
 
@@ -72,14 +55,10 @@ void InterGroupCommunication::calculateInterCommunicationFor2Group(
 {
     InterworkingPtr interworking = getInterworkingFunction();
 
-    for ( ParticleGroup::iterator particleIterator = firstGroup->begin();
-          particleIterator != firstGroup->end(); ++particleIterator )
+    for ( auto particle : *firstGroup )
     {
-        ParticlePtr particle = *particleIterator;
-        for ( ParticleGroup::iterator interParticleIterator = secondGroup->begin();
-              interParticleIterator != secondGroup->end(); ++interParticleIterator )
+        for ( auto interParticle : *secondGroup )
         {
-            ParticlePtr interParticle = *interParticleIterator;
             const Vector resultant = interworking->psyForce(
                 borderFieldCondition_->phyFieldWithBorderCondition(
                     field_, interParticle, particle->getCoordinate() ),

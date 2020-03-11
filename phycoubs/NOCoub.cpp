@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-19 19:07:08
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-11 13:58:44
+ * @Last Modified time: 2020-03-11 15:31:37
  */
 
 #include <NOCoub.h>
@@ -28,7 +28,7 @@ NOCoub::NOCoub()
     rand();
 
     // NN
-    azot->emplace_back( std::make_shared< Particle >(
+    azot->push_back( std::make_shared< Particle >(
         Vector( 0.5 * borders_.x_, 0.5 * borders_.y_, 0.45 * borders_.z_ ),
         Vector( .0, .0, .0 ), mN_, z_ ) );
 
@@ -41,7 +41,7 @@ NOCoub::NOCoub()
     addFieldResponsive( azot2azotFieldResponsive_ );
 
     // OO
-    oxygen->emplace_back( std::make_shared< Particle >(
+    oxygen->push_back( std::make_shared< Particle >(
         Vector( 0.5 * borders_.x_, 0.5 * borders_.y_, 0.55 * borders_.z_ ),
         Vector( .0, .0, .0 ), mO_, z_ ) );
 

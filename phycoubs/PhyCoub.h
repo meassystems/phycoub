@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 13:13:41
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-11 13:44:59
+ * @Last Modified time: 2020-03-11 15:23:02
  */
 
 #pragma once
@@ -33,7 +33,7 @@ class PhyCoub
     double getExperimentTime() const;
     void resetToZeroExperimentTime();
 
-    ParticleGroupList getUniqParticleGroupList();
+    const ParticleGroupList& getUniqParticleGroupList();
     void updateUniqParticleGroupList();
 
     ParticleGroupPtr getGroup( IDType id );

@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-28 16:25:34
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-11 01:59:59
+ * @Last Modified time: 2020-03-11 17:47:10
  */
 
 #include <thread>
@@ -24,24 +24,55 @@ InterCommunication::InterCommunication( FieldPtr field,
 // virtual override
 void InterCommunication::phyCalcInterworking()
 {
-    ParticleGroupList particleGroupList = getParticleGroupList();
-    InterworkingPtr interworking = getInterworkingFunction();
-
-    int numCPU = std::thread::hardware_concurrency() - 2;
-    if ( /*numCPU < 2 || particleGroupList.getParticleCount() < numCPU * 100*/ true )
+    const ParticleGroupList& particleGroupList = getParticleGroupList();
+    if ( particleGroupList.getParticleCount() <= 1 )
     {
+        return;
+    }
 
-        for ( ParticleGroupList::ParticleIterator particleIterator
-              = particleGroupList.begin();
-              particleIterator != particleGroupList.end(); )
+    InterworkingPtr interworking = getInterworkingFunction();
+    auto endGroup = particleGroupList.cend();
+
+    auto groupIterator = particleGroupList.cbegin();
+    auto particleIterator = ( *groupIterator )->begin();
+
+    while ( groupIterator != endGroup )
+    {
+        if ( particleIterator == ( *groupIterator )->end() )
         {
-            ParticlePtr particle = *particleIterator;
-            for ( ParticleGroupList::ParticleIterator interParticleIterator
-                  = ++particleIterator;
-                  interParticleIterator != particleGroupList.end();
-                  ++interParticleIterator )
+            ++groupIterator;
+            if ( groupIterator == endGroup )
             {
+                break;
+            }
+
+            particleIterator = ( *groupIterator )->begin();
+            continue;
+        }
+
+        auto interGroupIterator = groupIterator;
+        auto interParticleIterator = particleIterator;
+        ++interParticleIterator;
+
+        while ( interGroupIterator != endGroup )
+        {
+            if ( interParticleIterator == ( *interGroupIterator )->end() )
+            {
+                ++interGroupIterator;
+                if ( interGroupIterator == endGroup )
+                {
+                    break;
+                }
+
+                interParticleIterator = ( *interGroupIterator )->begin();
+                continue;
+            }
+
+            while ( interParticleIterator != ( *interGroupIterator )->end() )
+            {
+                ParticlePtr particle = *particleIterator;
                 ParticlePtr interParticle = *interParticleIterator;
+
                 const Vector resultant = interworking->psyForce(
                     borderFieldCondition_->phyFieldWithBorderCondition(
                         field_, interParticle, particle->getCoordinate() ),
@@ -49,17 +80,12 @@ void InterCommunication::phyCalcInterworking()
 
                 particle->resultant_ += resultant;
                 interParticle->resultant_ -= resultant;
+
+                ++interParticleIterator;
             }
         }
 
-        for ( ParticlePtr particle : particleGroupList )
-        {
-            particle->resultant_ += interworking->psyForce(
-                field_->psyField( particle->getCoordinate(), particle ), particle );
-        }
-    }
-    else
-    {
+        ++particleIterator;
     }
 }
 
