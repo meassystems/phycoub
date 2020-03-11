@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 16:28:49
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-10 20:41:36
+ * @Last Modified time: 2020-03-12 00:48:30
  */
 
 #pragma once
@@ -45,7 +45,6 @@ class Particle : public HasId
     double potentialEnergy = 0.;
     Vector resultant_;
 
-    Vector previesCoordinate_;
     Vector previesSpeed_;
     Vector previesResultant_;
 

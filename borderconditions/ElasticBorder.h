@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 18:07:20
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-04 14:25:38
+ * @Last Modified time: 2020-03-12 00:25:57
  */
 
 #pragma once
@@ -15,6 +15,9 @@ namespace phycoub
 {
 /*
  * Упругие граничные условия.
+ */
+/*
+ *   Старый код, переделать на более простую схему
  */
 class ElasticBorder
     : public BorderCondition

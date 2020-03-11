@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-18 22:46:34
+ * @Last Modified time: 2020-03-11 13:45:50
  */
 
 #pragma once
@@ -44,7 +44,6 @@ class ElectronInHomogeneousFieldsCoub final : public PhyCoub
 
     void addElectron(
         const Vector& coordinate, const Vector& speed, const ParticleOptions& options );
-    void removeParticle( long index );
 
     void setElectricFieldDirection( Vector direction );
     Vector getElectricFieldDirection() const;
@@ -60,7 +59,7 @@ class ElectronInHomogeneousFieldsCoub final : public PhyCoub
     bool getElectron2ElectronInterworkingFlag() const;
 
   private:
-    ParticleGroupPtr electrons_ = std::make_shared< ParticleGroup >();
+    IDType electronGroupId_ = 0;
 
     constexpr static double borderSize_ = 1.e-4;
     CyclicBorderPtr cyclicBorder_

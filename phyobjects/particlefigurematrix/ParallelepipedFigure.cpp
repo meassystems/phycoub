@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 18:59:29
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 22:53:52
+ * @Last Modified time: 2020-03-11 15:51:17
  */
 
 #include <ParallelepipedFigure.h>
@@ -26,15 +26,15 @@ ParallelepipedFigure::ParallelepipedFigure( const Vector& directionLine,
                         + directionPlane * j ),
                     speed, m, z );
 
-                allParticles_->emplace_back( particle );
+                allParticles_->push_back( particle );
                 if ( k == 0 || k == numPlaneInParallelepiped - 1 || i == 0
                     || i == numLineInPlane - 1 || j == 0 || j == numInLine - 1 )
                 {
-                    borderParticles_->emplace_back( particle );
+                    borderParticles_->push_back( particle );
                 }
                 else
                 {
-                    centrallParticles_->emplace_back( particle );
+                    centrallParticles_->push_back( particle );
                 }
             }
         }

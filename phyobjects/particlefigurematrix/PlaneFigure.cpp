@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 19:06:43
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-25 22:54:47
+ * @Last Modified time: 2020-03-11 15:51:34
  */
 
 #include <PlaneFigure.h>
@@ -21,14 +21,14 @@ PlaneFigure::PlaneFigure( const Vector& directionLine, const Vector& directionPl
             ParticlePtr particle = std::make_shared< Particle >(
                 Vector( coordinate + directionLine * i + directionPlane * j ), speed, m,
                 z );
-            allParticles_->emplace_back( particle );
+            allParticles_->push_back( particle );
             if ( i == 0 || i == numLineInPlane - 1 || j == 0 || j == numInLine - 1 )
             {
-                borderParticles_->emplace_back( particle );
+                borderParticles_->push_back( particle );
             }
             else
             {
-                centrallParticles_->emplace_back( particle );
+                centrallParticles_->push_back( particle );
             }
         }
     }

@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-26 11:59:29
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 13:10:47
+ * @Last Modified time: 2020-03-12 00:27:45
  */
 
 #pragma once
@@ -13,7 +13,9 @@
 
 namespace phycoub
 {
-
+/*
+ *   Старый код
+ */
 class MeasurementUtils final
 {
   public:

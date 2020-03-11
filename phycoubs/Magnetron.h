@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-06 22:12:25
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-10 15:35:30
+ * @Last Modified time: 2020-03-11 12:27:52
  */
 
 #pragma once
@@ -91,14 +91,8 @@ class Magnetron final : public PhyCoub
         = std::make_shared< InterCommunication >( electricField_, borderFieldCondition_,
             interworking_, "electron-electron InterCommunication" );
 
-    ParticleGroupPtr electrons_ = std::make_shared< ParticleGroup >();
-    CylindricalXYPartcleSourcePtr cylindricalXYPartcleSource_
-        = std::make_shared< CylindricalXYPartcleSource >( 0., 1., 1e-14,
-            ElectricConstants::electronWeight, ElectricConstants::electronCharge,
-            Vector{ 1., 1., 0. } );
-    QuantityLifeTimeControllerPtr quantityLifeTimeController_
-        = std::make_shared< QuantityLifeTimeController >(
-            10, electrons_, cylindricalXYPartcleSource_ );
+    CylindricalXYPartcleSourcePtr cylindricalXYPartcleSource_;
+    QuantityLifeTimeControllerPtr quantityLifeTimeController_;
 };
 
 using MagnetronPtr = std::shared_ptr< Magnetron >;

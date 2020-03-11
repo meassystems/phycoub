@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-11-12 23:02:17
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-12 23:21:57
+ * @Last Modified time: 2020-03-12 00:35:49
  */
 
 #pragma once
@@ -14,7 +14,9 @@
 
 namespace phycoub
 {
-
+/*
+ * Интерфейс для гомогенных полей
+ */
 class HomogeneousFieldIface : public FieldIface
 {
   public:

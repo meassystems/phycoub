@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 16:29:19
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-10 20:42:12
+ * @Last Modified time: 2020-03-12 00:48:50
  */
 
 #include "Particle.h"
@@ -18,7 +18,6 @@ ParticleOptions::ParticleOptions( double m, double q )
 
 Particle::Particle( const Vector& coordinate, const Vector& speed, double m, double q )
     : coordinate_( coordinate )
-    , previesCoordinate_( coordinate_ )
     , speed_( speed )
     , options_( m, q )
 {
@@ -27,7 +26,6 @@ Particle::Particle( const Vector& coordinate, const Vector& speed, double m, dou
 Particle::Particle(
     const Vector& coordinate, const Vector& speed, ParticleOptions options )
     : coordinate_( coordinate )
-    , previesCoordinate_( coordinate_ )
     , speed_( speed )
     , options_( options )
 {
@@ -41,7 +39,6 @@ bool Particle::operator==( const Particle& particle )
 void Particle::move( const Vector& coordinate, const Vector& speed )
 {
     previesResultant_ = resultant_;
-    previesCoordinate_ = coordinate_;
     previesSpeed_ = speed_;
 
     resultant_ = 0;

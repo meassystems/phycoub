@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 22:09:38
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-05 23:55:21
+ * @Last Modified time: 2020-03-11 16:50:30
  */
 
 #include "DynamicFieldCreator.h"
@@ -27,11 +27,12 @@ DynamicFieldCreator::DynamicFieldCreator( FieldPtr field,
 Vector DynamicFieldCreator::getFieldInMark( const Vector& mark )
 {
     Vector result;
-    for ( ParticlePtr particle : *getParticleGroupList() )
-    {
+    const ParticleGroupList& particleGroupList = getParticleGroupList();
+    particleGroupList.forEachParticle( [this, &result, mark]( ParticlePtr particle ) {
         result += borderFieldCondition_->phyFieldWithBorderCondition(
             field_, particle, mark );
-    }
+    } );
+
     return result;
 }
 

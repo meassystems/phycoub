@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 21:35:42
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-11 01:15:30
+ * @Last Modified time: 2020-03-11 01:34:24
  */
 
 #pragma once
@@ -70,7 +70,7 @@ class Vector final
 #pragma pack( push, 1 )
     union
     {
-        double vector_[ 3 ] = { .0 };
+        double vector_[ numSize ] = { .0 };
         struct
         {
             double x_;

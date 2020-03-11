@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-27 09:26:39
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-09 18:01:30
+ * @Last Modified time: 2020-03-11 15:26:19
  */
 
 #include <iostream>
@@ -28,13 +28,14 @@ int main()
         while ( true )
         {
             magnetron.phyCoub();
-            const auto& particles = magnetron.getParticleGroupList();
-            for ( const auto particle : particles )
-            {
+            const ParticleGroupList& particleGroupList
+                = magnetron.getUniqParticleGroupList();
+
+            particleGroupList.forEachParticle( []( ParticlePtr particle ) {
                 const Vector& coordinate = particle->getCoordinate();
                 std::cout << coordinate.x_ << " ; " << coordinate.y_ << " ; "
                           << coordinate.z_ << std::endl;
-            }
+            } );
         }
     }
     catch ( char const* str )
