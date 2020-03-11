@@ -66,3 +66,5 @@ add_library(phycoub STATIC
 	 $<TARGET_OBJECTS:src>
 )
 
+set_target_properties(phycoub PROPERTIES LIBRARY_OUTPUT_DIRECTORY .)
+

@@ -122,6 +122,17 @@ function writeHead {
     echo -e "set(CMAKE_CXX_STANDARD_REQUIRED True)\n" >> $cmakeFilePath
 }
 
+function writeTargetProperty {
+    #$1 - folder
+    #$2 - property
+
+    local cmakeFilePath=$1/$cmakeFileName
+    local projectName=$(basename $1)
+
+    echo "set_target_properties($projectName PROPERTIES $2)" >> $cmakeFilePath
+    echo >> $cmakeFilePath
+}
+
 function createCMakeLists {
     #$1 - folder
 
@@ -160,6 +171,7 @@ function generateMainCmake {
 
     writeSubdirectories $PWD #return recursiveSubdirectories
     writeAddLibrary $PWD STATIC "$recursiveSubdirectories"
+    writeTargetProperty $PWD "LIBRARY_OUTPUT_DIRECTORY ."
 
     #writeTargetIncludeDirectories $PWD
     #writeTargetLinkLibraries $PWD "$recursiveSubdirectories"
