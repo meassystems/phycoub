@@ -2,10 +2,10 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "msvc_clean",
+            "label": "Build Static Library(Windows)",
             "type": "shell",
             "windows": {
-                "command": "${workspaceRoot}\\clean.bat"
+                "command": "cmake -G \"Visual Studio 16\" -T v142 && cmake --build ."
             },
             "group": {
                 "kind": "build",
@@ -17,34 +17,15 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "msvc_build_libd",
-            "type": "shell",
-            "windows": {
-                "command": "${workspaceRoot}\\build_libd.bat"
-            },
+            "label": "Build Static Library(UNIX)",
+            "command": "cmake . && make",
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
             "presentation": {
                 "reveal": "always"
-            },
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "msvc_build_debug_exe",
-            "type": "shell",
-            "windows": {
-                "command": "${workspaceRoot}\\build_debug_exe.bat"
-            },
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "presentation": {
-                "reveal": "always"
-            },
-            "problemMatcher": "$msCompile"
+            }
         }
     ]
 }
