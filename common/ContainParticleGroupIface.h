@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-11-05 23:12:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-11 13:30:26
+ * @Last Modified time: 2020-03-11 17:53:07
  */
 
 #pragma once
@@ -10,7 +10,7 @@
 #include <memory>
 #include <list>
 
-#include "ParticleGroup.h"
+#include "ParticleGroupList.h"
 
 namespace phycoub
 {
