@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-11-05 23:12:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-11 17:53:07
+ * @Last Modified time: 2020-03-12 00:33:46
  */
 
 #pragma once
@@ -14,7 +14,9 @@
 
 namespace phycoub
 {
-
+/*
+ * Интерфес для сущностей которые содержат список групп частиц
+ */
 class ContainParticleGroupIface
 {
   public:

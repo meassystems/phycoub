@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-24 19:47:12
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 19:09:04
+ * @Last Modified time: 2020-03-12 00:26:09
  */
 
 #pragma once
@@ -16,6 +16,9 @@ namespace phycoub
 {
 /*
  * Циклические граничные условия
+ */
+/*
+ *   Старый код, переделать на более простую схему
  */
 class CyclicBoundedField : public BorderFieldCondition
 {

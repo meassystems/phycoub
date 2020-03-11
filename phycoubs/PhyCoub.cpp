@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 13:42:50
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-11 17:12:46
+ * @Last Modified time: 2020-03-12 00:45:28
  */
 
 #include "PhyCoub.h"
@@ -12,7 +12,12 @@
 
 namespace phycoub
 {
-
+/*
+ * Основной flow.
+ * 1) Вычисляем силы действующие на частицы
+ * 2) Двигаем частицы
+ * 3) Контролируем время жизни
+ */
 void PhyCoub::phyCoub()
 {
     for ( InterworkingCalculatorPtr interworkingCalculator : interworkingCalculatorList_ )

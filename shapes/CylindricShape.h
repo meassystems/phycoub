@@ -2,14 +2,16 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-05 01:54:47
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-05 02:03:07
+ * @Last Modified time: 2020-03-12 00:42:10
  */
 
 #pragma once
 
 namespace phycoub
 {
-
+/*
+ * Базовый класс для объектов, которые имеют форму цилиндра
+ */
 class CylindricShape
 {
   public:

@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 22:21:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-04 14:24:12
+ * @Last Modified time: 2020-03-12 00:25:40
  */
 
 #pragma once
@@ -12,7 +12,9 @@
 
 namespace phycoub
 {
-
+/*
+ *   Старый код, переделать на более простую схему
+ */
 class CyclicBorder
     : public BorderCondition
     , public CubicShape

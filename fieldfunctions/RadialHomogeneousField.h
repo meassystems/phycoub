@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-11-11 23:15:56
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-12 23:21:14
+ * @Last Modified time: 2020-03-12 00:38:21
  */
 
 #pragma once
@@ -11,7 +11,9 @@
 
 namespace phycoub
 {
-
+/*
+ * Базовый класс для радиального гомогенного поля
+ */
 class RadialHomogeneousField : public HomogeneousFieldIface
 {
 

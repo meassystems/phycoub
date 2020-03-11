@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-23 18:53:11
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-12 23:08:39
+ * @Last Modified time: 2020-03-12 00:37:42
  */
 
 #pragma once
@@ -12,7 +12,10 @@
 
 namespace phycoub
 {
-
+/*
+ * Базовый класс для гомогенных прямолинейных(вектора в любой точке направлены в одном
+ * направлении) полей
+ */
 class DirectHomogeneousField : public HomogeneousFieldIface
 {
   public:
