@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 12:14:33
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 10:13:05
+ * @Last Modified time: 2020-03-11 01:49:50
  */
 
 #pragma once
@@ -19,7 +19,7 @@ class LeapFrog : public CalculationModel
     virtual ~LeapFrog() = default;
 
     virtual void phyCalculate( BorderConditionPtr borderCondition, double dt,
-        ParticleGroupList* particleGroupList ) override;
+        const ParticleGroupList& particleGroupList ) override;
 };
 
 using LeapFrogPtr = std::shared_ptr< LeapFrog >;

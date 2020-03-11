@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-26 09:57:56
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-10 20:32:25
+ * @Last Modified time: 2020-03-11 01:49:27
  */
 
 #include <algorithm>
@@ -16,10 +16,10 @@ namespace phycoub
 {
 
 // virtual
-void CalculationModel::phyCalculate(
-    BorderConditionPtr borderCondition, double dt, ParticleGroupList* particleGroupList )
+void CalculationModel::phyCalculate( BorderConditionPtr borderCondition, double dt,
+    const ParticleGroupList& particleGroupList )
 {
-    for ( ParticlePtr particle : *particleGroupList )
+    for ( ParticlePtr particle : particleGroupList )
     {
         const Vector speed = particle->getSpeed()
             + particle->resultant_ * ( dt / particle->getOptions().m_ );

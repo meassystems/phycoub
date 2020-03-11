@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-11-05 23:22:22
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-06 00:32:05
+ * @Last Modified time: 2020-03-11 13:30:22
  */
 
 #include "ContainParticleGroupList.h"
@@ -28,9 +28,29 @@ void ContainParticleGroupList::removeParticleGroup( ParticleGroupPtr particleGro
     removeParticleGroup( particleGroup->getId() );
 }
 
-ParticleGroupList* ContainParticleGroupList::getParticleGroupList()
+// virtual override
+void ContainParticleGroupList::removeParticle( IDType id )
 {
-    return &particleGroupList;
+    for ( ParticleGroupList::GroupIterator groupIterator = particleGroupList.beginGroup();
+          groupIterator != particleGroupList.endGroup(); ++groupIterator )
+    {
+        if ( ( *groupIterator )->remove( id ) )
+        {
+            continue;
+        }
+    }
+}
+
+// virtual override
+void ContainParticleGroupList::removeParticle( ParticlePtr particle )
+{
+    removeParticle( particle->getId() );
+}
+
+// virtual override
+ParticleGroupList ContainParticleGroupList::getParticleGroupList()
+{
+    return particleGroupList;
 }
 
 } // namespace phycoub

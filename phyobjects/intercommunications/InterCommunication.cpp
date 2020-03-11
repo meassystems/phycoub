@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-28 16:25:34
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-06 00:01:52
+ * @Last Modified time: 2020-03-11 01:59:59
  */
 
 #include <thread>
@@ -24,19 +24,19 @@ InterCommunication::InterCommunication( FieldPtr field,
 // virtual override
 void InterCommunication::phyCalcInterworking()
 {
-    const ParticleGroupList& particleGroupList = *getParticleGroupList();
+    ParticleGroupList particleGroupList = getParticleGroupList();
     InterworkingPtr interworking = getInterworkingFunction();
 
     int numCPU = std::thread::hardware_concurrency() - 2;
     if ( /*numCPU < 2 || particleGroupList.getParticleCount() < numCPU * 100*/ true )
     {
 
-        for ( ParticleGroupList::ParticleConstIterator particleIterator
+        for ( ParticleGroupList::ParticleIterator particleIterator
               = particleGroupList.begin();
               particleIterator != particleGroupList.end(); )
         {
             ParticlePtr particle = *particleIterator;
-            for ( ParticleGroupList::ParticleConstIterator interParticleIterator
+            for ( ParticleGroupList::ParticleIterator interParticleIterator
                   = ++particleIterator;
                   interParticleIterator != particleGroupList.end();
                   ++interParticleIterator )

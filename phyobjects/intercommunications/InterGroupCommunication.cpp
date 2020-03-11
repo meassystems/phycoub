@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-29 13:26:16
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-11-06 00:01:44
+ * @Last Modified time: 2020-03-11 02:00:37
  */
 
 #include <thread>
@@ -24,7 +24,7 @@ InterGroupCommunication::InterGroupCommunication( FieldPtr field,
 // virtual override
 void InterGroupCommunication::phyCalcInterworking()
 {
-    const ParticleGroupList& particleGroupList = *getParticleGroupList();
+    ParticleGroupList particleGroupList = getParticleGroupList();
     InterworkingPtr interworking = getInterworkingFunction();
 
     int numCPU = std::thread::hardware_concurrency() - 2;

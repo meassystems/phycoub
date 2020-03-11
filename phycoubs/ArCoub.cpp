@@ -16,25 +16,31 @@ namespace phycoub
 
 ArCoub::ArCoub()
 {
+    ParticleGroupPtr argon = std::make_shared< ParticleGroup >();
+
     setDeltaTime( dt_ );
 
     const Vector& borders = thermostatBorder_->getBorders();
     for ( int i = 0; i < 400; ++i )
     {
-        argon_->emplace_back( std::make_shared< Particle >(
+        argon->emplace_back( std::make_shared< Particle >(
             Vector( ( rand() / (double)RAND_MAX ) * borders.x_,
                 ( rand() / (double)RAND_MAX ) * borders.y_ * 0.7 + 0.3 * borders.z_,
                 ( rand() / (double)RAND_MAX ) * borders.z_ ),
             Vector( .0, .0, .0 ), mAr_, z_ ) );
     }
 
-    argonFieldCreator_->addParticleGroup( argon_ );
+    argonFieldCreator_->addParticleGroup( argon );
     argonFieldCreator_->addParticleGroup( parallelepipedFigure.allParticles_ );
-    argonFieldResponsive_->addParticleGroup( argon_ );
-    addFieldResponsive( argonFieldResponsive_ );
+    addContainParticleGroup( argonFieldCreator_ );
 
-    leapFrogCalculationGroup_->addParticleGroup( argon_ );
+    argonFieldResponsive_->addParticleGroup( argon );
+    addFieldResponsive( argonFieldResponsive_ );
+    addContainParticleGroup( argonFieldResponsive_ );
+
+    leapFrogCalculationGroup_->addParticleGroup( argon );
     addCalculationGroup( leapFrogCalculationGroup_ );
+    addContainParticleGroup( leapFrogCalculationGroup_ );
 }
 
 const Vector& ArCoub::getBorders() const

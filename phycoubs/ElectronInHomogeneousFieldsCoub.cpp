@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-18 22:46:51
+ * @Last Modified time: 2020-03-11 13:45:28
  */
 
 #include "ElectronInHomogeneousFieldsCoub.h"
@@ -14,25 +14,32 @@ namespace phycoub
 
 ElectronInHomogeneousFieldsCoub::ElectronInHomogeneousFieldsCoub()
 {
+    ParticleGroupPtr electrons = std::make_shared< ParticleGroup >();
+    electronGroupId_ = electrons->getId();
+
     setDeltaTime( 1E-13 );
 
     const Vector& borders = getBorders();
-    electrons_->emplace_back( std::make_shared< Particle >(
+    electrons->emplace_back( std::make_shared< Particle >(
         Vector( 0.5 * borders.x_, 0.5 * borders.y_, 0.5 * borders.z_ ),
         Vector( .0, .0, 1. ) * 1e4, ElectricConstants::electronWeight,
         ElectricConstants::electronCharge ) );
 
-    addParticleGroup( electrons_ );
-
-    feelElectricHomogeneousDirectWithCulonInterworking_->addParticleGroup( electrons_ );
+    feelElectricHomogeneousDirectWithCulonInterworking_->addParticleGroup( electrons );
     addFieldResponsive( feelElectricHomogeneousDirectWithCulonInterworking_ );
-    feelWithMagneticInterworking_->addParticleGroup( electrons_ );
+    addContainParticleGroup( feelElectricHomogeneousDirectWithCulonInterworking_ );
+
+    feelWithMagneticInterworking_->addParticleGroup( electrons );
     addFieldResponsive( feelWithMagneticInterworking_ );
+    addContainParticleGroup( feelWithMagneticInterworking_ );
 
     addFieldResponsive( electron2electronInterCommunication_ );
 
-    leapFrogCalculationGroup_->addParticleGroup( electrons_ );
+    leapFrogCalculationGroup_->addParticleGroup( electrons );
     addCalculationGroup( leapFrogCalculationGroup_ );
+    addContainParticleGroup( leapFrogCalculationGroup_ );
+
+    updateUniqParticleGroupList();
 }
 
 Vector ElectronInHomogeneousFieldsCoub::getBorders() const
@@ -48,12 +55,8 @@ void ElectronInHomogeneousFieldsCoub::setBorders( Vector borders )
 void ElectronInHomogeneousFieldsCoub::addElectron(
     const Vector& coordinate, const Vector& speed, const ParticleOptions& options )
 {
-    electrons_->push_back( std::make_shared< Particle >( coordinate, speed, options ) );
-}
-
-void ElectronInHomogeneousFieldsCoub::removeParticle( long index )
-{
-    electrons_->remove( index );
+    ParticleGroupPtr electrons = getGroup( electronGroupId_ );
+    electrons->push_back( std::make_shared< Particle >( coordinate, speed, options ) );
 }
 
 void ElectronInHomogeneousFieldsCoub::setElectricFieldDirection( Vector direction )
@@ -102,11 +105,12 @@ void ElectronInHomogeneousFieldsCoub::setElectron2ElectronInterworkingFlag( bool
     electron2ElectronInterworkingFlag = flag;
     if ( electron2ElectronInterworkingFlag )
     {
-        electron2electronInterCommunication_->addParticleGroup( electrons_ );
+        ParticleGroupPtr electrons = getGroup( electronGroupId_ );
+        electron2electronInterCommunication_->addParticleGroup( electrons );
     }
     else
     {
-        electron2electronInterCommunication_->removeParticleGroup( electrons_ );
+        electron2electronInterCommunication_->removeParticleGroup( electronGroupId_ );
     }
 }
 

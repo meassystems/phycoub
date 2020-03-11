@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 16:32:05
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-09 17:44:48
+ * @Last Modified time: 2020-03-11 12:55:41
  */
 
 #include "ParticleGroup.h"
@@ -17,7 +17,7 @@ bool ParticleGroup::operator==( const ParticleGroup& particleGroup )
     return getId() == particleGroup.getId();
 }
 
-void ParticleGroup::remove( IDType id )
+bool ParticleGroup::remove( IDType id )
 {
 
     for ( iterator particleIterator = begin(); particleIterator != end();
@@ -26,9 +26,11 @@ void ParticleGroup::remove( IDType id )
         if ( ( *particleIterator )->getId() == id )
         {
             erase( particleIterator );
-            return;
+            return true;
         }
     }
+
+    return false;
 }
 
 ParticleGroupList ParticleGroupList::deepCopy() const
@@ -177,8 +179,8 @@ ParticleGroupList::ParticleConstIterator::ParticleConstIterator(
     particleIterator_ = particleIterator;
 }
 
-ParticleGroupList::ParticleConstIterator& ParticleGroupList::ParticleConstIterator::
-operator++()
+ParticleGroupList::ParticleConstIterator&
+ParticleGroupList::ParticleConstIterator::operator++()
 {
     ++*particleIterator_;
     if ( *particleIterator_ == ( **groupIterator_ )->cend() )
@@ -193,8 +195,8 @@ operator++()
     return *this;
 }
 
-ParticleGroupList::ParticleConstIterator ParticleGroupList::ParticleConstIterator::
-operator++( int )
+ParticleGroupList::ParticleConstIterator
+ParticleGroupList::ParticleConstIterator::operator++( int )
 {
     ParticleConstIterator current = *this;
 
@@ -290,14 +292,14 @@ ParticleGroupList::ParticleIterator ParticleGroupList::ParticleIterator::operato
     return current;
 }
 
-ParticleGroupList::ParticleIterator::reference ParticleGroupList::ParticleIterator::
-operator*()
+ParticleGroupList::ParticleIterator::reference
+    ParticleGroupList::ParticleIterator::operator*()
 {
     return **particleIterator_;
 }
 
-ParticleGroupList::ParticleIterator::pointer ParticleGroupList::ParticleIterator::
-operator->()
+ParticleGroupList::ParticleIterator::pointer
+    ParticleGroupList::ParticleIterator::operator->()
 {
     return &**particleIterator_;
 }

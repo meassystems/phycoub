@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-26 10:13:55
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-10 20:36:58
+ * @Last Modified time: 2020-03-11 01:53:29
  */
 
 #include <HighSpeedModificationVerle.h>
@@ -22,13 +22,13 @@ void phyCalculateThread( ParticleGroupList::ParticleIterator begin,
     double dt );
 
 // virtual override
-void HighSpeedModificationVerle::phyCalculate(
-    BorderConditionPtr borderCondition, double dt, ParticleGroupList* particleGroupList )
+void HighSpeedModificationVerle::phyCalculate( BorderConditionPtr borderCondition,
+    double dt, const ParticleGroupList& particleGroupList )
 {
     int numCPU = std::thread::hardware_concurrency() - 2;
-    if ( numCPU < 2 || particleGroupList->getParticleCount() < numCPU * 100 )
+    if ( numCPU < 2 || particleGroupList.getParticleCount() < numCPU * 100 )
     {
-        for ( ParticlePtr particle : *particleGroupList )
+        for ( ParticlePtr particle : particleGroupList )
         {
             const ParticleOptions& particleOptions = particle->getOptions();
             const Vector speed = particle->getSpeed()
@@ -43,6 +43,7 @@ void HighSpeedModificationVerle::phyCalculate(
     }
     else
     {
+        /*
         size_t sizeBlockOfThread = particleGroupList->getParticleCount() / numCPU;
         std::thread** threads = new std::thread*[ numCPU ];
 
@@ -80,6 +81,7 @@ void HighSpeedModificationVerle::phyCalculate(
             delete threads[ i ];
         }
         delete[] threads;
+        */
     }
 } // namespace phycoub
 

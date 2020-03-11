@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-19 19:07:25
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-29 15:11:45
+ * @Last Modified time: 2020-03-11 13:53:48
  */
 
 #pragma once
@@ -42,9 +42,6 @@ class NOCoub final : public PhyCoub
     double radiusCatN_ = aN * 3;
     double radiusCatO_ = aO * 3;
     double radiusCatNO_ = aNO * 3;
-
-    ParticleGroupPtr azot_ = std::make_shared< ParticleGroup >();
-    ParticleGroupPtr oxygen_ = std::make_shared< ParticleGroup >();
 
   private:
     CyclicBorderPtr cyclicBorder_

@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-26 10:13:35
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2019-10-26 18:44:19
+ * @Last Modified time: 2020-03-11 01:52:30
  */
 
 #pragma once
@@ -23,7 +23,7 @@ class HighSpeedModificationVerle : public CalculationModel
     virtual ~HighSpeedModificationVerle() = default;
 
     virtual void phyCalculate( BorderConditionPtr borderCondition, double dt,
-        ParticleGroupList* particleGroupList ) override;
+        const ParticleGroupList& particleGroupList ) override;
 };
 
 } // namespace phycoub

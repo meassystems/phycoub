@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 16:20:27
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-09 17:38:13
+ * @Last Modified time: 2020-03-11 12:53:35
  */
 
 #pragma once
@@ -25,7 +25,7 @@ class ParticleGroup final
 
     bool operator==( const ParticleGroup& particleGroup );
 
-    void remove( IDType id );
+    bool remove( IDType id );
 };
 
 using ParticleGroupPtr = std::shared_ptr< ParticleGroup >;

@@ -2,12 +2,13 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 13:42:50
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-09 17:24:05
+ * @Last Modified time: 2020-03-11 13:44:49
  */
 
 #include "PhyCoub.h"
 
 #include <algorithm>
+#include <unordered_set>
 
 namespace phycoub
 {
@@ -30,11 +31,6 @@ void PhyCoub::phyCoub()
     experimentTime_ += dt_;
 }
 
-const ParticleGroupList& PhyCoub::getParticleGroupList()
-{
-    return *ContainParticleGroupList::getParticleGroupList();
-}
-
 void PhyCoub::setDeltaTime( double dt )
 {
     dt_ = dt;
@@ -53,6 +49,65 @@ double PhyCoub::getExperimentTime() const
 void PhyCoub::resetToZeroExperimentTime()
 {
     experimentTime_ = 0;
+}
+
+ParticleGroupList PhyCoub::getUniqParticleGroupList()
+{
+    return uniqParticleGroupList_;
+}
+
+void PhyCoub::updateUniqParticleGroupList()
+{
+    std::unordered_set< IDType > addedGroupIds;
+
+    for ( auto containParticleGroupList : containsParticleGroup_ )
+    {
+        ParticleGroupList particleGroupList
+            = containParticleGroupList->getParticleGroupList();
+
+        for ( ParticleGroupList::GroupIterator groupIterator
+              = particleGroupList.beginGroup();
+              groupIterator != particleGroupList.endGroup(); ++groupIterator )
+        {
+            const IDType groupId = ( *groupIterator )->getId();
+            if ( addedGroupIds.find( groupId ) == addedGroupIds.end() )
+            {
+                uniqParticleGroupList_.push_back( *groupIterator );
+                addedGroupIds.emplace( groupId );
+            }
+        }
+    }
+}
+
+ParticleGroupPtr PhyCoub::getGroup( IDType id )
+{
+    for ( ParticleGroupList::GroupIterator groupIterator
+          = uniqParticleGroupList_.beginGroup();
+          groupIterator != uniqParticleGroupList_.endGroup(); ++groupIterator )
+    {
+        if ( ( *groupIterator )->getId() == id )
+        {
+            return *groupIterator;
+        }
+    }
+
+    return nullptr;
+}
+
+void PhyCoub::removeGroup( IDType id )
+{
+    for ( auto containParticleGroupList : containsParticleGroup_ )
+    {
+        containParticleGroupList->removeParticleGroup( id );
+    }
+}
+
+void PhyCoub::removeParticle( IDType id )
+{
+    for ( auto containParticleGroupList : containsParticleGroup_ )
+    {
+        containParticleGroupList->removeParticle( id );
+    }
 }
 
 void PhyCoub::addFieldResponsive( InterworkingCalculatorPtr interworkingCalculator )
@@ -81,6 +136,16 @@ void PhyCoub::addLifeTimeController( LifeTimeControllerPtr lifeTimeController )
 }
 
 void PhyCoub::removeLifeTimeController( std::string id )
+{
+    // todo
+}
+
+void PhyCoub::addContainParticleGroup( ContainParticleGroupPtr containParticleGroup )
+{
+    containsParticleGroup_.push_back( containParticleGroup );
+}
+
+void PhyCoub::removeContainParticleGroup( std::string id )
 {
     // todo
 }
