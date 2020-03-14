@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 22:21:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-12 00:25:40
+ * @Last Modified time: 2020-03-14 08:50:57
  */
 
 #pragma once
@@ -13,7 +13,7 @@
 namespace phycoub
 {
 /*
- *   Старый код, переделать на более простую схему
+ *   Цикличные граничные условия(перенос с противоположной стороны)
  */
 class CyclicBorder
     : public BorderCondition

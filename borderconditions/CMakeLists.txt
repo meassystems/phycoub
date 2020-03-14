@@ -12,8 +12,6 @@ set(SOURCES
 	 CyclicBorder.h
 	 CylinderBorderCondition.cpp
 	 CylinderBorderCondition.h
-	 ElasticBorder.cpp
-	 ElasticBorder.h
 	 ElasticCoubCondition.cpp
 	 ElasticCoubCondition.h
 	 ThermostatBorder.cpp
