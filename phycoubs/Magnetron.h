@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-06 22:12:25
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-11 12:27:52
+ * @Last Modified time: 2020-03-14 11:50:30
  */
 
 #pragma once
@@ -24,6 +24,7 @@
 #include "InterCommunication.h"
 #include "CylindricalXYParticleSource.h"
 #include "QuantityLifeTimeController.h"
+#include "StdErrLogObserver.h"
 
 namespace phycoub
 {
@@ -93,6 +94,8 @@ class Magnetron final : public PhyCoub
 
     CylindricalXYPartcleSourcePtr cylindricalXYPartcleSource_;
     QuantityLifeTimeControllerPtr quantityLifeTimeController_;
+
+    StdErrLogObserverPtr stdErrLogObserver = std::make_shared< StdErrLogObserver >();
 };
 
 using MagnetronPtr = std::shared_ptr< Magnetron >;

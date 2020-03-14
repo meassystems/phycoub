@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 13:13:41
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-12 00:42:54
+ * @Last Modified time: 2020-03-14 13:54:43
  */
 
 #pragma once
@@ -15,13 +15,14 @@
 #include "InterworkingCalculatorBase.h"
 #include "CalculationGroup.h"
 #include "LifeTimeControllerIface.h"
+#include "UseLog.h"
 
 namespace phycoub
 {
 /*
  * Базовый класс для моделируемых систем, выполняет главный flow модели
  */
-class PhyCoub
+class PhyCoub : public UseLog
 {
   public:
     PhyCoub() = default;

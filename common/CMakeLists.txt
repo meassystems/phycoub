@@ -12,6 +12,9 @@ set(SOURCES
 	 ContainParticleGroupList.h
 	 HasId.cpp
 	 HasId.h
+	 UseLog.cpp
+	 UseLog.h
+	 Utils.h
 )
 
 add_library(common OBJECT ${SOURCES})

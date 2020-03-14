@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-08 01:14:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-11 12:34:09
+ * @Last Modified time: 2020-03-14 11:57:14
  */
 
 #include "Magnetron.h"
@@ -29,16 +29,23 @@ Magnetron::Magnetron()
     addFieldResponsive( feelWithMagneticInterworking_ );
     addContainParticleGroup( feelWithMagneticInterworking_ );
 
+    electron2electronInterCommunication_->addParticleGroup( electrons_ );
     addFieldResponsive( electron2electronInterCommunication_ );
+    addContainParticleGroup( electron2electronInterCommunication_ );
 
     cylinderBorderCondition_->addBorderReachedObserver( quantityLifeTimeController_ );
     addLifeTimeController( quantityLifeTimeController_ );
+    // todo addContainParticleGroup, add base class if contain only one group
 
     leapFrogCalculationGroup_->addParticleGroup( electrons_ );
     addCalculationGroup( leapFrogCalculationGroup_ );
     addContainParticleGroup( leapFrogCalculationGroup_ );
 
     updateUniqParticleGroupList();
+
+    LogPtr stdErrLog = std::make_shared< Log >();
+    setLog( stdErrLog );
+    stdErrLog->subsribeForUpdates( stdErrLogObserver );
 }
 
 double Magnetron::getRadius() const

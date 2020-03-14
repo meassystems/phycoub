@@ -23,6 +23,7 @@ include_directories(
 	 phymeasurement
 	 mathematic
 	 fieldfunctions
+	 logging
 	 src
 )
 
@@ -43,6 +44,7 @@ add_subdirectory(interworkingfunctions)
 add_subdirectory(phymeasurement)
 add_subdirectory(mathematic)
 add_subdirectory(fieldfunctions)
+add_subdirectory(logging)
 add_subdirectory(src)
 
 add_library(phycoub STATIC 
@@ -63,6 +65,7 @@ add_library(phycoub STATIC
 	 $<TARGET_OBJECTS:phymeasurement>
 	 $<TARGET_OBJECTS:mathematic>
 	 $<TARGET_OBJECTS:fieldfunctions>
+	 $<TARGET_OBJECTS:logging>
 	 $<TARGET_OBJECTS:src>
 )
 

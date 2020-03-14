@@ -15,6 +15,7 @@ INCLUDEPATH += ../phycoub/interworkingfunctions
 INCLUDEPATH += ../phycoub/phymeasurement
 INCLUDEPATH += ../phycoub/mathematic
 INCLUDEPATH += ../phycoub/fieldfunctions
+INCLUDEPATH += ../phycoub/logging
 INCLUDEPATH += ../phycoub/src
 
 LIBS += -L$$PWD/../phycoub/ -lphycoub

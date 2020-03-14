@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-03 14:16:29
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-12 00:32:17
+ * @Last Modified time: 2020-03-14 10:35:34
  */
 
 #pragma once
@@ -25,5 +25,6 @@ class BorderReachedObserver
 };
 
 using BorderReachedObserverPtr = std::shared_ptr< BorderReachedObserver >;
+using BorderReachedObserverWeakPtr = std::weak_ptr< BorderReachedObserver >;
 
 } // namespace phycoub

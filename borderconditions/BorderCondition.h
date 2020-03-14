@@ -2,13 +2,14 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 18:05:35
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-04 14:19:38
+ * @Last Modified time: 2020-03-14 10:16:52
  */
 
 #pragma once
 
 #include "Vector.h"
 #include "Particle.h"
+#include "UseLog.h"
 
 namespace phycoub
 {
@@ -20,7 +21,7 @@ namespace phycoub
  *
  * Базовая реализация содержит безконечные граничные условия.
  */
-class BorderCondition
+class BorderCondition : public UseLog
 {
   public:
     virtual ~BorderCondition() = default;
