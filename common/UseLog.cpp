@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-03-14 10:12:51
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-14 10:15:21
+ * @Last Modified time: 2020-03-14 14:28:39
  */
 
 #include "UseLog.h"
@@ -10,19 +10,19 @@
 namespace phycoub
 {
 
-void UseLog::setLog( LogPtr theLog )
+void UseLog::setLog( LogPtr log )
 {
-    log = theLog;
+    log_ = log;
 }
 
 void UseLog::releaseLog()
 {
-    log.reset();
+    log_.reset();
 }
 
 LogPtr UseLog::getLog()
 {
-    return log;
+    return log_;
 }
 
 } // namespace phycoub

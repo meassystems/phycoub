@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-08 01:14:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-14 11:57:14
+ * @Last Modified time: 2020-03-14 14:43:27
  */
 
 #include "Magnetron.h"
@@ -34,8 +34,9 @@ Magnetron::Magnetron()
     addContainParticleGroup( electron2electronInterCommunication_ );
 
     cylinderBorderCondition_->addBorderReachedObserver( quantityLifeTimeController_ );
+
     addLifeTimeController( quantityLifeTimeController_ );
-    // todo addContainParticleGroup, add base class if contain only one group
+    addContainParticleGroup( quantityLifeTimeController_ );
 
     leapFrogCalculationGroup_->addParticleGroup( electrons_ );
     addCalculationGroup( leapFrogCalculationGroup_ );

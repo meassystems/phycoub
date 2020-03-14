@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-11 15:31:56
+ * @Last Modified time: 2020-03-14 14:44:55
  */
 
 #include "ElectronInHomogeneousFieldsCoub.h"
@@ -34,6 +34,7 @@ ElectronInHomogeneousFieldsCoub::ElectronInHomogeneousFieldsCoub()
     addContainParticleGroup( feelWithMagneticInterworking_ );
 
     addFieldResponsive( electron2electronInterCommunication_ );
+    addContainParticleGroup( electron2electronInterCommunication_ );
 
     leapFrogCalculationGroup_->addParticleGroup( electrons );
     addCalculationGroup( leapFrogCalculationGroup_ );

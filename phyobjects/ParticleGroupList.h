@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 16:20:27
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-11 17:54:57
+ * @Last Modified time: 2020-03-14 14:35:28
  */
 
 #pragma once
@@ -28,6 +28,8 @@ class ParticleGroupList final
     typename ContainerType::const_iterator cbegin() const;
     typename ContainerType::const_iterator cend() const;
     void push_back( ParticleGroupPtr group );
+    ParticleGroupPtr front();
+    void clear();
     size_t size() const;
     bool empty() const;
 

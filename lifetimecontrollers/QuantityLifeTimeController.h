@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-06 20:23:47
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-10 21:08:56
+ * @Last Modified time: 2020-03-14 14:40:50
  */
 
 #pragma once
@@ -13,6 +13,7 @@
 #include "BorderReachedObserver.h"
 #include "ParticleSourceIface.h"
 #include "ParticleGroup.h"
+#include "ContainOneParticleGroup.h"
 
 namespace phycoub
 {
@@ -23,6 +24,7 @@ namespace phycoub
 class QuantityLifeTimeController
     : public LifeTimeControllerIface
     , public BorderReachedObserver
+    , public ContainOneParticleGroup
 {
   public:
     QuantityLifeTimeController( long lifeParticleCount, ParticleGroupPtr particleGroup,
@@ -40,9 +42,7 @@ class QuantityLifeTimeController
 
   private:
     long lifeParticleCount_ = 0;
-    ParticleGroupPtr particleGroup_;
     ParticleSourcePtr particleSource_;
-
     ParticleGroupPtr particleGroupReachedBorder_;
 };
 

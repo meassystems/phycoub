@@ -7,6 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(SOURCES 
 	 Constants.h
+	 ContainOneParticleGroup.cpp
+	 ContainOneParticleGroup.h
 	 ContainParticleGroupIface.h
 	 ContainParticleGroupList.cpp
 	 ContainParticleGroupList.h

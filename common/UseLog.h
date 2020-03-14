@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-03-14 10:08:23
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-14 13:18:41
+ * @Last Modified time: 2020-03-14 14:28:22
  */
 
 #pragma once
@@ -28,15 +28,15 @@ class UseLog
     LogPtr getLog();
 
   private:
-    LogPtr log;
+    LogPtr log_;
 };
 
 template< typename Function >
 void UseLog::writeLogMessageIfInitialized( Function function )
 {
-    if ( log )
+    if ( log_ )
     {
-        function( log );
+        function( log_ );
     }
 }
 

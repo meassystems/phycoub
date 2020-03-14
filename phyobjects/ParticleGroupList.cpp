@@ -2,56 +2,100 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 16:32:05
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-11 18:13:52
+ * @Last Modified time: 2020-03-14 14:36:14
  */
 
-#include "ParticleGroup.h"
+#include "ParticleGroupList.h"
 
 namespace phycoub
 {
 
-typename ParticleGroup::ContainerType::iterator ParticleGroup::begin()
+typename ParticleGroupList::ContainerType::iterator ParticleGroupList::begin()
 {
-    return particles_.begin();
+    return particleGroups_.begin();
 }
 
-typename ParticleGroup::ContainerType::iterator ParticleGroup::end()
+typename ParticleGroupList::ContainerType::iterator ParticleGroupList::end()
 {
-    return particles_.end();
+    return particleGroups_.end();
 }
 
-void ParticleGroup::push_back( ParticlePtr particle )
+typename ParticleGroupList::ContainerType::const_iterator
+ParticleGroupList::cbegin() const
 {
-    particles_.push_back( particle );
+    return particleGroups_.cbegin();
 }
 
-size_t ParticleGroup::size() const
+typename ParticleGroupList::ContainerType::const_iterator ParticleGroupList::cend() const
 {
-    return particles_.size();
+    return particleGroups_.cend();
 }
 
-void ParticleGroup::clear()
+void ParticleGroupList::push_back( ParticleGroupPtr group )
 {
-    particles_.clear();
+    particleGroups_.push_back( group );
 }
 
-bool ParticleGroup::operator==( const ParticleGroup& particleGroup )
+ParticleGroupPtr ParticleGroupList::front()
 {
-    return getId() == particleGroup.getId();
+    return particleGroups_.front();
 }
 
-bool ParticleGroup::remove( IDType id )
+void ParticleGroupList::clear()
 {
-    for ( auto particleIterator = begin(); particleIterator != end(); ++particleIterator )
+    particleGroups_.clear();
+}
+
+size_t ParticleGroupList::size() const
+{
+    return particleGroups_.size();
+}
+
+bool ParticleGroupList::empty() const
+{
+    return particleGroups_.empty();
+}
+
+ParticleGroupList ParticleGroupList::deepCopy() const
+{
+    ParticleGroupList copy;
+    for ( auto group : particleGroups_ )
     {
-        if ( ( *particleIterator )->getId() == id )
+        ParticleGroupPtr newGroup = std::make_shared< ParticleGroup >();
+        for ( auto particle : *group )
         {
-            particles_.erase( particleIterator );
+            newGroup->push_back( particle );
+        }
+        copy.push_back( group );
+    }
+
+    return copy;
+}
+
+void ParticleGroupList::removeParticle( IDType id )
+{
+    forEachGroup( [id]( ParticleGroupPtr group ) { group->remove( id ); } );
+}
+
+bool ParticleGroupList::removeGroup( IDType id )
+{
+    for ( auto groupIterator = begin(); groupIterator != end(); ++groupIterator )
+    {
+        if ( ( *groupIterator )->getId() == id )
+        {
+            particleGroups_.erase( groupIterator );
             return true;
         }
     }
 
     return false;
+}
+
+size_t ParticleGroupList::getParticleCount() const
+{
+    size_t particleCount = 0;
+    forEachParticle( [&particleCount]( ParticlePtr particle ) { ++particleCount; } );
+    return particleCount;
 }
 
 } // namespace phycoub
