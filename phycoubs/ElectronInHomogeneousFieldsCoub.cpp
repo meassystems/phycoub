@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-14 14:44:55
+ * @Last Modified time: 2020-03-14 16:41:59
  */
 
 #include "ElectronInHomogeneousFieldsCoub.h"
@@ -14,6 +14,10 @@ namespace phycoub
 
 ElectronInHomogeneousFieldsCoub::ElectronInHomogeneousFieldsCoub()
 {
+    setLog( stdErrLog );
+    cyclicBorder_->setLog( stdErrLog );
+    stdErrLog->subsribeForUpdates( stdErrLogObserver );
+
     ParticleGroupPtr electrons = std::make_shared< ParticleGroup >();
     electronGroupId_ = electrons->getId();
 

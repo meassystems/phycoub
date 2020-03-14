@@ -2,11 +2,15 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-26 08:23:20
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-04 14:24:20
+ * @Last Modified time: 2020-03-14 16:41:08
  */
 
-#include <CyclicBorder.h>
+#include "CyclicBorder.h"
+
+#include <math.h>
+
 #include "Particle.h"
+#include "Utils.h"
 
 namespace phycoub
 {
@@ -14,6 +18,7 @@ namespace phycoub
 CyclicBorder::CyclicBorder( const Vector& borders )
     : CubicShape( borders )
 {
+    minBorderSize = std::min( std::min( borders.x_, borders.y_ ), borders.z_ );
 }
 
 // virtual override
@@ -39,6 +44,19 @@ void CyclicBorder::psyMove(
     }
 
     moveParticle( coordinate, speed, isBorderReached, particle );
+
+    const double moveModule = move.getModule();
+
+    LogPtr log = getLog();
+    if ( log && ( moveModule >= minBorderSize * 0.05 || isnan( moveModule ) ) )
+    {
+        log->writeMessage(
+            Utils::formatString(
+                "Particle[%lu] changes its coordinate by an amount "
+                "greater than the 5%% size of the cube. Try to reduce 'dt'",
+                ( *particle )->getId() ),
+            LogLevel::error );
+    }
 }
 
 } // namespace phycoub

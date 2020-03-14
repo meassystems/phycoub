@@ -2,11 +2,12 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-03-14 09:23:49
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-14 10:42:39
+ * @Last Modified time: 2020-03-14 16:01:01
  */
 
 #pragma once
 
+#include <string>
 #include <list>
 #include <memory>
 
@@ -18,6 +19,9 @@ class Utils final
   public:
     Utils() = delete;
 
+    template< typename... Args >
+    static std::string formatString( const std::string& format, Args... args );
+
     template< typename ObserverType >
     static void removeReleasedPtrsListOfWeakPtr(
         std::list< std::weak_ptr< ObserverType > >* list );
@@ -26,6 +30,19 @@ class Utils final
     static void callForObserversAndRemoveReleasedPtrs(
         std::list< std::weak_ptr< ObserverType > >* observers, Function function );
 };
+
+template< typename... Args >
+std::string Utils::formatString( const std::string& format, Args... args )
+{
+    // todo std::format in C++20
+    std::string formatedString;
+    formatedString.resize( 500 );
+    size_t length = snprintf( const_cast< char* >( formatedString.data() ),
+        formatedString.length(), format.data(), args... );
+    formatedString.resize( length );
+
+    return formatedString;
+}
 
 template< typename ObserverType >
 void Utils::removeReleasedPtrsListOfWeakPtr(

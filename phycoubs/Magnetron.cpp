@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-08 01:14:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-14 14:43:27
+ * @Last Modified time: 2020-03-14 16:03:39
  */
 
 #include "Magnetron.h"
@@ -12,6 +12,9 @@ namespace phycoub
 
 Magnetron::Magnetron()
 {
+    setLog( stdErrLog );
+    stdErrLog->subsribeForUpdates( stdErrLogObserver );
+
     ParticleGroupPtr electrons_ = std::make_shared< ParticleGroup >();
     cylindricalXYPartcleSource_ = std::make_shared< CylindricalXYPartcleSource >( 0., 1.,
         1e-14, ElectricConstants::electronWeight, ElectricConstants::electronCharge,
@@ -43,10 +46,6 @@ Magnetron::Magnetron()
     addContainParticleGroup( leapFrogCalculationGroup_ );
 
     updateUniqParticleGroupList();
-
-    LogPtr stdErrLog = std::make_shared< Log >();
-    setLog( stdErrLog );
-    stdErrLog->subsribeForUpdates( stdErrLogObserver );
 }
 
 double Magnetron::getRadius() const

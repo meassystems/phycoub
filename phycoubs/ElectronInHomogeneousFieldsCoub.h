@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-11 13:45:50
+ * @Last Modified time: 2020-03-14 16:04:13
  */
 
 #pragma once
@@ -29,6 +29,7 @@
 #include "ElectricField.h"
 #include "CulonInterworking.h"
 #include "InterCommunication.h"
+#include "StdErrLogObserver.h"
 
 namespace phycoub
 {
@@ -100,6 +101,9 @@ class ElectronInHomogeneousFieldsCoub final : public PhyCoub
     InterCommunicationPtr electron2electronInterCommunication_
         = std::make_shared< InterCommunication >( electricField_, borderFieldCondition_,
             interworking_, "electron-electron InterCommunication" );
+
+    LogPtr stdErrLog = std::make_shared< Log >();
+    StdErrLogObserverPtr stdErrLogObserver = std::make_shared< StdErrLogObserver >();
 };
 
 using ElectronInHomogeneousFieldsCoubPtr

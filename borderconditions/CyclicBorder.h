@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 22:21:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-14 08:50:57
+ * @Last Modified time: 2020-03-14 15:36:41
  */
 
 #pragma once
@@ -25,6 +25,9 @@ class CyclicBorder
 
     virtual void psyMove(
         const Vector& move, const Vector& speed, ParticlePtr* particle ) override;
+
+  private:
+    double minBorderSize = 0.;
 };
 
 using CyclicBorderPtr = std::shared_ptr< CyclicBorder >;

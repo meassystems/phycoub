@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-27 09:26:39
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-11 15:26:19
+ * @Last Modified time: 2020-03-14 16:23:51
  */
 
 #include <iostream>
@@ -20,54 +20,46 @@ int main()
 {
 
     std::cout.precision( 17 );
-
-    try
-    {
-        Magnetron magnetron;
-
-        while ( true )
-        {
-            magnetron.phyCoub();
-            const ParticleGroupList& particleGroupList
-                = magnetron.getUniqParticleGroupList();
-
-            particleGroupList.forEachParticle( []( ParticlePtr particle ) {
-                const Vector& coordinate = particle->getCoordinate();
-                std::cout << coordinate.x_ << " ; " << coordinate.y_ << " ; "
-                          << coordinate.z_ << std::endl;
-            } );
-        }
-    }
-    catch ( char const* str )
-    {
-        std::cout << str;
-    }
-
     /*
+        try
+        {
+            Magnetron magnetron;
+
+            while ( true )
+            {
+                magnetron.phyCoub();
+                const ParticleGroupList& particleGroupList
+                    = magnetron.getUniqParticleGroupList();
+
+                particleGroupList.forEachParticle( []( ParticlePtr particle ) {
+                    const Vector& coordinate = particle->getCoordinate();
+                    std::cout << coordinate.x_ << " ; " << coordinate.y_ << " ; "
+                              << coordinate.z_ << std::endl;
+                } );
+            }
+        }
+        catch ( char const* str )
+        {
+            std::cout << str;
+        }
+    */
+
     try
     {
         ElectronInHomogeneousFieldsCoub electronInHomogeneousFieldsCoub;
-        electronInHomogeneousFieldsCoub.switchElectron2ElectronInterworking( true );
-        electronInHomogeneousFieldsCoub.switchElectron2ElectronInterworking( false );
+        electronInHomogeneousFieldsCoub.setElectron2ElectronInterworkingFlag( true );
+        electronInHomogeneousFieldsCoub.setElectron2ElectronInterworkingFlag( false );
 
         while ( true )
         {
             electronInHomogeneousFieldsCoub.phyCoub();
-            const Vector& coordinate
-                = electronInHomogeneousFieldsCoub.getParticleGroupList()
-                      .front()
-                      ->front()
-                      ->getCoordinate();
-
-            std::cout << coordinate.x_ << " ; " << coordinate.y_ << " ; " << coordinate.z_
-                      << std::endl;
         }
     }
     catch ( char const* str )
     {
         std::cout << str;
     }
-    */
+
     /*
     try
     {

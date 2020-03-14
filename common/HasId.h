@@ -2,15 +2,17 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-11-05 23:02:39
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-12 00:33:19
+ * @Last Modified time: 2020-03-14 16:46:02
  */
 
 #pragma once
 
+#include <stdint.h>
+
 namespace phycoub
 {
 
-using IDType = long;
+using IDType = uint64_t;
 /*
  * Базовый класс для именуемых сущностей
  */
