@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-03-14 09:05:10
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-14 14:28:54
+ * @Last Modified time: 2020-03-15 11:04:38
  */
 
 #pragma once
@@ -15,6 +15,7 @@
 
 #include "LogLevel.h"
 #include "LogObserver.h"
+#include "ErrorCode.h"
 
 namespace phycoub
 {
@@ -29,12 +30,10 @@ class Log final
     ~Log() = default;
 
     void subsribeForUpdates( LogObserverWeakPtr observer );
-    void writeMessage( const std::string& message, LogLevel level );
+    void writeMessage( ErrorCode errorCode, LogLevel level, ... );
 
   private:
     std::list< LogObserverWeakPtr > observers_;
-
-    static std::unordered_map< LogLevel, std::string > strLevel_;
 };
 
 } // namespace phycoub

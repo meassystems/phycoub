@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-03-14 10:17:29
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-14 14:29:26
+ * @Last Modified time: 2020-03-15 11:04:59
  */
 
 #include "Log.h"
@@ -12,22 +12,22 @@
 namespace phycoub
 {
 
-// static
-std::unordered_map< LogLevel, std::string > Log::strLevel_ = { { LogLevel::info, "info" },
-    { LogLevel::warning, "warning" }, { LogLevel::error, "error" } };
-
 void Log::subsribeForUpdates( LogObserverWeakPtr observer )
 {
     observers_.push_back( observer );
 }
 
-void Log::writeMessage( const std::string& message, LogLevel level )
+void Log::writeMessage( ErrorCode errorCode, LogLevel level, ... )
 {
+    va_list args;
+    va_start( args, level );
+
     Utils::callForObserversAndRemoveReleasedPtrs(
-        &observers_, [&message, level]( LogObserverPtr observer ) {
-            observer->onLogMessage(
-                message, strLevel_.at( level ), std::time( nullptr ) );
+        &observers_, [errorCode, level, &args]( LogObserverPtr observer ) {
+            observer->onLogMessage( errorCode, level, std::time( nullptr ), args );
         } );
+
+    va_end( args );
 }
 
 } // namespace phycoub

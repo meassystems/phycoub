@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-03-14 11:25:56
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-14 15:55:35
+ * @Last Modified time: 2020-03-15 11:05:07
  */
 
 #include "StdErrLogObserver.h"
@@ -10,15 +10,25 @@
 #include <iostream>
 
 #include "Utils.h"
+#include "ErrorDescription.h"
 
 namespace phycoub
 {
 
+// static
+std::unordered_map< LogLevel, std::string > StdErrLogObserver::strLevel_
+    = { { LogLevel::info, "info" }, { LogLevel::warning, "warning" },
+          { LogLevel::error, "error" } };
+
 // virtual override
 void StdErrLogObserver::onLogMessage(
-    const std::string& message, const std::string& level, std::time_t time )
+    ErrorCode errorCode, LogLevel level, std::time_t time, va_list args )
 {
-    std::cerr << formatMessage( message, level, time ) << std::endl;
+    const std::string errorDescription
+        = ErrorDescription::getErrorDescription( errorCode, args );
+
+    std::cerr << formatMessage( errorDescription, strLevel_.at( level ), time )
+              << std::endl;
 }
 
 // static

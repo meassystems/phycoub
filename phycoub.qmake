@@ -13,6 +13,7 @@ INCLUDEPATH += ../phycoub/borderconditions
 INCLUDEPATH += ../phycoub/common
 INCLUDEPATH += ../phycoub/interworkingfunctions
 INCLUDEPATH += ../phycoub/phymeasurement
+INCLUDEPATH += ../phycoub/errors
 INCLUDEPATH += ../phycoub/mathematic
 INCLUDEPATH += ../phycoub/fieldfunctions
 INCLUDEPATH += ../phycoub/logging

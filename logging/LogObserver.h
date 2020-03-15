@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-03-14 09:11:29
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-14 13:46:41
+ * @Last Modified time: 2020-03-15 10:45:38
  */
 
 #pragma once
@@ -12,6 +12,7 @@
 #include <ctime>
 
 #include "LogLevel.h"
+#include "ErrorCode.h"
 
 namespace phycoub
 {
@@ -22,7 +23,7 @@ class LogObserver
     virtual ~LogObserver() = default;
 
     virtual void onLogMessage(
-        const std::string& message, const std::string& level, std::time_t time )
+        ErrorCode errorCode, LogLevel level, std::time_t time, va_list args )
         = 0;
 };
 

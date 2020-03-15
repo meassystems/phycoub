@@ -21,6 +21,7 @@ include_directories(
 	 common
 	 interworkingfunctions
 	 phymeasurement
+	 errors
 	 mathematic
 	 fieldfunctions
 	 logging
@@ -42,6 +43,7 @@ add_subdirectory(borderconditions)
 add_subdirectory(common)
 add_subdirectory(interworkingfunctions)
 add_subdirectory(phymeasurement)
+add_subdirectory(errors)
 add_subdirectory(mathematic)
 add_subdirectory(fieldfunctions)
 add_subdirectory(logging)
@@ -63,6 +65,7 @@ add_library(phycoub STATIC
 	 $<TARGET_OBJECTS:common>
 	 $<TARGET_OBJECTS:interworkingfunctions>
 	 $<TARGET_OBJECTS:phymeasurement>
+	 $<TARGET_OBJECTS:errors>
 	 $<TARGET_OBJECTS:mathematic>
 	 $<TARGET_OBJECTS:fieldfunctions>
 	 $<TARGET_OBJECTS:logging>

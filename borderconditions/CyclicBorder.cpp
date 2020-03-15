@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-26 08:23:20
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-14 16:41:08
+ * @Last Modified time: 2020-03-15 11:01:05
  */
 
 #include "CyclicBorder.h"
@@ -11,6 +11,7 @@
 
 #include "Particle.h"
 #include "Utils.h"
+#include "ErrorCode.h"
 
 namespace phycoub
 {
@@ -50,12 +51,8 @@ void CyclicBorder::psyMove(
     LogPtr log = getLog();
     if ( log && ( moveModule >= minBorderSize * 0.05 || isnan( moveModule ) ) )
     {
-        log->writeMessage(
-            Utils::formatString(
-                "Particle[%lu] changes its coordinate by an amount "
-                "greater than the 5%% size of the cube. Try to reduce 'dt'",
-                ( *particle )->getId() ),
-            LogLevel::error );
+        log->writeMessage( ErrorCode::borderConditionsCoordinateGreaterChange,
+            LogLevel::error, ( *particle )->getId() );
     }
 }
 
