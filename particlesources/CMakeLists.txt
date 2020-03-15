@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(SOURCES 
+	 ConeParticleSource.h
 	 CylindricalXYParticleSource.cpp
 	 CylindricalXYParticleSource.h
 	 ParticleSourceIface.h

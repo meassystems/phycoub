@@ -8,6 +8,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(SOURCES 
 	 Matrix.cpp
 	 Matrix.h
+	 RandomUtils.cpp
+	 RandomUtils.h
 	 RotationMatrix.cpp
 	 RotationMatrix.h
 	 Vector.cpp

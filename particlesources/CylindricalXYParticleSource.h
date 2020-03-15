@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-05 01:17:18
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-12 00:40:52
+ * @Last Modified time: 2020-03-15 22:28:35
  */
 
 #pragma once
@@ -38,10 +38,6 @@ class CylindricalXYPartcleSource
     const Vector& getSourceCoordinate() const;
 
   private:
-    static double generateNormalizedDouble();
-    static double getRandomSign();
-    static Vector generateXYDirection();
-
     ParticleOptions particleOptions;
 
     double energy_ = 0.;

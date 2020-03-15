@@ -2,13 +2,14 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-05 01:47:13
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-10 20:40:50
+ * @Last Modified time: 2020-03-15 22:32:41
  */
 
 #include "CylindricalXYParticleSource.h"
 
-#include <random>
 #include <math.h>
+
+#include "RandomUtils.h"
 
 namespace phycoub
 {
@@ -28,8 +29,8 @@ CylindricalXYPartcleSource::CylindricalXYPartcleSource( double radius, double he
 ParticlePtr CylindricalXYPartcleSource::phyGiveBirthParticle()
 {
     const double squaredRadius = getSquaredRadius();
-    const Vector xyDirection = generateXYDirection();
-    const double z = getHeight() * generateNormalizedDouble();
+    const Vector xyDirection = RandomUtils::generateXYDirection();
+    const double z = getHeight() * RandomUtils::generateNormalizedDouble();
 
     const Vector speed = xyDirection * speedFactor_;
     const Vector coordinate = xyDirection * squaredRadius
@@ -57,35 +58,6 @@ void CylindricalXYPartcleSource::setSourceCordinate( const Vector& sourceCoordin
 const Vector& CylindricalXYPartcleSource::getSourceCoordinate() const
 {
     return sourceCoordinate_;
-}
-
-// static
-double CylindricalXYPartcleSource::generateNormalizedDouble()
-{
-    static std::random_device device;
-    static std::mt19937 generator( device() );
-    static std::uniform_real_distribution< double > distribution( 0., 1. );
-
-    return distribution( generator );
-}
-
-// static
-double CylindricalXYPartcleSource::getRandomSign()
-{
-    if ( generateNormalizedDouble() >= 0.5 )
-    {
-        return 1.;
-    }
-
-    return -1.;
-}
-
-// static
-Vector CylindricalXYPartcleSource::generateXYDirection()
-{
-    const double x = generateNormalizedDouble() * getRandomSign();
-    const double y = sqrt( 1 - pow( x, 2 ) ) * getRandomSign();
-    return Vector{ x, y, 0 };
 }
 
 } // namespace phycoub
