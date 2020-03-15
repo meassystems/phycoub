@@ -2,10 +2,12 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-06 21:20:28
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-15 12:49:08
+ * @Last Modified time: 2020-03-15 14:36:47
  */
 
 #include "QuantityLifeTimeController.h"
+
+#include "ProgrammingException.h"
 
 namespace phycoub
 {
@@ -44,6 +46,7 @@ void QuantityLifeTimeController::onBorderReached( ParticlePtr particle )
 
 void QuantityLifeTimeController::setParticleGroup( ParticleGroupPtr particleGroup )
 {
+    PROGRAMMING_ASSERT( particleGroup );
     addParticleGroup( particleGroup );
 }
 

@@ -2,13 +2,15 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 13:42:50
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-12 00:45:28
+ * @Last Modified time: 2020-03-15 14:36:37
  */
 
 #include "PhyCoub.h"
 
 #include <algorithm>
 #include <unordered_set>
+
+#include "ProgrammingException.h"
 
 namespace phycoub
 {
@@ -110,6 +112,7 @@ void PhyCoub::removeParticle( IDType id )
 
 void PhyCoub::addFieldResponsive( InterworkingCalculatorPtr interworkingCalculator )
 {
+    PROGRAMMING_ASSERT( interworkingCalculator );
     interworkingCalculatorList_.push_back( interworkingCalculator );
 }
 
@@ -120,6 +123,7 @@ void PhyCoub::removeFieldResponsive( std::string id )
 
 void PhyCoub::addCalculationGroup( CalculationGroupPtr calculationGroup )
 {
+    PROGRAMMING_ASSERT( calculationGroup );
     calculationGroups_.push_back( calculationGroup );
 }
 
@@ -130,6 +134,7 @@ void PhyCoub::removeCalculationGroup( std::string id )
 
 void PhyCoub::addLifeTimeController( LifeTimeControllerPtr lifeTimeController )
 {
+    PROGRAMMING_ASSERT( lifeTimeController );
     lifeTimeControllers_.push_back( lifeTimeController );
 }
 
@@ -140,6 +145,7 @@ void PhyCoub::removeLifeTimeController( std::string id )
 
 void PhyCoub::addContainParticleGroup( ContainParticleGroupPtr containParticleGroup )
 {
+    PROGRAMMING_ASSERT( containParticleGroup );
     containsParticleGroup_.push_back( containParticleGroup );
 }
 

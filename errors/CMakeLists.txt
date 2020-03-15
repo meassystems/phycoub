@@ -9,6 +9,7 @@ set(SOURCES
 	 ErrorCode.h
 	 ErrorDescription.cpp
 	 ErrorDescription.h
+	 ProgrammingException.h
 )
 
 add_library(errors OBJECT ${SOURCES})
