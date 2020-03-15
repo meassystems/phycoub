@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(SOURCES 
+	 ConeShape.cpp
+	 ConeShape.h
 	 CubicShape.cpp
 	 CubicShape.h
 	 CylindricShape.cpp
