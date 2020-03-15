@@ -16,6 +16,7 @@ INCLUDEPATH += ../phycoub/phymeasurement
 INCLUDEPATH += ../phycoub/errors
 INCLUDEPATH += ../phycoub/mathematic
 INCLUDEPATH += ../phycoub/fieldfunctions
+INCLUDEPATH += ../phycoub/particle
 INCLUDEPATH += ../phycoub/logging
 INCLUDEPATH += ../phycoub/src
 

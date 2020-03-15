@@ -24,6 +24,7 @@ include_directories(
 	 errors
 	 mathematic
 	 fieldfunctions
+	 particle
 	 logging
 	 src
 )
@@ -46,6 +47,7 @@ add_subdirectory(phymeasurement)
 add_subdirectory(errors)
 add_subdirectory(mathematic)
 add_subdirectory(fieldfunctions)
+add_subdirectory(particle)
 add_subdirectory(logging)
 add_subdirectory(src)
 
@@ -68,6 +70,7 @@ add_library(phycoub STATIC
 	 $<TARGET_OBJECTS:errors>
 	 $<TARGET_OBJECTS:mathematic>
 	 $<TARGET_OBJECTS:fieldfunctions>
+	 $<TARGET_OBJECTS:particle>
 	 $<TARGET_OBJECTS:logging>
 	 $<TARGET_OBJECTS:src>
 )

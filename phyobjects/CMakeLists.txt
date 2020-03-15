@@ -10,12 +10,6 @@ set(SOURCES
 	 CalculationGroup.h
 	 FieldReceiver.cpp
 	 FieldReceiver.h
-	 Particle.cpp
-	 Particle.h
-	 ParticleGroup.cpp
-	 ParticleGroup.h
-	 ParticleGroupList.cpp
-	 ParticleGroupList.h
 )
 
 add_library(phyobjects OBJECT ${SOURCES})
