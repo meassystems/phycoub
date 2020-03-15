@@ -2,14 +2,14 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-05 01:17:18
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-15 22:28:35
+ * @Last Modified time: 2020-03-15 23:52:17
  */
 
 #pragma once
 
 #include <memory>
 
-#include "ParticleSourceIface.h"
+#include "ParticleSourceBase.h"
 #include "CylindricShape.h"
 #include "Vector.h"
 
@@ -20,29 +20,20 @@ namespace phycoub
  * из его центра
  */
 class CylindricalXYPartcleSource
-    : public ParticleSourceIface
+    : public ParticleSourceBase
     , public CylindricShape
 {
   public:
-    CylindricalXYPartcleSource( double radius, double height, double energy,
-        double particleWeight, double particleCharge, const Vector& sourceCoordinate );
+    CylindricalXYPartcleSource( double radius, double height,
+        const Vector& sourceCoordinate, const ParticleOptions& particleOptions,
+        double energy );
     virtual ~CylindricalXYPartcleSource() override = default;
 
-    // Implementation of ParticleSourceIface
+    // Implementation of ParticleSourceBase
+    virtual void setSourceCordinate( const Vector& sourceCoordinate ) override;
+
+    // Implementation of ParticleSourceBase::ParticleSourceIface
     virtual ParticlePtr phyGiveBirthParticle() override;
-
-    void setEnergy( double energy );
-    double getEnergy() const;
-
-    void setSourceCordinate( const Vector& sourceCoordinate );
-    const Vector& getSourceCoordinate() const;
-
-  private:
-    ParticleOptions particleOptions;
-
-    double energy_ = 0.;
-    double speedFactor_ = 0.;
-    Vector sourceCoordinate_;
 };
 
 using CylindricalXYPartcleSourcePtr = std::shared_ptr< CylindricalXYPartcleSource >;
