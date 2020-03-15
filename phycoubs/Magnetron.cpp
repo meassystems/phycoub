@@ -2,10 +2,12 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-08 01:14:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-16 00:39:30
+ * @Last Modified time: 2020-03-16 01:05:05
  */
 
 #include "Magnetron.h"
+
+#include "ParticleOptionsCatalog.h"
 
 namespace phycoub
 {
@@ -160,8 +162,7 @@ void Magnetron::initInterCommunication()
 
 void Magnetron::initElectronSource()
 {
-    ParticleOptions electronOptions(
-        ElectricConstants::electronWeight, ElectricConstants::electronCharge );
+    ParticleOptions electronOptions = ParticleOptionsCatalog::getElectronOptions();
 
     cylindricalXYPartcleSource_ = std::make_shared< CylindricalXYPartcleSource >(
         0., 1., Vector{ 1., 1., 0. }, electronOptions, 1e-14 );

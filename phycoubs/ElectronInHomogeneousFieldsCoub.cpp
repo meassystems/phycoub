@@ -2,12 +2,13 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-15 12:15:31
+ * @Last Modified time: 2020-03-16 01:07:05
  */
 
 #include "ElectronInHomogeneousFieldsCoub.h"
 
 #include "FieldReceiver.h"
+#include "ParticleOptionsCatalog.h"
 
 namespace phycoub
 {
@@ -178,10 +179,11 @@ void ElectronInHomogeneousFieldsCoub::initWithElectronGroup()
     electronGroupId_ = electrons->getId();
 
     const Vector& borders = getBorders();
+    ParticleOptions electronOptions = ParticleOptionsCatalog::getElectronOptions();
+
     electrons->push_back( std::make_shared< Particle >(
         Vector( 0.5 * borders.x_, 0.5 * borders.y_, 0.5 * borders.z_ ),
-        Vector( .0, .0, 1. ) * 1e4, ElectricConstants::electronWeight,
-        ElectricConstants::electronCharge ) );
+        Vector( .0, .0, 1. ) * 1e4, electronOptions ) );
 
     feelElectricHomogeneousDirectWithCulonInterworking_->addParticleGroup( electrons );
     feelWithMagneticInterworking_->addParticleGroup( electrons );

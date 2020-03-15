@@ -17,6 +17,9 @@ set(SOURCES
 	 ParticleGroup.h
 	 ParticleGroupList.cpp
 	 ParticleGroupList.h
+	 ParticleOptions.h
+	 ParticleOptionsCatalog.cpp
+	 ParticleOptionsCatalog.h
 )
 
 add_library(particle OBJECT ${SOURCES})

@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 16:28:49
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-12 00:48:30
+ * @Last Modified time: 2020-03-16 00:58:30
  */
 
 #pragma once
@@ -11,18 +11,10 @@
 
 #include "HasId.h"
 #include "Vector.h"
+#include "ParticleOptions.h"
 
 namespace phycoub
 {
-
-struct ParticleOptions final
-{
-    ParticleOptions() = default;
-    ParticleOptions( double m, double q );
-
-    double m_ = 0.;
-    double q_ = 0.;
-};
 
 /*
  * Класс/объект моделируемого пространства - частица.
