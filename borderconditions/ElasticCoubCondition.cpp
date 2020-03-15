@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 18:12:31
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-04 14:26:40
+ * @Last Modified time: 2020-03-15 13:42:38
  */
 
 #include <ElasticCoubCondition.h>
@@ -18,10 +18,10 @@ ElasticCoubCondition::ElasticCoubCondition( const Vector& borders )
 
 // virtual override
 void ElasticCoubCondition::psyMove(
-    const Vector& move, const Vector& speed, ParticlePtr* particle )
+    const Vector& move, const Vector& speed, ParticlePtr particle )
 {
     const Vector& borders = getBorders();
-    Vector coordinate = ( *particle )->getCoordinate();
+    Vector coordinate = particle->getCoordinate();
     Vector newSpeed = speed;
 
     bool isBorderReached = false;

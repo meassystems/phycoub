@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 18:05:35
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-14 10:16:52
+ * @Last Modified time: 2020-03-15 13:40:42
  */
 
 #pragma once
@@ -26,12 +26,11 @@ class BorderCondition : public UseLog
   public:
     virtual ~BorderCondition() = default;
 
-    virtual void psyMove(
-        const Vector& move, const Vector& speed, ParticlePtr* particle );
+    virtual void psyMove( const Vector& move, const Vector& speed, ParticlePtr particle );
 
   protected:
     void moveParticle( const Vector& coordinate, const Vector& speed,
-        bool isBorderReached, ParticlePtr* particle );
+        bool isBorderReached, ParticlePtr particle );
 };
 
 using BorderConditionPtr = std::shared_ptr< BorderCondition >;

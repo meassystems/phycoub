@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-26 10:13:55
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-11 16:55:01
+ * @Last Modified time: 2020-03-15 13:44:11
  */
 
 #include <HighSpeedModificationVerle.h>
@@ -29,7 +29,7 @@ void HighSpeedModificationVerle::phyCalculate( BorderConditionPtr borderConditio
 
         borderCondition->psyMove( particle->previesSpeed_ * dt
                 + particle->previesResultant_ * pow( dt, 2 ) / ( 2 * particleOptions.m_ ),
-            speed, &particle );
+            speed, particle );
     } );
 }
 

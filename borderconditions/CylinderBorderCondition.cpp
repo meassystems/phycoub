@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-04 14:41:02
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-08 01:58:25
+ * @Last Modified time: 2020-03-15 13:42:02
  */
 
 #include "CylinderBorderCondition.h"
@@ -19,7 +19,7 @@ CylinderBorderCondition::CylinderBorderCondition( double radius, double height )
 
 // virtual override
 void CylinderBorderCondition::psyMove(
-    const Vector& move, const Vector& speed, ParticlePtr* particle )
+    const Vector& move, const Vector& speed, ParticlePtr particle )
 {
     const double radius = getRadius();
     const double squaredRadius = getSquaredRadius();
@@ -27,7 +27,7 @@ void CylinderBorderCondition::psyMove(
     const double height = getHeight();
 
     bool isBorderReached = false;
-    Vector newCoordinate = ( *particle )->getCoordinate() + move;
+    Vector newCoordinate = particle->getCoordinate() + move;
     const Vector newCoordinateWithCylindricCenter{ newCoordinate.x_ - radius,
         newCoordinate.y_ - radius, newCoordinate.z_ };
 
@@ -53,7 +53,7 @@ void CylinderBorderCondition::psyMove(
 
     if ( isBorderReached )
     {
-        borderReached( *particle );
+        borderReached( particle );
     }
 
     moveParticle( newCoordinate, speed, isBorderReached, particle );

@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-04 14:06:27
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-06 22:22:29
+ * @Last Modified time: 2020-03-15 13:41:54
  */
 
 #pragma once
@@ -27,7 +27,7 @@ class CylinderBorderCondition
 
     // Implementation of BorderCondition
     virtual void psyMove(
-        const Vector& move, const Vector& speed, ParticlePtr* particle ) override;
+        const Vector& move, const Vector& speed, ParticlePtr particle ) override;
 };
 
 using CylinderBorderConditionPtr = std::shared_ptr< CylinderBorderCondition >;

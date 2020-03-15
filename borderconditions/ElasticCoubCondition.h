@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 18:11:55
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-04 14:26:29
+ * @Last Modified time: 2020-03-15 13:42:28
  */
 
 #pragma once
@@ -24,7 +24,7 @@ class ElasticCoubCondition
     virtual ~ElasticCoubCondition() = default;
 
     void psyMove(
-        const Vector& move, const Vector& speed, ParticlePtr* particle ) override;
+        const Vector& move, const Vector& speed, ParticlePtr particle ) override;
 };
 
 using ElasticCoubConditionPtr = std::shared_ptr< ElasticCoubCondition >;

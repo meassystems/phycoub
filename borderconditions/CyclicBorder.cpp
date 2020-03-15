@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-26 08:23:20
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-15 11:01:05
+ * @Last Modified time: 2020-03-15 13:41:33
  */
 
 #include "CyclicBorder.h"
@@ -24,11 +24,11 @@ CyclicBorder::CyclicBorder( const Vector& borders )
 
 // virtual override
 void CyclicBorder::psyMove(
-    const Vector& move, const Vector& speed, ParticlePtr* particle )
+    const Vector& move, const Vector& speed, ParticlePtr particle )
 {
     bool isBorderReached = false;
     const Vector& borders = getBorders();
-    Vector coordinate = ( *particle )->getCoordinate() + move;
+    Vector coordinate = particle->getCoordinate() + move;
 
     for ( int i = 0; i < 3; ++i )
     {
@@ -52,7 +52,7 @@ void CyclicBorder::psyMove(
     if ( log && ( moveModule >= minBorderSize * 0.05 || isnan( moveModule ) ) )
     {
         log->writeMessage( ErrorCode::borderConditionsCoordinateGreaterChange,
-            LogLevel::error, ( *particle )->getId() );
+            LogLevel::error, particle->getId() );
     }
 }
 

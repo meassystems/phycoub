@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-26 08:38:39
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-01-10 20:38:32
+ * @Last Modified time: 2020-03-15 13:42:52
  */
 
 #include <ThermostatBorder.h>
@@ -21,10 +21,10 @@ ThermostatBorder::ThermostatBorder( const Vector& borders, double kB, double tem
 
 // virtual override
 void ThermostatBorder::psyMove(
-    const Vector& move, const Vector& speed, ParticlePtr* particle )
+    const Vector& move, const Vector& speed, ParticlePtr particle )
 {
     const Vector& borders = getBorders();
-    Vector coordinate = ( *particle )->getCoordinate();
+    Vector coordinate = particle->getCoordinate();
     Vector newSpeed = speed;
 
     bool isBorderReached = false;
@@ -47,8 +47,7 @@ void ThermostatBorder::psyMove(
     }
     if ( isBorderReached )
     {
-        temperatureControl(
-            temperature_, kB_, ( *particle )->getOptions().m_, &newSpeed );
+        temperatureControl( temperature_, kB_, particle->getOptions().m_, &newSpeed );
     }
 
     moveParticle( coordinate, newSpeed, isBorderReached, particle );
