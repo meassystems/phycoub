@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-14 16:41:59
+ * @Last Modified time: 2020-03-15 12:15:31
  */
 
 #include "ElectronInHomogeneousFieldsCoub.h"
@@ -14,36 +14,14 @@ namespace phycoub
 
 ElectronInHomogeneousFieldsCoub::ElectronInHomogeneousFieldsCoub()
 {
-    setLog( stdErrLog );
-    cyclicBorder_->setLog( stdErrLog );
-    stdErrLog->subsribeForUpdates( stdErrLogObserver );
-
-    ParticleGroupPtr electrons = std::make_shared< ParticleGroup >();
-    electronGroupId_ = electrons->getId();
+    initLog();
+    initCalculationGroup();
+    initElectricField();
+    initMagneticField();
+    initInterCommunication();
+    initWithElectronGroup();
 
     setDeltaTime( 1E-13 );
-
-    const Vector& borders = getBorders();
-    electrons->push_back( std::make_shared< Particle >(
-        Vector( 0.5 * borders.x_, 0.5 * borders.y_, 0.5 * borders.z_ ),
-        Vector( .0, .0, 1. ) * 1e4, ElectricConstants::electronWeight,
-        ElectricConstants::electronCharge ) );
-
-    feelElectricHomogeneousDirectWithCulonInterworking_->addParticleGroup( electrons );
-    addFieldResponsive( feelElectricHomogeneousDirectWithCulonInterworking_ );
-    addContainParticleGroup( feelElectricHomogeneousDirectWithCulonInterworking_ );
-
-    feelWithMagneticInterworking_->addParticleGroup( electrons );
-    addFieldResponsive( feelWithMagneticInterworking_ );
-    addContainParticleGroup( feelWithMagneticInterworking_ );
-
-    addFieldResponsive( electron2electronInterCommunication_ );
-    addContainParticleGroup( electron2electronInterCommunication_ );
-
-    leapFrogCalculationGroup_->addParticleGroup( electrons );
-    addCalculationGroup( leapFrogCalculationGroup_ );
-    addContainParticleGroup( leapFrogCalculationGroup_ );
-
     updateUniqParticleGroupList();
 }
 
@@ -122,6 +100,92 @@ void ElectronInHomogeneousFieldsCoub::setElectron2ElectronInterworkingFlag( bool
 bool ElectronInHomogeneousFieldsCoub::getElectron2ElectronInterworkingFlag() const
 {
     return electron2ElectronInterworkingFlag;
+}
+
+void ElectronInHomogeneousFieldsCoub::initLog()
+{
+    stdErrLog = std::make_shared< Log >();
+    stdErrLogObserver = std::make_shared< StdErrLogObserver >();
+
+    setLog( stdErrLog );
+    stdErrLog->subsribeForUpdates( stdErrLogObserver );
+}
+
+void ElectronInHomogeneousFieldsCoub::initCalculationGroup()
+{
+    constexpr static double borderSize_ = 1.e-4;
+    cyclicBorder_ = std::make_shared< CyclicBorder >( Vector{ borderSize_ } );
+    cyclicBorder_->setLog( stdErrLog );
+
+    leapFrog_ = std::make_shared< LeapFrog >();
+    leapFrogCalculationGroup_
+        = std::make_shared< CalculationGroup >( leapFrog_, cyclicBorder_ );
+
+    addCalculationGroup( leapFrogCalculationGroup_ );
+    addContainParticleGroup( leapFrogCalculationGroup_ );
+}
+
+void ElectronInHomogeneousFieldsCoub::initElectricField()
+{
+
+    culonInterworking_ = std::make_shared< CulonInterworking >();
+
+    electricHomogeneousDirectField_ = std::make_shared< ElectricHomogeneousDirectField >(
+        Vector{ 0, 0, 1 }, ElectricConstants::electronCharge * 0 );
+    electricHomogeneousDirectFieldCreator_ = std::make_shared< HomogeneousFieldCreator >(
+        electricHomogeneousDirectField_, "ElectricHomogeneousField" );
+    feelElectricHomogeneousDirectWithCulonInterworking_
+        = std::make_shared< FieldReceiver >( electricHomogeneousDirectFieldCreator_,
+            culonInterworking_, "CulonInterworking" );
+
+    addFieldResponsive( feelElectricHomogeneousDirectWithCulonInterworking_ );
+    addContainParticleGroup( feelElectricHomogeneousDirectWithCulonInterworking_ );
+}
+
+void ElectronInHomogeneousFieldsCoub::initMagneticField()
+{
+    magneticHomogeneousDirectField_
+        = std::make_shared< MagneticHomogeneousDirectField >( Vector{ 0, 1, 1 }, 3e-2 );
+    magneticHomogeneousDirectFieldCreator_ = std::make_shared< HomogeneousFieldCreator >(
+        magneticHomogeneousDirectField_, "MagneticHomogeneousField" );
+    magneticInterworking_ = std::make_shared< MagneticInterworking >();
+    feelWithMagneticInterworking_
+        = std::make_shared< FieldReceiver >( magneticHomogeneousDirectFieldCreator_,
+            magneticInterworking_, "MagneticInterworking" );
+
+    addFieldResponsive( feelWithMagneticInterworking_ );
+    addContainParticleGroup( feelWithMagneticInterworking_ );
+}
+
+void ElectronInHomogeneousFieldsCoub::initInterCommunication()
+{
+
+    borderFieldCondition_ = std::make_shared< BorderFieldCondition >();
+    electricField_ = std::make_shared< ElectricField >();
+    interworking_ = std::make_shared< CulonInterworking >();
+    electron2electronInterCommunication_
+        = std::make_shared< InterCommunication >( electricField_, borderFieldCondition_,
+            interworking_, "electron-electron InterCommunication" );
+
+    addFieldResponsive( electron2electronInterCommunication_ );
+    addContainParticleGroup( electron2electronInterCommunication_ );
+}
+
+void ElectronInHomogeneousFieldsCoub::initWithElectronGroup()
+{
+
+    ParticleGroupPtr electrons = std::make_shared< ParticleGroup >();
+    electronGroupId_ = electrons->getId();
+
+    const Vector& borders = getBorders();
+    electrons->push_back( std::make_shared< Particle >(
+        Vector( 0.5 * borders.x_, 0.5 * borders.y_, 0.5 * borders.z_ ),
+        Vector( .0, .0, 1. ) * 1e4, ElectricConstants::electronWeight,
+        ElectricConstants::electronCharge ) );
+
+    feelElectricHomogeneousDirectWithCulonInterworking_->addParticleGroup( electrons );
+    feelWithMagneticInterworking_->addParticleGroup( electrons );
+    leapFrogCalculationGroup_->addParticleGroup( electrons );
 }
 
 } // namespace phycoub

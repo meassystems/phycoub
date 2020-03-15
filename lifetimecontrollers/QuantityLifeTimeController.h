@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-06 20:23:47
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-14 14:40:50
+ * @Last Modified time: 2020-03-15 12:47:33
  */
 
 #pragma once
@@ -27,8 +27,8 @@ class QuantityLifeTimeController
     , public ContainOneParticleGroup
 {
   public:
-    QuantityLifeTimeController( long lifeParticleCount, ParticleGroupPtr particleGroup,
-        ParticleSourcePtr particleSource );
+    QuantityLifeTimeController(
+        long lifeParticleCount, ParticleSourcePtr particleSource );
     virtual ~QuantityLifeTimeController() override = default;
 
     // Implementation of LifeTimeControllerIface
@@ -36,6 +36,8 @@ class QuantityLifeTimeController
 
     // Implementation of BorderReachedObserver
     virtual void onBorderReached( ParticlePtr particle ) override;
+
+    void setParticleGroup( ParticleGroupPtr particleGroup );
 
     long getLifeParticleCount() const;
     void setLifeParticleCount( long count );

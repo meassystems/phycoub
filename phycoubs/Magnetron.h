@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-06 22:12:25
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-14 16:02:45
+ * @Last Modified time: 2020-03-15 12:46:03
  */
 
 #pragma once
@@ -54,49 +54,38 @@ class Magnetron final : public PhyCoub
     void setLifeParticleCount( long count );
 
   private:
-    CylinderBorderConditionPtr cylinderBorderCondition_
-        = std::make_shared< CylinderBorderCondition >( 1., 1. );
+    void initLog();
+    void initCalculationGroup();
+    void initElectricField();
+    void initMagneticField();
+    void initInterCommunication();
+    void initElectronSource();
+    void initWithElectronGroup();
 
-    LeapFrogPtr leapFrog_ = std::make_shared< LeapFrog >();
-    CalculationGroupPtr leapFrogCalculationGroup_
-        = std::make_shared< CalculationGroup >( leapFrog_, cylinderBorderCondition_ );
+    CylinderBorderConditionPtr cylinderBorderCondition_;
+    LeapFrogPtr leapFrog_;
+    CalculationGroupPtr leapFrogCalculationGroup_;
 
-    ElectricHomogeneousRadialXYFieldPtr electricHomogeneousRadialField_
-        = std::make_shared< ElectricHomogeneousRadialXYField >(
-            Vector{ 1., 1., 0 }, 1., ElectricConstants::electronCharge * 1e16 );
-    HomogeneousFieldCreatorPtr electricHomogeneousRadialFieldCreator_
-        = std::make_shared< HomogeneousFieldCreator >(
-            electricHomogeneousRadialField_, "ElectricHomogeneousRadialField" );
-    CulonInterworkingPtr culonInterworking_ = std::make_shared< CulonInterworking >();
-    FieldReceiverPtr feelElectricHomogeneousRadialWithCulonInterworking_
-        = std::make_shared< FieldReceiver >( electricHomogeneousRadialFieldCreator_,
-            culonInterworking_, "ElectricHomogeneousRadialField culon interworking" );
+    ElectricHomogeneousRadialXYFieldPtr electricHomogeneousRadialField_;
+    HomogeneousFieldCreatorPtr electricHomogeneousRadialFieldCreator_;
+    CulonInterworkingPtr culonInterworking_;
+    FieldReceiverPtr feelElectricHomogeneousRadialWithCulonInterworking_;
 
-    MagneticHomogeneousDirectFieldPtr magneticHomogeneousDirectField_
-        = std::make_shared< MagneticHomogeneousDirectField >(
-            Vector{ 0., 0., 1. }, 3e-2 );
-    HomogeneousFieldCreatorPtr magneticHomogeneousDirectFieldCreator_
-        = std::make_shared< HomogeneousFieldCreator >(
-            magneticHomogeneousDirectField_, "MagneticHomogeneousField" );
-    MagneticInterworkingPtr magneticInterworking_
-        = std::make_shared< MagneticInterworking >();
-    FieldReceiverPtr feelWithMagneticInterworking_
-        = std::make_shared< FieldReceiver >( magneticHomogeneousDirectFieldCreator_,
-            magneticInterworking_, "Magnetic interworking" );
+    MagneticHomogeneousDirectFieldPtr magneticHomogeneousDirectField_;
+    HomogeneousFieldCreatorPtr magneticHomogeneousDirectFieldCreator_;
+    MagneticInterworkingPtr magneticInterworking_;
+    FieldReceiverPtr feelWithMagneticInterworking_;
 
-    BorderFieldConditionPtr borderFieldCondition_
-        = std::make_shared< BorderFieldCondition >();
-    ElectricFieldPtr electricField_ = std::make_shared< ElectricField >();
-    InterworkingPtr interworking_ = std::make_shared< CulonInterworking >();
-    InterCommunicationPtr electron2electronInterCommunication_
-        = std::make_shared< InterCommunication >( electricField_, borderFieldCondition_,
-            interworking_, "electron-electron InterCommunication" );
+    BorderFieldConditionPtr borderFieldCondition_;
+    ElectricFieldPtr electricField_;
+    InterworkingPtr interworking_;
+    InterCommunicationPtr electron2electronInterCommunication_;
 
     CylindricalXYPartcleSourcePtr cylindricalXYPartcleSource_;
     QuantityLifeTimeControllerPtr quantityLifeTimeController_;
 
-    LogPtr stdErrLog = std::make_shared< Log >();
-    StdErrLogObserverPtr stdErrLogObserver = std::make_shared< StdErrLogObserver >();
+    LogPtr stdErrLog;
+    StdErrLogObserverPtr stdErrLogObserver;
 };
 
 using MagnetronPtr = std::shared_ptr< Magnetron >;

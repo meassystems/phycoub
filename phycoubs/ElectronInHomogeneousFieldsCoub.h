@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-14 16:04:13
+ * @Last Modified time: 2020-03-15 12:15:25
  */
 
 #pragma once
@@ -60,50 +60,37 @@ class ElectronInHomogeneousFieldsCoub final : public PhyCoub
     bool getElectron2ElectronInterworkingFlag() const;
 
   private:
+    void initLog();
+    void initCalculationGroup();
+    void initElectricField();
+    void initMagneticField();
+    void initInterCommunication();
+    void initWithElectronGroup();
+
     IDType electronGroupId_ = 0;
 
-    constexpr static double borderSize_ = 1.e-4;
-    CyclicBorderPtr cyclicBorder_
-        = std::make_shared< CyclicBorder >( Vector{ borderSize_ } );
+    CyclicBorderPtr cyclicBorder_;
+    LeapFrogPtr leapFrog_;
+    CalculationGroupPtr leapFrogCalculationGroup_;
 
-    LeapFrogPtr leapFrog_ = std::make_shared< LeapFrog >();
-    CalculationGroupPtr leapFrogCalculationGroup_
-        = std::make_shared< CalculationGroup >( leapFrog_, cyclicBorder_ );
+    CulonInterworkingPtr culonInterworking_;
+    ElectricHomogeneousDirectFieldPtr electricHomogeneousDirectField_;
+    HomogeneousFieldCreatorPtr electricHomogeneousDirectFieldCreator_;
+    FieldReceiverPtr feelElectricHomogeneousDirectWithCulonInterworking_;
 
-    CulonInterworkingPtr culonInterworking_ = std::make_shared< CulonInterworking >();
-
-    ElectricHomogeneousDirectFieldPtr electricHomogeneousDirectField_
-        = std::make_shared< ElectricHomogeneousDirectField >(
-            Vector{ 0, 0, 1 }, ElectricConstants::electronCharge * 0 );
-    HomogeneousFieldCreatorPtr electricHomogeneousDirectFieldCreator_
-        = std::make_shared< HomogeneousFieldCreator >(
-            electricHomogeneousDirectField_, "ElectricHomogeneousField" );
-    FieldReceiverPtr feelElectricHomogeneousDirectWithCulonInterworking_
-        = std::make_shared< FieldReceiver >( electricHomogeneousDirectFieldCreator_,
-            culonInterworking_, "culon interworking" );
-
-    MagneticHomogeneousDirectFieldPtr magneticHomogeneousDirectField_
-        = std::make_shared< MagneticHomogeneousDirectField >( Vector{ 0, 1, 1 }, 3e-2 );
-    HomogeneousFieldCreatorPtr magneticHomogeneousDirectFieldCreator_
-        = std::make_shared< HomogeneousFieldCreator >(
-            magneticHomogeneousDirectField_, "MagneticHomogeneousField" );
-    MagneticInterworkingPtr magneticInterworking_
-        = std::make_shared< MagneticInterworking >();
-    FieldReceiverPtr feelWithMagneticInterworking_
-        = std::make_shared< FieldReceiver >( magneticHomogeneousDirectFieldCreator_,
-            magneticInterworking_, "magnetic interworking" );
+    MagneticHomogeneousDirectFieldPtr magneticHomogeneousDirectField_;
+    HomogeneousFieldCreatorPtr magneticHomogeneousDirectFieldCreator_;
+    MagneticInterworkingPtr magneticInterworking_;
+    FieldReceiverPtr feelWithMagneticInterworking_;
 
     bool electron2ElectronInterworkingFlag = false;
-    BorderFieldConditionPtr borderFieldCondition_
-        = std::make_shared< BorderFieldCondition >();
-    ElectricFieldPtr electricField_ = std::make_shared< ElectricField >();
-    InterworkingPtr interworking_ = std::make_shared< CulonInterworking >();
-    InterCommunicationPtr electron2electronInterCommunication_
-        = std::make_shared< InterCommunication >( electricField_, borderFieldCondition_,
-            interworking_, "electron-electron InterCommunication" );
+    BorderFieldConditionPtr borderFieldCondition_;
+    ElectricFieldPtr electricField_;
+    InterworkingPtr interworking_;
+    InterCommunicationPtr electron2electronInterCommunication_;
 
-    LogPtr stdErrLog = std::make_shared< Log >();
-    StdErrLogObserverPtr stdErrLogObserver = std::make_shared< StdErrLogObserver >();
+    LogPtr stdErrLog;
+    StdErrLogObserverPtr stdErrLogObserver;
 };
 
 using ElectronInHomogeneousFieldsCoubPtr
