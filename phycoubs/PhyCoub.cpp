@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 13:42:50
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-15 14:36:37
+ * @Last Modified time: 2020-03-16 01:36:08
  */
 
 #include "PhyCoub.h"
@@ -32,7 +32,7 @@ void PhyCoub::phyCoub()
     }
     for ( LifeTimeControllerPtr lifeTimeController : lifeTimeControllers_ )
     {
-        lifeTimeController->phyControlLifeTime();
+        lifeTimeController->phyControlLifeTime( dt_ );
     }
     experimentTime_ += dt_;
 }

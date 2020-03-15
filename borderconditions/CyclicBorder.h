@@ -2,12 +2,13 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 22:21:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-15 13:41:26
+ * @Last Modified time: 2020-03-16 01:15:47
  */
 
 #pragma once
 
 #include "BorderCondition.h"
+#include "BorderReachedEventGenerator.h"
 #include "CubicShape.h"
 
 namespace phycoub
@@ -17,6 +18,7 @@ namespace phycoub
  */
 class CyclicBorder
     : public BorderCondition
+    , public BorderReachedEventGenerator
     , public CubicShape
 {
   public:

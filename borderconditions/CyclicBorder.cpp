@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-26 08:23:20
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-15 13:41:33
+ * @Last Modified time: 2020-03-16 01:28:50
  */
 
 #include "CyclicBorder.h"
@@ -44,11 +44,16 @@ void CyclicBorder::psyMove(
         }
     }
 
+    if ( isBorderReached )
+    {
+        borderReached( particle );
+    }
+
     moveParticle( coordinate, speed, isBorderReached, particle );
 
+    LogPtr log = getLog();
     const double moveModule = move.getModule();
 
-    LogPtr log = getLog();
     if ( log && ( moveModule >= minBorderSize * 0.05 || isnan( moveModule ) ) )
     {
         log->writeMessage( ErrorCode::borderConditionsCoordinateGreaterChange,

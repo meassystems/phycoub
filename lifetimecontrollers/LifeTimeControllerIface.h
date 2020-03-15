@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-01-05 00:19:52
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-10 21:05:41
+ * @Last Modified time: 2020-03-16 01:35:07
  */
 
 #pragma once
@@ -22,7 +22,7 @@ class LifeTimeControllerIface : public HasId
   public:
     virtual ~LifeTimeControllerIface() = default;
 
-    virtual void phyControlLifeTime() = 0;
+    virtual void phyControlLifeTime( double dt = 0. ) = 0;
 };
 
 using LifeTimeControllerPtr = std::shared_ptr< LifeTimeControllerIface >;
