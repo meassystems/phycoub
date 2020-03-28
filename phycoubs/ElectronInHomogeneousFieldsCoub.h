@@ -38,7 +38,7 @@ class ElectronInHomogeneousFieldsCoub final : public PhyCoub
 {
   public:
     ElectronInHomogeneousFieldsCoub();
-    ~ElectronInHomogeneousFieldsCoub() = default;
+    virtual ~ElectronInHomogeneousFieldsCoub() override = default;
 
     Vector getBorders() const;
     void setBorders( Vector borders );

@@ -33,7 +33,7 @@ class Magnetron final : public PhyCoub
 {
   public:
     Magnetron();
-    ~Magnetron() = default;
+    virtual ~Magnetron() override = default;
 
     double getRadius() const;
     void setRadius( double radius );

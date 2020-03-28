@@ -18,6 +18,8 @@ set(SOURCES
 	 NOCoub.h
 	 PhyCoub.cpp
 	 PhyCoub.h
+	 WilsonCloudChamber.cpp
+	 WilsonCloudChamber.h
 )
 
 add_library(phycoubs OBJECT ${SOURCES})

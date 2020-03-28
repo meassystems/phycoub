@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <memory>
+
 #include "ParticleSourceBase.h"
 #include "ConeShape.h"
 #include "RotationMatrix.h"
@@ -34,5 +36,7 @@ class ConeParticleSource
     Vector guideCosines_;
     RotationMatrix rotationMatrix_;
 };
+
+using ConeParticleSourcePtr = std::shared_ptr< ConeParticleSource >;
 
 } // namespace phycoub

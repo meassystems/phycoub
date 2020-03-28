@@ -2,10 +2,12 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-03-16 01:33:21
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-16 02:29:24
+ * @Last Modified time: 2020-03-28 21:56:53
  */
 
 #pragma once
+
+#include <memory>
 
 #include "LifeTimeControllerBase.h"
 #include "RemoveParticleIfBorderReachedBase.h"
@@ -25,6 +27,9 @@ class BornPeriodLifeTimeController
     // Implementation of LifeTimeControllerIface
     virtual void phyControlLifeTime( double dt = 0. ) override;
 
+    void setBornPeriod( double bornPeriod );
+    double getBornPeriod() const;
+
   protected:
     // Implementation of RemoveParticleIfBorderReachedBase
     virtual ParticleGroupPtr getControlledParticleGroup() override;
@@ -33,5 +38,7 @@ class BornPeriodLifeTimeController
     double bornPeriod_ = 0.;
     double currentPeriod = 0.;
 };
+
+using BornPeriodLifeTimeControllerPtr = std::shared_ptr< BornPeriodLifeTimeController >;
 
 } // namespace phycoub

@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 11:55:14
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-16 01:07:05
+ * @Last Modified time: 2020-03-28 17:22:02
  */
 
 #include "ElectronInHomogeneousFieldsCoub.h"
@@ -128,7 +128,6 @@ void ElectronInHomogeneousFieldsCoub::initCalculationGroup()
 
 void ElectronInHomogeneousFieldsCoub::initElectricField()
 {
-
     culonInterworking_ = std::make_shared< CulonInterworking >();
 
     electricHomogeneousDirectField_ = std::make_shared< ElectricHomogeneousDirectField >(
@@ -160,7 +159,6 @@ void ElectronInHomogeneousFieldsCoub::initMagneticField()
 
 void ElectronInHomogeneousFieldsCoub::initInterCommunication()
 {
-
     borderFieldCondition_ = std::make_shared< BorderFieldCondition >();
     electricField_ = std::make_shared< ElectricField >();
     interworking_ = std::make_shared< CulonInterworking >();
