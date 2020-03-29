@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-27 09:26:39
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-14 16:23:51
+ * @Last Modified time: 2020-03-28 23:33:12
  */
 
 #include <iostream>
@@ -13,6 +13,7 @@
 #include "FigureDemonstration.h"
 #include "ElectronInHomogeneousFieldsCoub.h"
 #include "Magnetron.h"
+#include "WilsonCloudChamber.h"
 
 using namespace phycoub;
 
@@ -20,6 +21,18 @@ int main()
 {
 
     std::cout.precision( 17 );
+    try
+    {
+        WilsonCloudChamber WilsonCloudChamber;
+        while ( true )
+        {
+            WilsonCloudChamber.phyCoub();
+        }
+    }
+    catch ( char const* str )
+    {
+        std::cout << str;
+    }
     /*
         try
         {
@@ -43,7 +56,7 @@ int main()
             std::cout << str;
         }
     */
-
+    /*
     try
     {
         ElectronInHomogeneousFieldsCoub electronInHomogeneousFieldsCoub;
@@ -59,7 +72,7 @@ int main()
     {
         std::cout << str;
     }
-
+    */
     /*
     try
     {
