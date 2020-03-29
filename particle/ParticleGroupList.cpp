@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-25 16:32:05
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-14 14:36:14
+ * @Last Modified time: 2020-03-29 09:51:00
  */
 
 #include "ParticleGroupList.h"
@@ -64,9 +64,10 @@ ParticleGroupList ParticleGroupList::deepCopy() const
         ParticleGroupPtr newGroup = std::make_shared< ParticleGroup >();
         for ( auto particle : *group )
         {
-            newGroup->push_back( particle );
+            ParticlePtr newParticle = std::make_shared< Particle >( *particle );
+            newGroup->push_back( newParticle );
         }
-        copy.push_back( group );
+        copy.push_back( newGroup );
     }
 
     return copy;
