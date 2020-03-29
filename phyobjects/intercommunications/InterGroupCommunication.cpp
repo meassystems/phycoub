@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2019-10-29 13:26:16
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-11 17:47:01
+ * @Last Modified time: 2020-03-28 23:41:54
  */
 
 #include <thread>
@@ -27,8 +27,8 @@ void InterGroupCommunication::phyCalcInterworking()
     const ParticleGroupList& particleGroupList = getParticleGroupList();
     InterworkingPtr interworking = getInterworkingFunction();
 
-    auto groupIterator = particleGroupList.cbegin();
-    while ( groupIterator != particleGroupList.cend() )
+    for ( auto groupIterator = particleGroupList.cbegin();
+          groupIterator != particleGroupList.cend(); ++groupIterator )
     {
         auto interGroupIterator = groupIterator;
         ++interGroupIterator;
@@ -36,6 +36,7 @@ void InterGroupCommunication::phyCalcInterworking()
         while ( interGroupIterator != particleGroupList.cend() )
         {
             calculateInterCommunicationFor2Group( *groupIterator, *interGroupIterator );
+            ++interGroupIterator;
         }
     }
 }
