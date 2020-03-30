@@ -9,6 +9,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <stdarg.h>
 
 #include "ErrorCode.h"
 

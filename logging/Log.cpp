@@ -7,6 +7,8 @@
 
 #include "Log.h"
 
+#include <stdarg.h>
+
 #include "Utils.h"
 
 namespace phycoub

@@ -8,6 +8,7 @@
 #include "CyclicBorder.h"
 
 #include <math.h>
+#include <algorithm>
 
 #include "Particle.h"
 #include "Utils.h"
