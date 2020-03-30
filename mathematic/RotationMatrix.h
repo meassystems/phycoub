@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-03-10 18:32:39
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-11 01:29:22
+ * @Last Modified time: 2020-03-30 10:42:26
  */
 
 #pragma once
@@ -19,15 +19,21 @@ class RotationMatrix final
     RotationMatrix() = default;
     ~RotationMatrix() = default;
 
-    explicit RotationMatrix( const Vector& theGuideCosines );
-    void setGuideCosines( const Vector& theGuideCosines );
+    explicit RotationMatrix( const Vector& cosines );
+    void setRotationCosines( const Vector& cosines );
+    void setRotationSinuses( const Vector& sinuses );
 
     void rotateVector( Vector* vector );
 
   private:
-    void updateMatrix();
+    void updateMatrix( const Vector& cosines, const Vector& sinuses );
 
-    Vector guideCosines_;
+#ifndef NDEBUG
+  public:
+#endif
+    Vector cosines_;
+    Vector sinuses_;
+
     Matrix matrix_;
 };
 

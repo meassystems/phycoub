@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-03-15 23:05:16
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-16 00:02:40
+ * @Last Modified time: 2020-03-30 10:42:58
  */
 
 #pragma once
@@ -34,7 +34,12 @@ class ConeParticleSource
 
   private:
     Vector guideCosines_;
-    RotationMatrix rotationMatrix_;
+
+#ifndef NDEBUG
+  public:
+#endif
+    RotationMatrix yRotationMatrix_;
+    RotationMatrix zRotationMatrix_;
 };
 
 using ConeParticleSourcePtr = std::shared_ptr< ConeParticleSource >;

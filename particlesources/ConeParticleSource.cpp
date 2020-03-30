@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-03-15 23:59:52
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-16 00:37:35
+ * @Last Modified time: 2020-03-30 10:40:29
  */
 
 #include "ConeParticleSource.h"
@@ -10,6 +10,7 @@
 #include <math.h>
 
 #include "RandomUtils.h"
+#include "VectorUtils.h"
 
 namespace phycoub
 {
@@ -20,14 +21,44 @@ ConeParticleSource::ConeParticleSource( const Vector& guideCosines, double heigt
     : ParticleSourceBase( sourceCoordinate, particleOptions, energy )
     , ConeShape( heigth, angle )
     , guideCosines_( guideCosines )
-    , rotationMatrix_( guideCosines_ )
 {
+    setGuideCosines( guideCosines );
 }
 
 void ConeParticleSource::setGuideCosines( const Vector& guideCosines )
 {
-    guideCosines_ = guideCosines;
-    rotationMatrix_.setGuideCosines( guideCosines_ );
+    guideCosines_ = VectorUtils::normalizeVector( guideCosines );
+
+    const Vector zRotationCosines{ 1, 1,
+        guideCosines_.x_ ? guideCosines_.x_
+                / sqrt( pow( guideCosines.x_, 2 ) + pow( guideCosines_.y_, 2 ) )
+                         : 0 };
+
+    int zSign = guideCosines_.y_ != 0 ? guideCosines_.y_ / abs( guideCosines_.y_ ) : 1;
+    const Vector zRotationSinuses{ 0, 0,
+        (double)zSign * sqrt( 1 - pow( zRotationCosines.z_, 2 ) ) };
+
+    zRotationMatrix_.setRotationCosines( zRotationCosines );
+    zRotationMatrix_.setRotationSinuses( zRotationSinuses );
+
+    const double xyProjection
+        = sqrt( pow( guideCosines_.x_, 2 ) + pow( guideCosines_.y_, 2 ) );
+    const Vector yRotationCosines{ 1,
+        xyProjection ? xyProjection
+                / sqrt( pow( guideCosines.x_, 2 ) + pow( guideCosines_.y_, 2 )
+                    + pow( guideCosines_.z_, 2 ) )
+                     : 0,
+        1 };
+
+    int ySign = guideCosines_.z_ != 0 ? guideCosines_.z_ / abs( guideCosines_.z_ ) : 1;
+    /*
+        Минус 1 перед знаком получена имперически
+     */
+    const Vector yRotationSinuses{ 0,
+        -1 * (double)ySign * sqrt( 1 - pow( yRotationCosines.y_, 2 ) ), 0 };
+
+    yRotationMatrix_.setRotationCosines( yRotationCosines );
+    yRotationMatrix_.setRotationSinuses( yRotationSinuses );
 }
 
 const Vector& ConeParticleSource::getGuideCosines() const
@@ -51,7 +82,8 @@ ParticlePtr ConeParticleSource::phyGiveBirthParticle()
         tanDeviasionNagle * cosRotationAngle };
 
     // transform vector from cone coordinate to coub coordinate
-    rotationMatrix_.rotateVector( &randomDirectionGuideCosines );
+    yRotationMatrix_.rotateVector( &randomDirectionGuideCosines );
+    zRotationMatrix_.rotateVector( &randomDirectionGuideCosines );
 
     const Vector& sourceCoordinate = getSourceCoordinate();
     const ParticleOptions& particleOptions = getParticleOptions();

@@ -2,10 +2,12 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-03-16 01:12:25
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-28 22:38:17
+ * @Last Modified time: 2020-03-28 22:59:50
  */
 
 #pragma once
+
+#include <memory>
 
 #include "PhyCoub.h"
 #include "CyclicBorder.h"
@@ -119,5 +121,7 @@ class WilsonCloudChamber : public PhyCoub
     LogPtr stdErrLog;
     StdErrLogObserverPtr stdErrLogObserver;
 };
+
+using WilsonCloudChamberPtr = std::shared_ptr< WilsonCloudChamber >;
 
 } // namespace phycoub
