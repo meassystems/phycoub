@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-03-15 23:59:52
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-30 10:40:29
+ * @Last Modified time: 2020-03-30 11:39:45
  */
 
 #include "ConeParticleSource.h"
@@ -70,7 +70,8 @@ const Vector& ConeParticleSource::getGuideCosines() const
 ParticlePtr ConeParticleSource::phyGiveBirthParticle()
 {
     const double tanDeviasionNagle
-        = tan( getAngle() * RandomUtils::generateNormalizedDouble() );
+        = tan( getAngle() * RandomUtils::generateNormalizedDouble() )
+        * RandomUtils::getRandomSign();
 
     const double sinRotationAngle
         = RandomUtils::generateNormalizedDouble() * RandomUtils::getRandomSign();

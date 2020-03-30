@@ -2,7 +2,7 @@
  * @Author: Sergey Frantsishkov, mgistrser@gmail.com
  * @Date: 2020-03-28 17:16:01
  * @Last Modified by: Sergey Frantsishkov, mgistrser@gmail.com
- * @Last Modified time: 2020-03-28 22:39:54
+ * @Last Modified time: 2020-03-30 11:52:56
  */
 
 #include "WilsonCloudChamber.h"
@@ -20,7 +20,7 @@ WilsonCloudChamber::WilsonCloudChamber()
     initSourcesAndLifeTimeControllers();
     initWithParticleGroups();
 
-    setDeltaTime( 1E-13 );
+    setDeltaTime( 1E-16 );
     updateUniqParticleGroupList();
 }
 
@@ -260,43 +260,52 @@ void WilsonCloudChamber::initInterCommunication()
 void WilsonCloudChamber::initSourcesAndLifeTimeControllers()
 {
     const Vector& borders = cyclicBorder_->getBorders();
-    const double bornPeriod = 1e-11;
+
+    const double electronBornPeriod = 1e-11;
+    const double protonBornPeriod = 3e-11;
+    const double specificBornPeriod = 0;
+
+    const double electronEnergy = 1e-17;
+    const double protonEnergy = 1e-15;
+    const double specificEnergy = 1e-17;
 
     const Vector guideCosines{ 1., 0., 0. };
     const double coneHeight = 1.;
-    const double coneAngle = 0.;
-    const Vector sourceCoordinate = { 0., borders.y_ / 2, borders.z_ / 2 };
-    const double energy = 1e-14;
+    const double coneAngle = .1;
+    const Vector sourceCoordinate = { 0, borders.y_ / 2, borders.z_ / 2 };
 
     const ParticleOptions electronOptions{ ElectricConstants::electronWeight,
         ElectricConstants::electronCharge };
     const ParticleOptions protonOptions{ ElectricConstants::protonWeight,
         ElectricConstants::protonCharge };
 
-    electronConeParticleSource_ = std::make_shared< ConeParticleSource >(
-        guideCosines, coneHeight, coneAngle, sourceCoordinate, electronOptions, energy );
+    electronConeParticleSource_ = std::make_shared< ConeParticleSource >( guideCosines,
+        coneHeight, coneAngle, sourceCoordinate, electronOptions, electronEnergy );
     electronBornPeriodLifeTimeController_
         = std::make_shared< BornPeriodLifeTimeController >(
-            bornPeriod, electronConeParticleSource_ );
+            electronBornPeriod, electronConeParticleSource_ );
 
+    cyclicBorder_->addBorderReachedObserver( electronBornPeriodLifeTimeController_ );
     addLifeTimeController( electronBornPeriodLifeTimeController_ );
     addContainParticleGroup( electronBornPeriodLifeTimeController_ );
 
-    protonConeParticleSource_ = std::make_shared< ConeParticleSource >(
-        guideCosines, coneHeight, coneAngle, sourceCoordinate, protonOptions, energy );
+    protonConeParticleSource_ = std::make_shared< ConeParticleSource >( guideCosines,
+        coneHeight, coneAngle, sourceCoordinate, protonOptions, protonEnergy );
     protonBornPeriodLifeTimeController_
         = std::make_shared< BornPeriodLifeTimeController >(
-            bornPeriod, protonConeParticleSource_ );
+            protonBornPeriod, protonConeParticleSource_ );
 
+    cyclicBorder_->addBorderReachedObserver( protonBornPeriodLifeTimeController_ );
     addLifeTimeController( protonBornPeriodLifeTimeController_ );
     addContainParticleGroup( protonBornPeriodLifeTimeController_ );
 
-    specificConeParticleSource_ = std::make_shared< ConeParticleSource >(
-        guideCosines, coneHeight, coneAngle, sourceCoordinate, electronOptions, energy );
+    specificConeParticleSource_ = std::make_shared< ConeParticleSource >( guideCosines,
+        coneHeight, coneAngle, sourceCoordinate, electronOptions, specificEnergy );
     specificBornPeriodLifeTimeController_
         = std::make_shared< BornPeriodLifeTimeController >(
-            bornPeriod, specificConeParticleSource_ );
+            specificBornPeriod, specificConeParticleSource_ );
 
+    cyclicBorder_->addBorderReachedObserver( specificBornPeriodLifeTimeController_ );
     addLifeTimeController( specificBornPeriodLifeTimeController_ );
     addContainParticleGroup( specificBornPeriodLifeTimeController_ );
 }
