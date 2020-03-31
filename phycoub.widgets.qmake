@@ -1,0 +1,22 @@
+INCLUDEPATH += ../../phycoub/phycoubs
+INCLUDEPATH += ../../phycoub/lifetimecontrollers
+INCLUDEPATH += ../../phycoub/phyobjects
+INCLUDEPATH += ../../phycoub/phyobjects/particlefigurematrix
+INCLUDEPATH += ../../phycoub/phyobjects/intercommunications
+INCLUDEPATH += ../../phycoub/phyobjects/fieldcreators
+INCLUDEPATH += ../../phycoub/particlesources
+INCLUDEPATH += ../../phycoub/borderfieldconditions
+INCLUDEPATH += ../../phycoub/calculationmodels
+INCLUDEPATH += ../../phycoub/shapes
+INCLUDEPATH += ../../phycoub/borderevents
+INCLUDEPATH += ../../phycoub/borderconditions
+INCLUDEPATH += ../../phycoub/common
+INCLUDEPATH += ../../phycoub/interworkingfunctions
+INCLUDEPATH += ../../phycoub/phymeasurement
+INCLUDEPATH += ../../phycoub/errors
+INCLUDEPATH += ../../phycoub/mathematic
+INCLUDEPATH += ../../phycoub/fieldfunctions
+INCLUDEPATH += ../../phycoub/particle
+INCLUDEPATH += ../../phycoub/logging
+INCLUDEPATH += ../../phycoub/src
+
