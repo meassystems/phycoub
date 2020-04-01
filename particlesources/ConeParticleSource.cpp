@@ -29,10 +29,15 @@ void ConeParticleSource::setGuideCosines( const Vector& guideCosines )
 {
     guideCosines_ = VectorUtils::normalizeVector( guideCosines );
 
-    const Vector zRotationCosines{ 1, 1,
-        guideCosines_.x_ ? guideCosines_.x_
-                / sqrt( pow( guideCosines.x_, 2 ) + pow( guideCosines_.y_, 2 ) )
-                         : 0 };
+    double zRotationCosinesZ = guideCosines_.x_ ? guideCosines_.x_
+            / sqrt( pow( guideCosines.x_, 2 ) + pow( guideCosines_.y_, 2 ) )
+                                                : 0;
+    // double rounding error
+    zRotationCosinesZ = abs( zRotationCosinesZ ) > 1
+        ? 1 * ( zRotationCosinesZ / zRotationCosinesZ )
+        : zRotationCosinesZ;
+
+    const Vector zRotationCosines{ 1, 1, zRotationCosinesZ };
 
     int zSign = guideCosines_.y_ != 0 ? guideCosines_.y_ / abs( guideCosines_.y_ ) : 1;
     const Vector zRotationSinuses{ 0, 0,
@@ -43,13 +48,16 @@ void ConeParticleSource::setGuideCosines( const Vector& guideCosines )
 
     const double xyProjection
         = sqrt( pow( guideCosines_.x_, 2 ) + pow( guideCosines_.y_, 2 ) );
-    const Vector yRotationCosines{ 1,
-        xyProjection ? xyProjection
-                / sqrt( pow( guideCosines.x_, 2 ) + pow( guideCosines_.y_, 2 )
-                    + pow( guideCosines_.z_, 2 ) )
-                     : 0,
-        1 };
+    double yRotationCosinesY = xyProjection ? xyProjection
+            / sqrt( pow( guideCosines.x_, 2 ) + pow( guideCosines_.y_, 2 )
+                + pow( guideCosines_.z_, 2 ) )
+                                            : 0;
+    // double rounding error
+    yRotationCosinesY = abs( yRotationCosinesY ) > 1
+        ? 1 * ( yRotationCosinesY / yRotationCosinesY )
+        : yRotationCosinesY;
 
+    const Vector yRotationCosines{ 1, yRotationCosinesY, 1 };
     int ySign = guideCosines_.z_ != 0 ? guideCosines_.z_ / abs( guideCosines_.z_ ) : 1;
     /*
         Минус 1 перед знаком получена имперически
