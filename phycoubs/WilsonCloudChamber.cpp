@@ -105,6 +105,16 @@ double WilsonCloudChamber::getElectronSourceBornPeriod() const
     return electronBornPeriodLifeTimeController_->getBornPeriod();
 }
 
+void WilsonCloudChamber::setElectronSourceBornEnergy( double energy )
+{
+    electronConeParticleSource_->setEnergy( energy );
+}
+
+double WilsonCloudChamber::getElectronSourceBornEnergy() const
+{
+    return electronConeParticleSource_->getEnergy();
+}
+
 void WilsonCloudChamber::setProtonSourceDirection( Vector direction )
 {
     protonConeParticleSource_->setGuideCosines( direction );
@@ -133,6 +143,16 @@ void WilsonCloudChamber::setProtonSourcBornPeriod( double bornPeriod )
 double WilsonCloudChamber::getProtonSourceBornPeriod() const
 {
     return protonBornPeriodLifeTimeController_->getBornPeriod();
+}
+
+void WilsonCloudChamber::setProtonSourceBornEnergy( double energy )
+{
+    protonConeParticleSource_->setEnergy( energy );
+}
+
+double WilsonCloudChamber::getProtonSourceBornEnergy() const
+{
+    return protonConeParticleSource_->getEnergy();
 }
 
 void WilsonCloudChamber::setSpecificSourceDirection( Vector direction )
@@ -173,6 +193,16 @@ void WilsonCloudChamber::setSpecificSourceParticleOptions( ParticleOptions optio
 ParticleOptions WilsonCloudChamber::getSpecificSourceParticleOptions() const
 {
     return specificConeParticleSource_->getParticleOptions();
+}
+
+void WilsonCloudChamber::setSpecificSourceBornEnergy( double energy )
+{
+    specificConeParticleSource_->setEnergy( energy );
+}
+
+double WilsonCloudChamber::getSpecificSourceBornEnergy() const
+{
+    return specificConeParticleSource_->getEnergy();
 }
 
 void WilsonCloudChamber::initLog()

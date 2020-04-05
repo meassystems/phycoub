@@ -55,6 +55,8 @@ class WilsonCloudChamber : public PhyCoub
     double getElectronSourceAngle() const;
     void setElectronSourcBornPeriod( double bornPeriod );
     double getElectronSourceBornPeriod() const;
+    void setElectronSourceBornEnergy( double energy );
+    double getElectronSourceBornEnergy() const;
 
     void setProtonSourceDirection( Vector direction );
     Vector getProtonSourceDirection() const;
@@ -62,6 +64,8 @@ class WilsonCloudChamber : public PhyCoub
     double getProtonSourceAngle() const;
     void setProtonSourcBornPeriod( double bornPeriod );
     double getProtonSourceBornPeriod() const;
+    void setProtonSourceBornEnergy( double energy );
+    double getProtonSourceBornEnergy() const;
 
     void setSpecificSourceDirection( Vector direction );
     Vector getSpecificSourceDirection() const;
@@ -69,6 +73,8 @@ class WilsonCloudChamber : public PhyCoub
     double getSpecificSourceAngle() const;
     void setSpecificSourcBornPeriod( double bornPeriod );
     double getSpecificSourceBornPeriod() const;
+    void setSpecificSourceBornEnergy( double energy );
+    double getSpecificSourceBornEnergy() const;
 
     void setSpecificSourceParticleOptions( ParticleOptions options );
     ParticleOptions getSpecificSourceParticleOptions() const;
