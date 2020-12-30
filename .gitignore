@@ -15,3 +15,5 @@ CMakeCache.txt
 **/*.vcxproj
 **/*.vcxproj.filters
 **/*.tlog
+
+cmake-build-*

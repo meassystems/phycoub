@@ -2,6 +2,15 @@
 
 cmakeFileName="CMakeLists.txt"
 
+function needSkipDirectory {
+    #$1 - directory name
+    if [[ $1 == *"googletest"* ]] || [[ $1 == *"cmake-build"* ]]; then
+        return 1
+    fi
+
+    return 0
+}
+
 function writeSources {
     #$1 - folder
 
@@ -29,6 +38,11 @@ function writeSubdirectories {
     if [ ! -z "$recursiveSubdirectories" ]; then
         for subDirectory in $recursiveSubdirectories
         do
+            needSkipDirectory $subDirectory
+            if [ ! $? -eq 0 ]; then
+                continue
+            fi
+
             echo -e "add_subdirectory(${subDirectory#"$1/"})" >> $cmakeFilePath
         done
         echo >> $cmakeFilePath
@@ -46,6 +60,11 @@ function writeIncludeDirectories {
         echo "include_directories(" >> $cmakeFilePath
         for subDirectory in $recursiveSubdirectories
         do
+            needSkipDirectory $subDirectory
+            if [ ! $? -eq 0 ]; then
+                continue
+            fi
+
             echo -e "\t ${subDirectory#"$1/"}" >> $cmakeFilePath
         done
         echo -e ")\n" >> $cmakeFilePath
@@ -102,6 +121,11 @@ function writeAddLibrary {
         echo "add_library($projectName $2 $4" >> $cmakeFilePath
         for subdirectory in $3
         do
+            needSkipDirectory $subdirectory
+            if [ ! $? -eq 0 ]; then
+                continue
+            fi
+
             local subDirectoryName=$(basename $subdirectory)
             echo -e "\t $<TARGET_OBJECTS:$subDirectoryName>" >> $cmakeFilePath
         done
@@ -151,6 +175,11 @@ function generateDeep {
     for entry in "$1"/*
     do
         if [ -d $entry ]; then
+            needSkipDirectory $entry
+            if [ ! $? -eq 0 ]; then
+                continue
+            fi
+            
             generateDeep $entry $2
         fi
     done
