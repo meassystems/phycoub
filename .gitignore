@@ -5,6 +5,7 @@
 *.ilk
 *.a
 *.dylib
+*.cbp
 
 **/CMakeFiles/
 **/Makefile
@@ -16,4 +17,6 @@ CMakeCache.txt
 **/*.vcxproj.filters
 **/*.tlog
 
+**/gtest
+Testing
 cmake-build-*

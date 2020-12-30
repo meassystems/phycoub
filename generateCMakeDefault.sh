@@ -4,7 +4,7 @@ cmakeFileName="CMakeLists.txt"
 
 function needSkipDirectory {
     #$1 - directory name
-    if [[ $1 == *"googletest"* ]] || [[ $1 == *"cmake-build"* ]]; then
+    if [[ $1 == *"cmake-build"* ]] || [[ $1 == *"tests"* ]] || [[ $1 == *"Testing"* ]]; then
         return 1
     fi
 
@@ -146,6 +146,14 @@ function writeHead {
     echo -e "set(CMAKE_CXX_STANDARD_REQUIRED True)\n" >> $cmakeFilePath
 }
 
+function writeTail {
+    #$1 - folder
+
+    local cmakeFilePath=$1/$cmakeFileName
+
+    echo -e "include(Tests.cmake)\n" >> $cmakeFilePath
+}
+
 function writePostBuildCommand {
     #$1 - folder
     #$2 - command
@@ -179,7 +187,7 @@ function generateDeep {
             if [ ! $? -eq 0 ]; then
                 continue
             fi
-            
+
             generateDeep $entry $2
         fi
     done
@@ -202,6 +210,8 @@ function generateMainCmake {
     writeSubdirectories $PWD #return recursiveSubdirectories
     writeAddLibrary $PWD STATIC "$recursiveSubdirectories"
     writePostBuildCommand $PWD "-E copy $<TARGET_FILE:$projectName> ."
+
+    writeTail $PWD
 
     #writeTargetIncludeDirectories $PWD
     #writeTargetLinkLibraries $PWD "$recursiveSubdirectories"
