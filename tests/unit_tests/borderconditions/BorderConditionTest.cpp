@@ -1,20 +1,17 @@
-#include "BorderCondition.h"
 #include "BorderConditionTests.h"
 
+#include "BorderCondition.h"
 
-FooTest::FooTest() {
-}
+using namespace phycoub;
 
-FooTest::~FooTest() {};
+TEST_F(BorderConditionTests, BorderConditionTest) {
+    Vector move{10., 10., 10.};
+    Vector speed{1., 1., 1.};
+    ParticlePtr particle = std::make_shared<Particle>(Vector{0., 0., 0.}, Vector{0., 0., 0.}, 0., 0. );
 
-void FooTest::SetUp() {};
+    BorderCondition borderCondition;
+    borderCondition.psyMove(move, speed, particle);
 
-void FooTest::TearDown() {};
-
-TEST_F(FooTest, ByDefaultBazTrueIsTrue1) {
-    EXPECT_EQ(true, true);
-}
-
-TEST_F(FooTest, ByDefaultBazTrueIsTrue2) {
-EXPECT_EQ(false, true);
+    ASSERT_EQ(particle->getCoordinate(), move);
+    ASSERT_EQ(particle->getSpeed(), speed);
 }
