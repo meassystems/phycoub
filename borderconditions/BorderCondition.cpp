@@ -22,8 +22,7 @@ void BorderCondition::moveParticle( const Vector& coordinate, const Vector& spee
     bool isBorderReached, ParticlePtr particle )
 {
     particle->move( coordinate, speed );
-    // todo: twice becose if once - invalid result for calculation models uses previes
-    // values
+    // todo: twice becose if once - invalid result for calculation models uses previous values
     if ( isBorderReached )
     {
         particle->move( coordinate, speed );
