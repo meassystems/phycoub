@@ -21,25 +21,20 @@ class ConeParticleSource
     , public ConeShape
 {
   public:
-    ConeParticleSource( const Vector& guideCosines, double heigth, double angle,
+    ConeParticleSource( const Vector& rotation, double angle,
         const Vector& sourceCoordinate, const ParticleOptions& particleOptions,
         double energy );
     virtual ~ConeParticleSource() override = default;
 
-    void setGuideCosines( const Vector& guideCosines );
-    const Vector& getGuideCosines() const;
+    void setRotation(const Vector& rotation);
+    const Vector& getRotation() const;
 
     // Implementation of ParticleSourceBase::ParticleSourceIface
     virtual ParticlePtr phyGiveBirthParticle() override;
 
   private:
-    Vector guideCosines_;
-
-#ifndef NDEBUG
-  public:
-#endif
-    RotationMatrix yRotationMatrix_;
-    RotationMatrix zRotationMatrix_;
+    Vector _rotation;
+    RotationMatrix _rotationMatrix;
 };
 
 using ConeParticleSourcePtr = std::shared_ptr< ConeParticleSource >;

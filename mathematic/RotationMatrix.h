@@ -16,23 +16,11 @@ namespace phycoub
 class RotationMatrix final
 {
   public:
-    RotationMatrix() = default;
-    ~RotationMatrix() = default;
-
-    explicit RotationMatrix( const Vector& cosines );
-    void setRotationCosines( const Vector& cosines );
-    void setRotationSinuses( const Vector& sinuses );
-
+    explicit RotationMatrix( const Vector& rotation );
     void rotateVector( Vector* vector );
 
   private:
-    void updateMatrix( const Vector& cosines, const Vector& sinuses );
-
-#ifndef NDEBUG
-  public:
-#endif
-    Vector cosines_;
-    Vector sinuses_;
+    void initMatrix( const Vector& rotation );
 
     Matrix matrix_;
 };

@@ -19,12 +19,15 @@ class Matrix final
     Matrix() = default;
     ~Matrix() = default;
 
+    Matrix(std::initializer_list<double> matrixList);
     explicit Matrix( double value );
 
     double& operator[]( int index );
     double operator[]( int index ) const;
 
     Vector operator*( const Vector& vector ) const;
+
+    bool operator==(const Matrix& another) const;
 
   private:
     static constexpr uint32_t numSize = 3;

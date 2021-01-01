@@ -45,11 +45,11 @@ int main()
             std::cout << "//////////////////////////////////////////////////////////"
                       << std::endl;
 
-            printVector( source->getGuideCosines(), "Direction Cosines:" );
-            printVector( source->zRotationMatrix_.cosines_, "zRotation Cosines:" );
-            printMatrix( source->zRotationMatrix_.matrix_, "zRotationMatrix:" );
-            printVector( source->yRotationMatrix_.cosines_, "yRotation Cosines:" );
-            printMatrix( source->yRotationMatrix_.matrix_, "yRotationMatrix:" );
+//            printVector( source->getGuideCosines(), "Direction Cosines:" );
+//            printVector( source->zRotationMatrix_.cosines_, "zRotation Cosines:" );
+//            printMatrix( source->zRotationMatrix_.matrix_, "zRotationMatrix:" );
+//            printVector( source->yRotationMatrix_.cosines_, "yRotation Cosines:" );
+//            printMatrix( source->yRotationMatrix_.matrix_, "yRotationMatrix:" );
 
             printVector(
                 source->phyGiveBirthParticle()->getSpeed(), "Result Direction:" );
@@ -59,7 +59,6 @@ int main()
 
         while ( true )
         {
-            const double coneHeight = 1.;
             const double coneAngle = 0.;
             const Vector sourceCoordinate = { 0., 0., 0. };
             const double energy = 1e-17;
@@ -70,21 +69,21 @@ int main()
             const Vector guideCosines{ 1., 0., 0. };
 
             ConeParticleSourcePtr electronConeParticleSource_
-                = std::make_shared< ConeParticleSource >( guideCosines, coneHeight,
+                = std::make_shared< ConeParticleSource >( guideCosines,
                     coneAngle, sourceCoordinate, electronOptions, energy );
 
             printAlInfo( electronConeParticleSource_ );
 
-            electronConeParticleSource_->setGuideCosines( { -1., 0., 0. } );
-            printAlInfo( electronConeParticleSource_ );
-            electronConeParticleSource_->setGuideCosines( { 0., 1., 0. } );
-            printAlInfo( electronConeParticleSource_ );
-            electronConeParticleSource_->setGuideCosines( { 0., -1., 0. } );
-            printAlInfo( electronConeParticleSource_ );
-            electronConeParticleSource_->setGuideCosines( { 0., 0., 1. } );
-            printAlInfo( electronConeParticleSource_ );
-            electronConeParticleSource_->setGuideCosines( { 0., 0., -1. } );
-            printAlInfo( electronConeParticleSource_ );
+//            electronConeParticleSource_->setGuideCosines( { -1., 0., 0. } );
+//            printAlInfo( electronConeParticleSource_ );
+//            electronConeParticleSource_->setGuideCosines( { 0., 1., 0. } );
+//            printAlInfo( electronConeParticleSource_ );
+//            electronConeParticleSource_->setGuideCosines( { 0., -1., 0. } );
+//            printAlInfo( electronConeParticleSource_ );
+//            electronConeParticleSource_->setGuideCosines( { 0., 0., 1. } );
+//            printAlInfo( electronConeParticleSource_ );
+//            electronConeParticleSource_->setGuideCosines( { 0., 0., -1. } );
+//            printAlInfo( electronConeParticleSource_ );
 
             break;
         }

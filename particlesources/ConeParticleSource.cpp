@@ -11,94 +11,50 @@
 
 #include "RandomUtils.h"
 #include "VectorUtils.h"
+#include "ProgrammingException.h"
 
 namespace phycoub
 {
 
-ConeParticleSource::ConeParticleSource( const Vector& guideCosines, double heigth,
-    double angle, const Vector& sourceCoordinate, const ParticleOptions& particleOptions,
+ConeParticleSource::ConeParticleSource( const Vector& rotation, double angle,
+    const Vector& sourceCoordinate, const ParticleOptions& particleOptions,
     double energy )
     : ParticleSourceBase( sourceCoordinate, particleOptions, energy )
-    , ConeShape( heigth, angle )
-    , guideCosines_( guideCosines )
+    , ConeShape( 1., angle )
+    , _rotation( rotation )
+    , _rotationMatrix( rotation )
 {
-    setGuideCosines( guideCosines );
+    PROGRAMMING_ASSERT(angle < M_PI / 2);
 }
 
-void ConeParticleSource::setGuideCosines( const Vector& guideCosines )
+void ConeParticleSource::setRotation( const Vector& rotation )
 {
-    guideCosines_ = VectorUtils::normalizeVector( guideCosines );
-
-    double zRotationCosinesZ = guideCosines_.x_ ? guideCosines_.x_
-            / sqrt( pow( guideCosines.x_, 2 ) + pow( guideCosines_.y_, 2 ) )
-                                                : 0;
-    // double rounding error
-    zRotationCosinesZ = abs( zRotationCosinesZ ) > 1
-        ? 1 * ( zRotationCosinesZ / zRotationCosinesZ )
-        : zRotationCosinesZ;
-
-    const Vector zRotationCosines{ 1, 1, zRotationCosinesZ };
-
-    int zSign = guideCosines_.y_ != 0 ? guideCosines_.y_ / abs( guideCosines_.y_ ) : 1;
-    const Vector zRotationSinuses{ 0, 0,
-        (double)zSign * sqrt( 1 - pow( zRotationCosines.z_, 2 ) ) };
-
-    zRotationMatrix_.setRotationCosines( zRotationCosines );
-    zRotationMatrix_.setRotationSinuses( zRotationSinuses );
-
-    const double xyProjection
-        = sqrt( pow( guideCosines_.x_, 2 ) + pow( guideCosines_.y_, 2 ) );
-    double yRotationCosinesY = xyProjection ? xyProjection
-            / sqrt( pow( guideCosines.x_, 2 ) + pow( guideCosines_.y_, 2 )
-                + pow( guideCosines_.z_, 2 ) )
-                                            : 0;
-    // double rounding error
-    yRotationCosinesY = abs( yRotationCosinesY ) > 1
-        ? 1 * ( yRotationCosinesY / yRotationCosinesY )
-        : yRotationCosinesY;
-
-    const Vector yRotationCosines{ 1, yRotationCosinesY, 1 };
-    int ySign = guideCosines_.z_ != 0 ? guideCosines_.z_ / abs( guideCosines_.z_ ) : 1;
-    /*
-        Минус 1 перед знаком получена имперически
-     */
-    const Vector yRotationSinuses{ 0,
-        -1 * (double)ySign * sqrt( 1 - pow( yRotationCosines.y_, 2 ) ), 0 };
-
-    yRotationMatrix_.setRotationCosines( yRotationCosines );
-    yRotationMatrix_.setRotationSinuses( yRotationSinuses );
+    _rotationMatrix = RotationMatrix( rotation * -1 );
 }
 
-const Vector& ConeParticleSource::getGuideCosines() const
+const Vector& ConeParticleSource::getRotation() const
 {
-    return guideCosines_;
+    return _rotation;
 }
 
 // virtual override
 ParticlePtr ConeParticleSource::phyGiveBirthParticle()
 {
-    const double tanDeviasionNagle
-        = tan( getAngle() * RandomUtils::generateNormalizedDouble() )
-        * RandomUtils::getRandomSign();
+    double k = tan( getAngle() );
 
-    const double sinRotationAngle
-        = RandomUtils::generateNormalizedDouble() * RandomUtils::getRandomSign();
+    double z = k * ( 2 * RandomUtils::generateNormalizedDouble() - 1 );
+    double y = sqrt( pow( k, 2 ) - pow( z, 1 ) ) * RandomUtils::getRandomSign();
+    double x = 1.;
 
-    const double cosRotationAngle = sqrt( 1 - pow( sinRotationAngle, 2 ) );
-
-    // cone system coordinate
-    Vector randomDirectionGuideCosines{ 1, tanDeviasionNagle * sinRotationAngle,
-        tanDeviasionNagle * cosRotationAngle };
-
-    // transform vector from cone coordinate to coub coordinate
-    yRotationMatrix_.rotateVector( &randomDirectionGuideCosines );
-    zRotationMatrix_.rotateVector( &randomDirectionGuideCosines );
+    Vector randomInCone{ x, y, z };
+    Vector randomInConeCartesianProjection = VectorUtils::normalizeVector( randomInCone );
+    _rotationMatrix.rotateVector( &randomInConeCartesianProjection );
 
     const Vector& sourceCoordinate = getSourceCoordinate();
     const ParticleOptions& particleOptions = getParticleOptions();
     const double speedFactor = getSpeedFactor();
 
-    const Vector speed = randomDirectionGuideCosines * speedFactor;
+    const Vector speed = randomInConeCartesianProjection * speedFactor;
     return std::make_shared< Particle >( sourceCoordinate, speed, particleOptions );
 }
 

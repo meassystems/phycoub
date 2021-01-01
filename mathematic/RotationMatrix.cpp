@@ -14,28 +14,12 @@
 namespace phycoub
 {
 
-RotationMatrix::RotationMatrix( const Vector& cosines )
+RotationMatrix::RotationMatrix( const Vector& rotation )
 {
-    setRotationCosines( cosines );
-}
+    PROGRAMMING_ASSERT( rotation.x_ <= abs( 2 * M_PI ) && rotation.y_ <= abs( 2 * M_PI )
+        && rotation.z_ <= abs( 2 * M_PI ) );
 
-void RotationMatrix::setRotationCosines( const Vector& cosines )
-{
-    PROGRAMMING_ASSERT(
-        abs( cosines.x_ ) <= 1 && abs( cosines.y_ ) <= 1 && abs( cosines.z_ ) <= 1 );
-
-    cosines_ = cosines;
-
-    sinuses_ = Vector{ sqrt( 1 - pow( cosines_.x_, 2 ) ),
-        sqrt( 1 - pow( cosines_.y_, 2 ) ), sqrt( 1 - pow( cosines_.z_, 2 ) ) };
-
-    updateMatrix( cosines_, sinuses_ );
-}
-
-void RotationMatrix::setRotationSinuses( const Vector& sinuses )
-{
-    sinuses_ = sinuses;
-    updateMatrix( cosines_, sinuses_ );
+    initMatrix( rotation );
 }
 
 void RotationMatrix::rotateVector( Vector* vector )
@@ -43,19 +27,28 @@ void RotationMatrix::rotateVector( Vector* vector )
     *vector = matrix_ * *vector;
 }
 
-void RotationMatrix::updateMatrix( const Vector& cosines, const Vector& sinuses )
+void RotationMatrix::initMatrix( const Vector& rotation )
 {
-    matrix_[ 0 ] = cosines.y_ * cosines.z_;
-    matrix_[ 3 ] = sinuses.z_;
-    matrix_[ 6 ] = -1 * sinuses.y_ * cosines.z_;
+    double cosAlpha = cos( rotation.z_ );
+    double sinAlpha = sin( rotation.z_ );
 
-    matrix_[ 1 ] = sinuses.y_ * sinuses.x_ - cosines.y_ * sinuses.z_ * cosines.x_;
-    matrix_[ 4 ] = cosines.z_ * cosines.x_;
-    matrix_[ 7 ] = sinuses.y_ * sinuses.z_ * cosines.x_ + cosines.y_ * sinuses.x_;
+    double cosBeta = cos( rotation.y_ );
+    double sinBeta = sin( rotation.y_ );
 
-    matrix_[ 2 ] = cosines.y_ * sinuses.z_ * sinuses.x_ + sinuses.y_ * cosines.x_;
-    matrix_[ 5 ] = -1 * cosines.z_ * sinuses.x_;
-    matrix_[ 8 ] = cosines.y_ * cosines.x_ - sinuses.y_ * sinuses.z_ * sinuses.x_;
+    double cosGamma = cos( rotation.x_ );
+    double sinGamma = sin( rotation.x_ );
+
+    matrix_[ 0 ] = cosAlpha * cosBeta;
+    matrix_[ 3 ] = sinAlpha * cosBeta;
+    matrix_[ 6 ] = -1 * sinBeta;
+
+    matrix_[ 1 ] = cosAlpha * sinBeta * sinGamma - sinAlpha * cosGamma;
+    matrix_[ 4 ] = sinAlpha * sinBeta * sinGamma + cosAlpha * cosGamma;
+    matrix_[ 7 ] = cosBeta * sinGamma;
+
+    matrix_[ 2 ] = cosAlpha * sinBeta * cosGamma + sinAlpha * sinGamma;
+    matrix_[ 5 ] = sinAlpha * sinBeta * cosGamma - cosAlpha * sinGamma;
+    matrix_[ 8 ] = cosBeta * cosGamma;
 }
 
 } // namespace phycoub

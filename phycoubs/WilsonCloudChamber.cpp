@@ -75,14 +75,16 @@ double WilsonCloudChamber::getMagneticFieldInduction() const
     return magneticHomogeneousDirectField_->getMagneticInduction();
 }
 
-void WilsonCloudChamber::setElectronSourceDirection( Vector direction )
+void WilsonCloudChamber::setElectronSourceDirection( Vector rotation )
 {
-    electronConeParticleSource_->setGuideCosines( direction );
+    // repair
+    electronConeParticleSource_->setRotation( rotation );
 }
 
 Vector WilsonCloudChamber::getElectronSourceDirection() const
 {
-    return electronConeParticleSource_->getGuideCosines();
+    // repair
+    return electronConeParticleSource_->getRotation();
 }
 
 void WilsonCloudChamber::setElectronSourceAngel( double angle )
@@ -115,14 +117,16 @@ double WilsonCloudChamber::getElectronSourceBornEnergy() const
     return electronConeParticleSource_->getEnergy();
 }
 
-void WilsonCloudChamber::setProtonSourceDirection( Vector direction )
+void WilsonCloudChamber::setProtonSourceDirection( Vector rotation )
 {
-    protonConeParticleSource_->setGuideCosines( direction );
+    // repair
+    protonConeParticleSource_->setRotation( rotation );
 }
 
 Vector WilsonCloudChamber::getProtonSourceDirection() const
 {
-    return protonConeParticleSource_->getGuideCosines();
+    // repair
+    return protonConeParticleSource_->getRotation();
 }
 
 void WilsonCloudChamber::setProtonSourceAngel( double angle )
@@ -155,14 +159,16 @@ double WilsonCloudChamber::getProtonSourceBornEnergy() const
     return protonConeParticleSource_->getEnergy();
 }
 
-void WilsonCloudChamber::setSpecificSourceDirection( Vector direction )
+void WilsonCloudChamber::setSpecificSourceDirection( Vector rotation )
 {
-    specificConeParticleSource_->setGuideCosines( direction );
+    // repair
+    specificConeParticleSource_->setRotation( rotation );
 }
 
 Vector WilsonCloudChamber::getSpecificSourceDirection() const
 {
-    return specificConeParticleSource_->getGuideCosines();
+    // repair
+    return specificConeParticleSource_->getRotation();
 }
 
 void WilsonCloudChamber::setSpecificSourceAngel( double angle )
@@ -300,7 +306,6 @@ void WilsonCloudChamber::initSourcesAndLifeTimeControllers()
     const double specificEnergy = 1e-17;
 
     const Vector guideCosines{ 1., 0., 0. };
-    const double coneHeight = 1.;
     const double coneAngle = .1;
     const Vector sourceCoordinate = { 0, borders.y_ / 2, borders.z_ / 2 };
 
@@ -310,7 +315,7 @@ void WilsonCloudChamber::initSourcesAndLifeTimeControllers()
         ElectricConstants::protonCharge };
 
     electronConeParticleSource_ = std::make_shared< ConeParticleSource >( guideCosines,
-        coneHeight, coneAngle, sourceCoordinate, electronOptions, electronEnergy );
+        coneAngle, sourceCoordinate, electronOptions, electronEnergy );
     electronBornPeriodLifeTimeController_
         = std::make_shared< BornPeriodLifeTimeController >(
             electronBornPeriod, electronConeParticleSource_ );
@@ -320,7 +325,7 @@ void WilsonCloudChamber::initSourcesAndLifeTimeControllers()
     addContainParticleGroup( electronBornPeriodLifeTimeController_ );
 
     protonConeParticleSource_ = std::make_shared< ConeParticleSource >( guideCosines,
-        coneHeight, coneAngle, sourceCoordinate, protonOptions, protonEnergy );
+        coneAngle, sourceCoordinate, protonOptions, protonEnergy );
     protonBornPeriodLifeTimeController_
         = std::make_shared< BornPeriodLifeTimeController >(
             protonBornPeriod, protonConeParticleSource_ );
@@ -330,7 +335,7 @@ void WilsonCloudChamber::initSourcesAndLifeTimeControllers()
     addContainParticleGroup( protonBornPeriodLifeTimeController_ );
 
     specificConeParticleSource_ = std::make_shared< ConeParticleSource >( guideCosines,
-        coneHeight, coneAngle, sourceCoordinate, electronOptions, specificEnergy );
+        coneAngle, sourceCoordinate, electronOptions, specificEnergy );
     specificBornPeriodLifeTimeController_
         = std::make_shared< BornPeriodLifeTimeController >(
             specificBornPeriod, specificConeParticleSource_ );
