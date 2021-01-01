@@ -1,6 +1,5 @@
 #include "gtest/gtest.h"
 
-// The fixture for testing class Foo.
 class BorderConditionTests : public ::testing::Test
 {
   protected:
