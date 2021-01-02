@@ -58,15 +58,15 @@ Vector RotationMatrix::directionToRotation( const Vector& direction )
     const Vector directionN = VectorUtils::normalizeVector( direction );
 
     double thetaRad = ( directionN.z_ == 0
-            ? std::signbit( directionN.z_ ) ? -1 * M_PI / 2 : M_PI / 2
+            ? std::signbit( directionN.z_ ) ? -1 * M_PI_2 : M_PI_2
             : atan( sqrt( pow( directionN.x_, 2 ) + pow( directionN.y_, 2 ) )
                 / directionN.z_ ) );
 
-    const double thetaRadAbs = M_PI / 2 - abs( thetaRad );
+    const double thetaRadAbs = M_PI_2 - abs( thetaRad );
     thetaRad = std::signbit( thetaRad ) ? thetaRadAbs : -1 * thetaRadAbs;
 
     double alphaRad = directionN.x_ == 0
-        ? std::signbit( directionN.x_ * directionN.y_ ) ? -1 * M_PI / 2 : M_PI / 2
+        ? std::signbit( directionN.x_ * directionN.y_ ) ? -1 * M_PI_2 : M_PI_2
         : atan( directionN.y_ / directionN.x_ );
 
     const double alphaRadAbs = abs( alphaRad );
