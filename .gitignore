@@ -12,6 +12,7 @@
 **/cmake_install.cmake
 **/CTestTestfile.cmake
 **/CMakeCache.txt
+**/CMakeLists.txt.user
 
 **/*.sln
 **/*.vcxproj

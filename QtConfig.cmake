@@ -1,3 +1,8 @@
+set(CMAKE_PREFIX_PATH /usr/local/Cellar/qt/5.15.2)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -12,3 +17,12 @@ include_directories(${Qt5OpenGL_INCLUDE_DIRS})
 
 find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIR})
+
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    add_definitions(-DDARWIN -DGL_SILENCE_DEPRECATION)
+else()
+    add_definitions(-DWIN32)
+endif()
+
+link_directories("../phycoub")
+link_directories("../phywidgets")

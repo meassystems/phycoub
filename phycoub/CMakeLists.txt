@@ -5,6 +5,8 @@ project(phycoub VERSION 1.0)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+include(../IncludeDirectories.cmake)
+
 add_subdirectory(phycoubs)
 add_subdirectory(lifetimecontrollers)
 add_subdirectory(phyobjects)
