@@ -1,0 +1,36 @@
+include_directories(
+        phycoub/phycoubs
+        phycoub/lifetimecontrollers
+        phycoub/phyobjects
+        phycoub/phyobjects/particlefigurematrix
+        phycoub/phyobjects/intercommunications
+        phycoub/phyobjects/fieldcreators
+        phycoub/particlesources
+        phycoub/borderfieldconditions
+        phycoub/calculationmodels
+        phycoub/shapes
+        phycoub/borderevents
+        phycoub/borderconditions
+        phycoub/common
+        phycoub/interworkingfunctions
+        phycoub/phymeasurement
+        phycoub/errors
+        phycoub/mathematic
+        phycoub/fieldfunctions
+        phycoub/particle
+        phycoub/logging
+)
+
+include_directories(
+        phywidgets/phyparticleoptionscontroller
+        phywidgets/phycoubglwidget
+        phywidgets/phydirectioncontroller
+        phywidgets/phydirectiongl
+        phywidgets/phycommon
+        phywidgets/physcalarcontroller
+        phywidgets/phyhomogeneousdirectfieldcontroller
+        phywidgets/phyremoveparticle
+        phywidgets/phyviewparticletable
+        phywidgets/phyaddparticle
+        phywidgets/phycoubcontroller
+)

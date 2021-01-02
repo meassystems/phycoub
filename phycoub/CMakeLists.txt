@@ -5,29 +5,6 @@ project(phycoub VERSION 1.0)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-include_directories(
-	 phycoubs
-	 lifetimecontrollers
-	 phyobjects
-	 phyobjects/particlefigurematrix
-	 phyobjects/intercommunications
-	 phyobjects/fieldcreators
-	 particlesources
-	 borderfieldconditions
-	 calculationmodels
-	 shapes
-	 borderevents
-	 borderconditions
-	 common
-	 interworkingfunctions
-	 phymeasurement
-	 errors
-	 mathematic
-	 fieldfunctions
-	 particle
-	 logging
-)
-
 add_subdirectory(phycoubs)
 add_subdirectory(lifetimecontrollers)
 add_subdirectory(phyobjects)

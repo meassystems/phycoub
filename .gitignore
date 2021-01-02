@@ -34,3 +34,4 @@ phycoub/tests/integration_tests/wilsoncloudchamber/WilsonCloudChamberTests
 **/*.autosave
 **/*.pro.user
 **/*.pro.user*
+**/*_autogen
