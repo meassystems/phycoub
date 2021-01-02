@@ -42,7 +42,7 @@ TEST_F( MathematicTests, RotationMatrixAroundX )
 {
     {
         Vector v{ 1., 0., 1. };
-        RotationMatrix xRotation{ Vector{ M_PI / 2, 0., 0. } };
+        RotationMatrix xRotation{ Vector{ M_PI_2, 0., 0. } };
         xRotation.rotateVector( &v );
 
         Vector expectedResult{ 1., -1., 0. };
@@ -53,7 +53,7 @@ TEST_F( MathematicTests, RotationMatrixAroundX )
 
     {
         Vector v{ 1., 0., 1. };
-        RotationMatrix xRotation{ Vector{ -1 * M_PI / 2, 0., 0. } };
+        RotationMatrix xRotation{ Vector{ -1 * M_PI_2, 0., 0. } };
         xRotation.rotateVector( &v );
 
         Vector expectedResult{ 1., 1., 0. };
@@ -111,7 +111,7 @@ TEST_F( MathematicTests, RotationMatrixAroundY )
 {
     {
         Vector v{ 1., 1., 0. };
-        RotationMatrix xRotation{ Vector{ 0., M_PI / 2, 0. } };
+        RotationMatrix xRotation{ Vector{ 0., M_PI_2, 0. } };
         xRotation.rotateVector( &v );
 
         Vector expectedResult{ 0., 1., -1. };
@@ -122,7 +122,7 @@ TEST_F( MathematicTests, RotationMatrixAroundY )
 
     {
         Vector v{ 1., 1., 0. };
-        RotationMatrix xRotation{ Vector{ 0., -1 * M_PI / 2, 0. } };
+        RotationMatrix xRotation{ Vector{ 0., -1 * M_PI_2, 0. } };
         xRotation.rotateVector( &v );
 
         Vector expectedResult{ 0., 1., 1. };
@@ -180,7 +180,7 @@ TEST_F( MathematicTests, RotationMatrixAroundZ )
 {
     {
         Vector v{ 0., 1., 1. };
-        RotationMatrix xRotation{ Vector{ 0., 0., M_PI / 2 } };
+        RotationMatrix xRotation{ Vector{ 0., 0., M_PI_2 } };
         xRotation.rotateVector( &v );
 
         Vector expectedResult{ -1., 0., 1. };
@@ -191,7 +191,7 @@ TEST_F( MathematicTests, RotationMatrixAroundZ )
 
     {
         Vector v{ 0., 1., 1. };
-        RotationMatrix xRotation{ Vector{ 0., 0., -1 * M_PI / 2 } };
+        RotationMatrix xRotation{ Vector{ 0., 0., -1 * M_PI_2 } };
         xRotation.rotateVector( &v );
 
         Vector expectedResult{ 1., 0., 1. };
@@ -249,7 +249,7 @@ TEST_F( MathematicTests, RotationMatrixAround )
 {
     {
         Vector v{ 1., 0., 0. };
-        RotationMatrix rotation{ Vector{ 0., -M_PI / 2., M_PI / 2. } };
+        RotationMatrix rotation{ Vector{ 0., -M_PI_2, M_PI_2 } };
         rotation.rotateVector( &v );
 
         Vector expectedResult{ 0., 0., 1. };
@@ -260,7 +260,7 @@ TEST_F( MathematicTests, RotationMatrixAround )
 
     {
         Vector v{ 1., 0., 0. };
-        RotationMatrix rotation{ Vector{ 0., -M_PI / 4., M_PI / 2. } };
+        RotationMatrix rotation{ Vector{ 0., -M_PI_4, M_PI_2 } };
         rotation.rotateVector( &v );
 
         const double normalizedVectorProjection = sqrt(0.5);
