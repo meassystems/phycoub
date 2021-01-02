@@ -1,0 +1,2 @@
+#add_subdirectory(phyaddparticle)
+add_subdirectory(phycommon)
