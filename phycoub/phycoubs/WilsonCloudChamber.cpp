@@ -305,7 +305,7 @@ void WilsonCloudChamber::initSourcesAndLifeTimeControllers()
     const double protonEnergy = 1e-15;
     const double specificEnergy = 1e-17;
 
-    const Vector guideCosines{ 1., 0., 0. };
+    const Vector rotation{ 0., 0., 0. };
     const double coneAngle = .1;
     const Vector sourceCoordinate = { 0, borders.y_ / 2, borders.z_ / 2 };
 
@@ -314,7 +314,7 @@ void WilsonCloudChamber::initSourcesAndLifeTimeControllers()
     const ParticleOptions protonOptions{ ElectricConstants::protonWeight,
         ElectricConstants::protonCharge };
 
-    electronConeParticleSource_ = std::make_shared< ConeParticleSource >( guideCosines,
+    electronConeParticleSource_ = std::make_shared< ConeParticleSource >( rotation,
         coneAngle, sourceCoordinate, electronOptions, electronEnergy );
     electronBornPeriodLifeTimeController_
         = std::make_shared< BornPeriodLifeTimeController >(
@@ -324,7 +324,7 @@ void WilsonCloudChamber::initSourcesAndLifeTimeControllers()
     addLifeTimeController( electronBornPeriodLifeTimeController_ );
     addContainParticleGroup( electronBornPeriodLifeTimeController_ );
 
-    protonConeParticleSource_ = std::make_shared< ConeParticleSource >( guideCosines,
+    protonConeParticleSource_ = std::make_shared< ConeParticleSource >( rotation,
         coneAngle, sourceCoordinate, protonOptions, protonEnergy );
     protonBornPeriodLifeTimeController_
         = std::make_shared< BornPeriodLifeTimeController >(
@@ -334,7 +334,7 @@ void WilsonCloudChamber::initSourcesAndLifeTimeControllers()
     addLifeTimeController( protonBornPeriodLifeTimeController_ );
     addContainParticleGroup( protonBornPeriodLifeTimeController_ );
 
-    specificConeParticleSource_ = std::make_shared< ConeParticleSource >( guideCosines,
+    specificConeParticleSource_ = std::make_shared< ConeParticleSource >( rotation,
         coneAngle, sourceCoordinate, electronOptions, specificEnergy );
     specificBornPeriodLifeTimeController_
         = std::make_shared< BornPeriodLifeTimeController >(
