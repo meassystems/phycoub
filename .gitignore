@@ -20,4 +20,12 @@ CMakeCache.txt
 
 **/gtest
 Testing
+tests/unit_tests/borderconditions/BorderConditionTests
+tests/unit_tests/lifetimecontrollers/LifeTimeControllerTests
+tests/unit_tests/mathematic/MathematicTests
+tests/unit_tests/particle/ParticleTests
+tests/unit_tests/particlesources/ParticleSourceTests
+tests/integration_tests/electroninhomogeneousfields/ElectronInHomogeneousFieldsTests
+tests/integration_tests/wilsoncloudchamber/WilsonCloudChamberTests
+
 cmake-build-*
