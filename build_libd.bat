@@ -1,1 +1,0 @@
-cmake -G "Visual Studio 16" -T v142 && cmake --build .

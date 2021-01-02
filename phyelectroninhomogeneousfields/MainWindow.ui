@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>5</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="glView">
+       <attribute name="title">
+        <string>Моделирование</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="phywidgets::ModelViewerGLWidget" name="coubGL">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>5</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="fieldControllers" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>2</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="phywidgets::PhyHomogeneousDirectFieldControllerWidget" name="electricFieldController" native="true"/>
+           </item>
+           <item>
+            <widget class="phywidgets::PhyHomogeneousDirectFieldControllerWidget" name="magneticFieldController" native="true"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="particleTableTab">
+       <attribute name="title">
+        <string>Частицы</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="phywidgets::PhyViewParticleTableWidget" name="particleTable" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>5</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="Line" name="line_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="particalsControl" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>2</verstretch>
+           </sizepolicy>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <widget class="phywidgets::PhyAddParticleWidget" name="addParticle" native="true"/>
+           </item>
+           <item>
+            <widget class="phywidgets::PhyRemoveParticleWidget" name="removeParticle" native="true"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QWidget" name="widget" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>2</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="phywidgets::PhyCoubControllerWidget" name="phyCoubController" native="true"/>
+       </item>
+       <item>
+        <widget class="Line" name="line_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="options" native="true">
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="phywidgets::PhyScalarVectorControllerWidget" name="sizeController" native="true"/>
+          </item>
+          <item>
+           <widget class="Line" name="line_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="phywidgets::PhyScalarBoolControllerWidget" name="e2eController" native="true"/>
+          </item>
+          <item>
+           <widget class="Line" name="line">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="phywidgets::PhyScalarBoolControllerWidget" name="trajectoryController" native="true"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="restart">
+   <property name="text">
+    <string>Перезапустить</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>phywidgets::ModelViewerGLWidget</class>
+   <extends>QOpenGLWidget</extends>
+   <header>ModelViewerGLWidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>phywidgets::PhyCoubControllerWidget</class>
+   <extends>QWidget</extends>
+   <header>PhyCoubControllerWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>phywidgets::PhyScalarBoolControllerWidget</class>
+   <extends>QWidget</extends>
+   <header>PhyScalarBoolControllerWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>phywidgets::PhyScalarVectorControllerWidget</class>
+   <extends>QWidget</extends>
+   <header>PhyScalarVectorControllerWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>phywidgets::PhyHomogeneousDirectFieldControllerWidget</class>
+   <extends>QWidget</extends>
+   <header>PhyHomogeneousDirectFieldControllerWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>phywidgets::PhyAddParticleWidget</class>
+   <extends>QWidget</extends>
+   <header>PhyAddParticleWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>phywidgets::PhyRemoveParticleWidget</class>
+   <extends>QWidget</extends>
+   <header>PhyRemoveParticleWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>phywidgets::PhyViewParticleTableWidget</class>
+   <extends>QWidget</extends>
+   <header>PhyViewParticleTableWidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

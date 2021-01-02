@@ -11,21 +11,26 @@
 **/Makefile
 **/cmake_install.cmake
 **/CTestTestfile.cmake
-CMakeCache.txt
+**/CMakeCache.txt
 
 **/*.sln
 **/*.vcxproj
 **/*.vcxproj.filters
 **/*.tlog
-
 **/gtest
-Testing
-tests/unit_tests/borderconditions/BorderConditionTests
-tests/unit_tests/lifetimecontrollers/LifeTimeControllerTests
-tests/unit_tests/mathematic/MathematicTests
-tests/unit_tests/particle/ParticleTests
-tests/unit_tests/particlesources/ParticleSourceTests
-tests/integration_tests/electroninhomogeneousfields/ElectronInHomogeneousFieldsTests
-tests/integration_tests/wilsoncloudchamber/WilsonCloudChamberTests
 
-cmake-build-*
+**/Testing
+**/cmake-build-*
+
+phycoub/tests/unit_tests/borderconditions/BorderConditionTests
+phycoub/tests/unit_tests/lifetimecontrollers/LifeTimeControllerTests
+phycoub/tests/unit_tests/mathematic/MathematicTests
+phycoub/tests/unit_tests/particle/ParticleTests
+phycoub/tests/unit_tests/particlesources/ParticleSourceTests
+phycoub/tests/integration_tests/electroninhomogeneousfields/ElectronInHomogeneousFieldsTests
+phycoub/tests/integration_tests/wilsoncloudchamber/WilsonCloudChamberTests
+
+**/build*
+**/*.autosave
+**/*.pro.user
+**/*.pro.user*

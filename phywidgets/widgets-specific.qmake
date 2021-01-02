@@ -1,0 +1,10 @@
+CONFIG += c++17
+
+win32 {
+    LIBS += opengl32.lib glu32.lib
+    DEFINES += WIN32
+}
+
+macx {
+    DEFINES += DARWIN
+}
