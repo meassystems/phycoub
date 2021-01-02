@@ -19,6 +19,8 @@ class RotationMatrix final
     explicit RotationMatrix( const Vector& rotation );
     void rotateVector( Vector* vector );
 
+    static Vector directionToRotation(const Vector& direction);
+
   private:
     void initMatrix( const Vector& rotation );
 

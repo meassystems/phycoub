@@ -21,19 +21,19 @@ class ConeParticleSource
     , public ConeShape
 {
   public:
-    ConeParticleSource( const Vector& rotation, double angle,
+    ConeParticleSource( const Vector& direction, double angle,
         const Vector& sourceCoordinate, const ParticleOptions& particleOptions,
         double energy );
     virtual ~ConeParticleSource() override = default;
 
-    void setRotation(const Vector& rotation);
-    const Vector& getRotation() const;
+    void setDirection(const Vector& direction);
+    const Vector& getDirection() const;
 
     // Implementation of ParticleSourceBase::ParticleSourceIface
     virtual ParticlePtr phyGiveBirthParticle() override;
 
   private:
-    Vector _rotation;
+    Vector _direction;
     RotationMatrix _rotationMatrix;
 };
 

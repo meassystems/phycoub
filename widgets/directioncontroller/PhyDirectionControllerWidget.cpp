@@ -75,37 +75,43 @@ void PhyDirectionControllerWidget::updateDirectionController()
 {
     if ( auto directionController = directionControllerWeak_.lock() )
     {
-        auto decart = sphereToDecartCoordinate( thetaGrad_, alphaGrad_ );
-        directionController->setValue( decart );
+        auto direction = sphereToDirectionCoordinate( thetaGrad_, alphaGrad_ );
+        directionController->setValue( direction );
     }
 }
 
 // static
 double PhyDirectionControllerWidget::calculateTheta( const phycoub::Vector& direction )
 {
-    return atan( sqrt( pow( direction.x_, 2 ) + pow( direction.y_, 2 ) ) / direction.z_ )
+    return ( direction.z_ == 0
+                   ? std::signbit( direction.z_ ) ? -M_PI / 2 : M_PI / 2
+                   : atan( sqrt( pow( direction.x_, 2 ) + pow( direction.y_, 2 ) )
+                       / direction.z_ ) )
         * radianToGrad_;
 }
 
 // static
 double PhyDirectionControllerWidget::calculateAlpha( const phycoub::Vector& direction )
 {
-    return atan( direction.y_ / direction.x_ ) * radianToGrad_;
+    return ( direction.x_ == 0
+                   ? std::signbit( direction.y_ * direction.x_ ) ? -M_PI / 2 : M_PI / 2
+                   : atan( direction.y_ / direction.x_ ) )
+        * radianToGrad_;
 }
 
 // static
-phycoub::Vector PhyDirectionControllerWidget::sphereToDecartCoordinate(
+phycoub::Vector PhyDirectionControllerWidget::sphereToDirectionCoordinate(
     double theta, double alpha )
 {
     const double thetaRad = theta / radianToGrad_;
     const double alphaRad = alpha / radianToGrad_;
 
-    phycoub::Vector decart;
-    decart.x_ = sin( thetaRad ) * cos( alphaRad );
-    decart.y_ = sin( thetaRad ) * sin( alphaRad );
-    decart.z_ = cos( thetaRad );
+    phycoub::Vector direction;
+    direction.x_ = sin( thetaRad ) * cos( alphaRad );
+    direction.y_ = sin( thetaRad ) * sin( alphaRad );
+    direction.z_ = cos( thetaRad );
 
-    return decart;
+    return direction;
 }
 
 } // namespace phywidgets

@@ -70,7 +70,7 @@ class Vector final
 #pragma pack( push, 1 )
     union
     {
-        double vector_[ numSize ] = { .0 };
+        double vector_[ numSize ] = { .0, 0., 0. };
         struct
         {
             double x_;

@@ -9,13 +9,13 @@ using namespace phycoub;
 TEST_F( ParticleSourceTests, ConeParticleSourceTest )
 {
     {
-        const Vector rotation{ 0., -1 * M_PI / 2, 0. };
+        const Vector direction{ 0., 0., 1. };
         const double angle = 0.;
         const Vector sourceCoordinate{ 1., 1., 1. };
         const ParticleOptions particleOptions{ 1., 1. };
         const double energy = 2.;
 
-        ConeParticleSource coneParticleSource{ rotation, angle, sourceCoordinate,
+        ConeParticleSource coneParticleSource{ direction, angle, sourceCoordinate,
             particleOptions, energy };
         ParticlePtr particle = coneParticleSource.phyGiveBirthParticle();
         Vector v = particle->getSpeed();
@@ -27,13 +27,13 @@ TEST_F( ParticleSourceTests, ConeParticleSourceTest )
     }
 
     {
-        const Vector rotation{ 0., -1 * M_PI / 4, M_PI / 2 };
+        const Vector direction{ 0., 1., 1. };
         const double angle = 0.;
         const Vector sourceCoordinate{ 1., 1., 1. };
         const ParticleOptions particleOptions{ 1., 1. };
         const double energy = 2.;
 
-        ConeParticleSource coneParticleSource{ rotation, angle, sourceCoordinate,
+        ConeParticleSource coneParticleSource{ direction, angle, sourceCoordinate,
             particleOptions, energy };
         ParticlePtr particle = coneParticleSource.phyGiveBirthParticle();
         Vector v = particle->getSpeed();

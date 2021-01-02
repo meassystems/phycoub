@@ -34,7 +34,7 @@ class PhyDirectionControllerWidget : public QWidget
 
     static double calculateTheta( const phycoub::Vector& direction );
     static double calculateAlpha( const phycoub::Vector& direction );
-    static phycoub::Vector sphereToDecartCoordinate( double theta, double alpha );
+    static phycoub::Vector sphereToDirectionCoordinate( double theta, double alpha );
 
     VectorControllerAdapterWeakPtr directionControllerWeak_;
     double thetaGrad_ = 0.;

@@ -16,25 +16,26 @@
 namespace phycoub
 {
 
-ConeParticleSource::ConeParticleSource( const Vector& rotation, double angle,
+ConeParticleSource::ConeParticleSource( const Vector& direction, double angle,
     const Vector& sourceCoordinate, const ParticleOptions& particleOptions,
     double energy )
     : ParticleSourceBase( sourceCoordinate, particleOptions, energy )
     , ConeShape( 1., angle )
-    , _rotation( rotation )
-    , _rotationMatrix( rotation )
+    , _direction( direction )
+    , _rotationMatrix( RotationMatrix::directionToRotation( direction ) )
 {
     PROGRAMMING_ASSERT(angle < M_PI / 2);
 }
 
-void ConeParticleSource::setRotation( const Vector& rotation )
+void ConeParticleSource::setDirection( const Vector& direction )
 {
-    _rotationMatrix = RotationMatrix( rotation * -1 );
+    _direction = direction;
+    _rotationMatrix = RotationMatrix( RotationMatrix::directionToRotation( direction ) );
 }
 
-const Vector& ConeParticleSource::getRotation() const
+const Vector& ConeParticleSource::getDirection() const
 {
-    return _rotation;
+    return _direction;
 }
 
 // virtual override
@@ -43,7 +44,7 @@ ParticlePtr ConeParticleSource::phyGiveBirthParticle()
     double k = tan( getAngle() );
 
     double z = k * ( 2 * RandomUtils::generateNormalizedDouble() - 1 );
-    double y = sqrt( pow( k, 2 ) - pow( z, 1 ) ) * RandomUtils::getRandomSign();
+    double y = sqrt( pow( k, 2 ) - pow( z, 2 ) ) * RandomUtils::getRandomSign();
     double x = 1.;
 
     Vector randomInCone{ x, y, z };

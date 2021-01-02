@@ -75,16 +75,14 @@ double WilsonCloudChamber::getMagneticFieldInduction() const
     return magneticHomogeneousDirectField_->getMagneticInduction();
 }
 
-void WilsonCloudChamber::setElectronSourceDirection( Vector rotation )
+void WilsonCloudChamber::setElectronSourceDirection( Vector direction )
 {
-    // repair
-    electronConeParticleSource_->setRotation( rotation );
+    electronConeParticleSource_->setDirection( direction );
 }
 
 Vector WilsonCloudChamber::getElectronSourceDirection() const
 {
-    // repair
-    return electronConeParticleSource_->getRotation();
+    return electronConeParticleSource_->getDirection();
 }
 
 void WilsonCloudChamber::setElectronSourceAngel( double angle )
@@ -117,16 +115,14 @@ double WilsonCloudChamber::getElectronSourceBornEnergy() const
     return electronConeParticleSource_->getEnergy();
 }
 
-void WilsonCloudChamber::setProtonSourceDirection( Vector rotation )
+void WilsonCloudChamber::setProtonSourceDirection( Vector direction )
 {
-    // repair
-    protonConeParticleSource_->setRotation( rotation );
+    protonConeParticleSource_->setDirection( direction );
 }
 
 Vector WilsonCloudChamber::getProtonSourceDirection() const
 {
-    // repair
-    return protonConeParticleSource_->getRotation();
+    return protonConeParticleSource_->getDirection();
 }
 
 void WilsonCloudChamber::setProtonSourceAngel( double angle )
@@ -159,16 +155,14 @@ double WilsonCloudChamber::getProtonSourceBornEnergy() const
     return protonConeParticleSource_->getEnergy();
 }
 
-void WilsonCloudChamber::setSpecificSourceDirection( Vector rotation )
+void WilsonCloudChamber::setSpecificSourceDirection( Vector direction )
 {
-    // repair
-    specificConeParticleSource_->setRotation( rotation );
+    specificConeParticleSource_->setDirection( direction );
 }
 
 Vector WilsonCloudChamber::getSpecificSourceDirection() const
 {
-    // repair
-    return specificConeParticleSource_->getRotation();
+    return specificConeParticleSource_->getDirection();
 }
 
 void WilsonCloudChamber::setSpecificSourceAngel( double angle )
@@ -305,17 +299,17 @@ void WilsonCloudChamber::initSourcesAndLifeTimeControllers()
     const double protonEnergy = 1e-15;
     const double specificEnergy = 1e-17;
 
-    const Vector rotation{ 0., 0., 0. };
+    const Vector direction{ 1., 0., 0. };
     const double coneAngle = .1;
-    const Vector sourceCoordinate = { 0, borders.y_ / 2, borders.z_ / 2 };
+    const Vector sourceCoordinate = { 0., borders.y_ / 2, borders.z_ / 2 };
 
     const ParticleOptions electronOptions{ ElectricConstants::electronWeight,
         ElectricConstants::electronCharge };
     const ParticleOptions protonOptions{ ElectricConstants::protonWeight,
         ElectricConstants::protonCharge };
 
-    electronConeParticleSource_ = std::make_shared< ConeParticleSource >( rotation,
-        coneAngle, sourceCoordinate, electronOptions, electronEnergy );
+    electronConeParticleSource_ = std::make_shared< ConeParticleSource >(
+        direction, coneAngle, sourceCoordinate, electronOptions, electronEnergy );
     electronBornPeriodLifeTimeController_
         = std::make_shared< BornPeriodLifeTimeController >(
             electronBornPeriod, electronConeParticleSource_ );
@@ -324,8 +318,8 @@ void WilsonCloudChamber::initSourcesAndLifeTimeControllers()
     addLifeTimeController( electronBornPeriodLifeTimeController_ );
     addContainParticleGroup( electronBornPeriodLifeTimeController_ );
 
-    protonConeParticleSource_ = std::make_shared< ConeParticleSource >( rotation,
-        coneAngle, sourceCoordinate, protonOptions, protonEnergy );
+    protonConeParticleSource_ = std::make_shared< ConeParticleSource >(
+        direction, coneAngle, sourceCoordinate, protonOptions, protonEnergy );
     protonBornPeriodLifeTimeController_
         = std::make_shared< BornPeriodLifeTimeController >(
             protonBornPeriod, protonConeParticleSource_ );
@@ -334,8 +328,8 @@ void WilsonCloudChamber::initSourcesAndLifeTimeControllers()
     addLifeTimeController( protonBornPeriodLifeTimeController_ );
     addContainParticleGroup( protonBornPeriodLifeTimeController_ );
 
-    specificConeParticleSource_ = std::make_shared< ConeParticleSource >( rotation,
-        coneAngle, sourceCoordinate, electronOptions, specificEnergy );
+    specificConeParticleSource_ = std::make_shared< ConeParticleSource >(
+        direction, coneAngle, sourceCoordinate, electronOptions, specificEnergy );
     specificBornPeriodLifeTimeController_
         = std::make_shared< BornPeriodLifeTimeController >(
             specificBornPeriod, specificConeParticleSource_ );
