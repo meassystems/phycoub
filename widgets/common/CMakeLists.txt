@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(phycommon VERSION 1.0)
+project(common_w VERSION 1.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -19,5 +19,5 @@ set(SOURCES
 	 ValueControllerAdapterIface.h
 )
 
-add_library(phycommon OBJECT ${SOURCES})
+add_library(common_w OBJECT ${SOURCES})
 

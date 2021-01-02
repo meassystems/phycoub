@@ -16,4 +16,4 @@ set(SOURCES
 )
 
 add_executable(magnetron ${SOURCES})
-target_link_libraries(magnetron phywidgets phycoub Qt5::Core Qt5::Widgets Qt5::OpenGL ${OPENGL_LIBRARIES})
+target_link_libraries(magnetron widgets phycoub Qt5::Core Qt5::Widgets Qt5::OpenGL ${OPENGL_LIBRARIES})

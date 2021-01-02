@@ -18,4 +18,4 @@ set(SOURCES
 )
 
 add_executable(wilsoncloudchamber ${SOURCES})
-target_link_libraries(wilsoncloudchamber phywidgets phycoub Qt5::Core Qt5::Widgets Qt5::OpenGL ${OPENGL_LIBRARIES})
+target_link_libraries(wilsoncloudchamber widgets phycoub Qt5::Core Qt5::Widgets Qt5::OpenGL ${OPENGL_LIBRARIES})

@@ -16,4 +16,4 @@ set(SOURCES
 )
 
 add_executable(electroninhomogeneousfields ${SOURCES})
-target_link_libraries(electroninhomogeneousfields phywidgets phycoub Qt5::Core Qt5::Widgets Qt5::OpenGL ${OPENGL_LIBRARIES})
+target_link_libraries(electroninhomogeneousfields widgets phycoub Qt5::Core Qt5::Widgets Qt5::OpenGL ${OPENGL_LIBRARIES})

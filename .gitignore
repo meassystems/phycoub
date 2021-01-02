@@ -31,9 +31,9 @@ phycoub/tests/unit_tests/particlesources/ParticleSourceTests
 phycoub/tests/integration_tests/electroninhomogeneousfields/ElectronInHomogeneousFieldsTests
 phycoub/tests/integration_tests/wilsoncloudchamber/WilsonCloudChamberTests
 
-phyelectroninhomogeneousfields/electroninhomogeneousfields
-phymagnetron/magnetron
-phywilsoncloudchamber/wilsoncloudchamber
+electroninhomogeneousfields/electroninhomogeneousfields
+magnetron/magnetron
+wilsoncloudchamber/wilsoncloudchamber
 
 **/build*
 **/*.autosave

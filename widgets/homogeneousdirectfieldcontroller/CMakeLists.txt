@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(phyhomogeneousdirectfieldcontroller VERSION 1.0)
+project(homogeneousdirectfieldcontroller VERSION 1.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -12,5 +12,5 @@ set(SOURCES
 	 PhyHomogeneousDirectFieldControllerWidget.h
 )
 
-add_library(phyhomogeneousdirectfieldcontroller OBJECT ${SOURCES})
+add_library(homogeneousdirectfieldcontroller OBJECT ${SOURCES})
 

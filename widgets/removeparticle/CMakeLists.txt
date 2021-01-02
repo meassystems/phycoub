@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(phyremoveparticle VERSION 1.0)
+project(removeparticle VERSION 1.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -12,5 +12,5 @@ set(SOURCES
 	 PhyRemoveParticleWidget.h
 )
 
-add_library(phyremoveparticle OBJECT ${SOURCES})
+add_library(removeparticle OBJECT ${SOURCES})
 

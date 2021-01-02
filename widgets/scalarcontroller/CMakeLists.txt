@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(physcalarcontroller VERSION 1.0)
+project(scalarcontroller VERSION 1.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -22,5 +22,5 @@ set(SOURCES
 	 PhyVectorPhyCoubControllerSubscriber.h
 )
 
-add_library(physcalarcontroller OBJECT ${SOURCES})
+add_library(scalarcontroller OBJECT ${SOURCES})
 

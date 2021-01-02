@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(phyparticleoptionscontroller VERSION 1.0)
+project(particleoptionscontroller VERSION 1.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -10,5 +10,5 @@ set(SOURCES
 	 PhyParticleOptionsControllerWidget.h
 )
 
-add_library(phyparticleoptionscontroller OBJECT ${SOURCES})
+add_library(particleoptionscontroller OBJECT ${SOURCES})
 

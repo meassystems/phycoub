@@ -23,4 +23,4 @@ else()
 endif()
 
 link_directories("../phycoub")
-link_directories("../phywidgets")
+link_directories("../widgets")

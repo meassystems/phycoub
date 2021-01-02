@@ -22,15 +22,15 @@ include_directories(
 )
 
 include_directories(
-        ../phywidgets/phyparticleoptionscontroller
-        ../phywidgets/phycoubglwidget
-        ../phywidgets/phydirectioncontroller
-        ../phywidgets/phydirectiongl
-        ../phywidgets/phycommon
-        ../phywidgets/physcalarcontroller
-        ../phywidgets/phyhomogeneousdirectfieldcontroller
-        ../phywidgets/phyremoveparticle
-        ../phywidgets/phyviewparticletable
-        ../phywidgets/phyaddparticle
-        ../phywidgets/phycoubcontroller
+        ../widgets/particleoptionscontroller
+        ../widgets/coubglwidget
+        ../widgets/directioncontroller
+        ../widgets/directiongl
+        ../widgets/common
+        ../widgets/scalarcontroller
+        ../widgets/homogeneousdirectfieldcontroller
+        ../widgets/removeparticle
+        ../widgets/viewparticletable
+        ../widgets/addparticle
+        ../widgets/coubcontroller
 )
