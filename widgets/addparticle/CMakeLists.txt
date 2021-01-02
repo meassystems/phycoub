@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(phyaddparticle VERSION 1.0)
+project(addparticle VERSION 1.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -12,5 +12,5 @@ set(SOURCES
 	 PhyAddParticleWidget.h
 )
 
-add_library(phyaddparticle OBJECT ${SOURCES})
+add_library(addparticle OBJECT ${SOURCES})
 
