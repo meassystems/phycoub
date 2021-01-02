@@ -26,7 +26,6 @@ include_directories(
 	 fieldfunctions
 	 particle
 	 logging
-	 src
 )
 
 add_subdirectory(phycoubs)
@@ -49,7 +48,6 @@ add_subdirectory(mathematic)
 add_subdirectory(fieldfunctions)
 add_subdirectory(particle)
 add_subdirectory(logging)
-add_subdirectory(src)
 
 add_library(phycoub STATIC 
 	 $<TARGET_OBJECTS:phycoubs>
@@ -72,7 +70,6 @@ add_library(phycoub STATIC
 	 $<TARGET_OBJECTS:fieldfunctions>
 	 $<TARGET_OBJECTS:particle>
 	 $<TARGET_OBJECTS:logging>
-	 $<TARGET_OBJECTS:src>
 )
 
 add_custom_command(TARGET phycoub 
