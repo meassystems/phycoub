@@ -15,6 +15,8 @@
 namespace phycoub
 {
 
+using namespace std;
+
 RotationMatrix::RotationMatrix( const Vector& rotation )
 {
     PROGRAMMING_ASSERT( rotation.x_ <= abs( 2 * M_PI ) && rotation.y_ <= abs( 2 * M_PI )
