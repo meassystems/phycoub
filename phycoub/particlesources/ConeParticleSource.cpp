@@ -7,7 +7,12 @@
 
 #include "ConeParticleSource.h"
 
-#include <math.h>
+#ifdef defined(DARWIN)
+#   include <cmath>
+#elif defined(WIN32)
+#   define _USE_MATH_DEFINES
+#   include <math.h>
+#endif
 
 #include "RandomUtils.h"
 #include "VectorUtils.h"

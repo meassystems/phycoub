@@ -7,7 +7,12 @@
 
 #include "RotationMatrix.h"
 
-#include <cmath>
+#ifdef defined(DARWIN)
+#   include <cmath>
+#elif defined(WIN32)
+#   define _USE_MATH_DEFINES
+#   include <math.h>
+#endif
 
 #include "VectorUtils.h"
 #include "ProgrammingException.h"

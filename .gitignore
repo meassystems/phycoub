@@ -18,6 +18,7 @@
 **/*.vcxproj
 **/*.vcxproj.filters
 **/*.tlog
+**/*.dir/
 **/gtest
 
 **/Testing
