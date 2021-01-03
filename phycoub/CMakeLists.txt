@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 include(../IncludeDirectories.cmake)
 
-add_subdirectory(phycoubs)
+add_subdirectory(examples)
 add_subdirectory(lifetimecontrollers)
 add_subdirectory(phyobjects)
 add_subdirectory(phyobjects/particlefigurematrix)
@@ -29,7 +29,7 @@ add_subdirectory(particle)
 add_subdirectory(logging)
 
 add_library(phycoub STATIC
-	 $<TARGET_OBJECTS:phycoubs>
+	 $<TARGET_OBJECTS:examples>
 	 $<TARGET_OBJECTS:lifetimecontrollers>
 	 $<TARGET_OBJECTS:phyobjects>
 	 $<TARGET_OBJECTS:particlefigurematrix>

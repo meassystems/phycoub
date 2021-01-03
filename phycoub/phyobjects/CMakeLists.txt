@@ -10,6 +10,8 @@ set(SOURCES
 	 CalculationGroup.h
 	 FieldReceiver.cpp
 	 FieldReceiver.h
+	 PhyCoub.cpp
+	 PhyCoub.h
 )
 
 add_library(phyobjects OBJECT ${SOURCES})

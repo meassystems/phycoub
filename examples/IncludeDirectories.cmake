@@ -1,5 +1,5 @@
 include_directories(
-        ../../phycoub/phycoubs
+        ../../phycoub/examples
         ../../phycoub/lifetimecontrollers
         ../../phycoub/phyobjects
         ../../phycoub/phyobjects/particlefigurematrix
