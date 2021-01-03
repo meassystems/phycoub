@@ -45,7 +45,7 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v2
         with:
-          host: mac
+          host: linux
           dir: ${{runner.workspace}}/Qt
 
       - name: Create Build Environment
