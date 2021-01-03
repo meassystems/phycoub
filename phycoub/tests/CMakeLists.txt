@@ -26,7 +26,7 @@ if(DEFINED DARWIN)
             "IMPORTED_LINK_INTERFACE_LIBRARIES" "${CMAKE_THREAD_LIBS_INIT}"
             )
 elseif(DEFINED WIN32)
-    set_target_properties(libgmock PROPERTIES
+    set_target_properties(libgtest PROPERTIES
             "IMPORTED_LOCATION" "${binary_dir}/lib/Debug/gtestd.lib"
             "IMPORTED_LINK_INTERFACE_LIBRARIES" "${CMAKE_THREAD_LIBS_INIT}"
             )
