@@ -36,7 +36,7 @@ electroninhomogeneousfields/electroninhomogeneousfields
 magnetron/magnetron
 wilsoncloudchamber/wilsoncloudchamber
 
-**/build*
+**/build*/
 **/*.autosave
 **/*.pro.user
 **/*.pro.user*
