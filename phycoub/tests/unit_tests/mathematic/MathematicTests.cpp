@@ -1,6 +1,6 @@
 #include "MathematicTests.h"
 
-#ifdef defined(DARWIN)
+#if defined(DARWIN)
 #   include <cmath>
 #elif defined(WIN32)
 #   define _USE_MATH_DEFINES

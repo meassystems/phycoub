@@ -5,15 +5,7 @@ project(PhyCoubAll)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-if(NOT DEFINED CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Release)
-endif()
-
-if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    add_definitions(-DDARWIN)
-else()
-    add_definitions(-DWIN32)
-endif()
+include(PlatformConfig.cmake)
 
 enable_testing()
 add_subdirectory(phycoub)
