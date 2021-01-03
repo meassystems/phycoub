@@ -11,11 +11,11 @@
 **/Makefile
 **/cmake_install.cmake
 **/CTestTestfile.cmake*
-**/CMakeCache.txt
+**/CMakeCache.txt*
 **/CMakeLists.txt.user
 
-**/*.sln
-**/*.vcxproj
+**/*.sln*
+**/*.vcxproj*
 **/*.vcxproj.filters
 **/*.tlog
 **/*.dir/
