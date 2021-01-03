@@ -72,7 +72,7 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v2
         with:
-          host: mac
+          host: windows
           dir: ${{runner.workspace}}/Qt
 
       - name: Configure CMake
