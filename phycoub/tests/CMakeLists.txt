@@ -1,4 +1,5 @@
 find_package(Threads REQUIRED)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
 # Enable ExternalProject CMake module
 include(ExternalProject)
@@ -8,6 +9,7 @@ ExternalProject_Add(
         gtest
         URL https://github.com/google/googletest/archive/master.zip
         PREFIX ${CMAKE_CURRENT_BINARY_DIR}/gtest
+        CMAKE_ARGS -Dgtest_force_shared_crt=ON
         # Disable install step
         INSTALL_COMMAND ""
 )
@@ -19,39 +21,39 @@ ExternalProject_Get_Property(gtest source_dir binary_dir)
 add_library(libgtest IMPORTED STATIC GLOBAL)
 add_dependencies(libgtest gtest)
 
-# Set libgtest properties
-if(DEFINED DARWIN)
-    set_target_properties(libgtest PROPERTIES
-            "IMPORTED_LOCATION" "${binary_dir}/lib/libgtest.a"
-            "IMPORTED_LINK_INTERFACE_LIBRARIES" "${CMAKE_THREAD_LIBS_INIT}"
-            )
-elseif(DEFINED WIN32)
-    set_target_properties(libgtest PROPERTIES
-            "IMPORTED_LOCATION" "${binary_dir}/lib/Debug/gtestd.lib"
-            "IMPORTED_LINK_INTERFACE_LIBRARIES" "${CMAKE_THREAD_LIBS_INIT}"
-            )
-else()
-    message(SEND_ERROR "Ctest not configured for current platform.")
+set(LIBGTEST_PATH ${binary_dir}/lib/libgtest.a)
+if(DEFINED WIN32)
+    if(CMAKE_BUILD_TYPE STREQUAL "Release")
+        set(LIBGTEST_PATH ${binary_dir}/lib/Release/gtest.lib)
+    else()
+        set(LIBGTEST_PATH ${binary_dir}/lib/Debug/gtestd.lib)
+    endif()
 endif()
+
+# Set libgtest properties
+set_target_properties(libgtest PROPERTIES
+        "IMPORTED_LOCATION" "${LIBGTEST_PATH}"
+        "IMPORTED_LINK_INTERFACE_LIBRARIES" "${CMAKE_THREAD_LIBS_INIT}"
+        )
 
 # Create a libgmock target to be used as a dependency by test programs
 add_library(libgmock IMPORTED STATIC GLOBAL)
 add_dependencies(libgmock gtest)
 
+set(LIBMOCK_PATH ${binary_dir}/lib/libgmock.a)
+if(DEFINED WIN32)
+    if(CMAKE_BUILD_TYPE STREQUAL "Release")
+        set(LIBMOCK_PATH ${binary_dir}/lib/Release/gmock.lib)
+    else()
+        set(LIBMOCK_PATH ${binary_dir}/lib/Debug/gmockd.lib)
+    endif()
+endif()
+
 # Set libgmock properties
-if(DEFINED DARWIN)
-    set_target_properties(libgmock PROPERTIES
-        "IMPORTED_LOCATION" "${binary_dir}/lib/libgmock.a"
+set_target_properties(libgmock PROPERTIES
+        "IMPORTED_LOCATION" "${LIBMOCK_PATH}"
         "IMPORTED_LINK_INTERFACE_LIBRARIES" "${CMAKE_THREAD_LIBS_INIT}"
         )
-elseif(DEFINED WIN32)
-    set_target_properties(libgmock PROPERTIES
-            "IMPORTED_LOCATION" "${binary_dir}/lib/Debug/gmockd.lib"
-            "IMPORTED_LINK_INTERFACE_LIBRARIES" "${CMAKE_THREAD_LIBS_INIT}"
-            )
-else()
-    message(SEND_ERROR "Ctest not configured for current platform.")
-endif()
 
 # I couldn't make it work with INTERFACE_INCLUDE_DIRECTORIES
 include_directories("${source_dir}/googletest/include"

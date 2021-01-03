@@ -9,7 +9,6 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     add_definitions(-DDARWIN)
 else()
     add_definitions(-DWIN32)
-    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 endif()
 
 enable_testing()

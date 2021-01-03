@@ -14,7 +14,7 @@ TEST_F( LifeTimeControllerTests, QuantityLifeTimeController )
 
     ParticleGroupPtr particleGroup = std::make_shared<ParticleGroup>();
 
-    constexpr uint numLifeParticleCount = 10;
+    const unsigned numLifeParticleCount = 10;
     QuantityLifeTimeController quantityLifeTimeController{ numLifeParticleCount, particleSourcePtr };
     quantityLifeTimeController.setParticleGroup(particleGroup);
 
