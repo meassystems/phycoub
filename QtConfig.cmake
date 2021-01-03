@@ -21,6 +21,3 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 else()
     add_definitions(-DWIN32)
 endif()
-
-link_directories("../phycoub")
-link_directories("../widgets")
