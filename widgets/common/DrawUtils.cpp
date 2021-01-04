@@ -1,10 +1,10 @@
 #include "DrawUtils.h"
 
 #if defined( WIN32 )
-#   include <windows.h>
-#   include <GL/glu.h>
+#    include <windows.h>
+#    include <GL/glu.h>
 #elif defined( DARWIN )
-#   include <OpenGL/glu.h>
+#    include <OpenGL/glu.h>
 #endif
 
 namespace phywidgets

@@ -10,6 +10,7 @@
 #elif defined( WIN32 )
 #    define _USE_MATH_DEFINES
 #    include <math.h>
+#    include <windows.h>
 #    include <GL/glu.h>
 #endif
 
