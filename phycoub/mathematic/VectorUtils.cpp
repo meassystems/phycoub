@@ -8,6 +8,7 @@
 #include "VectorUtils.h"
 
 #include "Vector.h"
+#include "MathExceptions.h"
 
 namespace phycoub
 {
@@ -37,6 +38,21 @@ double VectorUtils::projectionToVector( const Vector& distance, const Vector& so
 {
     double result = scalarMultiplication( distance, source ) / distance.getModule();
     return result;
+}
+
+// static
+double VectorUtils::getCosBetweenVectors( const Vector& first, const Vector& second )
+{
+    double firstModulo = first.getModule();
+    double secondModulo = second.getModule();
+
+    if ( firstModulo == 0. || secondModulo == 0. )
+    {
+        throw DivisionByZeroException();
+    }
+
+    double scalar = scalarMultiplication( first, second );
+    return scalar / ( firstModulo * secondModulo );
 }
 
 } // namespace phycoub

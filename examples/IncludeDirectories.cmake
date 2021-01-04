@@ -23,6 +23,7 @@ include_directories(
 
 include_directories(
         ../../widgets/particleoptionscontroller
+        ../../widgets/trajectory
         ../../widgets/coubglwidget
         ../../widgets/directioncontroller
         ../../widgets/directiongl

@@ -10,6 +10,7 @@ set(SOURCES
 	 ErrorDescription.cpp
 	 ErrorDescription.h
 	 ProgrammingException.h
+	 MathExceptions.h
 )
 
 add_library(errors OBJECT ${SOURCES})

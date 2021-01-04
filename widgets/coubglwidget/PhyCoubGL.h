@@ -12,6 +12,7 @@
 #include "GetCoubSizeAdapterIface.h"
 #include "GetParticlesAdapterIface.h"
 #include "PhyCoubControllerSubscriberIface.h"
+#include "Trajectory.h"
 #include "Vector.h"
 #include "ParticleGroupList.h"
 #include "HasId.h"
@@ -43,11 +44,11 @@ class PhyCoubGL final : public PhyCoubControllerSubscriberIface
     void drawParticlesWithColorsByGroup( const ParticleGroupList& particleGroupList );
     void drawTrajectory();
 
-    static Vector mashtabVector( const Vector& coordinate, const Vector& mashtab );
+    static Vector scaleVector( const Vector& coordinate, const Vector& ratio );
 
     bool drawTrajectoryFlag_ = false;
     bool updateTrajectoryFlag_ = false;
-    std::unordered_map< IDType, std::list< Vector > > trajectory_;
+    std::unordered_map< IDType, Trajectory > trajectory_;
 
     GetCoubSizeAdapterWeakPtr getCoubSizeAdapterWeak_;
     GetParticlesAdapterWeakPtr getParticlesAdapterWeak_;
@@ -55,7 +56,10 @@ class PhyCoubGL final : public PhyCoubControllerSubscriberIface
     QGLWidget* gLWidget_ = nullptr;
     Vector coubSize_;
 
-    static constexpr unsigned numSizeCube = 1;
+    constexpr static unsigned numMaxTrajectoryPontCount = 50;
+    constexpr static double trajectoryPointAngle = 0.2;
+
+    constexpr static unsigned numSizeCube = 1;
     constexpr static unsigned numTrajectoryPointsPerParticle = 100;
     constexpr static std::array< Qt::GlobalColor, 5 > colorsForGroup_
         = { Qt::green, Qt::red, Qt::blue, Qt::yellow, Qt::magenta };

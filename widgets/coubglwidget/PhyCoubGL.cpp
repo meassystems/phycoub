@@ -76,7 +76,7 @@ bool PhyCoubGL::getDrowTrajectoryFlag() const
 void PhyCoubGL::drawModelingCube()
 {
     gLWidget_->qglColor( Qt::white );
-    DrawUtils::drawCube(Vector{ 0, 0, 0 }, numSizeCube, 2.f);
+    DrawUtils::drawCube( Vector{ 0, 0, 0 }, numSizeCube, 2.f );
 }
 
 void PhyCoubGL::drawParticlesWithColorsByGroup(
@@ -94,35 +94,39 @@ void PhyCoubGL::drawParticlesWithColorsByGroup(
     }
 
     size_t colorIndex = 0;
-    particleGroupList.forEachGroup(
-        [ this, &trajectoryParticleIdList, &colorIndex ]( ParticleGroupPtr group ) {
-            gLWidget_->qglColor( colorsForGroup_[ colorIndex ] );
+    particleGroupList.forEachGroup( [ this, &trajectoryParticleIdList, &colorIndex ](
+                                        ParticleGroupPtr group ) {
+        gLWidget_->qglColor( colorsForGroup_[ colorIndex ] );
 
-            for ( ParticlePtr particle : *group )
+        for ( ParticlePtr particle : *group )
+        {
+            const Vector& particleCoordinate = particle->getCoordinate();
+            const Vector scaleCoordinate = scaleVector( particleCoordinate, coubSize_ );
+
+            DrawUtils::drawSphere( scaleCoordinate, 0.01 );
+
+            if ( drawTrajectoryFlag_ )
             {
-                const Vector& particleCoordinate = particle->getCoordinate();
-                const Vector mashtabedOriginCoordinate
-                    = mashtabVector( particleCoordinate, coubSize_ );
+                trajectoryParticleIdList.extract( particle->getId() );
 
-                DrawUtils::drawSphere( mashtabedOriginCoordinate, 0.01 );
-
-                if ( drawTrajectoryFlag_ )
+                if ( updateTrajectoryFlag_ )
                 {
-                    trajectoryParticleIdList.extract( particle->getId() );
-
-                    if ( updateTrajectoryFlag_ )
+                    auto particleTrajectoryItr = trajectory_.find( particle->getId() );
+                    if ( particleTrajectoryItr != trajectory_.end() )
                     {
-                        auto& trajectoryVector = trajectory_[ particle->getId() ];
-                        trajectoryVector.push_back( mashtabedOriginCoordinate );
-                        if ( trajectoryVector.size() > numTrajectoryPointsPerParticle )
-                        {
-                            trajectoryVector.pop_front();
-                        }
+                        particleTrajectoryItr->second.update( scaleCoordinate );
+                    }
+                    else
+                    {
+                        Trajectory particleTrajectory{ numMaxTrajectoryPontCount,
+                            trajectoryPointAngle, numSizeCube * 0.9 };
+                        trajectory_.emplace( particle->getId(), particleTrajectory );
                     }
                 }
             }
-            ++colorIndex;
-        } );
+        }
+        ++colorIndex;
+    } );
 
     if ( drawTrajectoryFlag_ )
     {
@@ -138,22 +142,19 @@ void PhyCoubGL::drawTrajectory()
     gLWidget_->qglColor( Qt::cyan );
     for ( const auto& particleTrajectory : trajectory_ )
     {
-        for ( const auto& coordinateOfTrajectory : particleTrajectory.second )
-        {
-            DrawUtils::drawSphere( coordinateOfTrajectory, 0.001 );
-        }
+        particleTrajectory.second.drawTrajectory();
     }
 }
 
 // static
-Vector PhyCoubGL::mashtabVector( const Vector& coordinate, const Vector& mashtab )
+Vector PhyCoubGL::scaleVector( const Vector& coordinate, const Vector& ratio )
 {
-    const Vector mashtabedVector = Vector{
-        coordinate.x_ / mashtab.x_,
-        coordinate.y_ / mashtab.y_,
-        coordinate.z_ / mashtab.z_,
+    const Vector scaledVector = Vector{
+        coordinate.x_ / ratio.x_,
+        coordinate.y_ / ratio.y_,
+        coordinate.z_ / ratio.z_,
     };
-    return mashtabedVector;
+    return scaledVector;
 }
 
 } // namespace phywidgets

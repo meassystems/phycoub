@@ -6,6 +6,7 @@ include(../QtConfig.cmake)
 include(../IncludeDirectories.cmake)
 
 add_subdirectory(particleoptionscontroller)
+add_subdirectory(trajectory)
 add_subdirectory(coubglwidget)
 add_subdirectory(directioncontroller)
 add_subdirectory(directiongl)
@@ -29,6 +30,7 @@ add_library(widgets STATIC
 	 $<TARGET_OBJECTS:viewparticletable>
 	 $<TARGET_OBJECTS:addparticle>
 	 $<TARGET_OBJECTS:coubcontroller>
+	 $<TARGET_OBJECTS:trajectory>
 )
 
 target_link_libraries(widgets phycoub Qt5::Core Qt5::Widgets Qt5::OpenGL ${OPENGL_LIBRARIES})
