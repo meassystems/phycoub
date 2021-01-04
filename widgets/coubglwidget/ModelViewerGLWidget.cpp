@@ -110,14 +110,24 @@ void ModelViewerGLWidget::resizeGL( int width, int height )
 // virtual override
 void ModelViewerGLWidget::paintGL()
 {
+    // However, you also have to remember that any transformation you apply affects
+    // transformations further down the line. If we reverse the order of the above
+    // transformations, the rotation will then rotate about a different point.
+
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     glLoadIdentity();
-    glTranslatef( 0.0, 0.0, -10.0 );
 
+    constexpr float zoomOffset = -10.f;
+    glTranslatef( 0, 0, zoomOffset );
     glScaled( zoomScale_, zoomScale_, zoomScale_ );
+
     glRotatef( static_cast< float >( xRot_ / 16.0 ), 1.0, 0.0, 0.0 );
     glRotatef( static_cast< float >( yRot_ / 16.0 ), 0.0, 1.0, 0.0 );
     glRotatef( static_cast< float >( zRot_ / 16.0 ), 0.0, 0.0, 1.0 );
+
+    // todo - get value form PhyCoubGL
+    constexpr float centerOffset = -0.5f;
+    glTranslatef( centerOffset, centerOffset, centerOffset );
 
     phyCoubGL_->updateScene();
 }
