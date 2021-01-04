@@ -97,7 +97,7 @@ void PhyCoubGL::drowParticlesWithColorsByGroup(
 
     size_t colorIndex = 0;
     particleGroupList.forEachGroup(
-        [this, &trajectoryParticleIdList, &colorIndex]( ParticleGroupPtr group ) {
+        [ this, &trajectoryParticleIdList, &colorIndex ]( ParticleGroupPtr group ) {
             gLWidget_->qglColor( colorsForGroup_[ colorIndex ] );
 
             for ( ParticlePtr particle : *group )
@@ -115,7 +115,7 @@ void PhyCoubGL::drowParticlesWithColorsByGroup(
                     {
                         auto& trajectoryVector = trajectory_[ particle->getId() ];
                         trajectoryVector.push_back( mashtabedOriginCoordinate );
-                        if ( trajectoryVector.size() > 100 )
+                        if ( trajectoryVector.size() > numTrajectoryPointsPerParticle )
                         {
                             trajectoryVector.pop_front();
                         }

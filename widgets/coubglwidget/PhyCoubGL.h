@@ -60,6 +60,8 @@ class PhyCoubGL final : public PhyCoubControllerSubscriberIface
     Vector coubSize_;
 
     static const Vector origin_;
+
+    constexpr static unsigned numTrajectoryPointsPerParticle = 100;
     constexpr static std::array< Qt::GlobalColor, 5 > colorsForGroup_
         = { Qt::green, Qt::red, Qt::blue, Qt::yellow, Qt::magenta };
 };
