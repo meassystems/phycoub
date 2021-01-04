@@ -41,10 +41,8 @@ class PhyCoubGL final : public PhyCoubControllerSubscriberIface
   private:
     void drowModelingCoub();
     void drowParticlesWithColorsByGroup( const ParticleGroupList& particleGroupList );
-    void drowVector( const Vector& vector );
     void drowTrajectory();
 
-    void drowSphere( const Vector& coordinate, double radius );
     void drowCube( const Vector& coordinate, double size );
 
     static Vector mashtabVector( const Vector& coordinate, const Vector& mashtab );

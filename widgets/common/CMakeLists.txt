@@ -17,6 +17,8 @@ set(SOURCES
 	 PhyCoubController.h
 	 PhyCoubControllerSubscriberIface.h
 	 ValueControllerAdapterIface.h
+	 DrawUtils.cpp
+	 DrawUtils.h
 )
 
 add_library(common_w OBJECT ${SOURCES})

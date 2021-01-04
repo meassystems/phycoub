@@ -7,6 +7,7 @@
 #endif
 #include <QMouseEvent>
 
+#include "DrawUtils.h"
 #include "PhyDirectionGLWidget.h"
 
 namespace phywidgets
@@ -113,8 +114,8 @@ void PhyDirectionGLWidget::paintGL()
     glRotatef( static_cast< float >( yRot_ / 16.0 ), 0.0, 1.0, 0.0 );
     glRotatef( static_cast< float >( zRot_ / 16.0 ), 0.0, 0.0, 1.0 );
 
-    drowCoordinateSystem();
-    drowDirectionVector();
+    drawCoordinateSystem();
+    drawDirectionVector();
 }
 
 // virtual override
@@ -142,7 +143,7 @@ void PhyDirectionGLWidget::mouseMoveEvent( QMouseEvent* event )
     lastPos_ = event->pos();
 }
 
-void PhyDirectionGLWidget::drowCoordinateSystem()
+void PhyDirectionGLWidget::drawCoordinateSystem()
 {
     static const phycoub::Vector xVector = phycoub::Vector{ 1., 0., 0. };
     static const phycoub::Vector yVector = phycoub::Vector{ 0., 1., 0. };
@@ -150,83 +151,31 @@ void PhyDirectionGLWidget::drowCoordinateSystem()
 
     phycoub::Vector startOrdinate;
 
-    glLineWidth( 2.0f );
-    glBegin( GL_LINES );
-
     // ось x
     startOrdinate = xVector * -1;
-
     qglColor( Qt::green );
-    glVertex3f( static_cast< float >( startOrdinate.x_ ),
-        static_cast< float >( startOrdinate.y_ ),
-        static_cast< float >( startOrdinate.z_ ) );
-    glVertex3f( static_cast< float >( xVector.x_ ), static_cast< float >( xVector.y_ ),
-        static_cast< float >( xVector.z_ ) );
+    DrawUtils::drawDirectionVector(startOrdinate, xVector, 2.f, .03f);
 
     // ось y
     startOrdinate = yVector * -1;
-
     qglColor( Qt::blue );
-    glVertex3f( static_cast< float >( startOrdinate.x_ ),
-        static_cast< float >( startOrdinate.y_ ),
-        static_cast< float >( startOrdinate.z_ ) );
-    glVertex3f( static_cast< float >( yVector.x_ ), static_cast< float >( yVector.y_ ),
-        static_cast< float >( yVector.z_ ) );
+    DrawUtils::drawDirectionVector(startOrdinate, yVector, 2.f, .03f);
 
     // ось z
     startOrdinate = zVector * -1;
-
     qglColor( Qt::red );
-    glVertex3f( static_cast< float >( startOrdinate.x_ ),
-        static_cast< float >( startOrdinate.y_ ),
-        static_cast< float >( startOrdinate.z_ ) );
-    glVertex3f( static_cast< float >( zVector.x_ ), static_cast< float >( zVector.y_ ),
-        static_cast< float >( zVector.z_ ) );
-
-    glEnd();
-
-    qglColor( Qt::green );
-    drowSphere( xVector, 0.03 );
-
-    qglColor( Qt::blue );
-    drowSphere( yVector, 0.03 );
-
-    qglColor( Qt::red );
-    drowSphere( zVector, 0.03 );
+    DrawUtils::drawDirectionVector(startOrdinate, zVector, 2.f, .03f);
 }
 
-void PhyDirectionGLWidget::drowDirectionVector()
+void PhyDirectionGLWidget::drawDirectionVector()
 {
     if ( auto directionController = directionControllerWeak_.lock() )
     {
         const phycoub::Vector direction = directionController->getValue();
 
-        glLineWidth( 2.0f );
-        glBegin( GL_LINES );
-
         qglColor( Qt::cyan );
-        glVertex3f( .0f, .0f, .0f );
-        glVertex3f( static_cast< float >( direction.x_ ),
-            static_cast< float >( direction.y_ ), static_cast< float >( direction.z_ ) );
-
-        glEnd();
-
-        drowSphere( direction, 0.03 );
+        DrawUtils::drawDirectionVector(Vector{0., 0., 0.}, direction, 2.f, .03f);
     }
-}
-
-void PhyDirectionGLWidget::drowSphere( const phycoub::Vector& coordinate, double radius )
-{
-    glPushMatrix();
-    glScalef( 1, 1, 1 );
-    GLUquadricObj* quadric = gluNewQuadric();
-    gluQuadricNormals( quadric, GLU_SMOOTH );
-    gluQuadricDrawStyle( quadric, GLU_LINE );
-    glTranslatef( static_cast< float >( coordinate.x_ ),
-        static_cast< float >( coordinate.y_ ), static_cast< float >( coordinate.z_ ) );
-    gluSphere( quadric, radius, 36, 36 );
-    gluDeleteQuadric( quadric );
-    glPopMatrix();
 }
 
 } // namespace phywidgets

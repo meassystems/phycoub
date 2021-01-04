@@ -40,10 +40,8 @@ protected:
   virtual void mouseMoveEvent(QMouseEvent *event) override;
 
 private:
-  void drowCoordinateSystem();
-  void drowDirectionVector();
-
-  void drowSphere(const phycoub::Vector &coordinate, double radius);
+  void drawCoordinateSystem();
+  void drawDirectionVector();
 
   GLRotationControllerWeakPtr gLRotationControllerWeak_;
   VectorControllerAdapterWeakPtr directionControllerWeak_;
