@@ -17,9 +17,6 @@
 namespace phywidgets
 {
 
-// static
-const Vector PhyCoubGL::origin_ = Vector{ 0.5, 0.5, 0.5 };
-
 PhyCoubGL::PhyCoubGL( QGLWidget* gLWidget )
     : gLWidget_( gLWidget )
 {
@@ -56,16 +53,16 @@ void PhyCoubGL::updateScene()
 {
     if ( auto getParticlesForGLAdapter = getParticlesAdapterWeak_.lock() )
     {
-        drowModelingCoub();
-        drowParticlesWithColorsByGroup( getParticlesForGLAdapter->getParticles() );
-        drowTrajectory();
+        drawModelingCube();
+        drawParticlesWithColorsByGroup( getParticlesForGLAdapter->getParticles() );
+        drawTrajectory();
     }
 }
 
 void PhyCoubGL::setDrowTrajectoryFlag( bool flag )
 {
-    drowTrajectoryFlag_ = flag;
-    if ( !drowTrajectoryFlag_ )
+    drawTrajectoryFlag_ = flag;
+    if ( !drawTrajectoryFlag_ )
     {
         trajectory_.clear();
     }
@@ -73,22 +70,22 @@ void PhyCoubGL::setDrowTrajectoryFlag( bool flag )
 
 bool PhyCoubGL::getDrowTrajectoryFlag() const
 {
-    return drowTrajectoryFlag_;
+    return drawTrajectoryFlag_;
 }
 
-void PhyCoubGL::drowModelingCoub()
+void PhyCoubGL::drawModelingCube()
 {
     gLWidget_->qglColor( Qt::white );
-    drowCube( Vector{ 0, 0, 0 }, 1 );
+    DrawUtils::drawCube(Vector{ 0, 0, 0 }, numSizeCube, 2.f);
 }
 
-void PhyCoubGL::drowParticlesWithColorsByGroup(
+void PhyCoubGL::drawParticlesWithColorsByGroup(
     const ParticleGroupList& particleGroupList )
 {
     using namespace phycoub;
 
     std::unordered_set< IDType > trajectoryParticleIdList;
-    if ( drowTrajectoryFlag_ )
+    if ( drawTrajectoryFlag_ )
     {
         for ( const auto& [ key, value ] : trajectory_ )
         {
@@ -105,11 +102,11 @@ void PhyCoubGL::drowParticlesWithColorsByGroup(
             {
                 const Vector& particleCoordinate = particle->getCoordinate();
                 const Vector mashtabedOriginCoordinate
-                    = mashtabVector( particleCoordinate, coubSize_ ) - origin_;
+                    = mashtabVector( particleCoordinate, coubSize_ );
 
                 DrawUtils::drawSphere( mashtabedOriginCoordinate, 0.01 );
 
-                if ( drowTrajectoryFlag_ )
+                if ( drawTrajectoryFlag_ )
                 {
                     trajectoryParticleIdList.extract( particle->getId() );
 
@@ -127,7 +124,7 @@ void PhyCoubGL::drowParticlesWithColorsByGroup(
             ++colorIndex;
         } );
 
-    if ( drowTrajectoryFlag_ )
+    if ( drawTrajectoryFlag_ )
     {
         for ( auto id : trajectoryParticleIdList )
         {
@@ -136,7 +133,7 @@ void PhyCoubGL::drowParticlesWithColorsByGroup(
     }
 }
 
-void PhyCoubGL::drowTrajectory()
+void PhyCoubGL::drawTrajectory()
 {
     gLWidget_->qglColor( Qt::cyan );
     for ( const auto& particleTrajectory : trajectory_ )
@@ -146,96 +143,6 @@ void PhyCoubGL::drowTrajectory()
             DrawUtils::drawSphere( coordinateOfTrajectory, 0.001 );
         }
     }
-}
-
-void PhyCoubGL::drowCube( const Vector& coordinate, double size )
-{
-    glLineWidth( 2.0f );
-    glBegin( GL_LINES );
-    glVertex3f( static_cast< float >( coordinate.x_ - 0.5 * size ),
-        static_cast< float >( coordinate.y_ - 0.5 * size ),
-        static_cast< float >( coordinate.z_ + 0.5 * size ) );
-    glVertex3f( static_cast< float >( coordinate.x_ - 0.5 * size ),
-        static_cast< float >( coordinate.y_ + 0.5 * size ),
-        static_cast< float >( coordinate.z_ + 0.5 * size ) );
-
-    glVertex3f( static_cast< float >( coordinate.x_ - 0.5 * size ),
-        static_cast< float >( coordinate.y_ + 0.5 * size ),
-        static_cast< float >( coordinate.z_ + 0.5 * size ) );
-    glVertex3f( static_cast< float >( coordinate.x_ + 0.5 * size ),
-        static_cast< float >( coordinate.y_ + 0.5 * size ),
-        static_cast< float >( coordinate.z_ + 0.5 * size ) );
-
-    glVertex3f( static_cast< float >( coordinate.x_ + 0.5 * size ),
-        static_cast< float >( coordinate.y_ + 0.5 * size ),
-        static_cast< float >( coordinate.z_ + 0.5 * size ) );
-    glVertex3f( static_cast< float >( coordinate.x_ + 0.5 * size ),
-        static_cast< float >( coordinate.y_ - 0.5 * size ),
-        static_cast< float >( coordinate.z_ + 0.5 * size ) );
-
-    glVertex3f( static_cast< float >( coordinate.x_ + 0.5 * size ),
-        static_cast< float >( coordinate.y_ - 0.5 * size ),
-        static_cast< float >( coordinate.z_ + 0.5 * size ) );
-    glVertex3f( static_cast< float >( coordinate.x_ - 0.5 * size ),
-        static_cast< float >( coordinate.y_ - 0.5 * size ),
-        static_cast< float >( coordinate.z_ + 0.5 * size ) );
-    //
-    glVertex3f( static_cast< float >( coordinate.x_ - 0.5 * size ),
-        static_cast< float >( coordinate.y_ - 0.5 * size ),
-        static_cast< float >( coordinate.z_ - 0.5 * size ) );
-    glVertex3f( static_cast< float >( coordinate.x_ - 0.5 * size ),
-        static_cast< float >( coordinate.y_ + 0.5 * size ),
-        static_cast< float >( coordinate.z_ - 0.5 * size ) );
-
-    glVertex3f( static_cast< float >( coordinate.x_ - 0.5 * size ),
-        static_cast< float >( coordinate.y_ + 0.5 * size ),
-        static_cast< float >( coordinate.z_ - 0.5 * size ) );
-    glVertex3f( static_cast< float >( coordinate.x_ + 0.5 * size ),
-        static_cast< float >( coordinate.y_ + 0.5 * size ),
-        static_cast< float >( coordinate.z_ - 0.5 * size ) );
-
-    glVertex3f( static_cast< float >( coordinate.x_ + 0.5 * size ),
-        static_cast< float >( coordinate.y_ + 0.5 * size ),
-        static_cast< float >( coordinate.z_ - 0.5 * size ) );
-    glVertex3f( static_cast< float >( coordinate.x_ + 0.5 * size ),
-        static_cast< float >( coordinate.y_ - 0.5 * size ),
-        static_cast< float >( coordinate.z_ - 0.5 * size ) );
-
-    glVertex3f( static_cast< float >( coordinate.x_ + 0.5 * size ),
-        static_cast< float >( coordinate.y_ - 0.5 * size ),
-        static_cast< float >( coordinate.z_ - 0.5 * size ) );
-    glVertex3f( static_cast< float >( coordinate.x_ - 0.5 * size ),
-        static_cast< float >( coordinate.y_ - 0.5 * size ),
-        static_cast< float >( coordinate.z_ - 0.5 * size ) );
-    //
-    glVertex3f( static_cast< float >( coordinate.x_ - 0.5 * size ),
-        static_cast< float >( coordinate.y_ - 0.5 * size ),
-        static_cast< float >( coordinate.z_ + 0.5 * size ) );
-    glVertex3f( static_cast< float >( coordinate.x_ - 0.5 * size ),
-        static_cast< float >( coordinate.y_ - 0.5 * size ),
-        static_cast< float >( coordinate.z_ - 0.5 * size ) );
-
-    glVertex3f( static_cast< float >( coordinate.x_ - 0.5 * size ),
-        static_cast< float >( coordinate.y_ + 0.5 * size ),
-        static_cast< float >( coordinate.z_ + 0.5 * size ) );
-    glVertex3f( static_cast< float >( coordinate.x_ - 0.5 * size ),
-        static_cast< float >( coordinate.y_ + 0.5 * size ),
-        static_cast< float >( coordinate.z_ - 0.5 * size ) );
-
-    glVertex3f( static_cast< float >( coordinate.x_ + 0.5 * size ),
-        static_cast< float >( coordinate.y_ + 0.5 * size ),
-        static_cast< float >( coordinate.z_ + 0.5 * size ) );
-    glVertex3f( static_cast< float >( coordinate.x_ + 0.5 * size ),
-        static_cast< float >( coordinate.y_ + 0.5 * size ),
-        static_cast< float >( coordinate.z_ - 0.5 * size ) );
-
-    glVertex3f( static_cast< float >( coordinate.x_ + 0.5 * size ),
-        static_cast< float >( coordinate.y_ - 0.5 * size ),
-        static_cast< float >( coordinate.z_ + 0.5 * size ) );
-    glVertex3f( static_cast< float >( coordinate.x_ + 0.5 * size ),
-        static_cast< float >( coordinate.y_ - 0.5 * size ),
-        static_cast< float >( coordinate.z_ - 0.5 * size ) );
-    glEnd();
 }
 
 // static

@@ -39,15 +39,13 @@ class PhyCoubGL final : public PhyCoubControllerSubscriberIface
     bool getDrowTrajectoryFlag() const;
 
   private:
-    void drowModelingCoub();
-    void drowParticlesWithColorsByGroup( const ParticleGroupList& particleGroupList );
-    void drowTrajectory();
-
-    void drowCube( const Vector& coordinate, double size );
+    void drawModelingCube();
+    void drawParticlesWithColorsByGroup( const ParticleGroupList& particleGroupList );
+    void drawTrajectory();
 
     static Vector mashtabVector( const Vector& coordinate, const Vector& mashtab );
 
-    bool drowTrajectoryFlag_ = false;
+    bool drawTrajectoryFlag_ = false;
     bool updateTrajectoryFlag_ = false;
     std::unordered_map< IDType, std::list< Vector > > trajectory_;
 
@@ -57,8 +55,7 @@ class PhyCoubGL final : public PhyCoubControllerSubscriberIface
     QGLWidget* gLWidget_ = nullptr;
     Vector coubSize_;
 
-    static const Vector origin_;
-
+    static constexpr unsigned numSizeCube = 1;
     constexpr static unsigned numTrajectoryPointsPerParticle = 100;
     constexpr static std::array< Qt::GlobalColor, 5 > colorsForGroup_
         = { Qt::green, Qt::red, Qt::blue, Qt::yellow, Qt::magenta };

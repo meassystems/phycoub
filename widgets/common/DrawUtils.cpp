@@ -10,7 +10,7 @@ namespace phywidgets
 {
 
 // static
-void DrawUtils::drawSphere( const Vector& coordinate, double radius )
+void DrawUtils::drawSphere( const Vector& coordinate, float radius )
 {
     glPushMatrix();
     glScalef( 1, 1, 1 );
@@ -37,6 +37,46 @@ void DrawUtils::drawLine( const Vector& start, const Vector& end, float lineWidt
         static_cast< float >( end.z_ ) );
 
     glEnd();
+}
+
+// static
+void DrawUtils::drawCube( const Vector& coordinate, float size, float lineWidth )
+{
+    drawLine( Vector{ coordinate.x_, coordinate.y_, coordinate.z_ + size },
+        Vector{ coordinate.x_, coordinate.y_ + size, coordinate.z_ + size }, lineWidth );
+
+    drawLine( Vector{ coordinate.x_, coordinate.y_ + size, coordinate.z_ + size },
+        coordinate + size, lineWidth );
+
+    drawLine( coordinate + size,
+        Vector{ coordinate.x_ + size, coordinate.y_, coordinate.z_ + size }, lineWidth );
+
+    drawLine( Vector{ coordinate.x_ + size, coordinate.y_, coordinate.z_ + size },
+        Vector{ coordinate.x_, coordinate.y_, coordinate.z_ + size }, lineWidth );
+
+    drawLine( coordinate, Vector{ coordinate.x_, coordinate.y_ + size, coordinate.z_ },
+        lineWidth );
+
+    drawLine( Vector{ coordinate.x_, coordinate.y_ + size, coordinate.z_ },
+        Vector{ coordinate.x_ + size, coordinate.y_ + size, coordinate.z_ }, lineWidth );
+
+    drawLine( Vector{ coordinate.x_ + size, coordinate.y_ + size, coordinate.z_ },
+        Vector{ coordinate.x_ + size, coordinate.y_, coordinate.z_ }, lineWidth );
+
+    drawLine( Vector{ coordinate.x_ + size, coordinate.y_, coordinate.z_ }, coordinate,
+        lineWidth );
+
+    drawLine( Vector{ coordinate.x_, coordinate.y_, coordinate.z_ + size }, coordinate,
+        lineWidth );
+
+    drawLine( Vector{ coordinate.x_, coordinate.y_ + size, coordinate.z_ + size },
+        Vector{ coordinate.x_, coordinate.y_ + size, coordinate.z_ }, lineWidth );
+
+    drawLine( coordinate + size,
+        Vector{ coordinate.x_ + size, coordinate.y_ + size, coordinate.z_ }, lineWidth );
+
+    drawLine( Vector{ coordinate.x_ + size, coordinate.y_, coordinate.z_ + size },
+        Vector{ coordinate.x_ + size, coordinate.y_, coordinate.z_ }, lineWidth );
 }
 
 // static
