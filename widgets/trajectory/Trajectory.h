@@ -12,7 +12,7 @@ using namespace phycoub;
 class Trajectory final
 {
   public:
-    Trajectory( unsigned maxPointCount, double pointAngle, double lengthSkip );
+    Trajectory( unsigned maxPointCount, double pointAngle, double minLinearSize );
     ~Trajectory() = default;
 
     void update( const Vector& coordinate );
@@ -23,7 +23,7 @@ class Trajectory final
   private:
     unsigned _maxPointCount = 0;
     double _pointCosAngle = 0.;
-    double _lengthSkip = 0.;
+    double _minLinearSize = 0.;
 
     std::list< Vector > _trajectory;
 };

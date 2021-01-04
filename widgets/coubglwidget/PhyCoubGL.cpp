@@ -119,7 +119,7 @@ void PhyCoubGL::drawParticlesWithColorsByGroup(
                     else
                     {
                         Trajectory particleTrajectory{ numMaxTrajectoryPontCount,
-                            trajectoryPointAngle, numSizeCube * 0.9 };
+                            trajectoryPointAngle, numSizeCube };
                         trajectory_.emplace( particle->getId(), particleTrajectory );
                     }
                 }

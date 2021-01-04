@@ -16,10 +16,10 @@
 namespace phywidgets
 {
 
-Trajectory::Trajectory( unsigned maxPointCount, double pointAngle, double lengthSkip )
+Trajectory::Trajectory( unsigned maxPointCount, double pointAngle, double minLinearSize )
     : _maxPointCount( maxPointCount )
     , _pointCosAngle( cos( pointAngle ) )
-    , _lengthSkip( lengthSkip )
+    , _minLinearSize( minLinearSize )
 {
     PROGRAMMING_ASSERT( maxPointCount >= 2 );
     PROGRAMMING_ASSERT( pointAngle > 0 && pointAngle < M_PI_2 );
@@ -38,7 +38,7 @@ void Trajectory::update( const Vector& coordinate )
     _trajectory.pop_back();
 
     auto last = _trajectory.back();
-    auto beforeLast = ( _trajectory.end()-- )--;
+    auto beforeLast = ++_trajectory.rbegin();
 
     Vector prevDirection = last - *beforeLast;
     Vector newDirection = coordinate - last;
@@ -46,7 +46,10 @@ void Trajectory::update( const Vector& coordinate )
     double cosBetweenDirections
         = VectorUtils::getCosBetweenVectors( prevDirection, newDirection );
 
-    if ( cosBetweenDirections < _pointCosAngle )
+    double distanceBetweenPoints = ( coordinate - last ).getModule();
+
+    if ( cosBetweenDirections < _pointCosAngle
+        || distanceBetweenPoints > 0.5 * _minLinearSize )
     {
         _trajectory.push_back( coordinate );
     }
@@ -84,7 +87,7 @@ void Trajectory::drawTrajectory() const
         }
 
         Vector distance = coordinate - priviesCoordinate;
-        if ( distance.getModule() < _lengthSkip )
+        if ( distance.getModule() < _minLinearSize * 0.9 )
         {
             DrawUtils::drawLine( priviesCoordinate, coordinate, 0.001 );
         }

@@ -56,7 +56,7 @@ class PhyCoubGL final : public PhyCoubControllerSubscriberIface
     QGLWidget* gLWidget_ = nullptr;
     Vector coubSize_;
 
-    constexpr static unsigned numMaxTrajectoryPontCount = 50;
+    constexpr static unsigned numMaxTrajectoryPontCount = 20;
     constexpr static double trajectoryPointAngle = 0.2;
 
     constexpr static unsigned numSizeCube = 1;
