@@ -53,51 +53,51 @@ void InterCommunication::phyCalcInterworking()
             continue;
         }
 
-        threadPool.pushTask( [ groupIterator, particleIterator, endGroup, interworking,
-                                 borderFieldCondition, field, particleResultantMutex ]() {
-            auto interGroupIterator = groupIterator;
-            auto interParticleIterator = particleIterator;
-            ++interParticleIterator;
+        _threadPool.pushTask(
+            [ groupIterator, particleIterator, endGroup, interworking, this ]() {
+                auto interGroupIterator = groupIterator;
+                auto interParticleIterator = particleIterator;
+                ++interParticleIterator;
 
-            while ( interGroupIterator != endGroup )
-            {
-                if ( interParticleIterator == ( *interGroupIterator )->end() )
+                while ( interGroupIterator != endGroup )
                 {
-                    ++interGroupIterator;
-                    if ( interGroupIterator == endGroup )
+                    if ( interParticleIterator == ( *interGroupIterator )->end() )
                     {
-                        break;
+                        ++interGroupIterator;
+                        if ( interGroupIterator == endGroup )
+                        {
+                            break;
+                        }
+
+                        interParticleIterator = ( *interGroupIterator )->begin();
+                        continue;
                     }
 
-                    interParticleIterator = ( *interGroupIterator )->begin();
-                    continue;
-                }
-
-                while ( interParticleIterator != ( *interGroupIterator )->end() )
-                {
-                    ParticlePtr particle = *particleIterator;
-                    ParticlePtr interParticle = *interParticleIterator;
-
-                    const Vector resultant = interworking->psyForce(
-                        borderFieldCondition->phyFieldWithBorderCondition(
-                            field, interParticle, particle->getCoordinate() ),
-                        particle );
-
+                    while ( interParticleIterator != ( *interGroupIterator )->end() )
                     {
-                        std::lock_guard lock( *particleResultantMutex );
-                        particle->resultant_ += resultant;
-                        interParticle->resultant_ -= resultant;
-                    }
+                        ParticlePtr particle = *particleIterator;
+                        ParticlePtr interParticle = *interParticleIterator;
 
-                    ++interParticleIterator;
+                        const Vector resultant = interworking->psyForce(
+                            borderFieldCondition_->phyFieldWithBorderCondition(
+                                field_, interParticle, particle->getCoordinate() ),
+                            particle );
+
+                        {
+                            std::lock_guard< SpinLock > lock( _particleResultantSpinLock );
+                            particle->resultant_ += resultant;
+                            interParticle->resultant_ -= resultant;
+                        }
+
+                        ++interParticleIterator;
+                    }
                 }
-            }
-        } );
+            } );
 
         ++particleIterator;
     }
 
-    threadPool.waitAllTaskCompleted();
+    _threadPool.waitAllTaskCompleted();
 }
 
 void InterCommunication::setField( FieldPtr field )

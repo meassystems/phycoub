@@ -13,6 +13,7 @@
 #include "FieldIface.h"
 #include "BorderFieldCondition.h"
 #include "ThreadPool.h"
+#include "SpinLock.h"
 
 namespace phycoub
 {
@@ -32,7 +33,8 @@ class InterCommunication final : public InterworkingCalculatorBase
   private:
     FieldPtr field_;
     BorderFieldConditionPtr borderFieldCondition_;
-    ThreadPool threadPool;
+    ThreadPool _threadPool;
+    SpinLock _particleResultantSpinLock;
 };
 
 using InterCommunicationPtr = std::shared_ptr< InterCommunication >;

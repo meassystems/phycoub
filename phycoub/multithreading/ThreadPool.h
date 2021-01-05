@@ -7,6 +7,8 @@
 #include <functional>
 #include <atomic>
 
+#include "SpinLock.h"
+
 namespace phycoub
 {
 
@@ -22,16 +24,18 @@ class ThreadPool final
   private:
     void runTask();
 
+    using BlockType = SpinLock;
+
     std::list< std::thread > threads;
     bool threadsStopFlag = false;
     std::atomic_uint32_t _workingThreadCount = { 0 };
 
-    mutable std::mutex _taskQueueMutex;
-    mutable std::condition_variable _notifyThreadsContinueCv;
-    mutable std::condition_variable _notifyThreadComplete;
+    mutable BlockType _taskQueueMutex;
+    mutable std::condition_variable_any _notifyThreadsContinueCv;
+    mutable std::condition_variable_any _notifyThreadComplete;
     std::list< std::function< void() > > _taskQueue;
 
-    mutable std::mutex _exceptionMutex;
+    mutable BlockType _exceptionMutex;
     mutable std::exception_ptr _exception;
 };
 

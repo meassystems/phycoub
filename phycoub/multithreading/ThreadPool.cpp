@@ -27,7 +27,7 @@ ThreadPool::~ThreadPool()
 
     {
 
-        std::lock_guard< std::mutex > lock( _taskQueueMutex );
+        std::lock_guard< BlockType > lock( _taskQueueMutex );
         threadsStopFlag = true;
         // Необходимо делать под защитой очереди, чтобы не попасть в промежуток между
         // началом цикла и ожиданием уведомлений в исполнящих потоках
@@ -42,14 +42,14 @@ ThreadPool::~ThreadPool()
 
 void ThreadPool::pushTask( std::function< void() > task )
 {
-    std::lock_guard< std::mutex > lock( _taskQueueMutex );
+    std::lock_guard< BlockType > lock( _taskQueueMutex );
     _taskQueue.push_back( task );
     _notifyThreadsContinueCv.notify_one();
 }
 
 void ThreadPool::waitAllTaskCompleted() const
 {
-    std::unique_lock< std::mutex > taskQueueUniqueLock( _taskQueueMutex );
+    std::unique_lock< BlockType > taskQueueUniqueLock( _taskQueueMutex );
     if ( !_taskQueue.empty() || _workingThreadCount.load() != 0 )
     {
         _notifyThreadComplete.wait( taskQueueUniqueLock, [ & ] {
@@ -60,7 +60,7 @@ void ThreadPool::waitAllTaskCompleted() const
     }
 
     {
-        std::lock_guard< std::mutex > lock( _exceptionMutex );
+        std::lock_guard< BlockType > lock( _exceptionMutex );
         if ( _exception )
         {
             throw _exception;
@@ -72,7 +72,7 @@ void ThreadPool::runTask()
 {
     while ( !threadsStopFlag )
     {
-        std::unique_lock< std::mutex > cvTaskQueueUniqueLock( _taskQueueMutex );
+        std::unique_lock< BlockType > cvTaskQueueUniqueLock( _taskQueueMutex );
         try
         {
             if ( _taskQueue.empty() )
@@ -98,7 +98,7 @@ void ThreadPool::runTask()
         }
         catch ( ... )
         {
-            std::lock_guard< std::mutex > lock( _exceptionMutex );
+            std::lock_guard< BlockType > lock( _exceptionMutex );
             _exception = std::current_exception();
         }
 

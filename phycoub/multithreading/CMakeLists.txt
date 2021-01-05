@@ -8,6 +8,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(SOURCES
 	 ThreadPool.h
 	 ThreadPool.cpp
+	 SpinLock.h
+	 SpinLock.cpp
 )
 
 add_library(multithreading OBJECT ${SOURCES})
