@@ -20,17 +20,17 @@ ThreadPool::~ThreadPool()
     try
     {
         waitAllTaskCompleted();
-
-        threadsStopFlag = true;
-        _notifyThreadsContinueCv.notify_all();
-
-        for ( auto& thread : threads )
-        {
-            thread.join();
-        }
     }
     catch ( ... )
     {
+    }
+
+    threadsStopFlag = true;
+    _notifyThreadsContinueCv.notify_all();
+
+    for ( auto& thread : threads )
+    {
+        thread.join();
     }
 }
 
@@ -57,10 +57,7 @@ void ThreadPool::waitAllTaskCompleted() const
         std::lock_guard< std::mutex > lock( _exceptionMutex );
         if ( _exception )
         {
-            auto exception = _exception;
-            _exception = nullptr;
-
-            throw exception;
+            throw _exception;
         }
     }
 }
