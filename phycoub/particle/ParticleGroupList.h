@@ -16,12 +16,11 @@ namespace phycoub
 
 class ParticleGroupList final
 {
-  private:
-    using ContainerType = std::list< ParticleGroupPtr >;
-
   public:
     ParticleGroupList() = default;
     ~ParticleGroupList() = default;
+
+    using ContainerType = std::list< ParticleGroupPtr >;
 
     typename ContainerType::iterator begin();
     typename ContainerType::iterator end();

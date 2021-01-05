@@ -31,6 +31,13 @@ class InterCommunication final : public InterworkingCalculatorBase
     FieldPtr getFieldCreator();
 
   private:
+    void proceedParticle( ParticleGroupList::ContainerType::const_iterator endGroup,
+        ParticleGroupList::ContainerType::const_iterator interGroupIterator,
+        ParticleGroup::ContainerType::iterator particleIterator );
+
+    // todo dynamic calibration
+    constexpr static size_t numMultithreadingParticleCountThreshold = 100;
+
     FieldPtr field_;
     BorderFieldConditionPtr borderFieldCondition_;
     ThreadPool _threadPool;

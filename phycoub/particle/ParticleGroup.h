@@ -16,12 +16,11 @@ namespace phycoub
 
 class ParticleGroup final : public HasId
 {
-  private:
-    using ContainerType = std::list< ParticlePtr >;
-
   public:
     ParticleGroup() = default;
     virtual ~ParticleGroup() = default;
+
+    using ContainerType = std::list< ParticlePtr >;
 
     typename ContainerType::iterator begin();
     typename ContainerType::iterator end();

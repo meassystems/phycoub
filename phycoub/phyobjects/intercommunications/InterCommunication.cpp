@@ -23,6 +23,9 @@ InterCommunication::InterCommunication( FieldPtr field,
 void InterCommunication::phyCalcInterworking()
 {
     const ParticleGroupList& particleGroupList = getParticleGroupList();
+    const size_t particleCount = particleGroupList.getParticleCount();
+    size_t particleProcessedCount = particleCount;
+
     if ( particleGroupList.getParticleCount() <= 1 )
     {
         return;
@@ -53,47 +56,19 @@ void InterCommunication::phyCalcInterworking()
             continue;
         }
 
-        _threadPool.pushTask(
-            [ groupIterator, particleIterator, endGroup, interworking, this ]() {
-                auto interGroupIterator = groupIterator;
-                auto interParticleIterator = particleIterator;
-                ++interParticleIterator;
+        if ( particleProcessedCount < numMultithreadingParticleCountThreshold )
+        {
+            proceedParticle( endGroup, groupIterator, particleIterator );
+        }
+        else
+        {
+            std::function< void() > task
+                = std::bind( &InterCommunication::proceedParticle, this, endGroup,
+                    groupIterator, particleIterator );
+            _threadPool.pushTask( task );
+        }
 
-                while ( interGroupIterator != endGroup )
-                {
-                    if ( interParticleIterator == ( *interGroupIterator )->end() )
-                    {
-                        ++interGroupIterator;
-                        if ( interGroupIterator == endGroup )
-                        {
-                            break;
-                        }
-
-                        interParticleIterator = ( *interGroupIterator )->begin();
-                        continue;
-                    }
-
-                    while ( interParticleIterator != ( *interGroupIterator )->end() )
-                    {
-                        ParticlePtr particle = *particleIterator;
-                        ParticlePtr interParticle = *interParticleIterator;
-
-                        const Vector resultant = interworking->psyForce(
-                            borderFieldCondition_->phyFieldWithBorderCondition(
-                                field_, interParticle, particle->getCoordinate() ),
-                            particle );
-
-                        {
-                            std::lock_guard< SpinLock > lock( _particleResultantSpinLock );
-                            particle->resultant_ += resultant;
-                            interParticle->resultant_ -= resultant;
-                        }
-
-                        ++interParticleIterator;
-                    }
-                }
-            } );
-
+        --particleProcessedCount;
         ++particleIterator;
     }
 
@@ -108,6 +83,50 @@ void InterCommunication::setField( FieldPtr field )
 FieldPtr InterCommunication::getFieldCreator()
 {
     return field_;
+}
+
+void InterCommunication::proceedParticle(
+    ParticleGroupList::ContainerType::const_iterator endGroup,
+    ParticleGroupList::ContainerType::const_iterator interGroupIterator,
+    ParticleGroup::ContainerType::iterator particleIterator )
+{
+    InterworkingPtr interworking = getInterworkingFunction();
+    auto interParticleIterator = particleIterator;
+    ++interParticleIterator;
+
+    while ( interGroupIterator != endGroup )
+    {
+        if ( interParticleIterator == ( *interGroupIterator )->end() )
+        {
+            ++interGroupIterator;
+            if ( interGroupIterator == endGroup )
+            {
+                break;
+            }
+
+            interParticleIterator = ( *interGroupIterator )->begin();
+            continue;
+        }
+
+        while ( interParticleIterator != ( *interGroupIterator )->end() )
+        {
+            ParticlePtr particle = *particleIterator;
+            ParticlePtr interParticle = *interParticleIterator;
+
+            const Vector resultant = interworking->psyForce(
+                borderFieldCondition_->phyFieldWithBorderCondition(
+                    field_, interParticle, particle->getCoordinate() ),
+                particle );
+
+            {
+                std::lock_guard< SpinLock > lock( _particleResultantSpinLock );
+                particle->resultant_ += resultant;
+                interParticle->resultant_ -= resultant;
+            }
+
+            ++interParticleIterator;
+        }
+    }
 }
 
 } // namespace phycoub
