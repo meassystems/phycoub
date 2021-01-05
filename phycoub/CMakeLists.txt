@@ -24,6 +24,7 @@ add_subdirectory(interworkingfunctions)
 add_subdirectory(phymeasurement)
 add_subdirectory(errors)
 add_subdirectory(mathematic)
+add_subdirectory(multithreading)
 add_subdirectory(fieldfunctions)
 add_subdirectory(particle)
 add_subdirectory(logging)
@@ -46,6 +47,7 @@ add_library(phycoub STATIC
 	 $<TARGET_OBJECTS:phymeasurement>
 	 $<TARGET_OBJECTS:errors>
 	 $<TARGET_OBJECTS:mathematic>
+	 $<TARGET_OBJECTS:multithreading>
 	 $<TARGET_OBJECTS:fieldfunctions>
 	 $<TARGET_OBJECTS:particle>
 	 $<TARGET_OBJECTS:logging>

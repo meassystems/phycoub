@@ -39,14 +39,15 @@ Vector ElectricField::psyField(
 {
     Vector effect;
     Vector distance = ( mark - particle->getCoordinate() );
-    if ( distance == 0. )
+    double distanceModulo = distance.getModule();
+    if ( distanceModulo == 0. )
     {
         return effect;
     }
 
     effect = distance
         * ( ( fieldConstatnt_ * particle->getOptions().q_ )
-              / pow( distance.getModule(), 3 ) );
+              / pow( distanceModulo, 3 ) );
 
     return effect;
 }

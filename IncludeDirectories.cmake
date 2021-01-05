@@ -16,6 +16,7 @@ include_directories(
         ../phycoub/phymeasurement
         ../phycoub/errors
         ../phycoub/mathematic
+        ../phycoub/multithreading
         ../phycoub/fieldfunctions
         ../phycoub/particle
         ../phycoub/logging

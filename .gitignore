@@ -27,6 +27,7 @@
 phycoub/tests/unit_tests/borderconditions/BorderConditionTests
 phycoub/tests/unit_tests/lifetimecontrollers/LifeTimeControllerTests
 phycoub/tests/unit_tests/mathematic/MathematicTests
+phycoub/tests/unit_tests/multithreading/MultithreadingTests
 phycoub/tests/unit_tests/particle/ParticleTests
 phycoub/tests/unit_tests/particlesources/ParticleSourceTests
 phycoub/tests/integration_tests/electroninhomogeneousfields/ElectronInHomogeneousFieldsTests
