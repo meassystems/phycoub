@@ -49,3 +49,21 @@ TEST_F( MultithreadingTests, ThreadPoolException )
     EXPECT_THROW( taskPool.waitAllTaskCompleted(), std::exception_ptr );
     ASSERT_TRUE( firstTaskCalled );
 }
+
+TEST_F( MultithreadingTests, ThreadPoolStress )
+{
+    auto task = [ & ]() {
+      std::chrono::milliseconds( 10 );
+    };
+
+    for ( unsigned i = 0; i < 1000; ++i )
+    {
+        ThreadPool taskPool;
+        for ( unsigned j = 0; j < 1000; ++j )
+        {
+            taskPool.pushTask( task );
+        }
+        taskPool.waitAllTaskCompleted();
+    }
+
+}

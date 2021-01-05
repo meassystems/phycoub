@@ -12,6 +12,7 @@
 #include "InterworkingCalculatorBase.h"
 #include "FieldIface.h"
 #include "BorderFieldCondition.h"
+#include "ThreadPool.h"
 
 namespace phycoub
 {
@@ -31,6 +32,7 @@ class InterCommunication final : public InterworkingCalculatorBase
   private:
     FieldPtr field_;
     BorderFieldConditionPtr borderFieldCondition_;
+    ThreadPool threadPool;
 };
 
 using InterCommunicationPtr = std::shared_ptr< InterCommunication >;

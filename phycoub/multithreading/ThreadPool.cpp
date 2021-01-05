@@ -25,16 +25,13 @@ ThreadPool::~ThreadPool()
 void ThreadPool::pushTask( std::function< void() > task )
 {
     std::lock_guard< std::mutex > lock( _poolMutex );
+    _taskQueue.push_back( task );
 
     if ( _threadBusyCounter < _availableThreadCount )
     {
-        std::thread thread( &ThreadPool::runTask, this, task );
+        std::thread thread( &ThreadPool::runTask, this );
         thread.detach();
         ++_threadBusyCounter;
-    }
-    else
-    {
-        _taskQueue.push_back( task );
     }
 }
 
@@ -59,33 +56,33 @@ void ThreadPool::waitAllTaskCompleted() const
     }
 }
 
-void ThreadPool::runTask( std::function< void() > task )
+void ThreadPool::runTask()
 {
     try
     {
-        task();
+        std::unique_lock< std::mutex > lock( _poolMutex );
+        while ( true )
+        {
+            if ( _taskQueue.size() == 0 )
+            {
+                --_threadBusyCounter;
+                lock.unlock();
+                _notifyThreadCompleteCv.notify_all();
+                break;
+            }
+
+            std::function< void() > task = _taskQueue.front();
+            _taskQueue.pop_front();
+
+            lock.unlock();
+            task();
+            lock.lock();
+        }
     }
     catch ( ... )
     {
         std::lock_guard< std::mutex > lock( _exceptionMutex );
         _exception = std::current_exception();
-    }
-
-    {
-        std::unique_lock< std::mutex > lock( _poolMutex );
-        if ( _taskQueue.size() > 0 )
-        {
-            std::function< void() > task = _taskQueue.front();
-            std::thread thread( &ThreadPool::runTask, this, task );
-            thread.detach();
-            _taskQueue.pop_front();
-        }
-        else
-        {
-            --_threadBusyCounter;
-            lock.unlock();
-            _notifyThreadCompleteCv.notify_all();
-        }
     }
 }
 

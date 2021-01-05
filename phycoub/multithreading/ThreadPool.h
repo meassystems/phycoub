@@ -19,7 +19,7 @@ class ThreadPool final
     void waitAllTaskCompleted() const;
 
   private:
-    void runTask( std::function< void() > task );
+    void runTask();
 
     std::list< std::function< void() > > _taskQueue;
     uint32_t _threadBusyCounter = 0;
