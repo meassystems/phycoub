@@ -5,6 +5,7 @@
 #include <condition_variable>
 #include <future>
 #include <functional>
+#include <atomic>
 
 namespace phycoub
 {
@@ -21,12 +22,14 @@ class ThreadPool final
   private:
     void runTask();
 
-    std::list< std::function< void() > > _taskQueue;
-    uint32_t _threadBusyCounter = 0;
-    uint32_t _availableThreadCount = 1;
+    std::list< std::thread > threads;
+    bool threadsStopFlag = false;
+    std::atomic_uint32_t _workingThreadCount = { 0 };
 
-    mutable std::mutex _poolMutex;
-    mutable std::condition_variable _notifyThreadCompleteCv;
+    mutable std::mutex _taskQueueMutex;
+    mutable std::condition_variable _notifyThreadsContinueCv;
+    mutable std::condition_variable _notifyThreadComplete;
+    std::list< std::function< void() > > _taskQueue;
 
     mutable std::mutex _exceptionMutex;
     mutable std::exception_ptr _exception;

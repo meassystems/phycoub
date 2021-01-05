@@ -8,7 +8,11 @@ namespace phycoub
 
 ThreadPool::ThreadPool()
 {
-    _availableThreadCount = std::thread::hardware_concurrency();
+    unsigned availableThreadCount = std::thread::hardware_concurrency();
+    for ( uint32_t i = 0; i < availableThreadCount; ++i )
+    {
+        threads.emplace_back( std::thread( &ThreadPool::runTask, this ) );
+    }
 }
 
 ThreadPool::~ThreadPool()
@@ -16,6 +20,14 @@ ThreadPool::~ThreadPool()
     try
     {
         waitAllTaskCompleted();
+
+        threadsStopFlag = true;
+        _notifyThreadsContinueCv.notify_all();
+
+        for ( auto& thread : threads )
+        {
+            thread.join();
+        }
     }
     catch ( ... )
     {
@@ -24,25 +36,19 @@ ThreadPool::~ThreadPool()
 
 void ThreadPool::pushTask( std::function< void() > task )
 {
-    std::lock_guard< std::mutex > lock( _poolMutex );
+    std::lock_guard< std::mutex > lock( _taskQueueMutex );
     _taskQueue.push_back( task );
-
-    if ( _threadBusyCounter < _availableThreadCount )
-    {
-        std::thread thread( &ThreadPool::runTask, this );
-        thread.detach();
-        ++_threadBusyCounter;
-    }
+    _notifyThreadsContinueCv.notify_one();
 }
 
 void ThreadPool::waitAllTaskCompleted() const
 {
-    std::unique_lock< std::mutex > cvUniqueLock( _poolMutex );
-    if ( _taskQueue.size() != 0 || _threadBusyCounter != 0 )
+    std::unique_lock< std::mutex > taskQueueUniqueLock( _taskQueueMutex );
+    if ( !_taskQueue.empty() )
     {
-        _notifyThreadCompleteCv.wait( cvUniqueLock, [ & ] {
+        _notifyThreadComplete.wait( taskQueueUniqueLock, [ & ] {
             {
-                return _taskQueue.size() == 0 && _threadBusyCounter == 0;
+                return _taskQueue.empty() && _workingThreadCount.load() == 0;
             }
         } );
     }
@@ -51,38 +57,49 @@ void ThreadPool::waitAllTaskCompleted() const
         std::lock_guard< std::mutex > lock( _exceptionMutex );
         if ( _exception )
         {
-            throw _exception;
+            auto exception = _exception;
+            _exception = nullptr;
+
+            throw exception;
         }
     }
 }
 
 void ThreadPool::runTask()
 {
-    try
+    while ( !threadsStopFlag )
     {
-        std::unique_lock< std::mutex > lock( _poolMutex );
-        while ( true )
+        std::unique_lock< std::mutex > cvTaskQueueUniqueLock( _taskQueueMutex );
+        try
         {
-            if ( _taskQueue.size() == 0 )
+            if ( _taskQueue.empty() )
             {
-                --_threadBusyCounter;
-                lock.unlock();
-                _notifyThreadCompleteCv.notify_all();
-                break;
+                _notifyThreadsContinueCv.wait( cvTaskQueueUniqueLock,
+                    [ & ]() { return !_taskQueue.empty() || threadsStopFlag; } );
+
+                if ( threadsStopFlag )
+                {
+                    break;
+                }
             }
 
-            std::function< void() > task = _taskQueue.front();
+            auto task = _taskQueue.front();
             _taskQueue.pop_front();
 
-            lock.unlock();
+            _workingThreadCount.fetch_add(1);
+            cvTaskQueueUniqueLock.unlock();
+
             task();
-            lock.lock();
         }
-    }
-    catch ( ... )
-    {
-        std::lock_guard< std::mutex > lock( _exceptionMutex );
-        _exception = std::current_exception();
+        catch ( ... )
+        {
+            std::lock_guard< std::mutex > lock( _exceptionMutex );
+            _exception = std::current_exception();
+        }
+
+        cvTaskQueueUniqueLock.lock();
+        _workingThreadCount.fetch_sub(1);
+        _notifyThreadComplete.notify_one();
     }
 }
 

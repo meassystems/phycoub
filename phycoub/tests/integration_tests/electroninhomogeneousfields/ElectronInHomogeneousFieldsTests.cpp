@@ -23,10 +23,10 @@ TEST_F( ElectronInHomogeneousFieldsTests, ElectronInHomogeneousFieldsTest )
     particleGroup.forEachParticle(
         [ & ]( ParticlePtr particle ) { electronIds.push_back( particle->getId() ); } );
 
-    for(IDType id : electronIds) {
-        particleGroup.forEachGroup([=](ParticleGroupPtr group) {
-            group->remove(id);
-        });
+    for ( IDType id : electronIds )
+    {
+        particleGroup.forEachGroup(
+            [ = ]( ParticleGroupPtr group ) { group->remove( id ); } );
     }
 
     coub.setElectricFieldDirection( Vector{ 1., 0., 0. } );
@@ -43,11 +43,11 @@ TEST_F( ElectronInHomogeneousFieldsTests, ElectronInHomogeneousFieldsTest )
     secondElectronCoordinate.x_ += 1e-5;
 
     coub.addElectron( secondElectronCoordinate, zeroSpeed, electronOptions );
-    ParticlePtr secondElectron = *(++( *particleGroup.cbegin() )->begin());
+    ParticlePtr secondElectron = *( ++( *particleGroup.cbegin() )->begin() );
 
-    coub.setElectron2ElectronInterworkingFlag(true);
+    coub.setElectron2ElectronInterworkingFlag( true );
 
     coub.phyCoub();
-    ASSERT_LT(electron->getCoordinate().x_, centerCoordinate.x_);
-    ASSERT_GT(secondElectron->getCoordinate().x_, secondElectronCoordinate.x_);
+    ASSERT_LT( electron->getCoordinate().x_, centerCoordinate.x_ );
+    ASSERT_GT( secondElectron->getCoordinate().x_, secondElectronCoordinate.x_ );
 }

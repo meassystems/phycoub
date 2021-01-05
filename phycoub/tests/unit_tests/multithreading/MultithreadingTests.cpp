@@ -43,8 +43,8 @@ TEST_F( MultithreadingTests, ThreadPoolException )
     auto secondTask = [ & ]() { throw DivisionByZeroException(); };
 
     ThreadPool taskPool;
-    taskPool.pushTask( firstTask );
     taskPool.pushTask( secondTask );
+    taskPool.pushTask( firstTask );
 
     EXPECT_THROW( taskPool.waitAllTaskCompleted(), std::exception_ptr );
     ASSERT_TRUE( firstTaskCalled );
@@ -65,5 +65,4 @@ TEST_F( MultithreadingTests, ThreadPoolStress )
         }
         taskPool.waitAllTaskCompleted();
     }
-
 }
