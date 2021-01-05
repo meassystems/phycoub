@@ -25,8 +25,14 @@ ThreadPool::~ThreadPool()
     {
     }
 
-    threadsStopFlag = true;
-    _notifyThreadsContinueCv.notify_all();
+    {
+
+        std::lock_guard< std::mutex > lock( _taskQueueMutex );
+        threadsStopFlag = true;
+        // Необходимо делать под защитой очереди, чтобы не попасть в промежуток между
+        // началом цикла и ожиданием уведомлений в исполнящих потоках
+        _notifyThreadsContinueCv.notify_all();
+    }
 
     for ( auto& thread : threads )
     {
@@ -44,7 +50,7 @@ void ThreadPool::pushTask( std::function< void() > task )
 void ThreadPool::waitAllTaskCompleted() const
 {
     std::unique_lock< std::mutex > taskQueueUniqueLock( _taskQueueMutex );
-    if ( !_taskQueue.empty() )
+    if ( !_taskQueue.empty() || _workingThreadCount.load() != 0 )
     {
         _notifyThreadComplete.wait( taskQueueUniqueLock, [ & ] {
             {
@@ -83,7 +89,9 @@ void ThreadPool::runTask()
             auto task = _taskQueue.front();
             _taskQueue.pop_front();
 
-            _workingThreadCount.fetch_add(1);
+            // Увеличение атомарного счетчика нужно производить под блокировкой очереди
+            // задач, чтобы учесть что задача находится в обработке
+            _workingThreadCount.fetch_add( 1 );
             cvTaskQueueUniqueLock.unlock();
 
             task();
@@ -95,7 +103,10 @@ void ThreadPool::runTask()
         }
 
         cvTaskQueueUniqueLock.lock();
-        _workingThreadCount.fetch_sub(1);
+        // Необходимо выполнять под блокировкой чтобы не попасть в функции
+        // waitAllTaskCompleted в промежуток между проверкой кол-ва работающих потоков и
+        // ожиданием уведомлений
+        _workingThreadCount.fetch_sub( 1 );
         _notifyThreadComplete.notify_one();
     }
 }

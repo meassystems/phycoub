@@ -2,6 +2,7 @@
 
 #include <chrono>
 #include <thread>
+#include <atomic>
 
 #include "ThreadPool.h"
 #include "MathExceptions.h"
@@ -52,17 +53,23 @@ TEST_F( MultithreadingTests, ThreadPoolException )
 
 TEST_F( MultithreadingTests, ThreadPoolStress )
 {
+    unsigned expectedCounterValue = 1000;
+
+    std::atomic_uint32_t counter = {0};
     auto task = [ & ]() {
-      std::chrono::milliseconds( 10 );
+      std::chrono::milliseconds( 5 );
+      counter.fetch_add(1);
     };
 
     for ( unsigned i = 0; i < 1000; ++i )
     {
         ThreadPool taskPool;
-        for ( unsigned j = 0; j < 1000; ++j )
+        for ( unsigned j = 0; j < expectedCounterValue; ++j )
         {
             taskPool.pushTask( task );
         }
         taskPool.waitAllTaskCompleted();
+        ASSERT_EQ(counter.load(), expectedCounterValue);
+        counter.fetch_sub(expectedCounterValue);
     }
 }
