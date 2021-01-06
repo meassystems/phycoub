@@ -97,6 +97,11 @@ bool Vector::operator==( const Vector& vector ) const
     return x_ == vector.x_ && y_ == vector.y_ && z_ == vector.z_;
 }
 
+bool Vector::operator!=( const Vector& vector ) const
+{
+    return !operator==( vector );
+}
+
 bool Vector::operator>( const Vector& vector ) const
 {
     return getModule() > vector.getModule();
@@ -260,6 +265,11 @@ bool Vector::below( const Vector& vector ) const
 bool Vector::beyond( const Vector& vector ) const
 {
     return !( x_ <= vector.x_ && y_ <= vector.y_ && z_ <= vector.z_ );
+}
+
+double Vector::getMax() const
+{
+    return std::max( std::max( x_, y_ ), z_ );
 }
 
 } // namespace phycoub

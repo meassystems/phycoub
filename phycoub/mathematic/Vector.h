@@ -35,6 +35,7 @@ class Vector final
     Vector& operator-=( const Vector& vector );
     Vector& operator*=( const Vector& vector );
     bool operator==( const Vector& vector ) const;
+    bool operator!=( const Vector& vector ) const;
     bool operator>( const Vector& vector ) const;
     bool operator<( const Vector& vector ) const;
     bool operator>=( const Vector& vector ) const;
@@ -62,6 +63,8 @@ class Vector final
     double getModule() const;
     bool below( const Vector& vector ) const;
     bool beyond( const Vector& vector ) const;
+
+    double getMax() const;
 
     static constexpr uint32_t numSize = 3;
 
