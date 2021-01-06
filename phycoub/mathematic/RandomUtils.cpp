@@ -10,6 +10,8 @@
 #include <random>
 #include <math.h>
 
+#include "VectorUtils.h"
+
 namespace phycoub
 {
 
@@ -37,6 +39,17 @@ Vector RandomUtils::generateXYDirection()
     const double x = generateNormalizedDouble() * getRandomSign();
     const double y = sqrt( 1 - pow( x, 2 ) ) * getRandomSign();
     return Vector{ x, y, 0 };
+}
+
+// static
+Vector RandomUtils::generateRandomNormalizedVector()
+{
+    const double x = generateNormalizedDouble() * getRandomSign();
+    const double y = generateNormalizedDouble() * getRandomSign();
+    const double z = generateNormalizedDouble() * getRandomSign();
+
+    Vector result{x, y, z};
+    return VectorUtils::normalizeVector(result);
 }
 
 } // namespace phycoub

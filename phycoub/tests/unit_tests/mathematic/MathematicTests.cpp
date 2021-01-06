@@ -1,13 +1,14 @@
 #include "MathematicTests.h"
 
-#if defined(DARWIN)
-#   include <cmath>
-#elif defined(WIN32)
-#   define _USE_MATH_DEFINES
-#   include <math.h>
+#if defined( DARWIN )
+#    include <cmath>
+#elif defined( WIN32 )
+#    define _USE_MATH_DEFINES
+#    include <math.h>
 #endif
 
 #include "RotationMatrix.h"
+#include "VectorUtils.h"
 
 using namespace phycoub;
 
@@ -269,10 +270,24 @@ TEST_F( MathematicTests, RotationMatrixAround )
         RotationMatrix rotation{ Vector{ 0., -M_PI_4, M_PI_2 } };
         rotation.rotateVector( &v );
 
-        const double normalizedVectorProjection = sqrt(0.5);
-        Vector expectedResult{ 0., normalizedVectorProjection, normalizedVectorProjection };
+        const double normalizedVectorProjection = sqrt( 0.5 );
+        Vector expectedResult{ 0., normalizedVectorProjection,
+            normalizedVectorProjection };
         ASSERT_NEAR( v.x_, expectedResult.x_, doubleComparePrecision );
         ASSERT_NEAR( v.y_, expectedResult.y_, doubleComparePrecision );
         ASSERT_NEAR( v.z_, expectedResult.z_, doubleComparePrecision );
     }
+}
+
+TEST_F( MathematicTests, VectorUtilsCalculatePerpendicular )
+{
+    Vector expectedResult{ 1., 0., 0. };
+
+    const Vector n{ 0., 0., 1. };
+    const Vector v{ 0., 1., 0. };
+
+    const Vector u = VectorUtils::calculatePerpendicular( n, v );
+    ASSERT_NEAR( u.x_, expectedResult.x_, doubleComparePrecision );
+    ASSERT_NEAR( u.y_, expectedResult.y_, doubleComparePrecision );
+    ASSERT_NEAR( u.z_, expectedResult.z_, doubleComparePrecision );
 }

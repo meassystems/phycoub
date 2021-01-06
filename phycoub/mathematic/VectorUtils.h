@@ -21,6 +21,9 @@ class VectorUtils final
     static double scalarMultiplication( const Vector& first, const Vector& second );
     static double projectionToVector( const Vector& distance, const Vector& source );
     static double getCosBetweenVectors( const Vector& first, const Vector& second );
+
+    static Vector calculatePerpendicular( const Vector& nVector );
+    static Vector calculatePerpendicular( const Vector& nVector, const Vector& vVector );
 };
 
 } // namespace phycoub

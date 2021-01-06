@@ -63,7 +63,6 @@ class Vector final
     bool below( const Vector& vector ) const;
     bool beyond( const Vector& vector ) const;
 
-  private:
     static constexpr uint32_t numSize = 3;
 
   public:

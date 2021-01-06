@@ -20,6 +20,7 @@ class RandomUtils final
     static double generateNormalizedDouble();
     static double getRandomSign();
     static Vector generateXYDirection();
+    static Vector generateRandomNormalizedVector();
 };
 
 } // namespace phycoub
