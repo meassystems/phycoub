@@ -10,6 +10,8 @@ set(SOURCES
 	 HomogeneousFieldControllerWidget.h
 	 PhyHomogeneousDirectFieldControllerWidget.cpp
 	 PhyHomogeneousDirectFieldControllerWidget.h
+	 HomogeneousFieldInCubeGL.h
+	 HomogeneousFieldInCubeGL.cpp
 )
 
 add_library(homogeneousdirectfieldcontroller OBJECT ${SOURCES})

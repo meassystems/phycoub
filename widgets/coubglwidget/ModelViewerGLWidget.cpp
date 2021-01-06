@@ -27,6 +27,11 @@ void ModelViewerGLWidget::updateGlRotation( int xRot, int yRot, int zRot )
     updateGL();
 }
 
+void ModelViewerGLWidget::addDrawInCube( DrawInCubeGlPtr drawInCube )
+{
+    drawInCubeList.push_back( drawInCube );
+}
+
 void ModelViewerGLWidget::setGetCoubSizeAdapter(
     GetCoubSizeAdapterWeakPtr getCoubSizeAdapter )
 {
@@ -130,6 +135,14 @@ void ModelViewerGLWidget::paintGL()
     glTranslatef( centerOffset, centerOffset, centerOffset );
 
     phyCoubGL_->updateScene();
+
+    for ( auto drawInCubeWeak : drawInCubeList )
+    {
+        if ( auto drawInCube = drawInCubeWeak.lock() )
+        {
+            drawInCube->draw();
+        }
+    }
 }
 
 // virtual override

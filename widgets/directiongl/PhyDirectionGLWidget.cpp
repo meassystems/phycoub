@@ -1,10 +1,12 @@
 #include <QGL>
 #include <QOpenGLFunctions>
+
 #if defined( WIN32 )
 #    include <GL/glu.h>
 #elif defined( DARWIN )
 #    include <OpenGL/glu.h>
 #endif
+
 #include <QMouseEvent>
 
 #include "DrawUtils.h"
@@ -12,9 +14,6 @@
 
 namespace phywidgets
 {
-
-// static
-const phycoub::Vector PhyDirectionGLWidget::origin_ = phycoub::Vector{ 0.5, 0.5, 0.5 };
 
 PhyDirectionGLWidget::PhyDirectionGLWidget( QWidget* parent /* = nullptr */ )
     : QGLWidget( parent )
@@ -36,6 +35,11 @@ void PhyDirectionGLWidget::updateGlRotation( int xRot, int yRot, int zRot )
     zRot_ = zRot;
 
     updateGL();
+}
+
+void PhyDirectionGLWidget::setColor( QColor color )
+{
+    _color = color;
 }
 
 void PhyDirectionGLWidget::setGLRotattionController(
@@ -154,17 +158,17 @@ void PhyDirectionGLWidget::drawCoordinateSystem()
     // ось x
     startOrdinate = xVector * -1;
     qglColor( Qt::green );
-    DrawUtils::drawDirectionVector(startOrdinate, xVector, 2.f, .03f);
+    DrawUtils::drawDirectionVector( startOrdinate, xVector, 2.f, .03f );
 
     // ось y
     startOrdinate = yVector * -1;
     qglColor( Qt::blue );
-    DrawUtils::drawDirectionVector(startOrdinate, yVector, 2.f, .03f);
+    DrawUtils::drawDirectionVector( startOrdinate, yVector, 2.f, .03f );
 
     // ось z
     startOrdinate = zVector * -1;
     qglColor( Qt::red );
-    DrawUtils::drawDirectionVector(startOrdinate, zVector, 2.f, .03f);
+    DrawUtils::drawDirectionVector( startOrdinate, zVector, 2.f, .03f );
 }
 
 void PhyDirectionGLWidget::drawDirectionVector()
@@ -173,8 +177,8 @@ void PhyDirectionGLWidget::drawDirectionVector()
     {
         const phycoub::Vector direction = directionController->getValue();
 
-        qglColor( Qt::cyan );
-        DrawUtils::drawDirectionVector(Vector{0., 0., 0.}, direction, 2.f, .03f);
+        qglColor( _color );
+        DrawUtils::drawDirectionVector( Vector{ 0., 0., 0. }, direction, 2.f, .03f );
     }
 }
 

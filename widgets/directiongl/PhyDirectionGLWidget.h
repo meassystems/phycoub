@@ -10,53 +10,57 @@
 #include "ValueControllerAdapterIface.h"
 #include "Vector.h"
 
-namespace phywidgets {
+namespace phywidgets
+{
 
-class PhyDirectionGLWidget : public QGLWidget, public GLRotationIface {
-public:
-  PhyDirectionGLWidget(QWidget *parent = nullptr);
+class PhyDirectionGLWidget
+    : public QGLWidget
+    , public GLRotationIface
+{
+  public:
+    PhyDirectionGLWidget( QWidget* parent = nullptr );
 
-  // Implementation of GLRotationIface
-  virtual void updateGlRotation(int xRot, int yRot, int zRot) override;
+    // Implementation of GLRotationIface
+    virtual void updateGlRotation( int xRot, int yRot, int zRot ) override;
 
-  void setGLRotattionController(
-      GLRotationControllerWeakPtr gLRotationControllerWeak);
-  void setDirectionController(
-      VectorControllerAdapterWeakPtr directionControllerWeak);
+    void setColor( QColor color );
 
-public slots:
-  void setXRotation(int angle);
-  void setYRotation(int angle);
-  void setZRotation(int angle);
+    void setGLRotattionController( GLRotationControllerWeakPtr gLRotationControllerWeak );
+    void setDirectionController( VectorControllerAdapterWeakPtr directionControllerWeak );
 
-protected:
-  friend class GLRotationDirectionViewAdapter;
+  public slots:
+    void setXRotation( int angle );
+    void setYRotation( int angle );
+    void setZRotation( int angle );
 
-  virtual void initializeGL() override;
-  virtual void resizeGL(int width, int height) override;
-  virtual void paintGL() override;
+  protected:
+    friend class GLRotationDirectionViewAdapter;
 
-  virtual void mousePressEvent(QMouseEvent *event) override;
-  virtual void mouseMoveEvent(QMouseEvent *event) override;
+    virtual void initializeGL() override;
+    virtual void resizeGL( int width, int height ) override;
+    virtual void paintGL() override;
 
-private:
-  void drawCoordinateSystem();
-  void drawDirectionVector();
+    virtual void mousePressEvent( QMouseEvent* event ) override;
+    virtual void mouseMoveEvent( QMouseEvent* event ) override;
 
-  GLRotationControllerWeakPtr gLRotationControllerWeak_;
-  VectorControllerAdapterWeakPtr directionControllerWeak_;
-  std::shared_ptr<GLRotationDirectionViewAdapter>
-      gLRotationDirectionViewAdapter_ = nullptr;
+  private:
+    void drawCoordinateSystem();
+    void drawDirectionVector();
 
-  int xRot_ = 0;
-  int yRot_ = 0;
-  int zRot_ = 0;
+    GLRotationControllerWeakPtr gLRotationControllerWeak_;
+    VectorControllerAdapterWeakPtr directionControllerWeak_;
+    std::shared_ptr< GLRotationDirectionViewAdapter > gLRotationDirectionViewAdapter_
+        = nullptr;
 
-  double zoomScale_ = 0.4;
-  QPoint lastPos_;
-  QTimer timerPlot_;
+    int xRot_ = 0;
+    int yRot_ = 0;
+    int zRot_ = 0;
 
-  static const phycoub::Vector origin_;
+    double zoomScale_ = 0.4;
+    QPoint lastPos_;
+    QTimer timerPlot_;
+
+    QColor _color = Qt::cyan;
 };
 
 } // namespace phywidgets

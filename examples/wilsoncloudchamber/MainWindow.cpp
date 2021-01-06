@@ -58,6 +58,9 @@ void MainWindow::startNewMagnetron()
     ui->electricFieldController->setHeader( tr( "Электрическое поле" ) );
     ui->electricFieldController->setScalarValueLabel( tr( "q, [Кл]" ) );
 
+    ui->electricFieldController->setColor( Qt::cyan );
+    ui->coubGL->addDrawInCube( ui->electricFieldController->getDrawInCube() );
+
     ui->magneticFieldController->setGLRotattionController(
         coubController_->getGLRotationController() );
     ui->magneticFieldController->setDirectionController(
@@ -66,6 +69,9 @@ void MainWindow::startNewMagnetron()
         coubController_->getMagneticScalarControllerAdapter() );
     ui->magneticFieldController->setHeader( tr( "Магнитное поле" ) );
     ui->magneticFieldController->setScalarValueLabel( tr( "B, [Тл]" ) );
+
+    ui->magneticFieldController->setColor( Qt::magenta );
+    ui->coubGL->addDrawInCube( ui->magneticFieldController->getDrawInCube() );
 
     ui->sizeController->setScalarController(
         coubController_->getSizeScalarControllerAdapter() );

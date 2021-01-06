@@ -139,7 +139,7 @@ void PhyCoubGL::drawParticlesWithColorsByGroup(
 
 void PhyCoubGL::drawTrajectory()
 {
-    gLWidget_->qglColor( Qt::cyan );
+    gLWidget_->qglColor( Qt::yellow );
     for ( const auto& particleTrajectory : trajectory_ )
     {
         particleTrajectory.second.drawTrajectory();

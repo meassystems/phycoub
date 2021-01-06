@@ -3,6 +3,7 @@
 
 #include <QGLWidget>
 #include <QTimer>
+#include <list>
 
 #include "PhyCoubGL.h"
 #include "GLRotationController.h"
@@ -10,6 +11,7 @@
 #include "ValueControllerAdapterIface.h"
 #include "PhyCoubGlScalarControllerAdapters.h"
 #include "PhyCoubControllerSubscriberIface.h"
+#include "DrawInCubeGlIface.h"
 
 namespace phywidgets
 {
@@ -24,6 +26,8 @@ class ModelViewerGLWidget final
 
     // Implementation of GLRotationIface
     virtual void updateGlRotation( int xRot, int yRot, int zRot ) override;
+
+    void addDrawInCube(DrawInCubeGlPtr drawInCube);
 
     void setGetCoubSizeAdapter( GetCoubSizeAdapterWeakPtr getCoubSizeAdapter );
     void setGetParticleForGLAdapter(
@@ -57,6 +61,8 @@ class ModelViewerGLWidget final
 
     PhyCoubGLPtr phyCoubGL_;
     TrajectoryScalarControllerAdapterPtr trajectoryControllerAdapter_;
+
+    std::list<DrawInCubeGlWeak> drawInCubeList;
 
     GLRotationControllerWeakPtr gLRotationControllerWeak_;
     std::shared_ptr< GLRotationModelAdapter > gLRotationModelAdapter_ = nullptr;

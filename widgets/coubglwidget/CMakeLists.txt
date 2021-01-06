@@ -13,6 +13,7 @@ set(SOURCES
 	 PhyCoubGL.cpp
 	 PhyCoubGL.h
 	 PhyCoubGlScalarControllerAdapters.h
+	 DrawInCubeGlIface.h
 )
 
 add_library(coubglwidget OBJECT ${SOURCES})
