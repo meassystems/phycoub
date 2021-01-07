@@ -35,9 +35,8 @@ function [v, u, n] = calculateSpaceBasis(direction)
     [v, u] = calculatePlaneBasis(n);
 endfunction
 
-function [fieldVectorsBegin, fieldVectorsEnd] = calculateFieldVectors(v, u, n, spaceWhd)
+function [fieldVectorsBegin] = calculateFieldVectorsBegin(v, u, n, spaceWhd)
     fieldVectorsBegin = [];
-    fieldVectorsEnd = [];
 
     center = spaceWhd ./ 2;
     maxLinearSize = max(spaceWhd);
@@ -51,8 +50,6 @@ function [fieldVectorsBegin, fieldVectorsEnd] = calculateFieldVectors(v, u, n, s
         uIterator = vIterator;
         for j = 1:numCountPoitPerDirection + 1
             fieldVectorsBegin = [fieldVectorsBegin; uIterator];
-            fieldVectorsEnd = [fieldVectorsEnd; uIterator + n .* scaleCoef];
-
             uIterator = uIterator + u .* step;
         endfor
         vIterator = vIterator + v .* step;
@@ -63,18 +60,18 @@ endfunction
 function [facersCube] = calculateFacetsCube (cubeWhd)
     facersCube = [];
 
-    xzN = [1, 0, 0];
-    yzN = [0, 1, 0];
-    xyN = [0, 0, 1];
+    xzN = [cubeWhd(1), 0, 0];
+    yzN = [0, cubeWhd(2), 0];
+    xyN = [0, 0, cubeWhd(3)];
 
     facersCube = [facersCube; [xzN, 0]];
-    facersCube = [facersCube; [xzN, -1]];
+    facersCube = [facersCube; [xzN, -cubeWhd(1)]];
 
     facersCube = [facersCube; [yzN, 0]];
-    facersCube = [facersCube; [yzN, -1]];
+    facersCube = [facersCube; [yzN, -cubeWhd(2)]];
 
     facersCube = [facersCube; [xyN, 0]];
-    facersCube = [facersCube; [xyN, -1]];
+    facersCube = [facersCube; [xyN, -cubeWhd(3)]];
 endfunction
 
 function [intersectionPoints] = calculateIntersectionPoints (fieldVectorsBegin, v, u, facersCube)
@@ -116,7 +113,7 @@ function [intersectionPoints] = calculateIntersectionPoints (fieldVectorsBegin, 
     endfor
 endfunction
 
-function [fieldVectorsBegin, fieldVectorsEnd] = calculateOnCubeIntersectionPoints (intersectionPoints, cubeWhd)
+function [fieldVectorsBegin, fieldVectorsEnd] = calculateOnCubeIntersectionPoints (intersectionPoints, cubeWhd, direction)
     fieldVectorsBegin = [];
     fieldVectorsEnd = [];
 
@@ -131,8 +128,14 @@ function [fieldVectorsBegin, fieldVectorsEnd] = calculateOnCubeIntersectionPoint
         endfor
 
         if(rows(pointsOnCube) > 1)
-            fieldVectorsBegin = [fieldVectorsBegin; pointsOnCube(1, :)];
-            fieldVectorsEnd = [fieldVectorsEnd; pointsOnCube(2, :)];
+            fieldVectorDirection = pointsOnCube(2, :) .- pointsOnCube(1, :);
+            if (sum(fieldVectorDirection .* direction) > 0)
+                fieldVectorsBegin = [fieldVectorsBegin; pointsOnCube(1, :)];
+                fieldVectorsEnd = [fieldVectorsEnd; pointsOnCube(2, :)];
+            else
+                fieldVectorsBegin = [fieldVectorsBegin; pointsOnCube(2, :)];
+                fieldVectorsEnd = [fieldVectorsEnd; pointsOnCube(1, :)];
+            endif
         endif
     endfor
 endfunction
@@ -160,6 +163,8 @@ function drawField (fieldVectorsBegin, fieldVectorsEnd)
     for i = 1:1:rows(fieldVectorsBegin)
         plot3([fieldVectorsBegin(i, 1), fieldVectorsEnd(i, 1)], [fieldVectorsBegin(i, 2), fieldVectorsEnd(i, 2)], [fieldVectorsBegin(i, 3), fieldVectorsEnd(i, 3)], 'm');
         hold on;
+        scatter3([fieldVectorsEnd(i, 1)], [fieldVectorsEnd(i, 2)], [fieldVectorsEnd(i, 3)]);
+        hold on;
     endfor
 endfunction
 
@@ -169,8 +174,8 @@ direction = [1, 1, 1];
 drawDirectionAndPlaneBasis(v, u, n);
 
 cubeWhd = [1, 1, 1];
-[fieldVectorsBegin, fieldVectorsEnd] = calculateFieldVectors(v, u, n, cubeWhd);
+[fieldVectorsBegin] = calculateFieldVectors(v, u, n, cubeWhd);
 [facetesCube] = calculateFacetsCube(cubeWhd);
 [intersectionPoints] = calculateIntersectionPoints(fieldVectorsBegin, v, u, facetesCube);
-[fieldVectorsBegin, fieldVectorsEnd] = calculateOnCubeIntersectionPoints(intersectionPoints, cubeWhd);
+[fieldVectorsBegin, fieldVectorsEnd] = calculateOnCubeIntersectionPoints(intersectionPoints, cubeWhd, direction);
 drawField(fieldVectorsBegin, fieldVectorsEnd);
