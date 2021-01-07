@@ -43,7 +43,7 @@ function [fieldVectorsBegin, fieldVectorsEnd] = calculateFieldVectors(v, u, n, s
     maxLinearSize = max(spaceWhd);
     scaleCoef = 2 * maxLinearSize; %  / norm(n) = 1
 
-    numCountPoitPerDirection = 5;
+    numCountPoitPerDirection = 10;
     step = scaleCoef / numCountPoitPerDirection;
 
     vIterator = center - n .* scaleCoef ./ 2 .- v .* scaleCoef ./ 2 .- u .* scaleCoef ./ 2;
@@ -88,7 +88,11 @@ function [intersectionPoints] = calculateIntersectionPoints (fieldVectorsBegin, 
             slae = [facersCube(j, :); straightLineEquation1; straightLineEquation2];
 
             mainSlae = [slae(:, 1), slae(:, 2), slae(:, 3)];
-            if (sum(slae(1, :) .* slae(2, :)) == 0 || sum(slae(1, :) .* slae(2, :)) == 0)
+
+            cosEq1 = sum(mainSlae(1, :) .* mainSlae(2, :)) / norm(mainSlae(1, :)) / norm(mainSlae(2, :));
+            cosEq2 = sum(mainSlae(1, :) .* mainSlae(3, :)) / norm(mainSlae(1, :)) / norm(mainSlae(3, :));
+
+            if ( abs(cosEq1) == 1 || abs(cosEq2) == 1)
                 continue;
             endif
 
@@ -159,15 +163,9 @@ function drawField (fieldVectorsBegin, fieldVectorsEnd)
     endfor
 endfunction
 
-%[x, y, z] = sphere (40);
-%surf (x * 0.5 + 0.5, y * 0.5 + 0.5, z * 0.5 + 0.5);
-%hold on;
-
-direction = [1, 0, 0];
+direction = [1, 1, 1];
 [v, u, n] = calculateSpaceBasis(direction);
 
-v = [0, 1, 0];
-u = [0, 0, 1];
 drawDirectionAndPlaneBasis(v, u, n);
 
 cubeWhd = [1, 1, 1];
@@ -175,4 +173,4 @@ cubeWhd = [1, 1, 1];
 [facetesCube] = calculateFacetsCube(cubeWhd);
 [intersectionPoints] = calculateIntersectionPoints(fieldVectorsBegin, v, u, facetesCube);
 [fieldVectorsBegin, fieldVectorsEnd] = calculateOnCubeIntersectionPoints(intersectionPoints, cubeWhd);
-%drawField(fieldVectorsBegin, fieldVectorsEnd);
+drawField(fieldVectorsBegin, fieldVectorsEnd);
