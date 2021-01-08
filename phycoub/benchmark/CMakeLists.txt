@@ -1,14 +1,11 @@
-find_package(Threads REQUIRED)
-
-# Enable ExternalProject CMake module
-include(ExternalProject)
+include(../ConfigGtest.cmake)
 
 # Download and install GoogleTest
 ExternalProject_Add(
         benchmark
         GIT_REPOSITORY https://github.com/google/benchmark.git
         PREFIX ${CMAKE_CURRENT_BINARY_DIR}/google-benchmark
-        CMAKE_ARGS -DBENCHMARK_DOWNLOAD_DEPENDENCIES=ON -DCMAKE_BUILD_TYPE=Release
+        CMAKE_ARGS -DBENCHMARK_DOWNLOAD_DEPENDENCIES=OFF -DGOOGLETEST_PATH=${CMAKE_CURRENT_LIST_DIR}/gtest/src/gtest -DCMAKE_BUILD_TYPE=Release
         # Disable install step
         INSTALL_COMMAND ""
 )
@@ -36,7 +33,5 @@ set_target_properties(libbenchmark PROPERTIES
 
 # I couldn't make it work with INTERFACE_INCLUDE_DIRECTORIES
 include_directories("${source_dir}/include")
-
-include(../ConfigGtest.cmake)
 
 add_subdirectory(magnetron)
