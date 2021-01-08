@@ -60,11 +60,6 @@ double Vector::z() const
 
 Vector& Vector::operator=( double v )
 {
-    if(std::isnan(v))
-    {
-        unsigned debug = 0;
-    }
-
     _vector << v, v, v;
     return *this;
 }
@@ -73,7 +68,6 @@ Vector Vector::operator+( const Vector& vector ) const
 {
     Vector copy = *this;
     copy += vector;
-
     return copy;
 }
 
@@ -81,7 +75,6 @@ Vector Vector::operator-( const Vector& vector ) const
 {
     Vector copy = *this;
     copy -= vector;
-
     return copy;
 }
 
@@ -89,43 +82,24 @@ Vector Vector::operator*( const Vector& vector ) const
 {
     Vector copy = *this;
     copy *= vector;
-
     return copy;
 }
 
 Vector& Vector::operator+=( const Vector& vector )
 {
     _vector += vector._vector;
-
-    if(std::isnan(_vector.x()) || std::isnan(_vector.y()) || std::isnan(_vector.z()))
-    {
-        unsigned debug = 0;
-    }
-
     return *this;
 }
 
 Vector& Vector::operator-=( const Vector& vector )
 {
     _vector -= vector._vector;
-
-    if(std::isnan(_vector.x()) || std::isnan(_vector.y()) || std::isnan(_vector.z()))
-    {
-        unsigned debug = 0;
-    }
-
     return *this;
 }
 
 Vector& Vector::operator*=( const Vector& vector )
 {
     _vector = _vector.cross( vector._vector ).eval();
-
-    if(std::isnan(_vector.x()) || std::isnan(_vector.y()) || std::isnan(_vector.z()))
-    {
-        unsigned debug = 0;
-    }
-
     return *this;
 }
 
@@ -191,48 +165,24 @@ Vector Vector::operator/( double value ) const
 Vector& Vector::operator+=( double value )
 {
     _vector = _vector.array() + value;
-
-    if(std::isnan(_vector.x()) || std::isnan(_vector.y()) || std::isnan(_vector.z()))
-    {
-        unsigned debug = 0;
-    }
-
     return *this;
 }
 
 Vector& Vector::operator-=( double value )
 {
     _vector = _vector.array() - value;
-
-    if(std::isnan(_vector.x()) || std::isnan(_vector.y()) || std::isnan(_vector.z()))
-    {
-        unsigned debug = 0;
-    }
-
     return *this;
 }
 
 Vector& Vector::operator*=( double value )
 {
-    _vector = _vector.array() * value;
-
-    if(std::isnan(_vector.x()) || std::isnan(_vector.y()) || std::isnan(_vector.z()))
-    {
-        unsigned debug = 0;
-    }
-
+    _vector = _vector * value;
     return *this;
 }
 
 Vector& Vector::operator/=( double value )
 {
-    _vector = _vector.array() / value;
-
-    if(std::isnan(_vector.x()) || std::isnan(_vector.y()) || std::isnan(_vector.z()))
-    {
-        unsigned debug = 0;
-    }
-
+    _vector = _vector / value;
     return *this;
 }
 
