@@ -1,3 +1,4 @@
+set(GTEST_NAME gtest_benchmark)
 include(../ConfigGtest.cmake)
 
 # Download and install GoogleTest

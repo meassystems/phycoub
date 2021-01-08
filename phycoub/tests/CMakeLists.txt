@@ -1,3 +1,4 @@
+set(GTEST_NAME gtest_ctest)
 include(../ConfigGtest.cmake)
 
 add_subdirectory(integration_tests)
