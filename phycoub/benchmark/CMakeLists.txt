@@ -1,15 +1,18 @@
-set(GTEST_NAME gtest_benchmark)
-include(../ConfigGtest.cmake)
+find_package(Threads REQUIRED)
+
+# Enable ExternalProject CMake module
+include(ExternalProject)
 
 # Download and install GoogleTest
 ExternalProject_Add(
         benchmark
         GIT_REPOSITORY https://github.com/google/benchmark.git
         PREFIX ${CMAKE_CURRENT_BINARY_DIR}/google-benchmark
-        CMAKE_ARGS -DBENCHMARK_DOWNLOAD_DEPENDENCIES=OFF -DGOOGLETEST_PATH=${CMAKE_CURRENT_LIST_DIR}/gtest/src/gtest -DCMAKE_BUILD_TYPE=Release
+        CMAKE_ARGS -DBENCHMARK_DOWNLOAD_DEPENDENCIES=OFF -DGOOGLETEST_PATH=${PROJECT_SOURCE_DIR}/gtest/src/gtest -DCMAKE_BUILD_TYPE=Release
         # Disable install step
         INSTALL_COMMAND ""
 )
+add_dependencies(benchmark gtest)
 
 ExternalProject_Get_Property(benchmark source_dir binary_dir)
 
