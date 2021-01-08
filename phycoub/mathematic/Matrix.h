@@ -18,7 +18,7 @@ class Matrix final
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    Matrix() = default;
+    Matrix();
     ~Matrix() = default;
 
     Matrix( std::initializer_list< double > matrixList );

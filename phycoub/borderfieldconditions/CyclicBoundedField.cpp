@@ -19,15 +19,15 @@ CyclicBoundedField::CyclicBoundedField( const Vector& borders, double radiusCut 
     , borders_( borders )
 {
 
-    transferConst[ 0 ] = Vector( -borders_.x_, +borders_.y(), -borders_.z() );
-    transferConst[ 1 ] = Vector( -borders_.x_, 0, -borders_.z() );
-    transferConst[ 2 ] = Vector( -borders_.x_, -borders_.y(), -borders_.z() );
-    transferConst[ 3 ] = Vector( -borders_.x_, +borders_.y(), 0 );
-    transferConst[ 4 ] = Vector( -borders_.x_, 0, 0 );
-    transferConst[ 5 ] = Vector( -borders_.x_, -borders_.y(), 0 );
-    transferConst[ 6 ] = Vector( -borders_.x_, +borders_.y(), +borders_.z() );
-    transferConst[ 7 ] = Vector( -borders_.x_, 0, +borders_.z() );
-    transferConst[ 8 ] = Vector( -borders_.x_, -borders_.y(), +borders_.z() );
+    transferConst[ 0 ] = Vector( -borders_.x(), +borders_.y(), -borders_.z() );
+    transferConst[ 1 ] = Vector( -borders_.x(), 0, -borders_.z() );
+    transferConst[ 2 ] = Vector( -borders_.x(), -borders_.y(), -borders_.z() );
+    transferConst[ 3 ] = Vector( -borders_.x(), +borders_.y(), 0 );
+    transferConst[ 4 ] = Vector( -borders_.x(), 0, 0 );
+    transferConst[ 5 ] = Vector( -borders_.x(), -borders_.y(), 0 );
+    transferConst[ 6 ] = Vector( -borders_.x(), +borders_.y(), +borders_.z() );
+    transferConst[ 7 ] = Vector( -borders_.x(), 0, +borders_.z() );
+    transferConst[ 8 ] = Vector( -borders_.x(), -borders_.y(), +borders_.z() );
     //-------------------------------------------------------------------------
     transferConst[ 9 ] = Vector( 0, +borders_.y(), -borders_.z() );
     transferConst[ 10 ] = Vector( 0, 0, -borders_.z() );
@@ -39,15 +39,15 @@ CyclicBoundedField::CyclicBoundedField( const Vector& borders, double radiusCut 
     transferConst[ 16 ] = Vector( 0, 0, +borders_.z() );
     transferConst[ 17 ] = Vector( 0, -borders_.y(), +borders_.z() );
     //-------------------------------------------------------------------------
-    transferConst[ 18 ] = Vector( +borders_.x_, +borders_.y(), -borders_.z() );
-    transferConst[ 19 ] = Vector( +borders_.x_, 0, -borders_.z() );
-    transferConst[ 20 ] = Vector( +borders_.x_, -borders_.y(), -borders_.z() );
-    transferConst[ 21 ] = Vector( +borders_.x_, +borders_.y(), 0 );
-    transferConst[ 22 ] = Vector( +borders_.x_, 0, 0 );
-    transferConst[ 23 ] = Vector( +borders_.x_, -borders_.y(), 0 );
-    transferConst[ 24 ] = Vector( +borders_.x_, +borders_.y(), +borders_.z() );
-    transferConst[ 25 ] = Vector( +borders_.x_, 0, +borders_.z() );
-    transferConst[ 26 ] = Vector( +borders_.x_, -borders_.y(), +borders_.z() );
+    transferConst[ 18 ] = Vector( +borders_.x(), +borders_.y(), -borders_.z() );
+    transferConst[ 19 ] = Vector( +borders_.x(), 0, -borders_.z() );
+    transferConst[ 20 ] = Vector( +borders_.x(), -borders_.y(), -borders_.z() );
+    transferConst[ 21 ] = Vector( +borders_.x(), +borders_.y(), 0 );
+    transferConst[ 22 ] = Vector( +borders_.x(), 0, 0 );
+    transferConst[ 23 ] = Vector( +borders_.x(), -borders_.y(), 0 );
+    transferConst[ 24 ] = Vector( +borders_.x(), +borders_.y(), +borders_.z() );
+    transferConst[ 25 ] = Vector( +borders_.x(), 0, +borders_.z() );
+    transferConst[ 26 ] = Vector( +borders_.x(), -borders_.y(), +borders_.z() );
 }
 
 // virtual override
@@ -75,12 +75,12 @@ Vector CyclicBoundedField::phyFieldWithBorderCondition(
         }
         transferQuantity = 0;
         //-----
-        if ( ( mark.x_ - radiusCut_ ) < 0 )
+        if ( ( mark.x() - radiusCut_ ) < 0 )
         {
             intersection[ 0 ] = true;
             addTransfer( 5 - 1 );
         }
-        else if ( ( mark.x_ + radiusCut_ ) > borders_.x_ )
+        else if ( ( mark.x() + radiusCut_ ) > borders_.x() )
         {
             intersection[ 5 ] = true;
             addTransfer( 23 - 1 );

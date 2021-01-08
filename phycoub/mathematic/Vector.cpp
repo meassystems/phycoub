@@ -13,6 +13,11 @@ namespace phycoub
 
 using namespace Eigen;
 
+Vector::Vector()
+{
+    _vector << 0, 0, 0;
+}
+
 Vector::Vector( double x, double y, double z )
 {
     _vector << x, y, z;

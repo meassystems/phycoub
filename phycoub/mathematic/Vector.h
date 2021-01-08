@@ -20,7 +20,7 @@ class Vector final
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    Vector() = default;
+    Vector();
     ~Vector() = default;
 
     Vector( double x, double y, double z );

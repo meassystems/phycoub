@@ -15,6 +15,11 @@ namespace phycoub
 
 using namespace Eigen;
 
+Matrix::Matrix()
+{
+    _matrix << 0, 0, 0, 0, 0, 0, 0, 0, 0;
+}
+
 Matrix::Matrix( std::initializer_list< double > matrixList )
 {
     PROGRAMMING_ASSERT( matrixList.size() == numSize * numSize );
