@@ -9,10 +9,10 @@ ExternalProject_Add(
         GIT_REPOSITORY https://github.com/google/benchmark.git
         PREFIX ${CMAKE_CURRENT_BINARY_DIR}/google-benchmark
         CMAKE_ARGS -DBENCHMARK_DOWNLOAD_DEPENDENCIES=OFF -DGOOGLETEST_PATH=${PROJECT_SOURCE_DIR}/gtest/src/gtest -DCMAKE_BUILD_TYPE=Release
+        DEPENDS gtest
         # Disable install step
         INSTALL_COMMAND ""
 )
-add_dependencies(benchmark gtest)
 
 ExternalProject_Get_Property(benchmark source_dir binary_dir)
 
