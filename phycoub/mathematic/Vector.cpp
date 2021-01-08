@@ -105,7 +105,8 @@ Vector& Vector::operator*=( const Vector& vector )
 
 bool Vector::operator==( const Vector& vector ) const
 {
-    return ( _vector - vector._vector ).sum() == 0.;
+    return _vector( 0 ) == vector._vector( 0 ) && _vector( 1 ) == vector._vector( 1 )
+        && _vector( 2 ) == vector._vector( 2 );
 }
 
 bool Vector::operator!=( const Vector& vector ) const
@@ -176,13 +177,13 @@ Vector& Vector::operator-=( double value )
 
 Vector& Vector::operator*=( double value )
 {
-    _vector = _vector * value;
+    _vector *= value;
     return *this;
 }
 
 Vector& Vector::operator/=( double value )
 {
-    _vector = _vector / value;
+    _vector /= value;
     return *this;
 }
 
