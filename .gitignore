@@ -26,6 +26,8 @@
 **/Testing
 **/cmake-build-*
 
+phycoub/benchmark/magnetron/MagnetronBenchmark
+
 phycoub/tests/unit_tests/borderconditions/BorderConditionTests
 phycoub/tests/unit_tests/lifetimecontrollers/LifeTimeControllerTests
 phycoub/tests/unit_tests/mathematic/MathematicTests
