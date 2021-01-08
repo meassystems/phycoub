@@ -41,6 +41,8 @@ examples/electroninhomogeneousfields/electroninhomogeneousfields
 examples/magnetron/magnetron
 examples/wilsoncloudchamber/wilsoncloudchamber
 
+benchmark_result.json
+
 **/build*/
 **/*.autosave
 **/*.pro.user
