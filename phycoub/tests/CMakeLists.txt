@@ -1,5 +1,4 @@
 find_package(Threads REQUIRED)
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
 # Enable ExternalProject CMake module
 include(ExternalProject)

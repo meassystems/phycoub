@@ -9,6 +9,8 @@
 
 #include <math.h>
 
+#include <Eigen/Dense>
+
 #include "Matrix.h"
 
 namespace phycoub
@@ -33,6 +35,7 @@ Vector& Vector::operator=( double vector )
     x_ = vector;
     y_ = vector;
     z_ = vector;
+    Eigen::MatrixXd m(2,2);
 
     return *this;
 }
