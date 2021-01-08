@@ -3,11 +3,10 @@ add_custom_target(DownloadEigen)
 set(Eigen3_DIR "${CMAKE_CURRENT_LIST_DIR}/eigen/share/eigen3/cmake")
 find_package (Eigen3 NO_MODULE NO_DEFAULT_PATH)
 if (NOT TARGET Eigen3::Eigen)
-    message(STATUS "Eigen3 not found.")
     include(ExternalProject)
     ExternalProject_Add(
             eigen
-            GIT_REPOSITORY https://gitlab.com/libeigen/eigen.git
+            URL https://gitlab.com/libeigen/eigen/-/archive/3.3.9/eigen-3.3.9.zip
             PREFIX ${CMAKE_CURRENT_BINARY_DIR}/eigen
             CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_BINARY_DIR}/eigen
     )
