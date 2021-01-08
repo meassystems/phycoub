@@ -24,8 +24,8 @@ using namespace std;
 
 RotationMatrix::RotationMatrix( const Vector& rotation )
 {
-    PROGRAMMING_ASSERT( rotation.x_ <= abs( 2 * M_PI ) && rotation.y_ <= abs( 2 * M_PI )
-        && rotation.z_ <= abs( 2 * M_PI ) );
+    PROGRAMMING_ASSERT( rotation.x() <= abs( 2 * M_PI ) && rotation.y() <= abs( 2 * M_PI )
+        && rotation.z() <= abs( 2 * M_PI ) );
 
     initMatrix( rotation );
 }
@@ -37,14 +37,14 @@ void RotationMatrix::rotateVector( Vector* vector )
 
 void RotationMatrix::initMatrix( const Vector& rotation )
 {
-    double cosAlpha = cos( rotation.z_ );
-    double sinAlpha = sin( rotation.z_ );
+    double cosAlpha = cos( rotation.z() );
+    double sinAlpha = sin( rotation.z() );
 
-    double cosBeta = cos( rotation.y_ );
-    double sinBeta = sin( rotation.y_ );
+    double cosBeta = cos( rotation.y() );
+    double sinBeta = sin( rotation.y() );
 
-    double cosGamma = cos( rotation.x_ );
-    double sinGamma = sin( rotation.x_ );
+    double cosGamma = cos( rotation.x() );
+    double sinGamma = sin( rotation.x() );
 
     matrix_[ 0 ] = cosAlpha * cosBeta;
     matrix_[ 3 ] = sinAlpha * cosBeta;
@@ -64,29 +64,29 @@ Vector RotationMatrix::directionToRotation( const Vector& direction )
 {
     const Vector directionN = VectorUtils::normalizeVector( direction );
 
-    double thetaRad = ( directionN.z_ == 0
-            ? signbit( directionN.z_ ) ? -M_PI_2 : M_PI_2
-            : atan( sqrt( pow( directionN.x_, 2 ) + pow( directionN.y_, 2 ) )
-                / directionN.z_ ) );
+    double thetaRad = ( directionN.z() == 0
+            ? signbit( directionN.z() ) ? -M_PI_2 : M_PI_2
+            : atan( sqrt( pow( directionN.x(), 2 ) + pow( directionN.y(), 2 ) )
+                / directionN.z() ) );
 
     const double thetaRadAbs = M_PI_2 - abs( thetaRad );
     thetaRad = signbit( thetaRad ) ? thetaRadAbs : -1 * thetaRadAbs;
 
-    double alphaRad = directionN.x_ == 0
-        ? signbit( directionN.x_ * directionN.y_ ) ? -M_PI_2 : M_PI_2
-        : atan( directionN.y_ / directionN.x_ );
+    double alphaRad = directionN.x() == 0
+        ? signbit( directionN.x() * directionN.y() ) ? -M_PI_2 : M_PI_2
+        : atan( directionN.y() / directionN.x() );
 
     const double alphaRadAbs = abs( alphaRad );
-    if ( !signbit( directionN.x_ ) )
+    if ( !signbit( directionN.x() ) )
     {
-        if ( signbit( directionN.y_ ) )
+        if ( signbit( directionN.y() ) )
         {
             alphaRad = 2. * M_PI - alphaRadAbs;
         }
     }
     else
     {
-        if ( !signbit( directionN.y_ ) )
+        if ( !signbit( directionN.y() ) )
         {
             alphaRad = M_PI - alphaRadAbs;
         }

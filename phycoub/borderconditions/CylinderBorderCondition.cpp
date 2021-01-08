@@ -28,27 +28,27 @@ void CylinderBorderCondition::psyMove(
 
     bool isBorderReached = false;
     Vector newCoordinate = particle->getCoordinate() + move;
-    const Vector newCoordinateWithCylindricCenter{ newCoordinate.x_ - radius,
-        newCoordinate.y_ - radius, newCoordinate.z_ };
+    const Vector newCoordinateWithCylindricCenter{ newCoordinate.x() - radius,
+        newCoordinate.y() - radius, newCoordinate.z() };
 
-    if ( pow( newCoordinateWithCylindricCenter.x_, 2 )
-            + pow( newCoordinateWithCylindricCenter.y_, 2 )
+    if ( pow( newCoordinateWithCylindricCenter.x(), 2 )
+            + pow( newCoordinateWithCylindricCenter.y(), 2 )
         >= squaredRadius )
     {
         isBorderReached = true;
-        newCoordinate.x_ -= doubleRadius;
-        newCoordinate.y_ -= doubleRadius;
+        newCoordinate.x() -= doubleRadius;
+        newCoordinate.y() -= doubleRadius;
     }
 
-    if ( newCoordinate.z_ < 0 )
+    if ( newCoordinate.z() < 0 )
     {
         isBorderReached = true;
-        newCoordinate.z_ += height;
+        newCoordinate.z() += height;
     }
-    else if ( newCoordinate.z_ >= height )
+    else if ( newCoordinate.z() >= height )
     {
         isBorderReached = true;
-        newCoordinate.z_ -= height;
+        newCoordinate.z() -= height;
     }
 
     if ( isBorderReached )

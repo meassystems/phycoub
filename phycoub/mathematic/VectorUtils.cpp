@@ -31,7 +31,7 @@ Vector VectorUtils::normalizeVector( Vector vector )
 // static
 double VectorUtils::scalarMultiplication( const Vector& first, const Vector& second )
 {
-    double result = first.x_ * second.x_ + first.y_ * second.y_ + first.z_ * second.z_;
+    double result = first.x() * second.x() + first.y() * second.y() + first.z() * second.z();
     return result;
 }
 
@@ -62,17 +62,17 @@ Vector VectorUtils::calculatePerpendicular( const Vector& nVector )
 {
     Vector v = RandomUtils::generateRandomNormalizedVector() + 1;
 
-    if ( nVector.x_ != 0 )
+    if ( nVector.x() != 0 )
     {
-        v.x_ = -1 * ( nVector.y_ * v.y_ + nVector.z_ * v.z_ ) / nVector.x_;
+        v.x() = -1 * ( nVector.y() * v.y() + nVector.z() * v.z() ) / nVector.x();
     }
-    else if ( nVector.y_ != 0 )
+    else if ( nVector.y() != 0 )
     {
-        v.y_ = -1 * ( nVector.x_ * v.x_ + nVector.z_ * v.z_ ) / nVector.y_;
+        v.y() = -1 * ( nVector.x() * v.x() + nVector.z() * v.z() ) / nVector.y();
     }
-    else if ( nVector.z_ != 0 )
+    else if ( nVector.z() != 0 )
     {
-        v.z_ = -1 * ( nVector.x_ * v.x_ + nVector.y_ * v.y_ ) / nVector.z_;
+        v.z() = -1 * ( nVector.x() * v.x() + nVector.y() * v.y() ) / nVector.z();
     }
     else
     {

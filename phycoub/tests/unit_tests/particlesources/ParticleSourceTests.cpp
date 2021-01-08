@@ -26,9 +26,9 @@ TEST_F( ParticleSourceTests, ConeParticleSourceTest )
         Vector v = particle->getSpeed();
 
         Vector expectedResult{ 0., 0., 2. };
-        ASSERT_NEAR( v.x_, expectedResult.x_, doubleComparePrecision );
-        ASSERT_NEAR( v.y_, expectedResult.y_, doubleComparePrecision );
-        ASSERT_NEAR( v.z_, expectedResult.z_, doubleComparePrecision );
+        ASSERT_NEAR( v.x(), expectedResult.x(), doubleComparePrecision );
+        ASSERT_NEAR( v.y(), expectedResult.y(), doubleComparePrecision );
+        ASSERT_NEAR( v.z(), expectedResult.z(), doubleComparePrecision );
     }
 
     {
@@ -46,8 +46,8 @@ TEST_F( ParticleSourceTests, ConeParticleSourceTest )
         double normalizedVectorComponent = sqrt( 0.5 );
         Vector expectedResult{ 0., 2. * normalizedVectorComponent,
             2. * normalizedVectorComponent };
-        ASSERT_NEAR( v.x_, expectedResult.x_, doubleComparePrecision );
-        ASSERT_NEAR( v.y_, expectedResult.y_, doubleComparePrecision );
-        ASSERT_NEAR( v.z_, expectedResult.z_, doubleComparePrecision );
+        ASSERT_NEAR( v.x(), expectedResult.x(), doubleComparePrecision );
+        ASSERT_NEAR( v.y(), expectedResult.y(), doubleComparePrecision );
+        ASSERT_NEAR( v.z(), expectedResult.z(), doubleComparePrecision );
     }
 }

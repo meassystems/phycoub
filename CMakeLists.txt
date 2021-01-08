@@ -5,6 +5,7 @@ add_custom_target(PhyCoubAll)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+set (CMAKE_CXX_FLAGS "-ffpe-trap=invalid")
 
 include(PlatformConfig.cmake)
 include(DownloadEigen.cmake)

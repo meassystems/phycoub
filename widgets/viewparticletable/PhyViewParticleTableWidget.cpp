@@ -58,21 +58,21 @@ void PhyViewParticleTableWidget::updateParticleTable()
                     const Vector& coordinate = particle->getCoordinate();
                     tableWidget_->setItem( rowIndex, 1,
                         new QTableWidgetItem(
-                            QString::number( coordinate.x_ / coubSize.x_ ) ) );
+                            QString::number( coordinate.x() / coubSize.x() ) ) );
                     tableWidget_->setItem( rowIndex, 2,
                         new QTableWidgetItem(
-                            QString::number( coordinate.y_ / coubSize.y_ ) ) );
+                            QString::number( coordinate.y() / coubSize.y() ) ) );
                     tableWidget_->setItem( rowIndex, 3,
                         new QTableWidgetItem(
-                            QString::number( coordinate.z_ / coubSize.z_ ) ) );
+                            QString::number( coordinate.z() / coubSize.z() ) ) );
 
                     const Vector& speed = particle->getSpeed();
                     tableWidget_->setItem( rowIndex, 4,
-                        new QTableWidgetItem( QString::number( speed.x_ ) ) );
+                        new QTableWidgetItem( QString::number( speed.x() ) ) );
                     tableWidget_->setItem( rowIndex, 5,
-                        new QTableWidgetItem( QString::number( speed.y_ ) ) );
+                        new QTableWidgetItem( QString::number( speed.y() ) ) );
                     tableWidget_->setItem( rowIndex, 6,
-                        new QTableWidgetItem( QString::number( speed.z_ ) ) );
+                        new QTableWidgetItem( QString::number( speed.z() ) ) );
 
                     const ParticleOptions options = particle->getOptions();
                     tableWidget_->setItem( rowIndex, 7,

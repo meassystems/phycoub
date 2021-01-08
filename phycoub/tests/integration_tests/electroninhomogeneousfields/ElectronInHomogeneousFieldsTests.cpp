@@ -40,7 +40,7 @@ TEST_F( ElectronInHomogeneousFieldsTests, ElectronInHomogeneousFieldsTest )
     ASSERT_EQ( electron->getCoordinate(), centerCoordinate );
 
     Vector secondElectronCoordinate = centerCoordinate;
-    secondElectronCoordinate.x_ += 1e-5;
+    secondElectronCoordinate.x() += 1e-5;
 
     coub.addElectron( secondElectronCoordinate, zeroSpeed, electronOptions );
     ParticlePtr secondElectron = *( ++( *particleGroup.cbegin() )->begin() );
@@ -48,6 +48,6 @@ TEST_F( ElectronInHomogeneousFieldsTests, ElectronInHomogeneousFieldsTest )
     coub.setElectron2ElectronInterworkingFlag( true );
 
     coub.phyCoub();
-    ASSERT_LT( electron->getCoordinate().x_, centerCoordinate.x_ );
-    ASSERT_GT( secondElectron->getCoordinate().x_, secondElectronCoordinate.x_ );
+    ASSERT_LT( electron->getCoordinate().x(), centerCoordinate.x() );
+    ASSERT_GT( secondElectron->getCoordinate().x(), secondElectronCoordinate.x() );
 }

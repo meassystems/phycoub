@@ -24,9 +24,9 @@ ArCoub::ArCoub()
     for ( int i = 0; i < 400; ++i )
     {
         argon->push_back( std::make_shared< Particle >(
-            Vector( ( rand() / (double)RAND_MAX ) * borders.x_,
-                ( rand() / (double)RAND_MAX ) * borders.y_ * 0.7 + 0.3 * borders.z_,
-                ( rand() / (double)RAND_MAX ) * borders.z_ ),
+            Vector( ( rand() / (double)RAND_MAX ) * borders.x(),
+                ( rand() / (double)RAND_MAX ) * borders.y() * 0.7 + 0.3 * borders.z(),
+                ( rand() / (double)RAND_MAX ) * borders.z() ),
             Vector( .0, .0, .0 ), mAr_, z_ ) );
     }
 

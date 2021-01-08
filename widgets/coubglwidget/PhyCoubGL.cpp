@@ -150,9 +150,9 @@ void PhyCoubGL::drawTrajectory()
 Vector PhyCoubGL::scaleVector( const Vector& coordinate, const Vector& ratio )
 {
     const Vector scaledVector = Vector{
-        coordinate.x_ / ratio.x_,
-        coordinate.y_ / ratio.y_,
-        coordinate.z_ / ratio.z_,
+        coordinate.x() / ratio.x(),
+        coordinate.y() / ratio.y(),
+        coordinate.z() / ratio.z(),
     };
     return scaledVector;
 }

@@ -31,7 +31,7 @@ Vector ElectricHomogeneousRadialXYField::psyField(
     const Vector& mark, const ParticlePtr particle /* = nullptr*/ ) const
 {
     const Vector& center = getCenter();
-    const Vector centerForMark{ center.x_, center.y_, mark.z_ };
+    const Vector centerForMark{ center.x(), center.y(), mark.z() };
     const Vector notNormalizedDirection = mark - centerForMark;
 
     if ( notNormalizedDirection.getModule() > getRadius() )
@@ -39,9 +39,9 @@ Vector ElectricHomogeneousRadialXYField::psyField(
         return Vector{ .0, .0, .0 };
     }
 
-    const Vector resulField
+    const Vector resultField
         = VectorUtils::normalizeVector( notNormalizedDirection ) * fieldConstatnt_;
-    return resulField;
+    return resultField;
 }
 
 void ElectricHomogeneousRadialXYField::setEpselon( double epselon )

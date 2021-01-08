@@ -23,7 +23,7 @@ class HomogeneousFieldIface : public FieldIface
     HomogeneousFieldIface() = default;
     virtual ~HomogeneousFieldIface() = default;
 
-    virtual Vector getDirection( const Vector& mark = Vector{} ) const = 0;
+    virtual Vector getDirection( const Vector& mark ) const = 0;
 };
 
 using HomogeneousFieldPtr = std::shared_ptr< HomogeneousFieldIface >;

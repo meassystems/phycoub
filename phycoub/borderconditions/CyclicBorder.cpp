@@ -20,7 +20,7 @@ namespace phycoub
 CyclicBorder::CyclicBorder( const Vector& borders )
     : CubicShape( borders )
 {
-    minBorderSize = std::min( std::min( borders.x_, borders.y_ ), borders.z_ );
+    minBorderSize = std::min( std::min( borders.x(), borders.y() ), borders.z() );
 }
 
 // virtual override

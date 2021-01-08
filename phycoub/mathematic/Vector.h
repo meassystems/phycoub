@@ -8,6 +8,7 @@
 #pragma once
 
 #include <stdint.h>
+#include <Eigen/Dense>
 
 namespace phycoub
 {
@@ -17,13 +18,23 @@ class Matrix;
 class Vector final
 {
   public:
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
     Vector() = default;
     ~Vector() = default;
 
-    explicit Vector( double v );
     Vector( double x, double y, double z );
+    Vector( double v );
 
-    Vector& operator=( double vector );
+    double& x();
+    double& y();
+    double& z();
+
+    double x() const;
+    double y() const;
+    double z() const;
+
+    Vector& operator=( double v );
     //-----------------------------------------
     Vector operator+( const Vector& vector ) const;
     Vector operator-( const Vector& vector ) const;
@@ -63,21 +74,9 @@ class Vector final
 
     double getMax() const;
 
-    static constexpr uint32_t numSize = 3;
 
-  public:
-#pragma pack( push, 1 )
-    union
-    {
-        double vector_[ numSize ] = { .0, 0., 0. };
-        struct
-        {
-            double x_;
-            double y_;
-            double z_;
-        };
-    };
-#pragma pack( pop )
+    static constexpr uint32_t numSize = 3;
+    Eigen::Matrix< double, 1, numSize, Eigen::RowMajor > _vector;
 };
 
 } // namespace phycoub

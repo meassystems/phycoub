@@ -180,7 +180,7 @@ void ElectronInHomogeneousFieldsCoub::initWithElectronGroup()
     ParticleOptions electronOptions = ParticleOptionsCatalog::getElectronOptions();
 
     electrons->push_back( std::make_shared< Particle >(
-        Vector( 0.5 * borders.x_, 0.5 * borders.y_, 0.5 * borders.z_ ),
+        Vector( 0.5 * borders.x(), 0.5 * borders.y(), 0.5 * borders.z() ),
         Vector( .0, .0, 1. ) * 1e4, electronOptions ) );
 
     feelElectricHomogeneousDirectWithCulonInterworking_->addParticleGroup( electrons );

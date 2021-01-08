@@ -301,7 +301,7 @@ void WilsonCloudChamber::initSourcesAndLifeTimeControllers()
 
     const Vector direction{ 1., 0., 0. };
     const double coneAngle = .1;
-    const Vector sourceCoordinate = { 0., borders.y_ / 2, borders.z_ / 2 };
+    const Vector sourceCoordinate = { 0., borders.y() / 2, borders.z() / 2 };
 
     const ParticleOptions electronOptions{ ElectricConstants::electronWeight,
         ElectricConstants::electronCharge };

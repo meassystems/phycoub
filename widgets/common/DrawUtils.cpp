@@ -18,8 +18,8 @@ void DrawUtils::drawSphere( const Vector& coordinate, float radius )
     GLUquadricObj* quadric = gluNewQuadric();
     gluQuadricNormals( quadric, GLU_SMOOTH );
     gluQuadricDrawStyle( quadric, GLU_LINE );
-    glTranslatef( static_cast< float >( coordinate.x_ ),
-        static_cast< float >( coordinate.y_ ), static_cast< float >( coordinate.z_ ) );
+    glTranslatef( static_cast< float >( coordinate.x() ),
+        static_cast< float >( coordinate.y() ), static_cast< float >( coordinate.z() ) );
     gluSphere( quadric, radius, 36, 36 );
     gluDeleteQuadric( quadric );
     glPopMatrix();
@@ -31,11 +31,11 @@ void DrawUtils::drawLine( const Vector& start, const Vector& end, float lineWidt
     glLineWidth( lineWidth );
     glBegin( GL_LINES );
 
-    glVertex3f( static_cast< float >( start.x_ ), static_cast< float >( start.y_ ),
-        static_cast< float >( start.z_ ) );
+    glVertex3f( static_cast< float >( start.x() ), static_cast< float >( start.y() ),
+        static_cast< float >( start.z() ) );
 
-    glVertex3f( static_cast< float >( end.x_ ), static_cast< float >( end.y_ ),
-        static_cast< float >( end.z_ ) );
+    glVertex3f( static_cast< float >( end.x() ), static_cast< float >( end.y() ),
+        static_cast< float >( end.z() ) );
 
     glEnd();
 }
@@ -43,41 +43,41 @@ void DrawUtils::drawLine( const Vector& start, const Vector& end, float lineWidt
 // static
 void DrawUtils::drawCube( const Vector& coordinate, float size, float lineWidth )
 {
-    drawLine( Vector{ coordinate.x_, coordinate.y_, coordinate.z_ + size },
-        Vector{ coordinate.x_, coordinate.y_ + size, coordinate.z_ + size }, lineWidth );
+    drawLine( Vector{ coordinate.x(), coordinate.y(), coordinate.z() + size },
+        Vector{ coordinate.x(), coordinate.y() + size, coordinate.z() + size }, lineWidth );
 
-    drawLine( Vector{ coordinate.x_, coordinate.y_ + size, coordinate.z_ + size },
+    drawLine( Vector{ coordinate.x(), coordinate.y() + size, coordinate.z() + size },
         coordinate + size, lineWidth );
 
     drawLine( coordinate + size,
-        Vector{ coordinate.x_ + size, coordinate.y_, coordinate.z_ + size }, lineWidth );
+        Vector{ coordinate.x() + size, coordinate.y(), coordinate.z() + size }, lineWidth );
 
-    drawLine( Vector{ coordinate.x_ + size, coordinate.y_, coordinate.z_ + size },
-        Vector{ coordinate.x_, coordinate.y_, coordinate.z_ + size }, lineWidth );
+    drawLine( Vector{ coordinate.x() + size, coordinate.y(), coordinate.z() + size },
+        Vector{ coordinate.x(), coordinate.y(), coordinate.z() + size }, lineWidth );
 
-    drawLine( coordinate, Vector{ coordinate.x_, coordinate.y_ + size, coordinate.z_ },
+    drawLine( coordinate, Vector{ coordinate.x(), coordinate.y() + size, coordinate.z() },
         lineWidth );
 
-    drawLine( Vector{ coordinate.x_, coordinate.y_ + size, coordinate.z_ },
-        Vector{ coordinate.x_ + size, coordinate.y_ + size, coordinate.z_ }, lineWidth );
+    drawLine( Vector{ coordinate.x(), coordinate.y() + size, coordinate.z() },
+        Vector{ coordinate.x() + size, coordinate.y() + size, coordinate.z() }, lineWidth );
 
-    drawLine( Vector{ coordinate.x_ + size, coordinate.y_ + size, coordinate.z_ },
-        Vector{ coordinate.x_ + size, coordinate.y_, coordinate.z_ }, lineWidth );
+    drawLine( Vector{ coordinate.x() + size, coordinate.y() + size, coordinate.z() },
+        Vector{ coordinate.x() + size, coordinate.y(), coordinate.z() }, lineWidth );
 
-    drawLine( Vector{ coordinate.x_ + size, coordinate.y_, coordinate.z_ }, coordinate,
+    drawLine( Vector{ coordinate.x() + size, coordinate.y(), coordinate.z() }, coordinate,
         lineWidth );
 
-    drawLine( Vector{ coordinate.x_, coordinate.y_, coordinate.z_ + size }, coordinate,
+    drawLine( Vector{ coordinate.x(), coordinate.y(), coordinate.z() + size }, coordinate,
         lineWidth );
 
-    drawLine( Vector{ coordinate.x_, coordinate.y_ + size, coordinate.z_ + size },
-        Vector{ coordinate.x_, coordinate.y_ + size, coordinate.z_ }, lineWidth );
+    drawLine( Vector{ coordinate.x(), coordinate.y() + size, coordinate.z() + size },
+        Vector{ coordinate.x(), coordinate.y() + size, coordinate.z() }, lineWidth );
 
     drawLine( coordinate + size,
-        Vector{ coordinate.x_ + size, coordinate.y_ + size, coordinate.z_ }, lineWidth );
+        Vector{ coordinate.x() + size, coordinate.y() + size, coordinate.z() }, lineWidth );
 
-    drawLine( Vector{ coordinate.x_ + size, coordinate.y_, coordinate.z_ + size },
-        Vector{ coordinate.x_ + size, coordinate.y_, coordinate.z_ }, lineWidth );
+    drawLine( Vector{ coordinate.x() + size, coordinate.y(), coordinate.z() + size },
+        Vector{ coordinate.x() + size, coordinate.y(), coordinate.z() }, lineWidth );
 }
 
 // static

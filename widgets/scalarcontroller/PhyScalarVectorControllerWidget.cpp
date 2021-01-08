@@ -43,9 +43,9 @@ void PhyScalarVectorControllerWidget::setScalarController(
     if ( auto vectorControllerAdapter = vectorControllerAdapterWeak_.lock() )
     {
         const phycoub::Vector vector = vectorControllerAdapter->getValue();
-        xEdit_->setText( QString::number( vector.x_ ) );
-        yEdit_->setText( QString::number( vector.y_ ) );
-        zEdit_->setText( QString::number( vector.z_ ) );
+        xEdit_->setText( QString::number( vector.x() ) );
+        yEdit_->setText( QString::number( vector.y() ) );
+        zEdit_->setText( QString::number( vector.z() ) );
     }
 }
 
@@ -66,9 +66,9 @@ void PhyScalarVectorControllerWidget::onSetScalarValueClicked()
     if ( auto vectorControllerAdapter = vectorControllerAdapterWeak_.lock() )
     {
         phycoub::Vector vector;
-        vector.x_ = xEdit_->text().toDouble();
-        vector.y_ = yEdit_->text().toDouble();
-        vector.z_ = zEdit_->text().toDouble();
+        vector.x() = xEdit_->text().toDouble();
+        vector.y() = yEdit_->text().toDouble();
+        vector.z() = zEdit_->text().toDouble();
 
         vectorControllerAdapter->setValue( vector );
     }
