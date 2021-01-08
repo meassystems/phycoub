@@ -1,4 +1,4 @@
-name: CMake
+name: Cross platform compilation & Ctest
 
 on: [push]
 
