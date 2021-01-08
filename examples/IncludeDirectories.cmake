@@ -36,3 +36,7 @@ include_directories(
         ../../widgets/addparticle
         ../../widgets/coubcontroller
 )
+
+include_directories(
+        ../../eigen/include/eigen3/
+)

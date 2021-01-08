@@ -14,9 +14,6 @@ namespace phycoub
 
 class Matrix;
 
-/*
- * Класс вектора в трехмерном пространстве.
- */
 class Vector final
 {
   public:
