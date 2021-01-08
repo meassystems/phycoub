@@ -21,7 +21,7 @@
 **/*.dir/
 **/gtest
 **/eigen
-**/benchmark/
+**/google-benchmark/
 
 **/Testing
 **/cmake-build-*

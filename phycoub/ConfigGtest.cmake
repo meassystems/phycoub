@@ -1,5 +1,5 @@
 # Create a libgtest target to be used as a dependency by test programs
-add_library(libgtest IMPORTED STATIC IMPORTED)
+add_library(libgtest IMPORTED STATIC)
 add_dependencies(libgtest gtest)
 
 set(LIBGTEST_PATH ${binary_dir}/lib/libgtest.a)
@@ -18,7 +18,7 @@ set_target_properties(libgtest PROPERTIES
         )
 
 # Create a libgmock target to be used as a dependency by test programs
-add_library(libgmock IMPORTED STATIC IMPORTED)
+add_library(libgmock IMPORTED STATIC)
 add_dependencies(libgmock gtest)
 
 set(LIBMOCK_PATH ${binary_dir}/lib/libgmock.a)
