@@ -29,7 +29,7 @@ NOCoub::NOCoub()
 
     // NN
     azot->push_back( std::make_shared< Particle >(
-        Vector( 0.5 * borders_.x_, 0.5 * borders_.y_, 0.45 * borders_.z_ ),
+        Vector( 0.5 * borders_.x(), 0.5 * borders_.y(), 0.45 * borders_.z() ),
         Vector( .0, .0, .0 ), mN_, z_ ) );
 
     azot2azotFieldCreator_->addParticleGroup( azot );
@@ -42,7 +42,7 @@ NOCoub::NOCoub()
 
     // OO
     oxygen->push_back( std::make_shared< Particle >(
-        Vector( 0.5 * borders_.x_, 0.5 * borders_.y_, 0.55 * borders_.z_ ),
+        Vector( 0.5 * borders_.x(), 0.5 * borders_.y(), 0.55 * borders_.z() ),
         Vector( .0, .0, .0 ), mO_, z_ ) );
 
     oxygen2oxygenFieldCreator_->addParticleGroup( oxygen );

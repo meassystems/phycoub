@@ -76,9 +76,9 @@ void PhyAddParticleWidget::addParticle()
             {
                 const Vector& coubSize = getCoubSizeAdapter->getCoubSize();
                 const Vector coordinate{ coordinateXParticleEdit_->text().toDouble()
-                        * coubSize.x_,
-                    coordinateYParticleEdit_->text().toDouble() * coubSize.y_,
-                    coordinateZParticleEdit_->text().toDouble() * coubSize.z_ };
+                        * coubSize.x(),
+                    coordinateYParticleEdit_->text().toDouble() * coubSize.y(),
+                    coordinateZParticleEdit_->text().toDouble() * coubSize.z() };
 
                 const Vector speed{ speedXParticleEdit_->text().toDouble(),
                     speedYParticleEdit_->text().toDouble(),

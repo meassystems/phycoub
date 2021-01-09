@@ -6,34 +6,61 @@
  */
 
 #include "Vector.h"
-
-#include <math.h>
-
 #include "Matrix.h"
 
 namespace phycoub
 {
 
-Vector::Vector( double v )
-    : x_( v )
-    , y_( v )
-    , z_( v )
+using namespace Eigen;
+
+Vector::Vector()
 {
+    _vector << 0, 0, 0;
 }
 
 Vector::Vector( double x, double y, double z )
-    : x_( x )
-    , y_( y )
-    , z_( z )
 {
+    _vector << x, y, z;
 }
 
-Vector& Vector::operator=( double vector )
+Vector::Vector( double v )
 {
-    x_ = vector;
-    y_ = vector;
-    z_ = vector;
+    _vector << v, v, v;
+}
 
+double& Vector::x()
+{
+    return _vector( 0 );
+}
+
+double& Vector::y()
+{
+    return _vector( 1 );
+}
+
+double& Vector::z()
+{
+    return _vector( 2 );
+}
+
+double Vector::x() const
+{
+    return _vector( 0 );
+}
+
+double Vector::y() const
+{
+    return _vector( 1 );
+}
+
+double Vector::z() const
+{
+    return _vector( 2 );
+}
+
+Vector& Vector::operator=( double v )
+{
+    _vector << v, v, v;
     return *this;
 }
 
@@ -41,7 +68,6 @@ Vector Vector::operator+( const Vector& vector ) const
 {
     Vector copy = *this;
     copy += vector;
-
     return copy;
 }
 
@@ -49,7 +75,6 @@ Vector Vector::operator-( const Vector& vector ) const
 {
     Vector copy = *this;
     copy -= vector;
-
     return copy;
 }
 
@@ -57,44 +82,31 @@ Vector Vector::operator*( const Vector& vector ) const
 {
     Vector copy = *this;
     copy *= vector;
-
     return copy;
 }
 
 Vector& Vector::operator+=( const Vector& vector )
 {
-    x_ += vector.x_;
-    y_ += vector.y_;
-    z_ += vector.z_;
-
+    _vector += vector._vector;
     return *this;
 }
 
 Vector& Vector::operator-=( const Vector& vector )
 {
-    x_ -= vector.x_;
-    y_ -= vector.y_;
-    z_ -= vector.z_;
-
+    _vector -= vector._vector;
     return *this;
 }
 
 Vector& Vector::operator*=( const Vector& vector )
 {
-    const double x = x_;
-    x_ = ( y_ * vector.z_ ) - ( z_ * vector.y_ );
-
-    const double y = y_;
-    y_ = ( z_ * vector.x_ ) - ( x * vector.z_ );
-
-    z_ = ( x * vector.y_ ) - ( y * vector.x_ );
-
+    _vector = _vector.cross( vector._vector ).eval();
     return *this;
 }
 
 bool Vector::operator==( const Vector& vector ) const
 {
-    return x_ == vector.x_ && y_ == vector.y_ && z_ == vector.z_;
+    return _vector( 0 ) == vector._vector( 0 ) && _vector( 1 ) == vector._vector( 1 )
+        && _vector( 2 ) == vector._vector( 2 );
 }
 
 bool Vector::operator!=( const Vector& vector ) const
@@ -127,7 +139,6 @@ Vector Vector::operator+( double value ) const
 {
     Vector copy = *this;
     copy += value;
-
     return copy;
 }
 
@@ -135,7 +146,6 @@ Vector Vector::operator-( double value ) const
 {
     Vector copy = *this;
     copy -= value;
-
     return copy;
 }
 
@@ -143,7 +153,6 @@ Vector Vector::operator*( double value ) const
 {
     Vector copy = *this;
     copy *= value;
-
     return copy;
 }
 
@@ -151,43 +160,30 @@ Vector Vector::operator/( double value ) const
 {
     Vector copy = *this;
     copy /= value;
-
     return copy;
 }
 
 Vector& Vector::operator+=( double value )
 {
-    x_ += value;
-    y_ += value;
-    z_ += value;
-
+    _vector = _vector.array() + value;
     return *this;
 }
 
 Vector& Vector::operator-=( double value )
 {
-    x_ -= value;
-    y_ -= value;
-    z_ -= value;
-
+    _vector = _vector.array() - value;
     return *this;
 }
 
 Vector& Vector::operator*=( double value )
 {
-    x_ *= value;
-    y_ *= value;
-    z_ *= value;
-
+    _vector *= value;
     return *this;
 }
 
 Vector& Vector::operator/=( double value )
 {
-    x_ /= value;
-    y_ /= value;
-    z_ /= value;
-
+    _vector /= value;
     return *this;
 }
 
@@ -222,11 +218,11 @@ double& Vector::operator[]( int index )
     switch ( index )
     {
         case 0:
-            return x_;
+            return _vector( 0 );
         case 1:
-            return y_;
+            return _vector( 1 );
         case 2:
-            return z_;
+            return _vector( 2 );
         default:
             throw "Error, index by bounds";
     }
@@ -234,42 +230,44 @@ double& Vector::operator[]( int index )
 
 double Vector::operator[]( int index ) const
 {
-    Vector copy = *this;
-    return copy[ index ];
+    switch ( index )
+    {
+        case 0:
+            return _vector( 0 );
+        case 1:
+            return _vector( 1 );
+        case 2:
+            return _vector( 2 );
+        default:
+            throw "Error, index by bounds";
+    }
 }
 
 Vector Vector::operator*( const Matrix& matrix ) const
 {
     Vector result;
-    for ( uint32_t i = 0; i < numSize; ++i )
-    {
-        for ( uint32_t j = 0; j < numSize; ++j )
-        {
-            result[ i ] += vector_[ j ] * matrix[ j * numSize + i ];
-        }
-    }
-
+    result._vector = _vector * matrix._matrix;
     return result;
 }
 
 double Vector::getModule() const
 {
-    return sqrt( pow( x_, 2 ) + pow( y_, 2 ) + pow( z_, 2 ) );
+    return _vector.norm();
 }
 
 bool Vector::below( const Vector& vector ) const
 {
-    return !( x_ >= vector.x_ && y_ >= vector.y_ && z_ >= vector.z_ );
+    return !( x() >= vector.x() && y() >= vector.y() && z() >= vector.z() );
 }
 
 bool Vector::beyond( const Vector& vector ) const
 {
-    return !( x_ <= vector.x_ && y_ <= vector.y_ && z_ <= vector.z_ );
+    return !( x() <= vector.x() && y() <= vector.y() && z() <= vector.z() );
 }
 
 double Vector::getMax() const
 {
-    return std::max( std::max( x_, y_ ), z_ );
+    return _vector.maxCoeff();
 }
 
 } // namespace phycoub

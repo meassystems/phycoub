@@ -83,19 +83,19 @@ void PhyDirectionControllerWidget::updateDirectionController()
 // static
 double PhyDirectionControllerWidget::calculateTheta( const phycoub::Vector& direction )
 {
-    return ( direction.z_ == 0
-                   ? std::signbit( direction.z_ ) ? -M_PI / 2 : M_PI / 2
-                   : atan( sqrt( pow( direction.x_, 2 ) + pow( direction.y_, 2 ) )
-                       / direction.z_ ) )
+    return ( direction.z() == 0
+                   ? std::signbit( direction.z() ) ? -M_PI / 2 : M_PI / 2
+                   : atan( sqrt( pow( direction.x(), 2 ) + pow( direction.y(), 2 ) )
+                       / direction.z() ) )
         * radianToGrad_;
 }
 
 // static
 double PhyDirectionControllerWidget::calculateAlpha( const phycoub::Vector& direction )
 {
-    return ( direction.x_ == 0
-                   ? std::signbit( direction.y_ * direction.x_ ) ? -M_PI / 2 : M_PI / 2
-                   : atan( direction.y_ / direction.x_ ) )
+    return ( direction.x() == 0
+                   ? std::signbit( direction.y() * direction.x() ) ? -M_PI / 2 : M_PI / 2
+                   : atan( direction.y() / direction.x() ) )
         * radianToGrad_;
 }
 
@@ -107,9 +107,9 @@ phycoub::Vector PhyDirectionControllerWidget::sphereToDirectionCoordinate(
     const double alphaRad = alpha / radianToGrad_;
 
     phycoub::Vector direction;
-    direction.x_ = sin( thetaRad ) * cos( alphaRad );
-    direction.y_ = sin( thetaRad ) * sin( alphaRad );
-    direction.z_ = cos( thetaRad );
+    direction.x() = sin( thetaRad ) * cos( alphaRad );
+    direction.y() = sin( thetaRad ) * sin( alphaRad );
+    direction.z() = cos( thetaRad );
 
     return direction;
 }

@@ -27,7 +27,7 @@ CylindricalXYPartcleSource::CylindricalXYPartcleSource( double radius, double he
 void CylindricalXYPartcleSource::setSourceCordinate( const Vector& sourceCoordinate )
 {
     ParticleSourceBase::setSourceCordinate(
-        Vector{ sourceCoordinate.x_, sourceCoordinate.y_, 0 } );
+        Vector{ sourceCoordinate.x(), sourceCoordinate.y(), 0 } );
 }
 
 // virtual override
@@ -43,7 +43,7 @@ ParticlePtr CylindricalXYPartcleSource::phyGiveBirthParticle()
 
     const Vector speed = xyDirection * speedFactor;
     const Vector coordinate = xyDirection * squaredRadius
-        + Vector{ sourceCoordinate.x_, sourceCoordinate.y_, z };
+        + Vector{ sourceCoordinate.x(), sourceCoordinate.y(), z };
 
     return std::make_shared< Particle >( coordinate, speed, particleOptions );
 }

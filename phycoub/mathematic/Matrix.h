@@ -6,7 +6,7 @@
  */
 
 #include <stdint.h>
-#include <array>
+#include <Eigen/Dense>
 
 namespace phycoub
 {
@@ -16,22 +16,22 @@ class Vector;
 class Matrix final
 {
   public:
-    Matrix() = default;
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
+    Matrix();
     ~Matrix() = default;
 
-    Matrix(std::initializer_list<double> matrixList);
-    explicit Matrix( double value );
+    Matrix( std::initializer_list< double > matrixList );
+    Matrix( double value );
 
     double& operator[]( int index );
     double operator[]( int index ) const;
 
     Vector operator*( const Vector& vector ) const;
+    bool operator==( const Matrix& another ) const;
 
-    bool operator==(const Matrix& another) const;
-
-  private:
     static constexpr uint32_t numSize = 3;
-    std::array< double, numSize* numSize > matrix_ = { 0. };
+    Eigen::Matrix< double, numSize, numSize, Eigen::RowMajor > _matrix;
 };
 
 } // namespace phycoub

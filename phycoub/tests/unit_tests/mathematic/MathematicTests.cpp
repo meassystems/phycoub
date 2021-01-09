@@ -53,9 +53,9 @@ TEST_F( MathematicTests, RotationMatrixAroundX )
         xRotation.rotateVector( &v );
 
         Vector expectedResult{ 1., -1., 0. };
-        ASSERT_NEAR( v.x_, expectedResult.x_, doubleComparePrecision );
-        ASSERT_NEAR( v.y_, expectedResult.y_, doubleComparePrecision );
-        ASSERT_NEAR( v.z_, expectedResult.z_, doubleComparePrecision );
+        ASSERT_NEAR( v.x(), expectedResult.x(), doubleComparePrecision );
+        ASSERT_NEAR( v.y(), expectedResult.y(), doubleComparePrecision );
+        ASSERT_NEAR( v.z(), expectedResult.z(), doubleComparePrecision );
     }
 
     {
@@ -64,9 +64,9 @@ TEST_F( MathematicTests, RotationMatrixAroundX )
         xRotation.rotateVector( &v );
 
         Vector expectedResult{ 1., 1., 0. };
-        ASSERT_NEAR( v.x_, expectedResult.x_, doubleComparePrecision );
-        ASSERT_NEAR( v.y_, expectedResult.y_, doubleComparePrecision );
-        ASSERT_NEAR( v.z_, expectedResult.z_, doubleComparePrecision );
+        ASSERT_NEAR( v.x(), expectedResult.x(), doubleComparePrecision );
+        ASSERT_NEAR( v.y(), expectedResult.y(), doubleComparePrecision );
+        ASSERT_NEAR( v.z(), expectedResult.z(), doubleComparePrecision );
     }
 
     {
@@ -75,9 +75,9 @@ TEST_F( MathematicTests, RotationMatrixAroundX )
         xRotation.rotateVector( &v );
 
         Vector expectedResult{ 1., 0., -1. };
-        ASSERT_NEAR( v.x_, expectedResult.x_, doubleComparePrecision );
-        ASSERT_NEAR( v.y_, expectedResult.y_, doubleComparePrecision );
-        ASSERT_NEAR( v.z_, expectedResult.z_, doubleComparePrecision );
+        ASSERT_NEAR( v.x(), expectedResult.x(), doubleComparePrecision );
+        ASSERT_NEAR( v.y(), expectedResult.y(), doubleComparePrecision );
+        ASSERT_NEAR( v.z(), expectedResult.z(), doubleComparePrecision );
     }
 
     {
@@ -86,9 +86,9 @@ TEST_F( MathematicTests, RotationMatrixAroundX )
         xRotation.rotateVector( &v );
 
         Vector expectedResult{ 1., 0., -1. };
-        ASSERT_NEAR( v.x_, expectedResult.x_, doubleComparePrecision );
-        ASSERT_NEAR( v.y_, expectedResult.y_, doubleComparePrecision );
-        ASSERT_NEAR( v.z_, expectedResult.z_, doubleComparePrecision );
+        ASSERT_NEAR( v.x(), expectedResult.x(), doubleComparePrecision );
+        ASSERT_NEAR( v.y(), expectedResult.y(), doubleComparePrecision );
+        ASSERT_NEAR( v.z(), expectedResult.z(), doubleComparePrecision );
     }
 
     {
@@ -97,9 +97,9 @@ TEST_F( MathematicTests, RotationMatrixAroundX )
         xRotation.rotateVector( &v );
 
         Vector expectedResult{ 1., 0., 1. };
-        ASSERT_NEAR( v.x_, expectedResult.x_, doubleComparePrecision );
-        ASSERT_NEAR( v.y_, expectedResult.y_, doubleComparePrecision );
-        ASSERT_NEAR( v.z_, expectedResult.z_, doubleComparePrecision );
+        ASSERT_NEAR( v.x(), expectedResult.x(), doubleComparePrecision );
+        ASSERT_NEAR( v.y(), expectedResult.y(), doubleComparePrecision );
+        ASSERT_NEAR( v.z(), expectedResult.z(), doubleComparePrecision );
     }
 
     {
@@ -108,9 +108,9 @@ TEST_F( MathematicTests, RotationMatrixAroundX )
         xRotation.rotateVector( &v );
 
         Vector expectedResult{ 1., 0., 1. };
-        ASSERT_NEAR( v.x_, expectedResult.x_, doubleComparePrecision );
-        ASSERT_NEAR( v.y_, expectedResult.y_, doubleComparePrecision );
-        ASSERT_NEAR( v.z_, expectedResult.z_, doubleComparePrecision );
+        ASSERT_NEAR( v.x(), expectedResult.x(), doubleComparePrecision );
+        ASSERT_NEAR( v.y(), expectedResult.y(), doubleComparePrecision );
+        ASSERT_NEAR( v.z(), expectedResult.z(), doubleComparePrecision );
     }
 }
 
@@ -122,9 +122,9 @@ TEST_F( MathematicTests, RotationMatrixAroundY )
         xRotation.rotateVector( &v );
 
         Vector expectedResult{ 0., 1., -1. };
-        ASSERT_NEAR( v.x_, expectedResult.x_, doubleComparePrecision );
-        ASSERT_NEAR( v.y_, expectedResult.y_, doubleComparePrecision );
-        ASSERT_NEAR( v.z_, expectedResult.z_, doubleComparePrecision );
+        ASSERT_NEAR( v.x(), expectedResult.x(), doubleComparePrecision );
+        ASSERT_NEAR( v.y(), expectedResult.y(), doubleComparePrecision );
+        ASSERT_NEAR( v.z(), expectedResult.z(), doubleComparePrecision );
     }
 
     {
@@ -133,9 +133,9 @@ TEST_F( MathematicTests, RotationMatrixAroundY )
         xRotation.rotateVector( &v );
 
         Vector expectedResult{ 0., 1., 1. };
-        ASSERT_NEAR( v.x_, expectedResult.x_, doubleComparePrecision );
-        ASSERT_NEAR( v.y_, expectedResult.y_, doubleComparePrecision );
-        ASSERT_NEAR( v.z_, expectedResult.z_, doubleComparePrecision );
+        ASSERT_NEAR( v.x(), expectedResult.x(), doubleComparePrecision );
+        ASSERT_NEAR( v.y(), expectedResult.y(), doubleComparePrecision );
+        ASSERT_NEAR( v.z(), expectedResult.z(), doubleComparePrecision );
     }
 
     {
@@ -144,9 +144,9 @@ TEST_F( MathematicTests, RotationMatrixAroundY )
         xRotation.rotateVector( &v );
 
         Vector expectedResult{ -1., 1., 0. };
-        ASSERT_NEAR( v.x_, expectedResult.x_, doubleComparePrecision );
-        ASSERT_NEAR( v.y_, expectedResult.y_, doubleComparePrecision );
-        ASSERT_NEAR( v.z_, expectedResult.z_, doubleComparePrecision );
+        ASSERT_NEAR( v.x(), expectedResult.x(), doubleComparePrecision );
+        ASSERT_NEAR( v.y(), expectedResult.y(), doubleComparePrecision );
+        ASSERT_NEAR( v.z(), expectedResult.z(), doubleComparePrecision );
     }
 
     {
@@ -155,9 +155,9 @@ TEST_F( MathematicTests, RotationMatrixAroundY )
         xRotation.rotateVector( &v );
 
         Vector expectedResult{ -1., 1., 0. };
-        ASSERT_NEAR( v.x_, expectedResult.x_, doubleComparePrecision );
-        ASSERT_NEAR( v.y_, expectedResult.y_, doubleComparePrecision );
-        ASSERT_NEAR( v.z_, expectedResult.z_, doubleComparePrecision );
+        ASSERT_NEAR( v.x(), expectedResult.x(), doubleComparePrecision );
+        ASSERT_NEAR( v.y(), expectedResult.y(), doubleComparePrecision );
+        ASSERT_NEAR( v.z(), expectedResult.z(), doubleComparePrecision );
     }
 
     {
@@ -166,9 +166,9 @@ TEST_F( MathematicTests, RotationMatrixAroundY )
         xRotation.rotateVector( &v );
 
         Vector expectedResult{ 1., 1., 0. };
-        ASSERT_NEAR( v.x_, expectedResult.x_, doubleComparePrecision );
-        ASSERT_NEAR( v.y_, expectedResult.y_, doubleComparePrecision );
-        ASSERT_NEAR( v.z_, expectedResult.z_, doubleComparePrecision );
+        ASSERT_NEAR( v.x(), expectedResult.x(), doubleComparePrecision );
+        ASSERT_NEAR( v.y(), expectedResult.y(), doubleComparePrecision );
+        ASSERT_NEAR( v.z(), expectedResult.z(), doubleComparePrecision );
     }
 
     {
@@ -177,9 +177,9 @@ TEST_F( MathematicTests, RotationMatrixAroundY )
         xRotation.rotateVector( &v );
 
         Vector expectedResult{ 1., 1., 0. };
-        ASSERT_NEAR( v.x_, expectedResult.x_, doubleComparePrecision );
-        ASSERT_NEAR( v.y_, expectedResult.y_, doubleComparePrecision );
-        ASSERT_NEAR( v.z_, expectedResult.z_, doubleComparePrecision );
+        ASSERT_NEAR( v.x(), expectedResult.x(), doubleComparePrecision );
+        ASSERT_NEAR( v.y(), expectedResult.y(), doubleComparePrecision );
+        ASSERT_NEAR( v.z(), expectedResult.z(), doubleComparePrecision );
     }
 }
 
@@ -191,9 +191,9 @@ TEST_F( MathematicTests, RotationMatrixAroundZ )
         xRotation.rotateVector( &v );
 
         Vector expectedResult{ -1., 0., 1. };
-        ASSERT_NEAR( v.x_, expectedResult.x_, doubleComparePrecision );
-        ASSERT_NEAR( v.y_, expectedResult.y_, doubleComparePrecision );
-        ASSERT_NEAR( v.z_, expectedResult.z_, doubleComparePrecision );
+        ASSERT_NEAR( v.x(), expectedResult.x(), doubleComparePrecision );
+        ASSERT_NEAR( v.y(), expectedResult.y(), doubleComparePrecision );
+        ASSERT_NEAR( v.z(), expectedResult.z(), doubleComparePrecision );
     }
 
     {
@@ -202,9 +202,9 @@ TEST_F( MathematicTests, RotationMatrixAroundZ )
         xRotation.rotateVector( &v );
 
         Vector expectedResult{ 1., 0., 1. };
-        ASSERT_NEAR( v.x_, expectedResult.x_, doubleComparePrecision );
-        ASSERT_NEAR( v.y_, expectedResult.y_, doubleComparePrecision );
-        ASSERT_NEAR( v.z_, expectedResult.z_, doubleComparePrecision );
+        ASSERT_NEAR( v.x(), expectedResult.x(), doubleComparePrecision );
+        ASSERT_NEAR( v.y(), expectedResult.y(), doubleComparePrecision );
+        ASSERT_NEAR( v.z(), expectedResult.z(), doubleComparePrecision );
     }
 
     {
@@ -213,9 +213,9 @@ TEST_F( MathematicTests, RotationMatrixAroundZ )
         xRotation.rotateVector( &v );
 
         Vector expectedResult{ 0., -1., 1. };
-        ASSERT_NEAR( v.x_, expectedResult.x_, doubleComparePrecision );
-        ASSERT_NEAR( v.y_, expectedResult.y_, doubleComparePrecision );
-        ASSERT_NEAR( v.z_, expectedResult.z_, doubleComparePrecision );
+        ASSERT_NEAR( v.x(), expectedResult.x(), doubleComparePrecision );
+        ASSERT_NEAR( v.y(), expectedResult.y(), doubleComparePrecision );
+        ASSERT_NEAR( v.z(), expectedResult.z(), doubleComparePrecision );
     }
 
     {
@@ -224,9 +224,9 @@ TEST_F( MathematicTests, RotationMatrixAroundZ )
         xRotation.rotateVector( &v );
 
         Vector expectedResult{ 0., -1., 1. };
-        ASSERT_NEAR( v.x_, expectedResult.x_, doubleComparePrecision );
-        ASSERT_NEAR( v.y_, expectedResult.y_, doubleComparePrecision );
-        ASSERT_NEAR( v.z_, expectedResult.z_, doubleComparePrecision );
+        ASSERT_NEAR( v.x(), expectedResult.x(), doubleComparePrecision );
+        ASSERT_NEAR( v.y(), expectedResult.y(), doubleComparePrecision );
+        ASSERT_NEAR( v.z(), expectedResult.z(), doubleComparePrecision );
     }
 
     {
@@ -235,9 +235,9 @@ TEST_F( MathematicTests, RotationMatrixAroundZ )
         xRotation.rotateVector( &v );
 
         Vector expectedResult{ 0., 1., 1. };
-        ASSERT_NEAR( v.x_, expectedResult.x_, doubleComparePrecision );
-        ASSERT_NEAR( v.y_, expectedResult.y_, doubleComparePrecision );
-        ASSERT_NEAR( v.z_, expectedResult.z_, doubleComparePrecision );
+        ASSERT_NEAR( v.x(), expectedResult.x(), doubleComparePrecision );
+        ASSERT_NEAR( v.y(), expectedResult.y(), doubleComparePrecision );
+        ASSERT_NEAR( v.z(), expectedResult.z(), doubleComparePrecision );
     }
 
     {
@@ -246,9 +246,9 @@ TEST_F( MathematicTests, RotationMatrixAroundZ )
         xRotation.rotateVector( &v );
 
         Vector expectedResult{ 0., 1., 1. };
-        ASSERT_NEAR( v.x_, expectedResult.x_, doubleComparePrecision );
-        ASSERT_NEAR( v.y_, expectedResult.y_, doubleComparePrecision );
-        ASSERT_NEAR( v.z_, expectedResult.z_, doubleComparePrecision );
+        ASSERT_NEAR( v.x(), expectedResult.x(), doubleComparePrecision );
+        ASSERT_NEAR( v.y(), expectedResult.y(), doubleComparePrecision );
+        ASSERT_NEAR( v.z(), expectedResult.z(), doubleComparePrecision );
     }
 }
 
@@ -260,9 +260,9 @@ TEST_F( MathematicTests, RotationMatrixAround )
         rotation.rotateVector( &v );
 
         Vector expectedResult{ 0., 0., 1. };
-        ASSERT_NEAR( v.x_, expectedResult.x_, doubleComparePrecision );
-        ASSERT_NEAR( v.y_, expectedResult.y_, doubleComparePrecision );
-        ASSERT_NEAR( v.z_, expectedResult.z_, doubleComparePrecision );
+        ASSERT_NEAR( v.x(), expectedResult.x(), doubleComparePrecision );
+        ASSERT_NEAR( v.y(), expectedResult.y(), doubleComparePrecision );
+        ASSERT_NEAR( v.z(), expectedResult.z(), doubleComparePrecision );
     }
 
     {
@@ -273,9 +273,9 @@ TEST_F( MathematicTests, RotationMatrixAround )
         const double normalizedVectorProjection = sqrt( 0.5 );
         Vector expectedResult{ 0., normalizedVectorProjection,
             normalizedVectorProjection };
-        ASSERT_NEAR( v.x_, expectedResult.x_, doubleComparePrecision );
-        ASSERT_NEAR( v.y_, expectedResult.y_, doubleComparePrecision );
-        ASSERT_NEAR( v.z_, expectedResult.z_, doubleComparePrecision );
+        ASSERT_NEAR( v.x(), expectedResult.x(), doubleComparePrecision );
+        ASSERT_NEAR( v.y(), expectedResult.y(), doubleComparePrecision );
+        ASSERT_NEAR( v.z(), expectedResult.z(), doubleComparePrecision );
     }
 }
 
@@ -287,7 +287,7 @@ TEST_F( MathematicTests, VectorUtilsCalculatePerpendicular )
     const Vector v{ 0., 1., 0. };
 
     const Vector u = VectorUtils::calculatePerpendicular( n, v );
-    ASSERT_NEAR( u.x_, expectedResult.x_, doubleComparePrecision );
-    ASSERT_NEAR( u.y_, expectedResult.y_, doubleComparePrecision );
-    ASSERT_NEAR( u.z_, expectedResult.z_, doubleComparePrecision );
+    ASSERT_NEAR( u.x(), expectedResult.x(), doubleComparePrecision );
+    ASSERT_NEAR( u.y(), expectedResult.y(), doubleComparePrecision );
+    ASSERT_NEAR( u.z(), expectedResult.z(), doubleComparePrecision );
 }
