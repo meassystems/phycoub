@@ -39,6 +39,7 @@ jobs:
           output-file-path: benchmark_result.json
           github-token: ${{ secrets.GITHUB_TOKEN }}
           auto-push: true
+
   benchmark-win:
     name: Benchmark win
     runs-on: windows-latest
@@ -55,6 +56,7 @@ jobs:
         run: cmake --build . --config $BUILD_TYPE
 
       - name: Run benchmark
+        shell: bash
         run: ctest -R MagnetronBenchmark -C $BUILD_TYPE
 
       - name: Download previous benchmark data
