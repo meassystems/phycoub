@@ -55,7 +55,7 @@ jobs:
         run: cmake --build . --config $BUILD_TYPE
 
       - name: Run benchmark
-        run: ctest -C $BUILD_TYPE -R MagnetronBenchmark
+        run: ctest -R MagnetronBenchmark -C $BUILD_TYPE
 
       - name: Download previous benchmark data
         uses: actions/cache@v1
