@@ -7,7 +7,6 @@ include(PlatformConfig.cmake)
 enable_testing()
 add_subdirectory(phycoub)
 
-set(QT_PATH /usr/local/Cellar/qt/5.15.2)
 if(DEFINED QT_PATH)
     set(CMAKE_PREFIX_PATH ${QT_PATH})
     message(STATUS "'QT_PATH' defined with ${CMAKE_PREFIX_PATH} Qt projects will be builded.")
