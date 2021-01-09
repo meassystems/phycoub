@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1610213140437,
+  "lastUpdate": 1610234174420,
   "repoUrl": "https://github.com/meassystems/phycoub",
   "entries": {
     "Benchmark": [
@@ -288,6 +288,54 @@ window.BENCHMARK_DATA = {
             "value": 2057576049.999989,
             "unit": "ns/iter",
             "extra": "iterations: 10\ncpu: 1448437500 ns\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mgistrser@gmail.com",
+            "name": "Sergey Frantsishkov",
+            "username": "magistrser"
+          },
+          "committer": {
+            "email": "mgistrser@gmail.com",
+            "name": "Sergey Frantsishkov",
+            "username": "magistrser"
+          },
+          "distinct": true,
+          "id": "46c100be369dabc09a83e82444ca807afa7a35bc",
+          "message": "In cube field",
+          "timestamp": "2021-01-10T02:05:16+03:00",
+          "tree_id": "f027c67e9c822777a08f3cab488518798239f75b",
+          "url": "https://github.com/meassystems/phycoub/commit/46c100be369dabc09a83e82444ca807afa7a35bc"
+        },
+        "date": 1610234170890,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "Magnetron_100Particle",
+            "value": 1124723.1249999602,
+            "unit": "ns/iter",
+            "extra": "iterations: 640\ncpu: 1049804.6875 ns\nthreads: 1"
+          },
+          {
+            "name": "Magnetron_500Particle",
+            "value": 380722863.9999994,
+            "unit": "ns/iter",
+            "extra": "iterations: 25\ncpu: 263125000 ns\nthreads: 1"
+          },
+          {
+            "name": "Magnetron_1000Particle",
+            "value": 588683330.0000035,
+            "unit": "ns/iter",
+            "extra": "iterations: 10\ncpu: 417187500 ns\nthreads: 1"
+          },
+          {
+            "name": "Magnetron_2500Particle",
+            "value": 2465094819.99999,
+            "unit": "ns/iter",
+            "extra": "iterations: 10\ncpu: 1825000000 ns\nthreads: 1"
           }
         ]
       }
