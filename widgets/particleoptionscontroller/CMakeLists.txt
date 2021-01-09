@@ -10,5 +10,5 @@ set(SOURCES
 	 PhyParticleOptionsControllerWidget.h
 )
 
-add_library(particleoptionscontroller OBJECT ${SOURCES})
+add_library_with_phycoub_dependency(particleoptionscontroller OBJECT ${SOURCES})
 

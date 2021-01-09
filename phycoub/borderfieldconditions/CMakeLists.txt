@@ -12,5 +12,5 @@ set(SOURCES
 	 CyclicBoundedField.h
 )
 
-add_library(borderfieldconditions OBJECT ${SOURCES})
+add_library_with_eigen_dependency(borderfieldconditions OBJECT ${SOURCES})
 

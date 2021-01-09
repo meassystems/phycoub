@@ -22,5 +22,5 @@ set(SOURCES
 	 ParticleOptionsCatalog.h
 )
 
-add_library(particle OBJECT ${SOURCES})
+add_library_with_eigen_dependency(particle OBJECT ${SOURCES})
 

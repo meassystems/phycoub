@@ -15,5 +15,5 @@ set(SOURCES
 	 MagneticInterworking.h
 )
 
-add_library(interworkingfunctions OBJECT ${SOURCES})
+add_library_with_eigen_dependency(interworkingfunctions OBJECT ${SOURCES})
 

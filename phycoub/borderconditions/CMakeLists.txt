@@ -18,5 +18,5 @@ set(SOURCES
 	 ThermostatBorder.h
 )
 
-add_library(borderconditions OBJECT ${SOURCES})
+add_library_with_eigen_dependency(borderconditions OBJECT ${SOURCES})
 

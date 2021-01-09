@@ -20,5 +20,5 @@ set(SOURCES
 	 WilsonCloudChamber.h
 )
 
-add_library(examples OBJECT ${SOURCES})
+add_library_with_eigen_dependency(examples OBJECT ${SOURCES})
 

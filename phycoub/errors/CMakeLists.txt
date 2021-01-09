@@ -13,5 +13,4 @@ set(SOURCES
 	 MathExceptions.h
 )
 
-add_library(errors OBJECT ${SOURCES})
-
+add_library_with_eigen_dependency(errors OBJECT ${SOURCES})

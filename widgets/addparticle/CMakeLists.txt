@@ -12,5 +12,5 @@ set(SOURCES
 	 PhyAddParticleWidget.h
 )
 
-add_library(addparticle OBJECT ${SOURCES})
+add_library_with_phycoub_dependency(addparticle OBJECT ${SOURCES})
 

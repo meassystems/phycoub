@@ -3,8 +3,6 @@ cmake_minimum_required(VERSION 3.17)
 project(magnetron VERSION 1.0)
 
 include(../../QtConfig.cmake)
-include(../Libraries.cmake)
-include(../IncludeDirectories.cmake)
 
 set(SOURCES
      main.cpp
@@ -17,4 +15,5 @@ set(SOURCES
 )
 
 add_executable(magnetron ${SOURCES})
+add_dependencies(magnetron phycoub widgets)
 target_link_libraries(magnetron widgets phycoub Qt5::Core Qt5::Widgets Qt5::OpenGL ${OPENGL_LIBRARIES})

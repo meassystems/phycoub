@@ -12,5 +12,5 @@ set(SOURCES
 	 SpinLock.cpp
 )
 
-add_library(multithreading OBJECT ${SOURCES})
+add_library_with_eigen_dependency(multithreading OBJECT ${SOURCES})
 

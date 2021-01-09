@@ -18,4 +18,4 @@ set(SOURCES
 	 VectorUtils.h
 )
 
-add_library(mathematic OBJECT ${SOURCES})
+add_library_with_eigen_dependency(mathematic OBJECT ${SOURCES})

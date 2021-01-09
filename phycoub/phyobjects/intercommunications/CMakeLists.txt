@@ -14,5 +14,5 @@ set(SOURCES
 	 InterworkingCalculatorBase.h
 )
 
-add_library(intercommunications OBJECT ${SOURCES})
+add_library_with_eigen_dependency(intercommunications OBJECT ${SOURCES})
 

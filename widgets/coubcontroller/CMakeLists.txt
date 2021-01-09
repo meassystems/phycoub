@@ -12,5 +12,5 @@ set(SOURCES
 	 PhyCoubControllerWidget.h
 )
 
-add_library(coubcontroller OBJECT ${SOURCES})
+add_library_with_phycoub_dependency(coubcontroller OBJECT ${SOURCES})
 

@@ -10,5 +10,5 @@ set(SOURCES
 	 PhyViewParticleTableWidget.h
 )
 
-add_library(viewparticletable OBJECT ${SOURCES})
+add_library_with_phycoub_dependency(viewparticletable OBJECT ${SOURCES})
 

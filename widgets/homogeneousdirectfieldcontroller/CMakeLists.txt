@@ -14,5 +14,5 @@ set(SOURCES
 	 HomogeneousFieldInCubeGL.cpp
 )
 
-add_library(homogeneousdirectfieldcontroller OBJECT ${SOURCES})
+add_library_with_phycoub_dependency(homogeneousdirectfieldcontroller OBJECT ${SOURCES})
 

@@ -12,5 +12,5 @@ set(SOURCES
 	 PhyRemoveParticleWidget.h
 )
 
-add_library(removeparticle OBJECT ${SOURCES})
+add_library_with_phycoub_dependency(removeparticle OBJECT ${SOURCES})
 

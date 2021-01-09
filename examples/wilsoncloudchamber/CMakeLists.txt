@@ -3,8 +3,6 @@ cmake_minimum_required(VERSION 3.17)
 project(wilsoncloudchamber VERSION 1.0)
 
 include(../../QtConfig.cmake)
-include(../Libraries.cmake)
-include(../IncludeDirectories.cmake)
 
 set(SOURCES
      main.cpp
@@ -19,4 +17,5 @@ set(SOURCES
 )
 
 add_executable(wilsoncloudchamber ${SOURCES})
+add_dependencies(wilsoncloudchamber phycoub widgets)
 target_link_libraries(wilsoncloudchamber widgets phycoub Qt5::Core Qt5::Widgets Qt5::OpenGL ${OPENGL_LIBRARIES})

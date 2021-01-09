@@ -1,13 +1,8 @@
 cmake_minimum_required(VERSION 3.17)
 
 project(PhyCoubAll)
-add_custom_target(PhyCoubAll)
-
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 include(PlatformConfig.cmake)
-include(DownloadEigen.cmake)
 
 enable_testing()
 add_subdirectory(phycoub)
@@ -20,5 +15,3 @@ if(DEFINED QT_PATH)
 else()
     message(WARNING "QT_PATH not defined. Define it for build Qt projects.")
 endif()
-
-add_dependencies(PhyCoubAll DownloadEigen)
