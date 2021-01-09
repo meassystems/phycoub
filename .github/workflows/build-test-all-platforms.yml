@@ -1,6 +1,8 @@
 name: Cross platform compilation & Ctest
-
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 env:
   BUILD_TYPE: Release
