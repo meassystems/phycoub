@@ -31,7 +31,7 @@ Vector VectorUtils::normalizeVector( Vector vector )
 // static
 double VectorUtils::scalarMultiplication( const Vector& first, const Vector& second )
 {
-    double result = first.x() * second.x() + first.y() * second.y() + first.z() * second.z();
+    double result = first._vector.dot(second._vector);
     return result;
 }
 

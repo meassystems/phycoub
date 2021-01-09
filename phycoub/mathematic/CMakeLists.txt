@@ -16,6 +16,10 @@ set(SOURCES
 	 Vector.h
 	 VectorUtils.cpp
 	 VectorUtils.h
+	 PlaneEquation.h
+	 StraightLineEquation.h
+	 LinearAlgebraEquationUtils.h
+	 LinearAlgebraEquationUtils.cpp
 )
 
 add_library_with_eigen_dependency(mathematic OBJECT ${SOURCES})
