@@ -11,6 +11,7 @@
 
 #include "VectorUtils.h"
 #include "DrawUtils.h"
+#include "LinearAlgebraEquationUtils.h"
 
 namespace phywidgets
 {
@@ -86,6 +87,7 @@ void HomogeneousFieldInCubeGL::updateFieldVectors()
     _uBasis = VectorUtils::calculatePerpendicular( _priviesDirection, _vBasis );
 
     _fieldVectors.clear();
+    std::list< Vector > fieldVectorBegins;
 
     const Vector center = cubeWhd / 2;
     const double maxLinearSize = cubeWhd.getMax();
@@ -99,12 +101,57 @@ void HomogeneousFieldInCubeGL::updateFieldVectors()
         Vector uIterator = vIterator;
         for ( unsigned j = 0; j <= numCountPointPerDirection; ++j )
         {
-            _fieldVectors.push_back(
-                FieldVector{ uIterator, uIterator + _priviesDirection * scaleCoef } );
-
+            fieldVectorBegins.push_back( uIterator );
             uIterator = uIterator + _uBasis * step;
         }
         vIterator = vIterator + _vBasis * step;
+    }
+
+    std::list< PlaneEquation > cubePlanes
+        = { { cubeWhd.x(), .0, .0, .0 }, { cubeWhd.x(), .0, .0, -cubeWhd.x() },
+              { 0, cubeWhd.y(), .0, .0 }, { .0, cubeWhd.y(), .0, -cubeWhd.y() },
+              { .0, .0, cubeWhd.z(), .0 }, { .0, .0, cubeWhd.z(), -cubeWhd.z() } };
+
+    for ( const auto& fieldVector : fieldVectorBegins )
+    {
+        StraightLineEquation fieldVectorEquation{
+            { _vBasis.x(), _vBasis.y(), _vBasis.z(),
+                -( _vBasis._vector.cwiseProduct( fieldVector._vector ).sum() ) },
+            { _uBasis.x(), _uBasis.y(), _uBasis.z(),
+                -( _uBasis._vector.cwiseProduct( fieldVector._vector ).sum() ) }
+        };
+
+        std::list< Vector > onCubeIntersectionPoints;
+        for ( const auto& cubePlaneEq : cubePlanes )
+        {
+            auto result
+                = LinearAlgebraEquationUtils::findStraightLineAndPlaneIntersectionPoint(
+                    fieldVectorEquation, cubePlaneEq );
+
+            if ( result.decisionExist && result.result._vector.minCoeff() >= 0
+                && ( result.result._vector.array() <= cubeWhd._vector.array() ).all() )
+            {
+                onCubeIntersectionPoints.push_back( result.result );
+            }
+        }
+
+        if ( onCubeIntersectionPoints.size() < 2 )
+        {
+            continue;
+        }
+
+        const Vector resultFieldVectorDirection = *( ++onCubeIntersectionPoints.begin() )
+            - *( onCubeIntersectionPoints.begin() );
+        if ( resultFieldVectorDirection._vector.dot( _priviesDirection._vector ) > 0 )
+        {
+            _fieldVectors.push_back( FieldVector{ *onCubeIntersectionPoints.begin(),
+                *( ++onCubeIntersectionPoints.begin() ) } );
+        }
+        else
+        {
+            _fieldVectors.push_back( FieldVector{ *( ++onCubeIntersectionPoints.begin() ),
+                *onCubeIntersectionPoints.begin() } );
+        }
     }
 }
 
