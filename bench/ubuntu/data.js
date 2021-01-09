@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1610185515990,
+  "lastUpdate": 1610186205488,
   "repoUrl": "https://github.com/meassystems/phycoub",
   "entries": {
     "Benchmark": [
@@ -96,6 +96,54 @@ window.BENCHMARK_DATA = {
             "value": 1060785720.1999991,
             "unit": "ns/iter",
             "extra": "iterations: 10\ncpu: 507149807.0000001 ns\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mgistrser@gmail.com",
+            "name": "Sergey Frantsishkov",
+            "username": "magistrser"
+          },
+          "committer": {
+            "email": "mgistrser@gmail.com",
+            "name": "Sergey Frantsishkov",
+            "username": "magistrser"
+          },
+          "distinct": true,
+          "id": "4c2b8d713b90f1a632aed4a387887ea30ba38cd6",
+          "message": "Fix name of bm ubuntu",
+          "timestamp": "2021-01-09T12:41:41+03:00",
+          "tree_id": "f900977d2700c091d96d1d3135439e0e1bae6eb9",
+          "url": "https://github.com/meassystems/phycoub/commit/4c2b8d713b90f1a632aed4a387887ea30ba38cd6"
+        },
+        "date": 1610186203775,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "Magnetron_100Particle",
+            "value": 929541.7987012959,
+            "unit": "ns/iter",
+            "extra": "iterations: 770\ncpu: 915428.6792207791 ns\nthreads: 1"
+          },
+          {
+            "name": "Magnetron_500Particle",
+            "value": 41413952.56410308,
+            "unit": "ns/iter",
+            "extra": "iterations: 39\ncpu: 19658380.025641028 ns\nthreads: 1"
+          },
+          {
+            "name": "Magnetron_1000Particle",
+            "value": 164718201.29999912,
+            "unit": "ns/iter",
+            "extra": "iterations: 10\ncpu: 77680275.29999998 ns\nthreads: 1"
+          },
+          {
+            "name": "Magnetron_2500Particle",
+            "value": 1161143891.3,
+            "unit": "ns/iter",
+            "extra": "iterations: 10\ncpu: 552885928.0000001 ns\nthreads: 1"
           }
         ]
       }
