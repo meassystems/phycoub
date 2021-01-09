@@ -42,7 +42,7 @@ jobs:
           auto-push: true
 
   benchmark-ubuntu:
-    name: Benchmark macos
+    name: Benchmark ubuntu
     runs-on: ubuntu-latest
 
     steps:
