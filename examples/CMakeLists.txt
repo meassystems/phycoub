@@ -1,3 +1,0 @@
-add_subdirectory(electroninhomogeneousfields)
-add_subdirectory(magnetron)
-add_subdirectory(wilsoncloudchamber)
