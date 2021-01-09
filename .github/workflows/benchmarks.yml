@@ -37,7 +37,7 @@ jobs:
         with:
           tool: 'googlecpp'
           output-file-path: benchmark_result.json
-          benchmark-data-dir-path: /bench/macos
+          benchmark-data-dir-path: bench/macos
           github-token: ${{ secrets.GITHUB_TOKEN }}
           auto-push: true
 
@@ -71,6 +71,6 @@ jobs:
         with:
           tool: 'googlecpp'
           output-file-path: benchmark_result.json
-          benchmark-data-dir-path: /bench/win
+          benchmark-data-dir-path: bench/win
           github-token: ${{ secrets.GITHUB_TOKEN }}
           auto-push: true
