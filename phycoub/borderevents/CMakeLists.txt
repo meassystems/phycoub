@@ -11,5 +11,5 @@ set(SOURCES
 	 BorderReachedObserver.h
 )
 
-add_library(borderevents OBJECT ${SOURCES})
+add_library_with_eigen_dependency(borderevents OBJECT ${SOURCES})
 

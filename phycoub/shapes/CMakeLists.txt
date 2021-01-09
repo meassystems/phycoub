@@ -14,5 +14,5 @@ set(SOURCES
 	 CylindricShape.h
 )
 
-add_library(shapes OBJECT ${SOURCES})
+add_library_with_eigen_dependency(shapes OBJECT ${SOURCES})
 

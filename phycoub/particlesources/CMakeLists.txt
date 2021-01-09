@@ -15,5 +15,5 @@ set(SOURCES
 	 ParticleSourceIface.h
 )
 
-add_library(particlesources OBJECT ${SOURCES})
+add_library_with_eigen_dependency(particlesources OBJECT ${SOURCES})
 

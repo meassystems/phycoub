@@ -9,7 +9,7 @@ ExternalProject_Add(
 ExternalProject_Get_Property(eigen install_dir)
 include_directories(${install_dir}/include/eigen3)
 
-macro(add_library)
-    _add_library(${ARGV})
+macro(add_library_with_eigen_dependency)
+    add_library(${ARGV})
     add_dependencies(${ARGV0} eigen)
-endmacro(add_library)
+endmacro(add_library_with_eigen_dependency)

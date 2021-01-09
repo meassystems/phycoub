@@ -14,5 +14,5 @@ set(SOURCES
 	 StdErrLogObserver.h
 )
 
-add_library(logging OBJECT ${SOURCES})
+add_library_with_eigen_dependency(logging OBJECT ${SOURCES})
 

@@ -10,5 +10,5 @@ set(SOURCES
 	 MeasurementUtils.h
 )
 
-add_library(phymeasurement OBJECT ${SOURCES})
+add_library_with_eigen_dependency(phymeasurement OBJECT ${SOURCES})
 

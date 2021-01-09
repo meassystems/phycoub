@@ -14,5 +14,5 @@ set(SOURCES
 	 HomogeneousFieldCreator.h
 )
 
-add_library(fieldcreators OBJECT ${SOURCES})
+add_library_with_eigen_dependency(fieldcreators OBJECT ${SOURCES})
 

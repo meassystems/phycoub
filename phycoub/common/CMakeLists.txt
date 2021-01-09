@@ -14,5 +14,5 @@ set(SOURCES
 	 Utils.h
 )
 
-add_library(common OBJECT ${SOURCES})
+add_library_with_eigen_dependency(common OBJECT ${SOURCES})
 

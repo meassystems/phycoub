@@ -3,7 +3,28 @@ cmake_minimum_required(VERSION 3.16)
 project(widgets VERSION 1.0)
 
 include(../QtConfig.cmake)
-include(../IncludeDirectories.cmake)
+
+get_target_property(PHY_COUB_INCLUDE_DIRECTORIES phycoub INCLUDE_DIRECTORIES)
+include_directories(
+		${PHY_COUB_INCLUDE_DIRECTORIES}
+		./particleoptionscontroller
+		./trajectory
+		./coubglwidget
+		./directioncontroller
+		./directiongl
+		./common
+		./scalarcontroller
+		./homogeneousdirectfieldcontroller
+		./removeparticle
+		./viewparticletable
+		./addparticle
+		./coubcontroller
+)
+
+macro(add_library_with_phycoub_dependency)
+	add_library(${ARGV})
+	add_dependencies(${ARGV0} phycoub)
+endmacro(add_library_with_phycoub_dependency)
 
 add_subdirectory(particleoptionscontroller)
 add_subdirectory(trajectory)

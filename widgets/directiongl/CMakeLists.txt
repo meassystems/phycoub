@@ -12,5 +12,5 @@ set(SOURCES
 	 PhyDirectionGLWidget.h
 )
 
-add_library(directiongl OBJECT ${SOURCES})
+add_library_with_phycoub_dependency(directiongl OBJECT ${SOURCES})
 

@@ -17,5 +17,5 @@ set(SOURCES
 	 RemoveParticleIfBorderReachedBase.h
 )
 
-add_library(lifetimecontrollers OBJECT ${SOURCES})
+add_library_with_eigen_dependency(lifetimecontrollers OBJECT ${SOURCES})
 

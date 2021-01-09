@@ -22,5 +22,5 @@ set(SOURCES
 	 PhyVectorPhyCoubControllerSubscriber.h
 )
 
-add_library(scalarcontroller OBJECT ${SOURCES})
+add_library_with_phycoub_dependency(scalarcontroller OBJECT ${SOURCES})
 

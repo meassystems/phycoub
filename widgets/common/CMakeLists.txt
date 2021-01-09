@@ -21,5 +21,5 @@ set(SOURCES
 	 DrawUtils.h
 )
 
-add_library(common_w OBJECT ${SOURCES})
+add_library_with_phycoub_dependency(common_w OBJECT ${SOURCES})
 

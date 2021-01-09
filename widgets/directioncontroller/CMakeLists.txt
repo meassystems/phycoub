@@ -10,5 +10,5 @@ set(SOURCES
 	 PhyDirectionControllerWidget.h
 )
 
-add_library(directioncontroller OBJECT ${SOURCES})
+add_library_with_phycoub_dependency(directioncontroller OBJECT ${SOURCES})
 

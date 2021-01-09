@@ -14,5 +14,5 @@ set(SOURCES
 	 PlaneFigure.h
 )
 
-add_library(particlefigurematrix OBJECT ${SOURCES})
+add_library_with_eigen_dependency(particlefigurematrix OBJECT ${SOURCES})
 

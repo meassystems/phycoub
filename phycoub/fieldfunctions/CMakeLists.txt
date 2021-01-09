@@ -24,5 +24,4 @@ set(SOURCES
 	 RadialHomogeneousField.h
 )
 
-add_library(fieldfunctions OBJECT ${SOURCES})
-
+add_library_with_eigen_dependency(fieldfunctions OBJECT ${SOURCES})

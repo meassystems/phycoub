@@ -16,5 +16,5 @@ set(SOURCES
 	 DrawInCubeGlIface.h
 )
 
-add_library(coubglwidget OBJECT ${SOURCES})
+add_library_with_phycoub_dependency(coubglwidget OBJECT ${SOURCES})
 

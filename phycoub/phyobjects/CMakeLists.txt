@@ -14,5 +14,5 @@ set(SOURCES
 	 PhyCoub.h
 )
 
-add_library(phyobjects OBJECT ${SOURCES})
+add_library_with_eigen_dependency(phyobjects OBJECT ${SOURCES})
 

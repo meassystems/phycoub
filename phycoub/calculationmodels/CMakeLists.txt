@@ -14,5 +14,5 @@ set(SOURCES
 	 LeapFrog.h
 )
 
-add_library(calculationmodels OBJECT ${SOURCES})
+add_library_with_eigen_dependency(calculationmodels OBJECT ${SOURCES})
 

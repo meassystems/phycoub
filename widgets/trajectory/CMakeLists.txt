@@ -10,5 +10,5 @@ set(SOURCES
 	 Trajectory.h
 )
 
-add_library(trajectory OBJECT ${SOURCES})
+add_library_with_phycoub_dependency(trajectory OBJECT ${SOURCES})
 
