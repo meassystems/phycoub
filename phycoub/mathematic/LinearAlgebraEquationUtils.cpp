@@ -32,8 +32,8 @@ LinearAlgebraEquationUtils::findStraightLineAndPlaneIntersectionPoint(
     slae.row( 2 ) = straightLineEquation._planeEquation2._equation;
 
     const double normRow1 = slae.row( 0 ).norm();
-    const double normRow2 = slae.row( 2 ).norm();
-    const double normRow3 = slae.row( 3 ).norm();
+    const double normRow2 = slae.row( 1 ).norm();
+    const double normRow3 = slae.row( 2 ).norm();
 
     if ( normRow1 == 0. || normRow2 == 0. || normRow3 == 0. )
     {
@@ -59,15 +59,15 @@ LinearAlgebraEquationUtils::findStraightLineAndPlaneIntersectionPoint(
     }
 
     Eigen::Matrix< double, 3, 3, RowMajor > xSlae = mainSlae;
-    xSlae.col( 0 ) = mainSlae.col( 3 ) * -1;
+    xSlae.col( 0 ) = slae.col( 3 ) * -1;
     const double xDet = xSlae.determinant();
 
     Eigen::Matrix< double, 3, 3, RowMajor > ySlae = mainSlae;
-    ySlae.col( 1 ) = mainSlae.col( 3 ) * -1;
+    ySlae.col( 1 ) = slae.col( 3 ) * -1;
     const double yDet = ySlae.determinant();
 
     Eigen::Matrix< double, 3, 3, RowMajor > zSlae = mainSlae;
-    zSlae.col( 2 ) = mainSlae.col( 3 ) * -1;
+    zSlae.col( 2 ) = slae.col( 3 ) * -1;
     const double zDet = zSlae.determinant();
 
     Vector result{ xDet / mainDet, yDet / mainDet, zDet / mainDet };
