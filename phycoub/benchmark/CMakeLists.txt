@@ -7,6 +7,7 @@ include(ExternalProject)
 ExternalProject_Add(
         benchmark
         GIT_REPOSITORY https://github.com/google/benchmark.git
+        GIT_TAG main
         PREFIX ${CMAKE_CURRENT_BINARY_DIR}/google-benchmark
         CMAKE_ARGS -DBENCHMARK_DOWNLOAD_DEPENDENCIES=OFF -DGOOGLETEST_PATH=${PROJECT_SOURCE_DIR}/gtest/src/gtest -DCMAKE_BUILD_TYPE=Release
         DEPENDS gtest
