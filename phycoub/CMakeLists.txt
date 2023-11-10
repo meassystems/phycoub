@@ -80,4 +80,6 @@ add_library(phycoub STATIC
 add_custom_command(TARGET phycoub
         POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:phycoub> .)
 
-include(Tests.cmake)
+if (NOT DEFINED PLATFORM_WEB)
+	include(Tests.cmake)
+endif()

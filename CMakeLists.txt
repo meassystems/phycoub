@@ -4,7 +4,14 @@ project(PhyCoubAll)
 
 include(PlatformConfig.cmake)
 
-enable_testing()
+if (DEFINED PLATFORM_WEB)
+    set(CMAKE_AR "emar")
+    set(CMAKE_STATIC_LIBRARY_SUFFIX ".a")
+    set(CMAKE_CXX_CREATE_STATIC_LIBRARY "<CMAKE_AR> rc <TARGET> <OBJECTS>")
+else()
+    enable_testing()
+endif()
+
 add_subdirectory(phycoub)
 
 if(DEFINED QT_PATH)

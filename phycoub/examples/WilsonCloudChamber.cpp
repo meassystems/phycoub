@@ -16,7 +16,8 @@ WilsonCloudChamber::WilsonCloudChamber()
     initCalculationGroup();
     initElectricField();
     initMagneticField();
-    initInterCommunication();
+    // Uncomment the line above to make this working outside web
+    // initInterCommunication();
     initSourcesAndLifeTimeControllers();
     initWithParticleGroups();
 
