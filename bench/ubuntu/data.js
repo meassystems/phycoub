@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1671302999835,
+  "lastUpdate": 1703540362281,
   "repoUrl": "https://github.com/meassystems/phycoub",
   "entries": {
     "Benchmark": [
@@ -384,6 +384,54 @@ window.BENCHMARK_DATA = {
             "value": 1164047597.6000004,
             "unit": "ns/iter",
             "extra": "iterations: 10\ncpu: 548972920 ns\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mgistrser@gmail.com",
+            "name": "Sergey",
+            "username": "magistrser"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7a136680aaf7e4f227fa8d907e464566a7e51d26",
+          "message": "Merge pull request #2 from meassystems/build_wasm\n\nBuild to wasm with emiscripten",
+          "timestamp": "2023-12-26T00:35:49+03:00",
+          "tree_id": "6b8337379711a8e1d44868c7405ce2c213c9c4f7",
+          "url": "https://github.com/meassystems/phycoub/commit/7a136680aaf7e4f227fa8d907e464566a7e51d26"
+        },
+        "date": 1703540361384,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "Magnetron_100Particle",
+            "value": 429991.3484941569,
+            "unit": "ns/iter",
+            "extra": "iterations: 1627\ncpu: 429987.46158574056 ns\nthreads: 1"
+          },
+          {
+            "name": "Magnetron_500Particle",
+            "value": 12811422.140540296,
+            "unit": "ns/iter",
+            "extra": "iterations: 185\ncpu: 4749162.702702703 ns\nthreads: 1"
+          },
+          {
+            "name": "Magnetron_1000Particle",
+            "value": 75083239.47618984,
+            "unit": "ns/iter",
+            "extra": "iterations: 21\ncpu: 39407828.571428575 ns\nthreads: 1"
+          },
+          {
+            "name": "Magnetron_2500Particle",
+            "value": 420974614.3000018,
+            "unit": "ns/iter",
+            "extra": "iterations: 10\ncpu: 214568920 ns\nthreads: 1"
           }
         ]
       }
