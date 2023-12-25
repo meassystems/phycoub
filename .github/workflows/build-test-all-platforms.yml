@@ -73,3 +73,18 @@ jobs:
       - name: Ctest
         shell: bash
         run: ctest -C $BUILD_TYPE
+
+  build-wasm:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: mymindstorm/setup-emsdk@v13
+
+      - name: Configure CMake
+        shell: bash
+        run: emcmake cmake .
+
+      - name: Build with Emscripten
+        shell: bash
+        run: cmake --build . --config $BUILD_TYPE
