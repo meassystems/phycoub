@@ -80,4 +80,6 @@ add_library(phycoub STATIC
 add_custom_command(TARGET phycoub
         POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:phycoub> .)
 
-include(Tests.cmake)
+if(NOT CMAKE_TOOLCHAIN_FILE MATCHES ".*emscripten.*")
+	include(Tests.cmake)
+endif()
